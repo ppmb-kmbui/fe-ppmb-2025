@@ -37,7 +37,7 @@ export const Sidebar: React.FC = () => {
             <div className="flex flex-col gap-[8px] w-full h-full justify-between">
                 <div className="flex flex-col gap-[8px] w-full h-full">
                     {MAIN_MENU.map((menu, i) => (
-                        <div key={i} className={`${pathname == menu.route ? "bg-ppmb-blue-500 text-ppmb-000" : "hover:bg-ppmb-100 text-ppmb-800"} ${!isExpanded && "justify-center"} group flex items-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => {router.push(menu.route), setIsExpanded(false)}}>
+                        <div key={i} className={`${pathname == menu.route ? "bg-ppmb-blue-400 text-ppmb-000" : "hover:bg-ppmb-100 text-ppmb-800"} ${!isExpanded && "justify-center"} group flex items-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => {router.push(menu.route), setIsExpanded(false)}}>
                             <div className="flex flex-row gap-3">
                                 <text className="text-[26px]">{menu.icon}</text>
                                 <text className={`${isExpanded ? "text-[18px]" : "absolute transition-transform delay-500 opacity-0 translate-x-28 overflow-hidden pointer-events-none"} whitespace-pre duration-500 font-medium`} style={{transitionDelay: `${i + 3}00ms`}}>{menu.text}</text>
@@ -48,7 +48,7 @@ export const Sidebar: React.FC = () => {
                     ))}
                 </div>
 
-                <div  className={`${!isExpanded && "justify-center"} group bg-ppmb-red-500 text-ppmb-000 mb-4 flex items-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => {}}>
+                <div  className={`${!isExpanded && "justify-center"} group bg-ppmb-red-400 text-ppmb-000 mb-4 flex items-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => {}}>
                     <div className="flex flex-row gap-3">
                         <text className="text-[26px]"><HiOutlineLogout /></text>
                         <text className={`${isExpanded ? "text-[18px]" : "absolute transition-transform delay-500 opacity-0 translate-x-28 overflow-hidden pointer-events-none"} whitespace-pre duration-500 font-medium`}>Keluar</text>
