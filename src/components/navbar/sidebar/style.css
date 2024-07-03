@@ -1,0 +1,6 @@
+#bar-fixed {
+    height: 100vh;
+    top: 0px;
+    position: -webkit-sticky;
+    position: sticky;
+}

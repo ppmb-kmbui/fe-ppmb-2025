@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi"
 

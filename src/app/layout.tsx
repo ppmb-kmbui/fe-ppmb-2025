@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Montserrat } from "next/font/google";
 import "./globals.css";
+import { Sidebar } from "@/components";
 
 const crimson_init = Crimson_Pro({
   subsets: ['latin'],
@@ -27,7 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${crimson_init.variable} ${montserrat_init.variable}`}>
-        {children}
+        <div className="flex">
+          <nav className="z-50">
+            <Sidebar />
+          </nav>
+          
+          <main className="flex-1 bg-stonks-100 pt-[25px] md:pt-0">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
