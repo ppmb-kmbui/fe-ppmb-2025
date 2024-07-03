@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Crimson_Pro, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const crimson_init = Crimson_Pro({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-crimson'
+});
+
+const montserrat_init = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-montserrat'
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -11,12 +21,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${crimson_init.variable} ${montserrat_init.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
