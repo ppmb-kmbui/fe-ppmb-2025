@@ -1,6 +1,6 @@
 "use client"
 
-import { Dropdown, Input } from "@/components";
+import { Button, Dropdown, Input } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
@@ -60,10 +60,10 @@ const SignupPage: React.FC = () => {
     }, []);
 
     return (
-        <div className="h-screen flex flex-col gap-7">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full h-[115px] flex justify-between px-[60px] items-center">
+        <div className="h-screen flex flex-col">
+            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
                 <text className="font-bold text-2xl font-crimson text-ppmb-000">
-                    Buat Akun PPMB KMB 2024
+                    Buat Akun PPMB KMBUI 2024
                 </text>
 
                 <Image 
@@ -74,8 +74,8 @@ const SignupPage: React.FC = () => {
                 />
             </div>
 
-            <div className="flex flex-row justify-evenly px-[60px] gap-5 h-full pb-9">
-                <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center">
+            <div className="flex flex-row justify-evenly px-[60px] gap-5 h-full">
+                <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
                     <Input label="Email" placeholder="Kocite" setValue={setEmail} icon={<HiMail />}/>
                     <Input label="Nama Lengkap" placeholder="Koko Cici Teman-teman" setValue={setName} icon={<HiUser />}/>
 
@@ -86,10 +86,8 @@ const SignupPage: React.FC = () => {
                         <Input label="Konfirmasi Password" placeholder="password" setValue={setRepassword} icon={<HiLockClosed />}/>
                     </div>
                   
-                    <div className="flex items-center flex-col gap-2">
-                        <button className="mt-5 bg-ppmb-blue-500 px-8 py-[10px] rounded-md text-white font-medium hover:bg-ppmb-blue-700 transition-colors duration-200 ease-in-out">
-                            Buat Akun
-                        </button>
+                    <div className="flex items-center flex-col gap-2 mt-2">
+                        <Button label="Buat Akun" handleClick={() => {}}/>
                         <span className="font-medium">Sudah memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer" onClick={() => router.push("/login")}>Login</span></span>
                     </div>               
                 </div>
