@@ -33,7 +33,7 @@ export default function RootLayout({
             <Sidebar />
           </nav>
           
-          <main className="flex-1 bg-stonks-100 pt-[25px] md:pt-0">
+          <main className="flex-1">
             {children}
           </main>
         </div>

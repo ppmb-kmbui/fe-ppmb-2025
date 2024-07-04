@@ -1,9 +1,85 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import React, { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import Image from 'next/image';
+import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+
+export default function EmblaCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [index, setIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) {
+      emblaApi.scrollPrev();
+    }
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) {
+      emblaApi.scrollNext();
+    }
+  }, [emblaApi])
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onSelect]);
+
+  const CONTENTS = [
+    {
+      src: '/sponsorImage/kmbui.png'
+    },
+    {
+      src: '/sponsorImage/kmbui.png'
+    }
+  ]
+
   return (
-    <main>
-    
-    </main>
-  );
+    <div className='min-h-screen'>
+      <div className='embla relative'>
+        <div className='embla__viewport border' ref={emblaRef}>
+          <div className='embla__container'>
+            {CONTENTS.map((content, key) => (
+              <div key={key} className='embla__slide flex items-center justify-center'>
+                <Image 
+                  src={content.src}
+                  alt={`content ${key}`}
+                  width={1300}
+                  height={20}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button className='absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700' onClick={scrollPrev}>
+          <HiChevronLeft size={20}/>
+        </button>
+        
+        <button className='absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700' onClick={scrollNext}>
+          <HiChevronRight size={20}/>
+        </button>
+
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {Array.from({ length: CONTENTS.length }).map((_, key) => (
+            <button 
+              key={key} 
+              className={`w-[10px] h-[10px] rounded-full ${index === key ? 'bg-ppmb-800' : 'bg-ppmb-200'}`} 
+              onClick={() => { emblaApi?.scrollTo(key); setIndex(key); }} 
+            />
+          ))}
+        </div>
+      </div>
+
+      <div>
+        Hi
+      </div>
+    </div>
+  )
 }
