@@ -15,10 +15,10 @@ export const Sidebar: React.FC = () => {
     const pathname = usePathname();
 
     const MAIN_MENU = [
-        { icon: <HiOutlineHome />, text: "Home", route: "/" },
-        { icon: <HiOutlineChatAlt2 />, text: "Connect", route: "/connect" },
-        { icon: <HiOutlinePencilAlt />, text: "Todo", route: "/todo" },
-        { icon: <HiOutlineUser />, text: "Profile", route: "/profile" },
+        { icon: <HiOutlineHome />, text: "Beranda", route: "/" },
+        { icon: <HiOutlineChatAlt2 />, text: "Networking", route: "/networking" },
+        { icon: <HiOutlinePencilAlt />, text: "Tugas", route: "/tugas" },
+        { icon: <HiOutlineUser />, text: "Profil", route: "/profil" },
     ];
 
     return (
