@@ -1,0 +1,8 @@
+.timeline:before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 2px);
+    width: calc(220px * 7 - 20px);
+    height: 3px;
+    background: #c4c4c4; 
+}

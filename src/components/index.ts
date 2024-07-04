@@ -4,3 +4,4 @@ export { Button } from './button';
 export { Sidebar } from './navbar';
 
 export { Carousel } from './carousel';
+export { Timeline } from './timeline';
