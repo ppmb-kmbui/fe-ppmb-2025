@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
+import { Carousel } from '@/components';
 
 export default function EmblaCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -42,43 +43,14 @@ export default function EmblaCarousel() {
 
   return (
     <div className='min-h-screen'>
-      <div className='embla relative'>
-        <div className='embla__viewport border' ref={emblaRef}>
-          <div className='embla__container'>
-            {CONTENTS.map((content, key) => (
-              <div key={key} className='embla__slide flex items-center justify-center'>
-                <Image 
-                  src={content.src}
-                  alt={`content ${key}`}
-                  width={1300}
-                  height={20}
-                />
-              </div>
-            ))}
-          </div>
+      <Carousel />
+      
+      <div className='mt-14 flex flex-col items-center'>
+        <div className='gap-3 flex text-6xl font-crimson italic '>
+          <text className='text-ppmb-blue-600'>TIMELINE</text>
+          <text>Kegiatan</text>
         </div>
 
-        <button className='absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700' onClick={scrollPrev}>
-          <HiChevronLeft size={20}/>
-        </button>
-        
-        <button className='absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700' onClick={scrollNext}>
-          <HiChevronRight size={20}/>
-        </button>
-
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {Array.from({ length: CONTENTS.length }).map((_, key) => (
-            <button 
-              key={key} 
-              className={`w-[10px] h-[10px] rounded-full ${index === key ? 'bg-ppmb-800' : 'bg-ppmb-200'}`} 
-              onClick={() => { emblaApi?.scrollTo(key); setIndex(key); }} 
-            />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        Hi
       </div>
     </div>
   )
