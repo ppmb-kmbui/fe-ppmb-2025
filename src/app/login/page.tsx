@@ -46,7 +46,6 @@ const LoginPage: React.FC = () => {
                         width={500}
                         height={500}
                     />
-
                     <text className="font-crimson text-4xl font-semibold text-ppmb-800">#DiscoveringSelfAndPurpose</text>
                 </div>
             </div>
