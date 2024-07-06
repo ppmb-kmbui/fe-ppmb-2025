@@ -36,8 +36,8 @@ const config: Config = {
         
         // "ppmb-red-200": "#f37a72",
         // "ppmb-red-300": "#f1645b",
-        "ppmb-red-400": "#e91a1a",
-        "ppmb-red-500": "#E60000",
+        // "ppmb-red-400": "#e91a1a",
+        "ppmb-red-500": "#e91a1a",
         // "ppmb-red-600": "#d41f12",
 
 
@@ -48,9 +48,16 @@ const config: Config = {
         "ppmb-blue-800": "#0b2444",
         "ppmb-blue-900": "#040c17",
 
-        "ppmb-green-500": "#00b000"
+        // "ppmb-green-500": "#00b000",
+        // "ppmb-success": "#21cc21",
+        "ppmb-success": "#37d137",
+        "ppmb-warning": "#d6bd02"
 
-      }
+      },
+
+      boxShadow: {
+        'custom': '2px 2px 10px rgba(0, 0, 0, 0.1)',
+      },
     },
   },
   plugins: [],

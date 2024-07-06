@@ -5,3 +5,5 @@ export { Sidebar } from './navbar';
 
 export { Carousel } from './carousel';
 export { Timeline } from './timeline';
+
+export { Card } from './card';

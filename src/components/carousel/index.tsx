@@ -40,7 +40,7 @@ export const Carousel: React.FC = () => {
       }
     ]
     return (
-        <div className='embla relative'>
+        <div className='embla relative bg-red-500'>
         <div className='embla__viewport' ref={emblaRef}>
           <div className='embla__container'>
             {CONTENTS.map((content, key) => (
@@ -48,8 +48,9 @@ export const Carousel: React.FC = () => {
                 <Image 
                   src={content.src}
                   alt={`content ${key}`}
-                  width={1300}
+                  width={1400}
                   height={20}
+                  
                 />
               </div>
             ))}
