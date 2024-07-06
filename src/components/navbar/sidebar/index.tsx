@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineUser, HiSearch } from "react-icons/hi";
+import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineShieldCheck, HiOutlineUser, HiSearch } from "react-icons/hi";
 import "./style.css"
 import { usePathname, useRouter } from "next/navigation";
 
@@ -38,6 +38,11 @@ export const Sidebar: React.FC = () => {
                             <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">{menu.text}</div>
                         </div>
                     ))}
+
+                    <div className={`${pathname == "/admin" ? "bg-ppmb-blue-100 text-ppmb-blue-500" : "hover:bg-ppmb-100 text-ppmb-800"} group flex items-center justify-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => router.push("/admin")}>
+                        <text className="text-[26px]"><HiOutlineShieldCheck /></text>
+                        <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">Admin</div>
+                    </div>
                 </div>
 
                 <div  className="group bg-ppmb-red-500 text-ppmb-000 mb-4 flex items-center px-3 py-2 rounded-lg cursor-pointer" onClick={() => {}}>
