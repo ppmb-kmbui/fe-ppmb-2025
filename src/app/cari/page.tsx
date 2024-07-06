@@ -4,7 +4,7 @@ import { Button, Card, Input } from "@/components";
 import { useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
 
-const NetworkingPage: React.FC = () => {
+const CariPage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
@@ -82,4 +82,4 @@ const NetworkingPage: React.FC = () => {
     )
 }
 
-export default NetworkingPage;
+export default CariPage;

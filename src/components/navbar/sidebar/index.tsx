@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineUser } from "react-icons/hi";
+import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineUser, HiSearch } from "react-icons/hi";
 import "./style.css"
 import { usePathname, useRouter } from "next/navigation";
 
@@ -11,6 +11,7 @@ export const Sidebar: React.FC = () => {
 
     const MAIN_MENU = [
         { icon: <HiOutlineHome />, text: "Beranda", route: "/" },
+        { icon: <HiSearch />, text: "Cari teman", route: "/cari" },
         { icon: <HiOutlineChatAlt2 />, text: "Networking", route: "/networking" },
         { icon: <HiOutlinePencilAlt />, text: "Tugas", route: "/tugas" },
         { icon: <HiOutlineUser />, text: "Profil", route: "/profil" },
@@ -44,7 +45,7 @@ export const Sidebar: React.FC = () => {
                         <text className="text-[26px]"><HiOutlineLogout /></text>
                         <text className="absolute transition-transform delay-500 opacity-0 translate-x-28 overflow-hidden pointer-events-none whitespace-pre duration-500 font-medium">Keluar</text>
                     </div>
-                    <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px- py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">Keluar</div>
+                    <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">Keluar</div>
                 </div>
             </div>
         </div>

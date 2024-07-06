@@ -28,9 +28,9 @@ export const Card: React.FC<CardProps> = ({
             </div>
 
             <div className="flex h-[15%] justify-center items-center px-2 flex-col">
-                <button className="bg-ppmb-blue-500 flex items-center justify-center py-[2px] rounded-lg w-full">
+                {/* <button className="bg-ppmb-blue-500 flex items-center justify-center py-[2px] rounded-lg w-full">
                     <text className=" text-ppmb-000 font-semibold">Ikuti</text>
-                </button>
+                </button> */}
 
                 {/* <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-default">
                     <text className=" text-ppmb-warning font-bold">Menunggu...</text>
@@ -45,6 +45,10 @@ export const Card: React.FC<CardProps> = ({
                         <text className=" text-white font-semibold">Terima</text>
                     </button>
                 </div> */}
+
+                <button className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-500 flex items-center justify-center py-[2px] rounded-lg w-full">
+                    <text className=" text-ppmb-000 font-semibold">Networking</text>
+                </button>
             </div>
         </div>
     )

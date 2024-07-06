@@ -50,7 +50,7 @@ const config: Config = {
 
         // "ppmb-green-500": "#00b000",
         // "ppmb-success": "#21cc21",
-        "ppmb-success": "#37d137",
+        "ppmb-success": "#1eb81e",
         "ppmb-warning": "#d6bd02"
 
       },
