@@ -8,3 +8,5 @@ export { Carousel } from './carousel';
 export { Timeline } from './timeline';
 
 export { Card } from './card';
+
+export { ProgressBar } from './progressBar';
