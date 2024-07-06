@@ -1,4 +1,6 @@
 import Image from "next/image"
+import { useRouter } from "next/navigation"
+import { HiPlus } from "react-icons/hi"
 
 interface CardProps {
     name: string
@@ -8,6 +10,8 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
     name, faculty
 }) => {
+    const router = useRouter();
+
     return (
         <div className="flex flex-col justify-between border-ppmb-100 border-[2px] py-5 px-7 rounded-xl min-h-[260px] shadow-ppmb-200 shadow-custom">
             <div className="flex h-[45%] items-center justify-center">
@@ -28,8 +32,9 @@ export const Card: React.FC<CardProps> = ({
             </div>
 
             <div className="flex h-[15%] justify-center items-center px-2 flex-col">
-                {/* <button className="bg-ppmb-blue-500 flex items-center justify-center py-[2px] rounded-lg w-full">
-                    <text className=" text-ppmb-000 font-semibold">Ikuti</text>
+                {/* <button className="bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2">
+                    <HiPlus className="text-white"/>
+                    <text className="font-semibold">Ikuti</text>
                 </button> */}
 
                 {/* <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-default">
@@ -46,7 +51,7 @@ export const Card: React.FC<CardProps> = ({
                     </button>
                 </div> */}
 
-                <button className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-500 flex items-center justify-center py-[2px] rounded-lg w-full">
+                <button className="bg-ppmb-blue-600 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
                     <text className=" text-ppmb-000 font-semibold">Networking</text>
                 </button>
             </div>
