@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { HiPlus } from "react-icons/hi"
+import { HiCheck, HiPlus } from "react-icons/hi"
 
 interface CardProps {
     name: string
@@ -56,6 +56,11 @@ export const Card: React.FC<CardProps> = ({
                 <button className="bg-ppmb-blue-600 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
                     <text className=" text-ppmb-000 font-semibold">Networking</text>
                 </button>
+
+                {/* <button className="bg-ppmb-200 text-ppmb-700 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium">
+                    <text className="font-semibold">Selesai</text>
+                    <HiCheck />
+                </button> */}
             </div>
         </div>
     )
