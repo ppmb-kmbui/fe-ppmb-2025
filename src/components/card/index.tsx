@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { HiPlus } from "react-icons/hi"
@@ -13,7 +15,7 @@ export const Card: React.FC<CardProps> = ({
     const router = useRouter();
 
     return (
-        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] py-5 px-7 rounded-xl min-h-[260px] shadow-ppmb-200 shadow-custom">
+        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] py-5 px-7 rounded-xl min-h-[260px] min-w-[225px] shadow-ppmb-200 shadow-custom">
             <div className="flex h-[45%] items-center justify-center">
                 <div className="h-[90px] w-[90px] flex">
                     <Image 
