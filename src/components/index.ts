@@ -10,3 +10,4 @@ export { Timeline } from './timeline';
 export { Card } from './card';
 
 export { ProgressBar } from './progressBar';
+export { Task } from './task';
