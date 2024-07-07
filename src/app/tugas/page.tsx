@@ -117,7 +117,7 @@ const TugasPage: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex justify-evenly px-[60px] gap-10 mt-5 pb-10">
+            <div className="flex justify-evenly px-[80px] gap-[80px]  mt-5 pb-10">
                 <div className="flex flex-col gap-3">
                     <text className="text-3xl font-crimson">Perlu Dikerjakan</text>
 

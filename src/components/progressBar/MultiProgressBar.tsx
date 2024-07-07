@@ -29,31 +29,31 @@ export const MultiProgressBar: React.FC = () => {
                 </div>
 
                 <div className="rounded-md min-w-[450px] bg-ppmb-200 relative flex flex-row">
-                    <div className="flex w-1/4 relative">
+                    <div className="flex w-1/4 relative border-r-ppmb-800 border-r-[1px]">
                         <div className="absolute inset-0 flex items-center justify-center z-10">
                             <text className="text-ppmb-000 font-medium rounded-l-md text-[16px]">
                                 {1/3 === 1 ? "Selesai" : `${1}/${3}`}
                             </text>
                         </div>
-                        <div className="absolute top-0 left-0 bg-ppmb-success h-full rounded-r-md rounded-l-md z-0" style={{ width: `${(1/3) * 100}%` }} />
+                        <div className="absolute top-0 left-0 bg-ppmb-blue-600 h-full rounded-r-md rounded-l-md z-0" style={{ width: `${(1/3) * 100}%` }} />
                     </div>
 
-                    <div className="flex w-1/4 relative">
+                    <div className="flex w-1/4 relative border-r-ppmb-800 border-r-[1px]">
                         <div className="absolute inset-0 flex items-center justify-center z-10">
                             <text className="text-ppmb-000 font-medium text-[16px]">
                                 {2/3 === 1 ? "Selesai" : `${2}/${3}`}
                             </text>
                         </div>
-                        <div className="absolute top-0 left-0 bg-ppmb-blue-500 rounded-r-md h-full z-0" style={{ width: `${(2/3) * 100}%` }} />
+                        <div className="absolute top-0 left-0 bg-ppmb-blue-600 rounded-r-md h-full z-0" style={{ width: `${(2/3) * 100}%` }} />
                     </div>
 
-                    <div className="flex w-1/4 relative">
+                    <div className="flex w-1/4 relative border-r-ppmb-800 border-r-[1px]">
                         <div className="absolute inset-0 flex items-center justify-center z-10">
                             <text className="text-ppmb-000 font-medium rounded-r-md text-[16px]">
                                 {3/3 === 1 ? "Selesai" : `${2}/${3}`}
                             </text>
                         </div>
-                        <div className="absolute top-0 left-0 bg-ppmb-red-500 h-full z-0" style={{ width: `${(3/3) * 100}%` }} />
+                        <div className="absolute top-0 left-0 bg-ppmb-blue-600 h-full z-0" style={{ width: `${(3/3) * 100}%` }} />
                     </div>
 
                     <div className="flex w-1/4 relative">
@@ -62,7 +62,7 @@ export const MultiProgressBar: React.FC = () => {
                                 {2/3 === 1 ? "Selesai" : `${2}/${3}`}
                             </text>
                         </div>
-                        <div className="absolute top-0 left-0 bg-purple-600 h-full rounded-r-md z-0" style={{ width: `${(2/3) * 100}%` }} />
+                        <div className="absolute top-0 left-0 bg-ppmb-blue-600 h-full rounded-r-md z-0" style={{ width: `${(2/3) * 100}%` }} />
                     </div>
                 </div>
             </div>
