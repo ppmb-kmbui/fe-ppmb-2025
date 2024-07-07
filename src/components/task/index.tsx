@@ -13,7 +13,7 @@ export const Task: React.FC<TaskProps> = ({
 }) => {
     return (
         <div className="flex flex-col p-4 border-[1px] border-ppmb-200 w-[480px] rounded-lg gap-2">
-            <div className="flex flex-row items-center justify-between ">
+            <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-row gap-[10px] items-center">
                     <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md text-[24px] text-ppmb-000">
                         {icon}

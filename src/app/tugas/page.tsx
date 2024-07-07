@@ -1,6 +1,6 @@
 "use client"
 
-import { ProgressBar, Task } from "@/components";
+import { MultiProgressBar, ProgressBar, Task } from "@/components";
 import Image from "next/image";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
@@ -88,7 +88,6 @@ const TugasPage: React.FC = () => {
         },
     ]
 
-
     return (
         <div className="min-h-screen flex flex-col gap-10">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
@@ -108,13 +107,17 @@ const TugasPage: React.FC = () => {
                 <text className="font-crimson text-3xl">Progress Tugas</text>
 
                 <div className="flex flex-col gap-2">
+
+                    <MultiProgressBar />
+                    <MultiProgressBar />
+
                     {DUMMY_DATA_PROGRESS.map((data, key) => (
                         <ProgressBar key={key} {...data}/>
                     ))}
                 </div>
             </div>
 
-            <div className="flex justify-evenly px-[60px] gap-10 mt-5">
+            <div className="flex justify-evenly px-[60px] gap-10 mt-5 pb-10">
                 <div className="flex flex-col gap-3">
                     <text className="text-3xl font-crimson">Perlu Dikerjakan</text>
 

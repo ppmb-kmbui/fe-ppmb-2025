@@ -10,4 +10,5 @@ export { Timeline } from './timeline';
 export { Card } from './card';
 
 export { ProgressBar } from './progressBar';
+export { MultiProgressBar } from './multiProgressBar';
 export { Task } from './task';

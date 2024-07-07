@@ -7,11 +7,10 @@ interface ProgressBarProps {
 export const ProgressBar: React.FC<ProgressBarProps> = ({
     label, currentProgress, totalProgress
 }) => {
-    const progress = 75
-
+    
     return (
         <div className="flex flex-row leading-[1.5]">
-            <div className="min-w-[140px]">
+            <div className="min-w-[150px]">
                 <text className="font-semibold italic">{label}</text>
             </div>
 
@@ -20,11 +19,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
                     <text className="text-ppmb-000 font-medium rounded-md text-[16px]">{currentProgress/totalProgress == 1 ? "Selesai" : `${currentProgress}/${totalProgress}`}</text>
                 </div>
 
-            <div
-                className="absolute top-0 left-0 bg-ppmb-blue-600 h-full rounded-md z-0"
-                style={{ width: `${(currentProgress/totalProgress)*100}%` }}
-            />
-        </div>
+                <div className="absolute top-0 left-0 bg-ppmb-blue-600 h-full rounded-md z-0" style={{ width: `${(currentProgress/totalProgress)*100}%` }} />
+            </div>
         </div>
     )
 }
