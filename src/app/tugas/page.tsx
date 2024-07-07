@@ -1,6 +1,6 @@
 "use client"
 
-import { MultiProgressBar, ProgressBar, Task } from "@/components";
+import { MultiProgressBar, ProgressBar, TaskCard } from "@/components";
 import Image from "next/image";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
@@ -123,7 +123,7 @@ const TugasPage: React.FC = () => {
 
                     <div className="flex flex-col gap-5">
                         {DUMMY_DATA_TUGAS.map((data, key) => (
-                            <Task {...data}/>
+                            <TaskCard {...data}/>
                         ))}
                     </div>
                 </div>
@@ -133,7 +133,7 @@ const TugasPage: React.FC = () => {
 
                     <div className="flex flex-col gap-5">
                         {DUMMY_DATA_TUGAS.map((data, key) => (
-                            <Task {...data}/>
+                            <TaskCard {...data}/>
                         ))}
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useOutsideClick } from "@/hooks/useOutsideClick"
+import { useOutsideClick } from "@/hooks/useOutsideClick/useOutsideClick"
 import { useState } from "react"
 import { HiChevronDown } from "react-icons/hi"
 

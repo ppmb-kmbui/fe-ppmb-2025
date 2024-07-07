@@ -9,7 +9,7 @@ interface CardProps {
     faculty: string
 }
 
-export const Card: React.FC<CardProps> = ({
+export const UserCard: React.FC<CardProps> = ({
     name, faculty
 }) => {
     const router = useRouter();

@@ -1,14 +1,14 @@
-export { Input } from './input';
-export { FileInput } from './fileInput';
-export { Dropdown } from './dropdown';
-export { Button } from './button';
-export { Sidebar } from './navbar';
+export { Input } from './ui/Input';
+export { FileInput } from './ui/FileInput';
+export { Dropdown } from './ui/Dropdown';
+export { Button } from './ui/Button';
+export { Sidebar } from './navbar/Sidebar';
 
-export { Carousel } from './carousel';
-export { Timeline } from './timeline';
+export { Carousel } from './home/Carousel';
+export { Timeline } from './home/Timeline';
 
-export { Card } from './card';
+export { UserCard } from './ui/card/UserCard';
 
-export { ProgressBar } from './progressBar';
-export { MultiProgressBar } from './multiProgressBar';
-export { Task } from './task';
+export { ProgressBar } from './progressBar/ProgressBar';
+export { MultiProgressBar } from './progressBar/MultiProgressBar';
+export { TaskCard } from './ui/card/TaskCard';

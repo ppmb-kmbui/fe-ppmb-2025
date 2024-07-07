@@ -8,7 +8,7 @@ interface TaskProps {
     type?: string
 }
 
-export const Task: React.FC<TaskProps> = ({
+export const TaskCard: React.FC<TaskProps> = ({
     name, description, deadline, icon, type
 }) => {
     return (

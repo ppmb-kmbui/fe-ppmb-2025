@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Card, Input } from "@/components";
+import { Button, UserCard, Input } from "@/components";
 import { useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
 
@@ -66,7 +66,7 @@ const CariPage: React.FC = () => {
 
             <div className="grid grid-cols-5 mt-7 gap-6 px-10">
                 {DATA.map((data, key) => (
-                    <Card key={key} {...data}/>
+                    <UserCard key={key} {...data}/>
                 ))}
             </div>
 

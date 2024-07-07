@@ -1,4 +1,4 @@
-import { Card } from "@/components";
+import { UserCard } from "@/components";
 import Image from "next/image";
 
 const NetworkingPage: React.FC = () => {
@@ -61,7 +61,7 @@ const NetworkingPage: React.FC = () => {
 
                 <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     {DATA.map((data, key) => (
-                        <Card key={key} name={data.name} faculty={data.faculty} />
+                        <UserCard key={key} name={data.name} faculty={data.faculty} />
                     ))}
 
                     {/* <text className="text-lg italic w-full text-ppmb-500">Tidak ada permintaan pertemanan :(</text> */}
@@ -73,7 +73,7 @@ const NetworkingPage: React.FC = () => {
 
                 <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     {DATA.map((data, key) => (
-                        <Card key={key} name={data.name} faculty={data.faculty} />
+                        <UserCard key={key} name={data.name} faculty={data.faculty} />
                     ))}
 
                     {/* <text className="text-lg italic w-full text-ppmb-500">Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text> */}
