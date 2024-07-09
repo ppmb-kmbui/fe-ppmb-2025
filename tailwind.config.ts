@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         montserrat: ['var(--font-montserrat)'],
         crimson: ['var(--font-crimson)'],
+        lexend: ['var(--font-lexend)']
       },
 
       colors: {
@@ -42,6 +43,7 @@ const config: Config = {
 
 
         "ppmb-blue-100": "#e9f1fc",
+        "ppmb-blue-300": "#66a0eb",
         "ppmb-blue-400": "#5192e9",
         "ppmb-blue-500": "#2577e3",
         "ppmb-blue-600": "#1a539f",

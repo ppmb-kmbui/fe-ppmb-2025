@@ -16,7 +16,7 @@ const NetworkingAssignmentPage: React.FC = () => {
     return (
         <div className="h-screen flex flex-col">
              <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-bold text-2xl font-crimson text-ppmb-000">
+                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
                     Networking dengan Ariana Grande
                 </text>
 
@@ -40,7 +40,7 @@ const NetworkingAssignmentPage: React.FC = () => {
                     </div>
                 </div>
 
-                <FileInput photo={photo} setPhoto={setPhoto} label="Unggah foto networking" />
+                <FileInput file={photo} setFile={setPhoto} label="Unggah foto networking" description="Ini deskripsi perlu diganti nanti"/>
             </div>
         </div>
     )

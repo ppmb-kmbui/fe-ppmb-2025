@@ -91,8 +91,8 @@ const TugasPage: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col gap-10">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-bold text-2xl font-crimson text-ppmb-000">
-                    To Do PPMB KMBUI
+                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
+                    Tugas PPMB KMBUI
                 </text>
 
                 <Image
@@ -104,10 +104,9 @@ const TugasPage: React.FC = () => {
             </div>
 
             <div className="flex flex-col items-center gap-3">
-                <text className="font-crimson text-3xl">Progress Tugas</text>
+                <text className="text-3xl font-semibold">Progress Tugas</text>
 
                 <div className="flex flex-col gap-2">
-
                     <MultiProgressBar />
                     <MultiProgressBar />
 
@@ -118,8 +117,8 @@ const TugasPage: React.FC = () => {
             </div>
 
             <div className="flex justify-evenly px-[80px] gap-[80px]  mt-5 pb-10">
-                <div className="flex flex-col gap-3">
-                    <text className="text-3xl font-crimson">Perlu Dikerjakan</text>
+                <div className="flex flex-col gap-2">
+                    <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
                     <div className="flex flex-col gap-5">
                         {DUMMY_DATA_TUGAS.map((data, key) => (
@@ -128,8 +127,8 @@ const TugasPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-3">
-                    <text className="text-3xl font-crimson">Sudah Dikumpulkan</text>
+                <div className="flex flex-col gap-2">
+                    <text className="text-[27px] leading-[1.6] font-semibold">Sudah Dikumpulkan</text>
 
                     <div className="flex flex-col gap-5">
                         {DUMMY_DATA_TUGAS.map((data, key) => (

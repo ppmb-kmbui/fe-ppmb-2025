@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Crimson_Pro, Montserrat } from "next/font/google";
+import { Crimson_Pro, Lexend } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components";
 
@@ -9,10 +9,10 @@ const crimson_init = Crimson_Pro({
   variable: '--font-crimson'
 });
 
-const montserrat_init = Montserrat({
+const lexend_init = Lexend({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-montserrat'
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-lexend',
 });
 
 export const metadata: Metadata = {
@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${crimson_init.variable} ${montserrat_init.variable}`}>
+      <body className={`${crimson_init.variable} ${lexend_init.variable}`}>
         <div className="flex">
           <nav className="z-50">
             <Sidebar />

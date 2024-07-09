@@ -11,6 +11,11 @@
   overflow:hidden;
 }
 
+body {
+  font-family: var(--font-lexend), sans-serif;
+  color: #313131;
+}
+
 .embla__viewport {
   overflow: hidden;
 }
@@ -23,10 +28,10 @@
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, and Opera */
+  display: none;
 }

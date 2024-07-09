@@ -40,8 +40,8 @@ export const FileInput: React.FC<FileInputProps> = ({
 
     return (
         <div className="w-full flex flex-col gap-7 items-center justify-center">
-            <div className="flex flex-col items-center justify-center">
-                <text className="font-semibold text-2xl">{label}</text>
+            <div className="flex flex-col items-center justify-center gap-[2px]">
+                <text className="font-medium text-2xl">{label}</text>
                 <text className="text-sm text-ppmb-600">{description}</text>
             </div>
             

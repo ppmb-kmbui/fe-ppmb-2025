@@ -28,7 +28,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                     <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md text-[24px] text-ppmb-000">
                         {icon}
                     </div>
-                    <text className="font-crimson text-2xl">{name}</text>
+                    <text className="font-semibold text-xl">{name}</text>
                 </div>
 
                 <div className="rounded-xl bg-ppmb-100 text-ppmb-800 px-3 gap-2 pr-3 flex flex-row text-sm py-1 items-center">

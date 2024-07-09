@@ -10,7 +10,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     
     return (
         <div className="flex flex-row leading-[1.5]">
-            <div className="min-w-[150px]">
+            <div className="min-w-[160px]">
                 <text className="font-semibold italic">{label}</text>
             </div>
 

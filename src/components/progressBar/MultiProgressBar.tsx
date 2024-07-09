@@ -24,7 +24,7 @@ export const MultiProgressBar: React.FC = () => {
             </div>
 
             <div className="flex flex-row leading-[1.5]">
-                <div className="min-w-[150px]">
+                <div className="min-w-[160px]">
                     <text className="font-semibold italic">Networking kating</text>
                 </div>
 

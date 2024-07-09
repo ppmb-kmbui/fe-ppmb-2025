@@ -44,7 +44,7 @@ const NetworkingPage: React.FC = () => {
     return (
         <div className="min-h-screen flex flex-col gap-10 pb-10">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-bold text-2xl font-crimson text-ppmb-000">
+                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
                     Networking KMBUI
                 </text>
 
@@ -57,7 +57,7 @@ const NetworkingPage: React.FC = () => {
             </div>
 
             <div className="pl-[40px] lg:pl-[60px]">
-                <text className="font-crimson text-3xl">Menunggu Persetujuan</text>
+                <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
                 <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     {DATA.map((data, key) => (
@@ -69,7 +69,7 @@ const NetworkingPage: React.FC = () => {
             </div>
 
             <div className="pl-[40px] lg:pl-[60px]">
-                <text className="font-crimson text-3xl">Lanjutkan Networking</text>
+                <text className="text-[27px] leading-[1.6] font-semibold">Lanjutkan Networking</text>
 
                 <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     {DATA.map((data, key) => (

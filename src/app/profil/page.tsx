@@ -58,13 +58,13 @@ const ProfilPage: React.FC = () => {
                     <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
 
                     <div className="flex flex-col">
-                        <text className="text-5xl font-crimson text-ppmb-800">Ariana Grande</text>
+                        <text className="text-4xl font-semibold text-ppmb-800">Ariana Grande</text>
                         <text className="italic text-ppmb-500 text-lg">Fasilkom, 2024</text>
                     </div>
                 </div>
                 
                 <div className="w-[20%] flex flex-col rounded-lg p-8 bg-white h-[200px] items-center justify-center gap-2 shadow-custom">
-                    <text className="font-semibold text-7xl">36</text>
+                    <text className="font-medium text-7xl">36</text>
                     <text className="text-xl">pengikut</text>
                 </div>
             </div>
