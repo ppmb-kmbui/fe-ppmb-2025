@@ -74,7 +74,7 @@ const CariPage: React.FC = () => {
                 <text className="font-crimson text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
                 <div className="flex gap-4 items-center">
                     <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setMessage} type="rounded" />
-                    <Button handleClick={() => {}} label="Kirim"/>
+                    <Button handleClick={() => {}} label="Kirim" variant="lg"/>
                 </div>
             </div>
 

@@ -48,11 +48,11 @@ export const Modal:React.FC<ModalProps> = ({
                         />
                     }
 
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-4">
                         <Button 
                             handleClick={onClose}
                             label="Kumpulkan"
-                            className="py-[6px] mt-4"
+                            variant="md"
                         />
                     </div>
                 </div>

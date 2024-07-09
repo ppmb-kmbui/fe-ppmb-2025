@@ -63,12 +63,12 @@ const SignupPage: React.FC = () => {
                     </div>
                   
                     <div className="flex items-center flex-col gap-2 mt-3">
-                        <Button label="Buat Akun" handleClick={() => {}}/>
+                        <Button label="Buat Akun" handleClick={() => {}} variant="lg"/>
                         <span className="font-medium">Sudah memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer" onClick={() => router.push("/login")}>Login</span></span>
                     </div>               
                 </div>
 
-                <FileInput photo={photo} setPhoto={setPhoto} label="Unggah foto kamu"/>
+                <FileInput file={photo} setFile={setPhoto} label="Unggah foto kamu" description="Ini deskripsi nanti diubah ya"/>
             </div>
         </div>
     )
