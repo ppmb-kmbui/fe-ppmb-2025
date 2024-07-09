@@ -3,6 +3,7 @@ export { FileInput } from './ui/FileInput';
 export { Dropdown } from './ui/Dropdown';
 export { Button } from './ui/Button';
 export { Sidebar } from './navbar/Sidebar';
+export { Modal } from './ui/Modal';
 
 export { Carousel } from './home/Carousel';
 export { Timeline } from './home/Timeline';

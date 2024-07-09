@@ -7,6 +7,10 @@
   color: #313131;
 }
 
+:root:has(.no-doc-scroll) {
+  overflow:hidden;
+}
+
 .embla__viewport {
   overflow: hidden;
 }

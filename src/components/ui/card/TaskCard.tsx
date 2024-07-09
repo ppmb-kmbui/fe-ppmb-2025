@@ -1,4 +1,6 @@
 import { HiDownload, HiLink, HiOutlineAcademicCap, HiOutlineCalendar, HiOutlineFolderOpen } from "react-icons/hi"
+import { useDisclosure } from "react-use-disclosure"
+import { Modal } from "@/components";
 
 interface TaskProps {
     name: string
@@ -11,8 +13,16 @@ interface TaskProps {
 export const TaskCard: React.FC<TaskProps> = ({
     name, description, deadline, icon, type
 }) => {
+    const { open, isOpen, close } = useDisclosure(false);
+
     return (
         <div className="flex flex-col p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2">
+            <Modal
+                isOpen={isOpen}
+                onClose={close}
+                type="input"
+            />
+
             <div className="flex flex-row items-center justify-between">
                 <div className="flex flex-row gap-[10px] items-center">
                     <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md text-[24px] text-ppmb-000">
@@ -49,7 +59,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                     <text>Cek Link</text>
                 </button> */}
 
-                <button className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-sm rounded-lg">
+                <button className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-sm rounded-lg" onClick={open}>
                     <text>Submit</text>
                 </button>
 

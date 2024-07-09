@@ -7,7 +7,7 @@ interface InputProps {
     label?: string
     placeholder: string
     setValue: (value: string) => void
-    icon: React.ReactNode
+    icon?: React.ReactNode
     type?: "normal" | "rounded"
 }
 
