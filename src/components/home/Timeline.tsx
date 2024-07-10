@@ -43,7 +43,8 @@ export const Timeline: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-row justify-between w-full px-[60px] mt-5">
+            <div className="w-full px-12 mt-5">
+            <div className="flex flex-row justify-between w-full px-[60px] py-7 rounded-lg  border-[2px] border-ppmb-300">
                 <div className="w-[65%] flex flex-col gap-4">
                     <div className="flex flex-col gap-1">
                         <text className="text-4xl font-semibold">Acara Placeholder</text>
@@ -53,11 +54,13 @@ export const Timeline: React.FC = () => {
                     </div>
 
                     <div>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lorem purus, maximus sed est quis, hendrerit imperdiet nulla. Proin at sapien eget orci malesuada tincidunt. Vivamus a congue nibh, in suscipit massa.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lorem purus, maximus sed est quis, hendrerit imperdiet nulla. Proin at sapien eget orci malesuada tincidunt. Vivamus a congue nibh, in suscipit massa. Mauris sapien nibh, aliquam ac maximus ut, auctor nec lacus. Nam tempor ut tortor eget consectetur.
                     </div>
 
-                    <div>
-                        <Button handleClick={() => {}} label="RSVP" variant="md"/>
+                    <div className="flex h-full">
+                        <div className="self-end">
+                            <Button handleClick={() => {}} label="RSVP" variant="md"/>
+                        </div>
                     </div>
                 
                 </div>
@@ -66,12 +69,15 @@ export const Timeline: React.FC = () => {
                     <Image 
                         alt="rett"
                         src={"/image/rett.jpg"}
-                        width={300}
-                        height={300}
+                        width={350}
+                        height={350}
                         className="rounded-lg"
                     />
                 </div>
             </div>
+            </div>
+
+           
         </div>
     );
 };
