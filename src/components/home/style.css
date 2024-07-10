@@ -1,8 +1,9 @@
-.timeline:before {
+.timeline::before {
     content: "";
     position: absolute;
     top: calc(50% - 2px);
-    width: calc(220px * 7 - 20px);
+    width: var(--timeline-width);
     height: 3px;
-    background: #c4c4c4; 
+    background: #c4c4c4;
+    border-radius: 12px;
 }

@@ -1,74 +1,77 @@
 "use client"
 
-import { useState } from "react"
+import { useState } from "react";
 import './style.css';
-
-
+import Image from "next/image";
+import { Button } from "../ui/Button";
 
 export const Timeline: React.FC = () => {
     const [index, setIndex] = useState<number>(0);
 
     const TIMELINES = [
-        {
-            date: "10 Mei 2024",
-            name: "Makrab 2024",
-        },
-        {
-            date: "18 Aug 2024",
-            name: "KMBUI Fest",
-        },
-        {
-            date: "22 Sep 2024",
-            name: "Simus KMBUI",
-        },
-        {
-            date: "24 Okt 2024",
-            name: "Natal",
-        },
-        {
-            date: "24 Okt 2024",
-            name: "Natal",
-        },
-        {
-            date: "24 Okt 2024",
-            name: "Natal",
-        },
-        {
-            date: "24 Okt 2024",
-            name: "Natal",
-        },
-    ]
+        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Waisak" },
+    ];
+
+    const timelineWidth = TIMELINES.length * 180;
 
     return (
-        <div className='mt-8 flex flex-col items-center'>
-            <div className="flex flex-col gap-1 items-center text-ppmb-800">
-                <div className='gap-3 flex text-6xl font-crimson italic'>
-                    <text className='text-ppmb-blue-600'>TIMELINE</text>
-                    <text>Kegiatan</text>
-                </div>
-
-                <text className="text-sm font-medium text-ppmb-600">scroll timeline secara horizontal untuk melihat informasi yang lebih lengkap</text>
-
+        <div className='flex flex-col items-center gap-7'>
+            <div className='gap-3 flex text-6xl font-semibold items-center'>
+                <span className='text-ppmb-blue-600'>TIMELINE</span>
+                <span>Kegiatan</span>
             </div>
 
-
-            <div className={`timeline relative flex mt-7 min-h-[180px] overflow-x-auto w-screen pl-5`}>
+            <div 
+                className='timeline relative flex min-h-[160px] overflow-x-auto w-[90vw] scrollbar-hide pl-5' 
+                style={{ '--timeline-width': `${timelineWidth}px` } as React.CSSProperties}
+            >
                 <div className="inline-flex">
                     {TIMELINES.map((timeline, key) => (
-                        <div key={key} className={`${key%2==1 && 'self-end'} flex flex-col items-center min-w-[180px]`}>
+                        <div key={key} className={`${key % 2 === 1 ? 'self-end' : 'self-start'} flex flex-col items-center min-w-[180px]`}>
                             <div className="flex flex-col px-3 py-2 w-full rounded-xl items-center hover:bg-ppmb-100 hover:bg-opacity-70 cursor-pointer">
                                 <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{timeline.date}</div>
-                                <text className="font-crimson text-2xl text-ppmb-800">{timeline.name}</text>
+                                <span className="font-semibold text-xl text-ppmb-800">{timeline.name}</span>
                             </div>
-                                
-
                         </div>
                     ))}
-
                 </div>
-  
             </div>
 
-      </div>
-    )
-}
+            <div className="flex flex-row justify-between w-full px-[60px] mt-5">
+                <div className="w-[65%] flex flex-col gap-4">
+                    <div className="flex flex-col gap-1">
+                        <text className="text-4xl font-semibold">Acara Placeholder</text>
+                        <div className="flex">
+                            <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">12 Jun 2024</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lorem purus, maximus sed est quis, hendrerit imperdiet nulla. Proin at sapien eget orci malesuada tincidunt. Vivamus a congue nibh, in suscipit massa.
+                    </div>
+
+                    <div>
+                        <Button handleClick={() => {}} label="RSVP" variant="md"/>
+                    </div>
+                
+                </div>
+
+                <div className="w-[35%] flex items-center justify-center">
+                    <Image 
+                        alt="rett"
+                        src={"/image/rett.jpg"}
+                        width={300}
+                        height={300}
+                        className="rounded-lg"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
