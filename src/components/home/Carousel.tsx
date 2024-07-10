@@ -39,6 +39,7 @@ export const Carousel: React.FC = () => {
         src: '/sponsorImage/kmbui.png'
       }
     ]
+
     return (
         <div className='embla relative'>
         <div className='embla__viewport' ref={emblaRef}>
@@ -50,7 +51,6 @@ export const Carousel: React.FC = () => {
                   alt={`content ${key}`}
                   width={1400}
                   height={20}
-                  
                 />
               </div>
             ))}
