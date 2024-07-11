@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Crimson_Pro, Lexend } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 const crimson_init = Crimson_Pro({
   subsets: ['latin'],
@@ -28,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${crimson_init.variable} ${lexend_init.variable}`}>
+        <AuthContextProvider>
         <div className="flex">
           <nav className="z-50">
             <Sidebar />
@@ -37,6 +39,7 @@ export default function RootLayout({
             {children}
           </main>
         </div>
+        </AuthContextProvider>
       </body>
     </html>
   );

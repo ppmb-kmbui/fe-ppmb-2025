@@ -6,12 +6,24 @@ import { useState } from "react";
 import { Button, Input } from "@/components";
 import { HiLockOpen, HiMail } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
     const router = useRouter();
+    const { login, isLoading, isAuthenticated } = useAuth();
+
+    console.log(isAuthenticated)
+
+    const handleLogin = async () => {
+        try{
+            await login(email, password);
+        } catch {
+            console.log("rusak bro");
+        }
+    }
 
     return (
         <div className="h-screen flex flex-col">
@@ -34,7 +46,7 @@ const LoginPage: React.FC = () => {
                     <Input label="Password" placeholder="password" setValue={setPassword} icon={<HiLockOpen />}/>
 
                     <div className="flex items-center flex-col gap-2">
-                        <Button label="Masuk" handleClick={() => {}} variant="lg"/>
+                        <Button label="Masuk" handleClick={handleLogin} variant="lg"/>
                         <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   
                 </div>
