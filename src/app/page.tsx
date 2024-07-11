@@ -10,9 +10,9 @@ export default function Home() {
   console.log(isAuthenticated);
   
   return (
-    <div className='min-h-screen gap-[60px] flex flex-col pb-10'>
+    <div className='min-h-screen gap-5 md:gap-10 xl:gap-[60px] flex flex-col pb-10'>
       <Carousel />
-      {/* <Timeline /> */}
+      <Timeline />
       <Faq />
     </div>
   )
