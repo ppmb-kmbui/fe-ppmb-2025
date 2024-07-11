@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <div className='min-h-screen gap-[60px] flex flex-col pb-10'>
       <Carousel />
-      {/* <Timeline />
-      <Faq /> */}
+      {/* <Timeline /> */}
+      <Faq />
     </div>
   )
 }
