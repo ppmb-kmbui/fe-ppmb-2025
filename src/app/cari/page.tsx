@@ -49,7 +49,7 @@ const CariPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[45px] md:px-[100px] flex flex-col py-10 gap-3 items-center">
+            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items- w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
                     <text className="text-ppmb-000">NETWORKING</text>
                     <text>dengan</text>
@@ -64,15 +64,15 @@ const CariPage: React.FC = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 mt-6 md:mt-5 lg:mt-7 gap-6 md:gap-7 lg:gap-7 px-6 md:px-5 lg:px-7">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 mt-3 md:mt-5 lg:mt-7 gap-3 md:gap-7 lg:gap-7 px-3 md:px-5 lg:px-7">
                 {DATA.map((data, key) => (
                     <UserCard key={key} {...data}/>
                 ))}
             </div>
 
-            <div className="flex flex-col items-center py-14 gap-[2px] md:gap-1 w-full px-12 lg:px-[100px]">
-                <text className="text-xl md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
-                <div className="flex gap-4 items-center w-full justify-center">
+            <div className="flex flex-col items-center py-14 gap-[2px] md:gap-1 w-full px-8 lg:px-[100px]">
+                <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
+                <div className="flex gap-2 md:gap-4 items-center w-full justify-center">
                     <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setMessage} type="rounded" />
                     <Button handleClick={() => {}} label="Kirim" variant="lg"/>
                 </div>
