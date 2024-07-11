@@ -7,7 +7,7 @@ export { Modal } from './ui/Modal';
 export { Accordion } from './ui/Accordion';
 export { UserCard } from './ui/card/UserCard';
 export { TaskCard } from './ui/card/TaskCard';
-export { Header } from './ui/header';
+export { Header } from './ui/Header';
 
 export { Carousel } from './home/Carousel';
 export { Timeline } from './home/Timeline';

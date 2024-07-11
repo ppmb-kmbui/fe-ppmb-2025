@@ -49,8 +49,8 @@ const CariPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[60px] md:px-[100px] flex flex-col py-10 gap-3 items-center">
-                <div className="flex text-ppmb-800 justify-center items-center text-2xl md:text-3xl lg:text-4xl gap-2 font-semibold">
+            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[45px] md:px-[100px] flex flex-col py-10 gap-3 items-center">
+                <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
                     <text className="text-ppmb-000">NETWORKING</text>
                     <text>dengan</text>
                     <text>KMB</text>
@@ -58,9 +58,9 @@ const CariPage: React.FC = () => {
 
                 <Input placeholder="Cari teman KMB" setValue={setSearchQuery} type="rounded" icon={<HiSearch />}/>
 
-                <div className="text-white flex flex-col items-center text-center mt-4">
-                    <text className="font-semibold text-lg">"Semangat buat para maba, jangan lupa networking"</text>
-                    <text className="italic text-ppmb-100 font-light">── Salmon floss, Fasilkom 2024</text>
+                <div className="text-white flex flex-col items-center text-center mt-2 md:mt-4">
+                    <text className="font-semibold md:text-lg">"Semangat buat para maba, jangan lupa networking"</text>
+                    <text className="italic text-ppmb-100 font-light text-sm md:text-[16px]">── Salmon floss, Fasilkom 2024</text>
                 </div>
             </div>
 
@@ -70,9 +70,9 @@ const CariPage: React.FC = () => {
                 ))}
             </div>
 
-            <div className="flex flex-col items-center py-14 gap-1 w-full">
+            <div className="flex flex-col items-center py-14 gap-[2px] md:gap-1 w-full px-12 lg:px-[100px]">
                 <text className="text-xl md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
-                <div className="flex gap-4 items-center w-full justify-center px-12 lg:px-[100px]">
+                <div className="flex gap-4 items-center w-full justify-center">
                     <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setMessage} type="rounded" />
                     <Button handleClick={() => {}} label="Kirim" variant="lg"/>
                 </div>

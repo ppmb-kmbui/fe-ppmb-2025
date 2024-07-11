@@ -1,4 +1,4 @@
-import { UserCard } from "@/components";
+import { Header, UserCard } from "@/components";
 import Image from "next/image";
 
 const NetworkingPage: React.FC = () => {
@@ -43,23 +43,12 @@ const NetworkingPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col gap-10 pb-10">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
-                    Networking KMBUI
-                </text>
+            <Header label="Networking" subLabel="KMBUI" />
 
-                <Image
-                    src={require("../../../public/logo.svg")}
-                    alt={"Logo"}
-                    width={150}
-                    height={70}
-                />
-            </div>
-
-            <div className="pl-[40px] lg:pl-[60px]">
+            <div className="px-5 md:pl-[40px] lg:pl-[60px]">
                 <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
-                <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
+                <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     {DATA.map((data, key) => (
                         <UserCard key={key} name={data.name} faculty={data.faculty} />
                     ))}
