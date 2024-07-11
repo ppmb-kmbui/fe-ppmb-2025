@@ -17,7 +17,7 @@ export const Input: React.FC<InputProps> = ({
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     return (
-        <div className={`${type == "rounded" ? "w-[850px]" : "w-full"} flex flex-col text-lg text-ppmb-800`}>
+        <div className={`${type == "rounded" ? "w-[400px] md:w-[500px] lg:max-w-[850px] lg:w-full" : "w-full"} flex flex-col text-lg text-ppmb-800`}>
             {type == "normal" && <div className="flex flex-row items-center gap-1 ">
                 <div className="text-[18px]">{icon}</div>
                 <text className="font-medium">{label}</text>
