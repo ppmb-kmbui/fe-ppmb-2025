@@ -9,8 +9,6 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ['var(--font-montserrat)'],
-        crimson: ['var(--font-crimson)'],
         lexend: ['var(--font-lexend)']
       },
 

@@ -4,11 +4,11 @@ import "./globals.css";
 import { Sidebar } from "@/components";
 import { AuthContextProvider } from "@/context/AuthContext";
 
-const crimson_init = Crimson_Pro({
-  subsets: ['latin'],
-  weight: ['700'],
-  variable: '--font-crimson'
-});
+// const crimson_init = Crimson_Pro({
+//   subsets: ['latin'],
+//   weight: ['700'],
+//   variable: '--font-crimson'
+// });
 
 const lexend_init = Lexend({
   subsets: ['latin'],
@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${crimson_init.variable} ${lexend_init.variable}`}>
+      <body className={`${lexend_init.variable}`}>
         <AuthContextProvider>
         <div className="flex">
           <nav className="z-50">
