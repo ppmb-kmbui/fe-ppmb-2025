@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, FileInput, Input } from "@/components";
+import { Button, FileInput, Header, Input } from "@/components";
 import Image from "next/image";
 import { useState } from "react";
 import { HiChatAlt2 } from "react-icons/hi";
@@ -14,21 +14,10 @@ const NetworkingAssignmentPage: React.FC = () => {
 
 
     return (
-        <div className="h-screen flex flex-col">
-             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
-                    Networking dengan Ariana Grande
-                </text>
+        <div className="min-h-screen flex flex-col h-full">
+            <Header label="Networking" subLabel="dengan Ariana Grande"/>
 
-                <Image
-                    src={require("../../../../public/logo.svg")}
-                    alt={"Logo"}
-                    width={150}
-                    height={70}
-                />
-            </div>
-
-            <div className="flex flex-row justify-evenly px-[60px] gap-5 h-full">
+            <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
                 <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
                     <Input label="Pertanyaan wajib 1" placeholder="Jawaban" setValue={setAnswer1} icon={<HiChatAlt2 />}/>
                     <Input label="Pertanyaan wajib 2" placeholder="Jawaban" setValue={setAnswer2} icon={<HiChatAlt2 />}/>
