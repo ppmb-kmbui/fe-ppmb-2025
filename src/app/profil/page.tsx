@@ -42,10 +42,10 @@ const ProfilPage: React.FC = () => {
     ]
 
     return (
-        <div className="min-h-screen p-10 gap-10 flex flex-col">
-            <div className="flex flex-row gap-10">
-                <div className="flex w-[80%] flex-row bg-white rounded-lg p-8 gap-7 h-[200px] items-center shadow-custom">
-                    <div className="flex h-[140px] w-[140px]">
+        <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
+            <div className="flex flex-col md:flex-row gap-5 lg:gap-10">
+                <div className="flex w-full md:w-[70%] lg:w-[80%] flex-row bg-white rounded-lg py-6 px-5 md:py-8 lg:p-8 gap-3 md:gap-5 lg:gap-7 h-[160px] md:h-[200px] items-center shadow-custom">
+                    <div className="flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
                         <Image 
                             src={require("../../../public/image/ariana.jpg")}
                             alt={"Logo"}
@@ -58,20 +58,20 @@ const ProfilPage: React.FC = () => {
                     <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
 
                     <div className="flex flex-col">
-                        <text className="text-4xl font-semibold text-ppmb-800">Ariana Grande</text>
-                        <text className="italic text-ppmb-500 text-lg">Fasilkom, 2024</text>
+                        <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">Ariana Grande</text>
+                        <text className="italic text-ppmb-500 text-sm md:text-lg">Fasilkom, 2024</text>
                     </div>
                 </div>
                 
-                <div className="w-[20%] flex flex-col rounded-lg p-8 bg-white h-[200px] items-center justify-center gap-2 shadow-custom">
-                    <text className="font-medium text-7xl">36</text>
-                    <text className="text-xl">pengikut</text>
+                <div className="w-full md:w-[30%] lg:w-[20%] flex flex-col rounded-lg p-3 md:p-8 bg-white md:h-[200px] items-center justify-center md:gap-2 shadow-custom">
+                    <text className="font-medium text-3xl md:text-5xl lg:text-7xl">36</text>
+                    <text className="text-sm md:text-xl">pengikut</text>
                 </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-                <text className="font-crimson text-3xl">Sudah Berkenalan dengan</text>
-                <div className="grid grid-cols-5 gap-6">
+            <div className="flex flex-col gap-1 md:gap-3 mt-2">
+                <text className="text-xl md:text-2xl lg:text-3xl font-semibold">Sudah Berkenalan dengan</text>
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6">
                     {DATA.map((data, key) => (
                         <UserCard key={key} {...data}/>
                     ))}
