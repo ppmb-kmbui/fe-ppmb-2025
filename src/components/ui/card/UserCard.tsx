@@ -15,7 +15,7 @@ export const UserCard: React.FC<CardProps> = ({
     const router = useRouter();
 
     return (
-        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-2 py-4 md:py-5 md:px-6 rounded-xl min-h-[240px] lg:min-h-[260px] min-w-[175px] lg:min-w-[225px] shadow-ppmb-200 shadow-custom">
+        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 md:py-5 md:px-6 rounded-xl min-h-[240px] lg:min-h-[270px] min-w-[175px] lg:min-w-[225px] shadow-ppmb-200 shadow-custom">
             <div className="flex h-[45%] items-center justify-center">
                 <div className="h-[75px] w-[75px] md:h-[90px] md:w-[90px] flex">
                     <Image 
@@ -28,7 +28,7 @@ export const UserCard: React.FC<CardProps> = ({
                 </div>
             </div>
 
-            <div className="flex flex-col justify-start items-center gap-1 mt-5 h-[40%] text-center ">
+            <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center ">
                 <text className="font-semibold md:text-lg leading-none">{name}</text>
                 <text className="text-xs md:text-sm italic text-ppmb-600">{faculty}</text>
             </div>
