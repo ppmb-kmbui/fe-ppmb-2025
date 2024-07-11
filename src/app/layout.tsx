@@ -4,12 +4,6 @@ import "./globals.css";
 import { Sidebar } from "@/components";
 import { AuthContextProvider } from "@/context/AuthContext";
 
-// const crimson_init = Crimson_Pro({
-//   subsets: ['latin'],
-//   weight: ['700'],
-//   variable: '--font-crimson'
-// });
-
 const lexend_init = Lexend({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],

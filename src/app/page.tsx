@@ -2,7 +2,7 @@
 
 import { Carousel, Faq, Timeline } from '@/components';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
+
 export default function Home() {
   const { isAuthenticated, user, token } = useAuth();
 
@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <div className='min-h-screen gap-[60px] flex flex-col pb-10'>
       <Carousel />
-      <Timeline />
-      <Faq />
+      {/* <Timeline />
+      <Faq /> */}
     </div>
   )
 }
