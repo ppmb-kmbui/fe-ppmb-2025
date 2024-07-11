@@ -23,27 +23,27 @@ export const TaskCard: React.FC<TaskProps> = ({
                 type="input"
             />
 
-            <div className="flex flex-row items-center justify-between">
-                <div className="flex flex-row gap-[10px] items-center">
-                    <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md text-[24px] text-ppmb-000">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:justify-between">
+                <div className="flex flex-row gap-2 md:gap-[10px] items-center">
+                    <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md md:text-[24px] text-ppmb-000 text-[16px]">
                         {icon}
                     </div>
-                    <text className="font-semibold text-xl">{name}</text>
+                    <text className="font-semibold text-lg md:text-xl">{name}</text>
                 </div>
 
-                <div className="rounded-xl bg-ppmb-100 text-ppmb-800 px-3 gap-2 pr-3 flex flex-row text-sm py-1 items-center">
-                    <HiOutlineCalendar size={16}/>
+                <div className="rounded-xl bg-ppmb-100 text-sm md:text-[16px] text-ppmb-800 px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit">
+                    <HiOutlineCalendar />
                     <text className="font-medium">{deadline}</text>
                 </div>
             </div>
 
             <div className="min-h-[1px] bg-ppmb-200 mt-[2px]"/>
 
-            <div className="flex">
+            <div className="flex text-sm md:text-[16px]">
                 <text>{description}</text>
             </div>
 
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2 mt-2 lg:mt-3">
                 <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
                     <text>Template</text>
                     <HiDownload />

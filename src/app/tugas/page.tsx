@@ -1,6 +1,6 @@
 "use client"
 
-import { MultiProgressBar, ProgressBar, TaskCard } from "@/components";
+import { Header, MultiProgressBar, ProgressBar, TaskCard } from "@/components";
 import Image from "next/image";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
@@ -89,24 +89,13 @@ const TugasPage: React.FC = () => {
     ]
 
     return (
-        <div className="min-h-screen flex flex-col gap-10">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
-                    Tugas PPMB KMBUI
-                </text>
-
-                <Image
-                    src={require("../../../public/logo.svg")}
-                    alt={"Logo"}
-                    width={150}
-                    height={70}
-                />
-            </div>
+        <div className="min-h-screen flex flex-col gap-5 lg:gap-10">
+            <Header label="Tugas" subLabel="PPMB KMBUI"/>
 
             <div className="flex flex-col items-center gap-3">
-                <text className="text-3xl font-semibold">Progress Tugas</text>
+                <text className="text-2xl lg:text-3xl font-semibold">Progress Tugas</text>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 items-center">
                     <MultiProgressBar />
                     <MultiProgressBar />
 
@@ -116,9 +105,9 @@ const TugasPage: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex justify-evenly px-[80px] gap-[80px]  mt-5 pb-10">
+            <div className="flex flex-col md:flex-row md:justify-evenly px-8 lg:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
                 <div className="flex flex-col gap-2">
-                    <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
+                    <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Belum Dikerjakan</text>
 
                     <div className="flex flex-col gap-5">
                         {DUMMY_DATA_TUGAS.map((data, key) => (
@@ -128,7 +117,7 @@ const TugasPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <text className="text-[27px] leading-[1.6] font-semibold">Sudah Dikumpulkan</text>
+                    <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Sudah Dikumpulkan</text>
 
                     <div className="flex flex-col gap-5">
                         {DUMMY_DATA_TUGAS.map((data, key) => (
