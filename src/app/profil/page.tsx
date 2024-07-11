@@ -1,5 +1,6 @@
 import { UserCard } from "@/components";
 import Image from "next/image";
+import { HiOutlinePencil, HiPencil } from "react-icons/hi";
 
 const ProfilPage: React.FC = () => {
     const DATA = [
@@ -45,7 +46,7 @@ const ProfilPage: React.FC = () => {
         <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
             <div className="flex flex-col md:flex-row gap-5 lg:gap-10">
                 <div className="flex w-full md:w-[70%] lg:w-[80%] flex-row bg-white rounded-lg py-6 px-5 md:py-8 lg:p-8 gap-3 md:gap-5 lg:gap-7 h-[160px] md:h-[200px] items-center shadow-custom">
-                    <div className="flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
+                    <div className="relative flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
                         <Image 
                             src={require("../../../public/image/ariana.jpg")}
                             alt={"Logo"}
@@ -53,6 +54,10 @@ const ProfilPage: React.FC = () => {
                             height={140}
                             className="rounded-full"
                         />
+
+                        <button className="absolute bottom-0 right-0 bg-white p-1 md:p-[7px] md:text-[20px] rounded-full text-ppmb-blue-600 border-[2px] border-ppmb-blue-600">
+                            <HiPencil />
+                        </button>
                     </div>
 
                     <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
