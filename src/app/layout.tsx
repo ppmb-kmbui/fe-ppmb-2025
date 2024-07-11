@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Crimson_Pro, Lexend } from "next/font/google";
+import { Lexend } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components";
 import { AuthContextProvider } from "@/context/AuthContext";
