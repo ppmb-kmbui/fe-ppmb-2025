@@ -7,3 +7,15 @@
     background: #c4c4c4;
     border-radius: 12px;
 }
+
+.li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-left: 16px;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1a539f;    
+}

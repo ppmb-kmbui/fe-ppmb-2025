@@ -33,7 +33,7 @@ export const Timeline: React.FC = () => {
             >
                 <div className="inline-flex">
                     {TIMELINES.map((timeline, key) => (
-                        <div key={key} className={`${key % 2 === 1 ? 'self-end' : 'self-start'} flex flex-col items-center min-w-[180px]`}>
+                        <div key={key} className={`${key % 2 === 1 ? 'self-end' : 'self-start'} li flex flex-col items-center min-w-[180px]`}>
                             <div className="flex flex-col px-3 py-2 w-full rounded-xl items-center hover:bg-ppmb-100 hover:bg-opacity-70 cursor-pointer">
                                 <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{timeline.date}</div>
                                 <span className="font-semibold text-xl text-ppmb-800">{timeline.name}</span>
@@ -76,7 +76,7 @@ export const Timeline: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col h-full items-start px-8">
+            <div className="flex lg:hidden flex-col h-full items-start px-8">
                 {TIMELINES.map((timeline, key) => (
                     <div key={key} className="flex w-full h-full flex-row gap-5">
                         <div
