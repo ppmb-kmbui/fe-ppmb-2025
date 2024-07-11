@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Dropdown, FileInput, Input } from "@/components";
+import { Button, Dropdown, FileInput, Header, Input } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
@@ -36,28 +36,17 @@ const SignupPage: React.FC = () => {
     ]
 
     return (
-        <div className="h-screen flex flex-col">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
-                    Buat Akun PPMB KMBUI 2024
-                </text>
+        <div className="min-h-screen flex flex-col h-full">
+            <Header label="Buat Akun" subLabel="PPMB KMBUI 2024"/>                
 
-                <Image 
-                    src={require("../../../public/logo.svg")}
-                    alt={"Logo"}
-                    width={150}
-                    height={70}
-                />
-            </div>
-
-            <div className="flex flex-row justify-evenly px-[60px] gap-5 h-full">
+            <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
                 <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
                     <Input label="Email" placeholder="Kocite" setValue={setEmail} icon={<HiMail />}/>
                     <Input label="Nama Lengkap" placeholder="Koko Cici Teman-teman" setValue={setName} icon={<HiUser />}/>
 
                     <Dropdown options={FAKULTAS} dropdownValue={faculty} setDropdownValue={setFaculty} label="Fakultas" icon={<HiAcademicCap />}/>
 
-                    <div className="flex flex-row gap-5 w-full">
+                    <div className="flex flex-col md:flex-row gap-5 w-full">
                         <Input label="Password" placeholder="password" setValue={setPassword} icon={<HiLockOpen />}/>
                         <Input label="Konfirmasi Password" placeholder="password" setValue={setRepassword} icon={<HiLockClosed />}/>
                     </div>
