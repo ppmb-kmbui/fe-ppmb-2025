@@ -4,7 +4,7 @@ import { api } from "@/utils/axios";
 import { UserProps } from "@/utils/interface";
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
     user: UserProps
@@ -37,6 +37,31 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
     const router = useRouter();
 
+    const getUser = async (token: string) => {
+        // console.log(Cookies.get('token'), "ini token")
+        try {
+            setIsLoading(true);
+            const res = await api({
+                method: 'GET',
+                url: '/auth/profile',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setIsAuthenticated(true);
+            setUser(res.data);
+            setToken(token);
+
+        } catch (error: any) {
+            setIsAuthenticated(false);
+            setUser({});
+            setToken('');
+
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     const register = async (email: string, fullname: string, password: string, faculty: string, batch: string) => {
         try {
             setIsLoading(true);
@@ -44,7 +69,10 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 method: 'POST',
                 url: '/auth/reigster',
                 data: { email, fullname, password, faculty, batch }
-            })
+            });
+            router.push("/login");
+        } catch (error: any) {
+            console.error("Error in register", error);
         } finally {
             setIsLoading(false);
         }
@@ -59,17 +87,13 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 data: { email, password }
             })
 
-            if (res.status != 200) {
-                return;
-            }
-
             Cookies.set('token', res.data.token)
             setToken(res.data.token);
             setIsAuthenticated(true);
-            setUser(res.data.user);
+            getUser(token);
             router.push('/');
-            
-            
+        } catch (error: any) {
+            console.error("Error in login", error);
         } finally {
             setIsLoading(false);
         }
@@ -81,7 +105,8 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsAuthenticated(false);
             setToken('');
             setUser({});
-            // Cookies
+            Cookies.remove('token');
+            router.push('/');
         } finally {
             setIsLoading(false);
         }
@@ -95,7 +120,16 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         register: register,
         login: login,
         logout: logout,
-      };
+    };
+
+    useEffect(() => {
+        if (Cookies.get('token')){
+            const token = Cookies.get('token') as string;
+            getUser(token);
+        } else {
+            console.log("toke g valid")
+        }
+    }, [])
     
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

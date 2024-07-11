@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { Button, Input } from "@/components";
+import { Button, Header, Input } from "@/components";
 import { HiLockOpen, HiMail } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -26,22 +26,11 @@ const LoginPage: React.FC = () => {
     }
 
     return (
-        <div className="h-screen flex flex-col">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-400 w-full min-h-[95px] flex justify-between px-[60px] items-center">
-                <text className="font-semibold text-[21px] leading-[1.8] text-ppmb-000">
-                    Masuk dengan Akun PPMB KMBUI 2024
-                </text>
+        <div className="min-h-screen flex flex-col h-full">
+            <Header label="Buat Akun" subLabel="PPMB KMBUI 2024"/>
 
-                <Image 
-                    src={require("../../../public/logo.svg")}
-                    alt={"Logo"}
-                    width={150}
-                    height={70}
-                />
-            </div>
-
-            <div className="flex flex-row justify-evenly px-[60px] gap-5 h-full">
-                <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center">
+            <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-5 h-full">
+                <div className="w-full flex flex-col font-medium gap-5 items-center justify-center">
                     <Input label="Email" placeholder="Kocite" setValue={setEmail} icon={<HiMail />}/>
                     <Input label="Password" placeholder="password" setValue={setPassword} icon={<HiLockOpen />}/>
 
@@ -55,10 +44,10 @@ const LoginPage: React.FC = () => {
                     <Image 
                         src={"/image/mascot.png"}
                         alt="mascot"
-                        width={500}
-                        height={500}
+                        width={400}
+                        height={400}
                     />
-                    <text className="font-crimson text-4xl font-semibold text-ppmb-800">#DiscoveringSelfAndPurpose</text>
+                    <text className="font-crimson text-2xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800">#DiscoveringSelfAndPurpose</text>
                 </div>
             </div>
         </div>

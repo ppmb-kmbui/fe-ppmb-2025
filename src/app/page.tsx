@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const { isAuthenticated, user, token } = useAuth();
 
-  console.log(token);
+  console.log("token di home", token);
   console.log(isAuthenticated);
   
   return (
