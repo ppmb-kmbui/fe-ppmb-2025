@@ -1,6 +1,11 @@
 import { Header, UserCard } from "@/components";
 import Image from "next/image";
 
+interface ConnectionRequestProps {
+    connection_request_received: []
+    connection_request_send: []
+}
+
 const NetworkingPage: React.FC = () => {
     const DATA = [
         {
