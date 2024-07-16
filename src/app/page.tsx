@@ -15,7 +15,6 @@ const Homepage = () => {
       <Carousel />
       <Timeline />
       <Faq />
-      {/* {token} */}
     </div>
   )
 }

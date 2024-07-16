@@ -1,13 +1,16 @@
 "use client"
 
 import Image from "next/image";
-import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineShieldCheck, HiOutlineUser, HiSearch } from "react-icons/hi";
+import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogin, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineShieldCheck, HiOutlineUser, HiSearch } from "react-icons/hi";
 import "./style.css"
 import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 
 export const Sidebar: React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
+
+    const { logout, isAuthenticated } = useAuth();
 
     const MAIN_MENU = [
         { icon: <HiOutlineHome />, text: "Beranda", route: "/" },
@@ -45,9 +48,9 @@ export const Sidebar: React.FC = () => {
                     </div>
                 </div>
 
-                <div  className="group bg-ppmb-red-500 text-ppmb-000 mb-4 flex items-center px-3 py-2 rounded-lg cursor-pointer" onClick={() => {}}>
+                <div  className="group bg-ppmb-red-500 text-ppmb-000 mb-4 flex items-center px-3 py-2 rounded-lg cursor-pointer" onClick={isAuthenticated ? logout : () => router.push('/login')}>
                     <div className="flex flex-row gap-3">
-                        <text className="text-[26px]"><HiOutlineLogout /></text>
+                        <text className="text-[26px]">{isAuthenticated ? <HiOutlineLogout /> : <HiOutlineLogin />}</text>
                         <text className="absolute transition-transform delay-500 opacity-0 translate-x-28 overflow-hidden pointer-events-none whitespace-pre duration-500 font-medium">Keluar</text>
                     </div>
                     <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">Keluar</div>

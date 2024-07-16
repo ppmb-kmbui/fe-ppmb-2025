@@ -42,7 +42,7 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
         useEffect(() => {
             if (!isLoading && isDataFetched) {
                 if (!isAuthenticated) { 
-                    // router.push('/signup');
+                    // router.push('/login');
                 } 
                 else { 
                     router.push('/');
@@ -56,7 +56,7 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
             }
         
         
-        }, [isLoading, isAuthenticated, router]);
+        }, [isLoading, isAuthenticated, router, isDataFetched]);
       
             if (isLoading) {
                 return (
