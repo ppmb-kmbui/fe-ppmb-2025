@@ -2,9 +2,10 @@
 
 import { Carousel, Faq, Timeline } from '@/components';
 import { useAuth } from '@/context/AuthContext';
+import withAuth from '@/hoc/withAuth';
 
-export default function Home() {
-  const { isAuthenticated, token } = useAuth();
+const Homepage = () => {
+  const { isAuthenticated, token, isLoading } = useAuth();
 
   console.log("token di home", token);
   console.log(isAuthenticated);
@@ -14,7 +15,9 @@ export default function Home() {
       <Carousel />
       <Timeline />
       <Faq />
-      {token}
+      {/* {token} */}
     </div>
   )
 }
+
+export default withAuth(Homepage, 'optional');

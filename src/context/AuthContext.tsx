@@ -14,6 +14,7 @@ interface AuthContextProps {
     register: (email: string, fullname: string, password: string, faculty: string, batch: string) => void
     login: (email: string, password: string) => void
     logout: () => void
+    getUser: () => void
 }
 
 export const AuthContext = createContext({
@@ -37,8 +38,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
     const router = useRouter();
 
-    const getUser = async (token: string) => {
-        // console.log(Cookies.get('token'), "ini token")
+    const getUser = async (token: string = Cookies.get('token') as string) => {
         try {
             setIsLoading(true);
             const res = await api({
@@ -88,14 +88,10 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             })
 
             Cookies.set('token', res.data.token)
-            console.log("ini res", res);
-            console.log("ini data", res.data);
-            console.log("ini token", res.data.token);
             setToken(res.data.token);
-            console.log(token, "token abis set");
             setIsAuthenticated(true);
             getUser(token);
-            router.push('/');
+            // router.push('/');
         } catch (error: any) {
             console.error("Error in login", error);
         } finally {
@@ -124,6 +120,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         register: register,
         login: login,
         logout: logout,
+        getUser: getUser
     };
 
     useEffect(() => {
@@ -137,4 +134,3 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
     
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }
-
