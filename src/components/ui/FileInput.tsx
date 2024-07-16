@@ -6,7 +6,7 @@ import { Button } from "./Button";
 
 interface FileInputProps {
     file: File | null
-    setFile: Dispatch<SetStateAction<File | null>>
+    setFile: (file: File | null) => void
     label: string
     description: string
 }
@@ -46,7 +46,7 @@ export const FileInput: React.FC<FileInputProps> = ({
                 <text className="text-sm text-ppmb-600">{description}</text>
             </div>
             
-            <div className="border-dashed border-ppmb-600 border-[2px] px-7 justify-between rounded-lg w-[300px] md:w-[450px] max-h-[250px] md:max-h-[300px] p-6 md:pt-14 md:pb-10 flex flex-col items-center gap-2 md:gap-6" onDrop={handleDrop} onDragOver={handleDragOver}>
+            <div className="border-dashed border-ppmb-600 border-[2px] px-7 justify-between rounded-lg w-[290px] md:w-[450px] max-h-[250px] md:max-h-[300px] p-6 md:pt-14 md:pb-10 flex flex-col items-center gap-2 md:gap-6" onDrop={handleDrop} onDragOver={handleDragOver}>
                 <FaFolderOpen className="text-ppmb-blue-600 text-[70px] md:text-[95px]"/>
 
                 <div className={`${file ? 'gap-3' : 'gap-2'} flex flex-col w-full`}>
@@ -61,7 +61,7 @@ export const FileInput: React.FC<FileInputProps> = ({
                         <span className="text-center text-sm">Drag dan drop <br /> atau</span>
                     )}
                     
-                    <Button handleClick={() => {}} label={`Cari ${label.split(" ")[1]}`}/>
+                    <Button handleClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`}/>
                     <input ref={inputRef} accept={'.jpg'} type="file" className="hidden" onChange={(e) => setFile(e.target.files?.[0] || null)}/>
                 </div>
             </div>
