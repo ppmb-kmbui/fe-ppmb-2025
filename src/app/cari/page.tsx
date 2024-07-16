@@ -1,12 +1,28 @@
 "use client"
 
 import { Button, UserCard, Input } from "@/components";
-import { useState } from "react";
+import { api } from "@/utils/axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
+
+
+interface UserProps {
+    id?: string,
+    email: string,
+    fullname: string,
+    batch: string,
+    faculty: string,
+    img_url: string
+}
 
 const CariPage: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [message, setMessage] = useState<string>("");
+    const [friends, setFriends] = useState<UserProps[]>([]);
+    
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     const DATA = [
         {
@@ -47,16 +63,41 @@ const CariPage: React.FC = () => {
         },
     ]
 
+    const getData = async () => {
+        try {
+            const queryString = new URLSearchParams(searchParams).toString();
+
+            const res = await api({
+                method: 'GET',
+                url: `api/friends${queryString}`
+            })
+        } catch (error: any) {
+            console.error("Error in getting friends data")
+        }
+    }
+
+    const handleSearch = (query: string) => {
+        if (searchQuery) {
+            router.push(`?name=${query}`)
+        } else {
+            router.push('');
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
     return (
         <div className="min-h-screen flex flex-col">
-            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items- w-full">
+            <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
                     <text className="text-ppmb-000">NETWORKING</text>
                     <text>dengan</text>
                     <text>KMB</text>
                 </div>
 
-                <Input placeholder="Cari teman KMB" setValue={setSearchQuery} type="rounded" icon={<HiSearch />}/>
+                <Input placeholder="Cari teman KMB" setValue={setSearchQuery} type="rounded" icon={<HiSearch />} />
 
                 <div className="text-white flex flex-col items-center text-center mt-2 md:mt-4">
                     <text className="font-semibold md:text-lg">"Semangat buat para maba, jangan lupa networking"</text>
@@ -69,6 +110,8 @@ const CariPage: React.FC = () => {
                     <UserCard key={key} {...data}/>
                 ))}
             </div>
+
+            <div className={`${friends.length == 0 ? 'flex' : 'hidden'} justify-center items-center mt-3 md:mt-5 lg:mt-7 italic text-2xl text-ppmb-500`}>Tidak ditemukan teman dengan nama tersebut!</div>
 
             <div className="flex flex-col items-center py-14 gap-[2px] md:gap-1 w-full px-8 lg:px-[100px]">
                 <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>

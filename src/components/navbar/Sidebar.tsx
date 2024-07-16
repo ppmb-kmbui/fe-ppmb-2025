@@ -51,7 +51,7 @@ export const Sidebar: React.FC = () => {
                 <div  className="group bg-ppmb-red-500 text-ppmb-000 mb-4 flex items-center px-3 py-2 rounded-lg cursor-pointer" onClick={isAuthenticated ? logout : () => router.push('/login')}>
                     <div className="flex flex-row gap-3">
                         <text className="text-[26px]">{isAuthenticated ? <HiOutlineLogout /> : <HiOutlineLogin />}</text>
-                        <text className="absolute transition-transform delay-500 opacity-0 translate-x-28 overflow-hidden pointer-events-none whitespace-pre duration-500 font-medium">Keluar</text>
+                        <text className="absolute transition-transform delay-500 opacity-0 translate-x-28 overflow-hidden pointer-events-none whitespace-pre duration-500 font-medium">{isAuthenticated ? "Keluar" : "Masuk"}</text>
                     </div>
                     <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">Keluar</div>
                 </div>
