@@ -45,14 +45,14 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
                     // router.push('/login');
                 } 
                 else { 
-                    router.push('/');
+                    // router.push('/');
                 }
             } 
             // else if (requiredRole == 'freshman' ) {
 
             // }
             else if ('admin' && true ) {
-                router.push('/');
+                // router.push('/');
             }
         
         

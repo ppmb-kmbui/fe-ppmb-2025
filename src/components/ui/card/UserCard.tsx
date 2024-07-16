@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation"
 import { HiCheck, HiPlus } from "react-icons/hi"
 
 interface CardProps {
-    name: string
+    fullname: string
     faculty: string
 }
 
 export const UserCard: React.FC<CardProps> = ({
-    name, faculty
+    fullname, faculty
 }) => {
     const router = useRouter();
 
@@ -29,7 +29,7 @@ export const UserCard: React.FC<CardProps> = ({
             </div>
 
             <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center ">
-                <text className="font-semibold md:text-lg leading-none">{name}</text>
+                <text className="font-semibold md:text-lg leading-none">{fullname}</text>
                 <text className="text-xs md:text-sm italic text-ppmb-600">{faculty}</text>
             </div>
 
