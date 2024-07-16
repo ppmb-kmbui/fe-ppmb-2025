@@ -43,7 +43,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsLoading(true);
             const res = await api({
                 method: 'GET',
-                url: '/auth/profile',
+                url: 'api/auth/profile',
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -83,12 +83,16 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsLoading(true);
             const res = await api({
                 method: 'POST',
-                url: '/auth/login',
+                url: '/api/auth/login',
                 data: { email, password }
             })
 
             Cookies.set('token', res.data.token)
+            console.log("ini res", res);
+            console.log("ini data", res.data);
+            console.log("ini token", res.data.token);
             setToken(res.data.token);
+            console.log(token, "token abis set");
             setIsAuthenticated(true);
             getUser(token);
             router.push('/');
@@ -127,7 +131,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             const token = Cookies.get('token') as string;
             getUser(token);
         } else {
-            console.log("toke g valid")
+            console.log("token g valid")
         }
     }, [])
     

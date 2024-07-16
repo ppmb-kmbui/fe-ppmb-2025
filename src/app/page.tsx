@@ -4,7 +4,7 @@ import { Carousel, Faq, Timeline } from '@/components';
 import { useAuth } from '@/context/AuthContext';
 
 export default function Home() {
-  const { isAuthenticated, user, token } = useAuth();
+  const { isAuthenticated, token } = useAuth();
 
   console.log("token di home", token);
   console.log(isAuthenticated);
@@ -14,6 +14,7 @@ export default function Home() {
       <Carousel />
       <Timeline />
       <Faq />
+      {token}
     </div>
   )
 }
