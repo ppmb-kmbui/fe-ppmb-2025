@@ -59,3 +59,16 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* spinner */
+.loader {
+  border: 10px solid #f5f5f5; 
+  border-top: 10px solid #2577e3;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
