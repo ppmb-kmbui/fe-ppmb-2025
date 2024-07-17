@@ -1,6 +1,7 @@
 "use client"
 
 import { Button, FileInput, Header, Input } from "@/components";
+import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
 import { useState } from "react";
 import { HiChatAlt2 } from "react-icons/hi";
@@ -35,4 +36,4 @@ const NetworkingAssignmentPage: React.FC = () => {
     )
 }
 
-export default NetworkingAssignmentPage;
+export default withAuth(NetworkingAssignmentPage, 'freshman');
