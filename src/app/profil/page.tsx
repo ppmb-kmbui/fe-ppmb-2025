@@ -1,6 +1,7 @@
 "use client"
 
 import { UserCard } from "@/components";
+import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
 import { HiPencil } from "react-icons/hi";
@@ -54,13 +55,15 @@ const ProfilPage: React.FC = () => {
         },
     ]
 
+    const { user } = useAuth();
+
     return (
         <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
             <div className="flex flex-col md:flex-row gap-5 lg:gap-10">
                 <div className="flex w-full md:w-[70%] lg:w-[80%] flex-row bg-white rounded-lg py-6 px-5 md:py-8 lg:p-8 gap-3 md:gap-5 lg:gap-7 h-[160px] md:h-[200px] items-center shadow-custom">
                     <div className="relative flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
                         <Image 
-                            src={require("../../../public/image/ariana.jpg")}
+                            src={user.imgUrl}
                             alt={"Logo"}
                             width={140}
                             height={140}
