@@ -108,4 +108,4 @@ const CariPage: React.FC = () => {
     )
 }
 
-export default withAuth(CariPage, 'freshman');
+export default withAuth(CariPage, 'authenticated');

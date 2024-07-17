@@ -42,11 +42,13 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
         useEffect(() => {
             if (!isLoading && isDataFetched) {
                 if (!isAuthenticated) { 
-                    // router.push('/login');
-                } 
-                else { 
-                    // router.push('/');
+                    router.push('/');
+                } else {
+                    if (requiredRole == 'admin' && true) {
+                        
+                    }
                 }
+                
             } 
             // else if (requiredRole == 'freshman' ) {
 

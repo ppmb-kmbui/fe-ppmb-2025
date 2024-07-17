@@ -1,6 +1,7 @@
 "use client"
 
 import { api } from "@/utils/axios";
+import { DEFAULT_USER } from "@/utils/const";
 import { UserProps } from "@/utils/interface";
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
@@ -18,7 +19,7 @@ interface AuthContextProps {
 }
 
 export const AuthContext = createContext({
-    user: {},
+    user: DEFAULT_USER,
     token: "",
     isAuthenticated: false,
     isLoading: false,
@@ -30,7 +31,7 @@ export const AuthContext = createContext({
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<UserProps>({});
+    const [user, setUser] = useState<UserProps>(DEFAULT_USER);
     const [token, setToken] = useState<string>('');
 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -55,7 +56,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
         } catch (error: any) {
             setIsAuthenticated(false);
-            setUser({});
+            setUser(DEFAULT_USER);
             setToken('');
 
         } finally {
@@ -105,7 +106,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             setIsLoading(true);
             setIsAuthenticated(false);
             setToken('');
-            setUser({});
+            setUser(DEFAULT_USER);
             Cookies.remove('token');
             router.push('/');
         } finally {
