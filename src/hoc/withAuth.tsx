@@ -53,7 +53,7 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
                 }
             }
 
-            if (requiredRole == 'admin' && !user.is_admin || requiredRole == 'authenticated' && !isAuthenticated || requiredRole == 'freshman' && user.batch != '2024') {
+            if (requiredRole == 'admin' && !user.isAdmin || requiredRole == 'authenticated' && !isAuthenticated || requiredRole == 'freshman' && user.batch != '2024') {
                 router.push('/');
             }
 
