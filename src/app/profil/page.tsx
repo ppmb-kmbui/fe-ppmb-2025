@@ -1,46 +1,61 @@
+"use client"
+
 import { UserCard } from "@/components";
+import { useAuth } from "@/context/AuthContext";
+import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
-import { HiOutlinePencil, HiPencil } from "react-icons/hi";
+import { HiPencil } from "react-icons/hi";
 
 const ProfilPage: React.FC = () => {
     const DATA = [
         {
-            name: "Ariana Grande",
-            faculty: "FEB, 2024"
+            fullname: "Ariana Grande",
+            faculty: "FEB",
+            batch: '2024'           
         },
         {
-            name: "Lana del Rey",
-            faculty: "FIB, 2024"
+            fullname: "Lana del Rey",
+            faculty: "FIB",
+            batch: '2024'
         },
         {
-            name: "Billie Eilish",
-            faculty: "FT, 2024"
+            fullname: "Billie Eilish",
+            faculty: "FT",
+            batch: '2024'
         },
         {
-            name: "Jennie BLACKPINK",
-            faculty: "FEB, 2024"
+            fullname: "Jennie BLACKPINK",
+            faculty: 'FEB',
+            batch: '2024'
         },
         {
-            name: "Stephen Sanchez",
-            faculty: "Fasilkom, 2024"
+            fullname: "Stephen Sanchez",
+            faculty: "Fasilkom",
+            batch: '2024'
         },
         {
-            name: "Taylor Swift",
-            faculty: "FH, 2024"
+            fullname: "Taylor Swift",
+            faculty: "FH",
+            batch: '2024'
         },
         {
-            name: "DJ Python Typescript Yeehaw",
-            faculty: "FF, 2024"
+            fullname: "DJ Python Typescript Yeehaw",
+            faculty: "FF",
+            batch: '2024'
         },
         {
-            name: "Nadin Amizah",
-            faculty: "Fpsi, 2024"
+            fullname: "Nadin Amizah",
+            faculty: "Fpsi",
+            batch: '2024'
         },
         {
-            name: "NIKI",
-            faculty: "FEB, 2024"
+            fullname: "NIKI",
+            faculty: "FEB",
+            batch: '2024'
         },
     ]
+
+    const { user } = useAuth();
 
     return (
         <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
@@ -48,7 +63,7 @@ const ProfilPage: React.FC = () => {
                 <div className="flex w-full md:w-[70%] lg:w-[80%] flex-row bg-white rounded-lg py-6 px-5 md:py-8 lg:p-8 gap-3 md:gap-5 lg:gap-7 h-[160px] md:h-[200px] items-center shadow-custom">
                     <div className="relative flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
                         <Image 
-                            src={require("../../../public/image/ariana.jpg")}
+                            src={user.imgUrl}
                             alt={"Logo"}
                             width={140}
                             height={140}
@@ -63,8 +78,9 @@ const ProfilPage: React.FC = () => {
                     <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
 
                     <div className="flex flex-col">
-                        <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">Ariana Grande</text>
-                        <text className="italic text-ppmb-500 text-sm md:text-lg">Fasilkom, 2024</text>
+                        <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">{user.fullname}</text>
+                        {/* TODO: Change to valid batch */}
+                        <text className="italic text-ppmb-500 text-sm md:text-lg">{user.faculty}, 2024</text>
                     </div>
                 </div>
                 
@@ -86,4 +102,4 @@ const ProfilPage: React.FC = () => {
     )
 }
 
-export default ProfilPage;
+export default withAuth(ProfilPage, 'authenticated');

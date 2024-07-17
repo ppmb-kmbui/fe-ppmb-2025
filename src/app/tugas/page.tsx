@@ -1,6 +1,7 @@
 "use client"
 
 import { Header, MultiProgressBar, ProgressBar, TaskCard } from "@/components";
+import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
@@ -130,4 +131,4 @@ const TugasPage: React.FC = () => {
     )
 }
 
-export default TugasPage;
+export default withAuth(TugasPage, 'freshman');

@@ -8,6 +8,8 @@ export { Accordion } from './ui/Accordion';
 export { UserCard } from './ui/card/UserCard';
 export { TaskCard } from './ui/card/TaskCard';
 export { Header } from './ui/Header';
+export { SearchBar } from './ui/SearchBar';
+export { Loader } from './ui/Loader';
 
 export { Carousel } from './home/Carousel';
 export { Timeline } from './home/Timeline';

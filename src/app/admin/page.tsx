@@ -1,6 +1,7 @@
 "use client"
 
 import { Button, Dropdown } from "@/components";
+import withAuth from "@/hoc/withAuth";
 import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
 
 const AdminPage: React.FC = () => {
@@ -78,14 +79,10 @@ const AdminPage: React.FC = () => {
                         <div>chip here</div>
                     </div>
                 </div>
-
-
-
-                
             </div>
 
         </div>
     )
 }
 
-export default AdminPage;
+export default withAuth(AdminPage, 'admin');

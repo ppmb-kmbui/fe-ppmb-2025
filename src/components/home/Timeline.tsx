@@ -9,13 +9,13 @@ export const Timeline: React.FC = () => {
     const [index, setIndex] = useState<number>(0);
 
     const TIMELINES = [
-        { date: "1 Jan 2024", name: "Waisak" },
-        { date: "1 Jan 2024", name: "Waisak" },
-        { date: "1 Jan 2024", name: "Waisak" },
-        { date: "1 Jan 2024", name: "Waisak" },
-        { date: "1 Jan 2024", name: "Waisak" },
-        { date: "1 Jan 2024", name: "Waisak" },
-        { date: "1 Jan 2024", name: "Waisak" },
+        { date: "1 Jan 2024", name: "Libur" },
+        { date: "1 Jan 2024", name: "Libur" },
+        { date: "1 Jan 2024", name: "Libur" },
+        { date: "1 Jan 2024", name: "Libur" },
+        { date: "1 Jan 2024", name: "Libur" },
+        { date: "1 Jan 2024", name: "Libur" },
+        { date: "1 Jan 2024", name: "Libur" },
     ];
 
     const timelineWidth = TIMELINES.length * 180;
