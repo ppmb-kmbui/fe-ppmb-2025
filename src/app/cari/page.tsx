@@ -21,6 +21,7 @@ interface UserProps {
 const CariPage: React.FC = () => {
     const [message, setMessage] = useState<string>("");
     const [friends, setFriends] = useState<UserProps[]>([]);
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const searchParams = useSearchParams();
@@ -41,7 +42,10 @@ const CariPage: React.FC = () => {
         } catch (error: any) {
             console.error("Error in getting friends data")
         } finally {
-            setIsLoading(false);
+            setTimeout(() => {
+                setIsLoading(false);
+                
+            }, 600);
         }
     }
 
@@ -53,11 +57,13 @@ const CariPage: React.FC = () => {
         else {
             router.push("/cari");
         }
-    }, 300)
+    }, 400)
 
     useEffect(() => {
         getData();
     }, [searchParams]);
+
+    // console.log(friends);
 
     return (
         <div className="min-h-screen flex flex-col items-center gap-10">
@@ -80,8 +86,8 @@ const CariPage: React.FC = () => {
                 <Loader />
                 : 
                 <>
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-7 px-3 md:px-5 lg:px-7">
-                        {friends?.map((data, key) => (
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7">
+                        {friends.map((data, key) => (
                             <UserCard key={key} {...data}/>
                         ))}
                     </div>
