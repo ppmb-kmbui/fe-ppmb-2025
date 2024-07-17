@@ -1,3 +1,5 @@
+"use client"
+
 import { UserCard } from "@/components";
 import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
