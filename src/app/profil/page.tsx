@@ -6,40 +6,49 @@ import { HiOutlinePencil, HiPencil } from "react-icons/hi";
 const ProfilPage: React.FC = () => {
     const DATA = [
         {
-            name: "Ariana Grande",
-            faculty: "FEB, 2024"
+            fullname: "Ariana Grande",
+            faculty: "FEB",
+            batch: '2024'           
         },
         {
-            name: "Lana del Rey",
-            faculty: "FIB, 2024"
+            fullname: "Lana del Rey",
+            faculty: "FIB",
+            batch: '2024'
         },
         {
-            name: "Billie Eilish",
-            faculty: "FT, 2024"
+            fullname: "Billie Eilish",
+            faculty: "FT",
+            batch: '2024'
         },
         {
-            name: "Jennie BLACKPINK",
-            faculty: "FEB, 2024"
+            fullname: "Jennie BLACKPINK",
+            faculty: 'FEB',
+            batch: '2024'
         },
         {
-            name: "Stephen Sanchez",
-            faculty: "Fasilkom, 2024"
+            fullname: "Stephen Sanchez",
+            faculty: "Fasilkom",
+            batch: '2024'
         },
         {
-            name: "Taylor Swift",
-            faculty: "FH, 2024"
+            fullname: "Taylor Swift",
+            faculty: "FH",
+            batch: '2024'
         },
         {
-            name: "DJ Python Typescript Yeehaw",
-            faculty: "FF, 2024"
+            fullname: "DJ Python Typescript Yeehaw",
+            faculty: "FF",
+            batch: '2024'
         },
         {
-            name: "Nadin Amizah",
-            faculty: "Fpsi, 2024"
+            fullname: "Nadin Amizah",
+            faculty: "Fpsi",
+            batch: '2024'
         },
         {
-            name: "NIKI",
-            faculty: "FEB, 2024"
+            fullname: "NIKI",
+            faculty: "FEB",
+            batch: '2024'
         },
     ]
 
