@@ -1,4 +1,5 @@
 import { Header, UserCard } from "@/components";
+import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
 
 interface ConnectionRequestProps {
@@ -77,4 +78,4 @@ const NetworkingPage: React.FC = () => {
     )
 }
 
-export default NetworkingPage;
+export default withAuth(NetworkingPage, 'freshman');

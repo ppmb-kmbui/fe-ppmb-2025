@@ -1,4 +1,5 @@
 import { UserCard } from "@/components";
+import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
 import { HiOutlinePencil, HiPencil } from "react-icons/hi";
 
@@ -86,4 +87,4 @@ const ProfilPage: React.FC = () => {
     )
 }
 
-export default ProfilPage;
+export default withAuth(ProfilPage, 'authenticated');

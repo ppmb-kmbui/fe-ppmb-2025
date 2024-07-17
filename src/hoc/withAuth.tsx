@@ -20,7 +20,6 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
 
         const checkAuth = useCallback(() => {
             const token = Cookies.get('token');
-            console.log("ini token dalam auth", token);
       
             if (!token) {
                 setIsDataFetched(true);
@@ -40,45 +39,43 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
         }, [checkAuth]);
 
         useEffect(() => {
+            console.log("jalan lagi kok");
             if (!isLoading && isDataFetched) {
+                console.log("masuk ke !isloading");
+
                 if (!isAuthenticated) { 
                     router.push('/');
                 } else {
-                    if (requiredRole == 'admin' && true) {
-                        
-                    }
+                    console.log("masuk ke else");
+                    
                 }
-                
-            } 
-            // else if (requiredRole == 'freshman' ) {
-
-            // }
-            else if ('admin' && true ) {
-                // router.push('/');
             }
-        
-        
+
+            if (requiredRole == 'admin' && !user.is_admin || requiredRole == 'authenticated' && !isAuthenticated || requiredRole == 'freshman' && user.batch != '2024') {
+                router.push('/');
+            }
+
         }, [isLoading, isAuthenticated, router, isDataFetched]);
       
-            if (isLoading) {
-                return (
-                    <div className="min-h-screen flex flex-col bg-ppmb- justify-center items-center gap-5 px-[60px]">
-                        <Image
-                            src={'/image/mascot.png'}
-                            alt="mascot"
-                            width={600}
-                            height={600}
-                        />
-                        
-                        <div className="text-3xl font-semibold text-center">
-                            <text>Loading</text>
-                            <span className="animate-dots">
-                                <span className="dot">.</span><span className="dot">.</span><span className="dot">.</span>
-                            </span>
-                        </div>
+        if (isLoading || !isAuthenticated) {
+            return (
+                <div className="min-h-screen flex flex-col bg-ppmb- justify-center items-center gap-5 px-[60px]">
+                    <Image
+                        src={'/image/mascot.png'}
+                        alt="mascot"
+                        width={600}
+                        height={600}
+                    />
+                    
+                    <div className="text-3xl font-semibold text-center">
+                        <text>Loading</text>
+                        <span className="animate-dots">
+                            <span className="dot">.</span><span className="dot">.</span><span className="dot">.</span>
+                        </span>
                     </div>
-                )
-            }
+                </div>
+            )
+        }
         
 
         return <Component />;
