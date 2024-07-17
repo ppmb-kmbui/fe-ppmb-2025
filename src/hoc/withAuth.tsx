@@ -41,23 +41,22 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
         }, [checkAuth]);
 
         useEffect(() => {
-            console.log("jalan lagi kok");
             if (!isLoading && isDataFetched) {
                 console.log("masuk ke !isloading");
 
                 if (!isAuthenticated) { 
-                    router.push('/');
-                } else {
-                    console.log("masuk ke else");
-                    
+                    // router.push('/');
+                }  else {
+                    if (requiredRole == 'admin' && !user.isAdmin || requiredRole == 'authenticated' && !isAuthenticated || requiredRole == 'freshman' && user.batch != '2024') {
+                        router.push('/');
+                    }
                 }
             }
 
-            if (requiredRole == 'admin' && !user.isAdmin || requiredRole == 'authenticated' && !isAuthenticated || requiredRole == 'freshman' && user.batch != '2024') {
-                router.push('/');
-            }
+            
 
         }, [isLoading, isAuthenticated, router, isDataFetched]);
+        
       
         if (isLoading || !isAuthenticated) {
             return (
