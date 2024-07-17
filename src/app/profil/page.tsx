@@ -78,8 +78,9 @@ const ProfilPage: React.FC = () => {
                     <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
 
                     <div className="flex flex-col">
-                        <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">Ariana Grande</text>
-                        <text className="italic text-ppmb-500 text-sm md:text-lg">Fasilkom, 2024</text>
+                        <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">{user.fullname}</text>
+                        {/* TODO: Change to valid batch */}
+                        <text className="italic text-ppmb-500 text-sm md:text-lg">{user.faculty}, 2024</text>
                     </div>
                 </div>
                 
