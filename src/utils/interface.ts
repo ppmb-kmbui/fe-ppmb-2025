@@ -8,6 +8,6 @@ export interface UserProps {
     faculty: string
     // TODO: remove optional for batch attribute
     batch?: string 
-    is_admin: boolean
+    isAdmin: boolean
 }
 
