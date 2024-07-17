@@ -22,21 +22,21 @@ const SignupPage: React.FC = () => {
     const router = useRouter();
 
     const FACULTIES = [
-        { display: "Fakultas Farmasi", value: "ff" },
-        { display: "Fakultas Hukum", value: "fh" },
-        { display: "Fakultas Ilmu Administrasi", value: "fia" },
-        { display: "Fakultas Ilmu Pengetahuan Budaya", value: "fib" },
-        { display: "Fakultas Ekonomi dan Bismis", value: "feb" },
-        { display: "Fakultas Ilmu Keperawatan", value: "fik" },
-        { display: "Fakultas Ilmu Komputer", value: "fasilkom" },
-        { display: "Fakultas Ilmu Sosial dan Ilmu Politik", value: "fisip" },
-        { display: "Fakultas Kedokteran", value: "fk" },
-        { display: "Fakultas Kedokteran Gigi", value: "fkg" },
-        { display: "Fakultas Kesehatan Masyarakat", value: "fkm" },
-        { display: "Fakultas Matematika dan Ilmu Pengetahuan Alam", value: "fmipa" },
-        { display: "Fakultas Psikologi", value: "fpsi" },
-        { display: "Fakultas Teknik", value: "ft" },
-        { display: "Program Pendidikan Vokasi", value: "vokasi"  }
+        { display: "Fakultas Farmasi", value: "FF" },
+        { display: "Fakultas Hukum", value: "FH" },
+        { display: "Fakultas Ilmu Administrasi", value: "FIA" },
+        { display: "Fakultas Ilmu Pengetahuan Budaya", value: "FIB" },
+        { display: "Fakultas Ekonomi dan Bismis", value: "FEB" },
+        { display: "Fakultas Ilmu Keperawatan", value: "FIK" },
+        { display: "Fakultas Ilmu Komputer", value: "Fasilkom" },
+        { display: "Fakultas Ilmu Sosial dan Ilmu Politik", value: "Fisip" },
+        { display: "Fakultas Kedokteran", value: "FK" },
+        { display: "Fakultas Kedokteran Gigi", value: "FKG" },
+        { display: "Fakultas Kesehatan Masyarakat", value: "FKM" },
+        { display: "Fakultas Matematika dan Ilmu Pengetahuan Alam", value: "Fmipa" },
+        { display: "Fakultas Psikologi", value: "Fpsi" },
+        { display: "Fakultas Teknik", value: "FT" },
+        { display: "Program Pendidikan Vokasi", value: "Vokasi"  }
     ]
 
     const BATCHES = [
