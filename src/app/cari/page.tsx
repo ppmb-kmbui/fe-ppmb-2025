@@ -96,7 +96,7 @@ const CariPage: React.FC = () => {
                 </>
             }
 
-            <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px]">
+            <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
                 <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
                 <div className="flex gap-2 md:gap-4 items-center w-full justify-center">
                     <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setMessage} type="rounded" />
