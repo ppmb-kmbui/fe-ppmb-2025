@@ -6,7 +6,7 @@ export interface UserProps {
     createdAt?: string
     updatedAt?: string
     faculty: string
-    batch: string 
+    batch: number 
     isAdmin: boolean
 }
 

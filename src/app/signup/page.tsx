@@ -59,7 +59,7 @@ const SignupPage: React.FC = () => {
 
     const handleSignUp = async () => {
         try {
-            await register(email, batch, fullname, password, faculty, photoUrl);
+            await register(email, parseInt(batch), fullname, password, faculty, photoUrl);
         } catch (error: any) {
             console.error("Error while signing up:", error);
         }
