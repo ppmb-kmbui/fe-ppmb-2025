@@ -12,7 +12,7 @@ interface AuthContextProps {
     token: string
     isAuthenticated: boolean
     isLoading: boolean
-    register: (email: string, batch: string, fullname: string, password: string, faculty: string, imgUrl: string) => void
+    register: (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => void
     login: (email: string, password: string) => void
     logout: () => void
     getUser: () => void
@@ -23,7 +23,7 @@ export const AuthContext = createContext({
     token: "",
     isAuthenticated: false,
     isLoading: false,
-    register: (email: string, batch: string, fullname: string, password: string, faculty: string, imgUrl: string) => {},
+    register: (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => {},
     login: (email: string, password: string) => {},
     logout: () => {},
   } as AuthContextProps);
@@ -64,7 +64,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
     }
 
-    const register = async (email: string, batch: string, fullname: string, password: string, faculty: string, imgUrl: string) => {
+    const register = async (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => {
         try {
             setIsLoading(true);
             const res = await api({

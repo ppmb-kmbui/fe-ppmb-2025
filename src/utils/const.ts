@@ -6,6 +6,6 @@ export const DEFAULT_USER: UserProps = {
     fullname: '',
     imgUrl: '',
     faculty: 'Fasilkom',
-    batch: '',
+    batch: 0,
     isAdmin: false
 }
