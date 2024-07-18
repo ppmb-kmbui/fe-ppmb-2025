@@ -24,7 +24,7 @@ export const Sidebar: React.FC = () => {
     const renderMenu = (menu: typeof MAIN_MENU[number]) => {
         if (menu.role === "optional") return true;
         if (menu.role === "authenticated" && isAuthenticated) return true;
-        if (menu.role === "freshman" && user?.batch === "2024") return true;
+        if (menu.role === "freshman" && user?.batch === 2024) return true;
         if (menu.role === "admin" && user?.isAdmin) return true;
         return false;
     };

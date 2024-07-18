@@ -32,11 +32,12 @@ interface FriendProps extends UserProps {
 }
 
 const CariPage: React.FC = () => {
-    const [message, setMessage] = useState<string>("");
+    const [quote, setQuote] = useState<string>("");
     const [friends, setFriends] = useState<FriendProps[]>([]);
     const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
 
     const [isFetchLoading, setIsFetchLoading] = useState<boolean>(true);
+    const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(true);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
     const { token } = useAuth(); 
@@ -81,6 +82,23 @@ const CariPage: React.FC = () => {
             setIsFetchLoading(false);
         }
     }, []);
+
+    const handleSubmitQuote = async () => {
+        try {
+            await api({
+                method: 'POST',
+                url: 'api/quotes',
+                data: {
+                    quote: quote
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        } catch (error: any) {
+            console.error("Error in submitting quote", error)
+        }
+    }
 
     useEffect(() => {
         getData();
@@ -141,8 +159,9 @@ const CariPage: React.FC = () => {
             <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
                 <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
                 <div className="flex gap-2 md:gap-4 items-center w-full justify-center">
-                    <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setMessage} type="rounded" />
-                    <Button handleClick={() => {}} label="Kirim" variant="lg"/>
+                    <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setQuote} type="rounded" />
+                    {/* TODO: Implement throttling */}
+                    <Button handleClick={handleSubmitQuote} label="Kirim" variant="lg"/>
                 </div>
             </div>
 
