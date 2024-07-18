@@ -127,14 +127,14 @@ const CariPage: React.FC = () => {
                 <Loader />
                 : 
                 <>
-                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7">
+                    <div className={`${friends.length == 0 ? 'hidden' : 'grid'} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7`}>
                         {friends.map((data, key) => (
                             // TODO: Add fixed batch data
                             <UserCard key={key} {...data} batch="2024"/>
                         ))}
                     </div>
 
-                    <div className={`${friends.length == 0 ? 'flex' : 'hidden'} justify-center items-center mt-3 italic md:text-2xl text-ppmb-500`}>Tidak ditemukan teman dengan nama tersebut!</div>
+                    <div className={`${friends.length == 0 ? 'flex' : 'hidden'} justify-center items-center italic md:text-2xl text-ppmb-500`}>Tidak ditemukan teman dengan nama tersebut!</div>
                 </>
             }
 
