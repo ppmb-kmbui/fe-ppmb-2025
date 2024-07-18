@@ -1,17 +1,13 @@
 "use client"
 
+import { FriendProps } from "@/utils/interface"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { HiCheck, HiPlus } from "react-icons/hi"
 
-interface CardProps {
-    fullname: string
-    faculty: string
-    batch: string
-}
 
-export const UserCard: React.FC<CardProps> = ({
-    fullname, faculty, batch
+export const UserCard: React.FC<FriendProps> = ({
+    fullname, faculty, batch, status, imgUrl
 }) => {
     const router = useRouter();
 
@@ -27,8 +23,8 @@ export const UserCard: React.FC<CardProps> = ({
             <div className="flex h-[45%] items-center justify-center">
                 <div className="h-[75px] w-[75px] md:h-[90px] md:w-[90px] flex">
                     <Image
-                        src={"/image/ariana.jpg"}
-                        alt="ariana"
+                        src={imgUrl}
+                        alt="tidak submit foto"
                         width={90}
                         height={90}
                         className="rounded-full"
@@ -38,8 +34,7 @@ export const UserCard: React.FC<CardProps> = ({
 
             <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center">
                 <text className="font-semibold md:text-lg leading-none">{truncateFullname(fullname)}</text>
-                {/* TODO: Change batch to dynamic value */}
-                <text className="text-xs md:text-sm italic text-ppmb-600">{faculty}, 2024</text>
+                <text className="text-xs md:text-sm italic text-ppmb-600">{faculty}, {batch}</text>
             </div>
 
             <div className="flex h-[15%] justify-center items-center px-2 flex-col">

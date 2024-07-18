@@ -42,7 +42,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const getUser = async (token: string = Cookies.get('token') as string) => {
         try {
             setIsLoading(true);
-            console.log(token);
+            // console.log(token);
             const res = await api({
                 method: 'GET',
                 url: 'api/auth/profile',

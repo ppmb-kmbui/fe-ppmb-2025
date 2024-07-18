@@ -4,7 +4,7 @@ import { Button, UserCard, Input, SearchBar, Loader, LoadingScreen } from "@/com
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
-import { UserProps } from "@/utils/interface";
+import { FriendProps, UserProps } from "@/utils/interface";
 import debounce from "debounce";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -25,10 +25,6 @@ interface QuoteProps {
     fullname: string
     faculty: string
     batch: string
-}
-
-interface FriendProps extends UserProps {
-    status: "not_connected" | "meminta_konfirmasi" | "menunggu_konfirmasi" | "accepted" | "sedang_networking" | "done"
 }
 
 const CariPage: React.FC = () => {
@@ -146,9 +142,8 @@ const CariPage: React.FC = () => {
                 : 
                 <>
                     <div className={`${friends.length == 0 ? 'hidden' : 'grid'} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7`}>
-                        {friends.map((data, key) => (
-                            // TODO: Add fixed batch data
-                            <UserCard key={key} {...data} batch="2024"/>
+                        {friends.map((friend, key) => (
+                            <UserCard key={key} {...friend} />
                         ))}
                     </div>
 
