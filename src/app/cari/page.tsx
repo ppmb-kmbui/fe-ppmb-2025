@@ -35,15 +35,18 @@ const CariPage: React.FC = () => {
     const [message, setMessage] = useState<string>("");
     const [friends, setFriends] = useState<FriendProps[]>([]);
     const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const { token } = useAuth(); 
+    const [isFetchLoading, setIsFetchLoading] = useState<boolean>(false);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+
+    const { token, isLoading } = useAuth(); 
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const getData = async () => {
         try {
-            setIsLoading(true);
+            setIsFetchLoading(true);
+            setIsSearching(true);
             const queryString = new URLSearchParams(searchParams).toString();
             const res = await api({
                 method: 'GET',
@@ -58,8 +61,8 @@ const CariPage: React.FC = () => {
             console.error("Error in getting friends data")
         } finally {
             setTimeout(() => {
-                setIsLoading(false);
-            }, 600);
+                setIsSearching(false);
+            }, 500);
         }
     }
 
@@ -70,7 +73,7 @@ const CariPage: React.FC = () => {
         else {
             router.push("/cari");
         }
-    }, 400);
+    }, 300);
 
     const getRandomQuote = async () => {
         try {
@@ -83,22 +86,26 @@ const CariPage: React.FC = () => {
 
         } catch (error: any) {
             console.error("Error in getting random quote")
+        } finally {
+            setIsFetchLoading(false);
         }
     }
 
     useEffect(() => {
-        getData();
-    }, [searchParams]);
+        const fetchData = async () => {
+            await Promise.all([getData(), getRandomQuote()]);
+            setIsFetchLoading(false);
+        };
 
-    useEffect(() => {
-        getRandomQuote();
-    }, []);
+        fetchData();
+    }, [searchParams]);
 
 
     console.log(friends, "ini teman");
     console.log(randomQuote, "ini random kuwot")
 
     return (
+        isFetchLoading ? <>Loding</> :
         <div className="min-h-screen flex flex-col items-center gap-10">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
@@ -110,12 +117,12 @@ const CariPage: React.FC = () => {
                 <SearchBar handleSearch={handleSearch}/>
 
                 <div className="text-white flex flex-col items-center text-center mt-2 md:mt-4">
-                    <text className="font-semibold md:text-lg">"Semangat buat para maba, jangan lupa networking"</text>
-                    <text className="italic text-ppmb-100 font-light text-sm md:text-[16px]">── Salmon floss, Fasilkom 2024</text>
+                    <text className="font-semibold md:text-lg">"{randomQuote.quote}"</text>
+                    <text className="italic text-ppmb-100 font-light text-sm md:text-[16px]">── {randomQuote.fullname}, {randomQuote.faculty} {randomQuote.batch}</text>
                 </div>
             </div>
 
-            {isLoading ? 
+            {isSearching ? 
                 <Loader />
                 : 
                 <>
