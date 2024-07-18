@@ -1,13 +1,13 @@
 "use client"
 
-import { Button, UserCard, Input, SearchBar, Loader } from "@/components";
+import { Button, UserCard, Input, SearchBar, Loader, LoadingScreen } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
 import { UserProps } from "@/utils/interface";
 import debounce from "debounce";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
 
 
@@ -36,17 +36,16 @@ const CariPage: React.FC = () => {
     const [friends, setFriends] = useState<FriendProps[]>([]);
     const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
 
-    const [isFetchLoading, setIsFetchLoading] = useState<boolean>(false);
+    const [isFetchLoading, setIsFetchLoading] = useState<boolean>(true);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    const { token, isLoading } = useAuth(); 
+    const { token } = useAuth(); 
     const searchParams = useSearchParams();
     const router = useRouter();
+    const hasFetchedQuote = useRef(false);
 
-    const getData = async () => {
+     const getData = useCallback(async () => {
         try {
-            setIsFetchLoading(true);
-            setIsSearching(true);
             const queryString = new URLSearchParams(searchParams).toString();
             const res = await api({
                 method: 'GET',
@@ -64,7 +63,36 @@ const CariPage: React.FC = () => {
                 setIsSearching(false);
             }, 500);
         }
-    }
+    }, [searchParams, token])
+
+    const getRandomQuote = useCallback(async () => {
+        try {
+            setIsFetchLoading(true);
+
+            const res = await api({
+                method: 'GET',
+                url: "api/quotes"
+            });
+            const { quote, user: { fullname, faculty, batch } } = await res.data;
+            setRandomQuote({ quote, fullname, faculty, batch });
+        } catch (error: any) {
+            console.error("Error in getting random quote");
+        } finally {
+            setIsFetchLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        getData();
+    }, [searchParams])
+
+    useEffect(() => {
+        if (!hasFetchedQuote.current) {
+            console.log("efek get ran");
+            getRandomQuote();
+            hasFetchedQuote.current = true;
+        }
+    }, [getRandomQuote]);
 
     const handleSearch = debounce((query: string) => {
         if (query) {
@@ -75,37 +103,10 @@ const CariPage: React.FC = () => {
         }
     }, 300);
 
-    const getRandomQuote = async () => {
-        try {
-            const res = await api({
-                method: 'GET',
-                url: "api/quotes"
-            })
-            const { quote, user: { fullname, faculty, batch } } = await res.data;
-            setRandomQuote({ quote, fullname, faculty, batch });
-
-        } catch (error: any) {
-            console.error("Error in getting random quote")
-        } finally {
-            setIsFetchLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await Promise.all([getData(), getRandomQuote()]);
-            setIsFetchLoading(false);
-        };
-
-        fetchData();
-    }, [searchParams]);
-
-
-    console.log(friends, "ini teman");
-    console.log(randomQuote, "ini random kuwot")
+    console.log(friends)
 
     return (
-        isFetchLoading ? <>Loding</> :
+        isFetchLoading ? <LoadingScreen /> :
         <div className="min-h-screen flex flex-col items-center gap-10">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
