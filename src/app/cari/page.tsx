@@ -1,29 +1,43 @@
 "use client"
 
 import { Button, UserCard, Input, SearchBar, Loader } from "@/components";
+import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
+import { UserProps } from "@/utils/interface";
 import debounce from "debounce";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
 
 
-interface UserProps {
-    id?: string,
-    email: string,
-    fullname: string,
-    batch: string,
-    faculty: string,
-    img_url: string
+// interface UserProps {
+//     id?: string,
+//     email: string,
+//     fullname: string,
+//     batch: string,
+//     faculty: string,
+//     img_url: string
+// }
+
+interface QuoteProps {
+    quote: string
+    fullname: string
+    faculty: string
+    batch: string
+}
+
+interface FriendProps extends UserProps {
+    status: "not_connected" | "meminta_konfirmasi" | "menunggu_konfirmasi" | "accepted" | "sedang_networking" | "done"
 }
 
 const CariPage: React.FC = () => {
     const [message, setMessage] = useState<string>("");
-    const [friends, setFriends] = useState<UserProps[]>([]);
-
+    const [friends, setFriends] = useState<FriendProps[]>([]);
+    const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
+    const { token } = useAuth(); 
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -31,12 +45,13 @@ const CariPage: React.FC = () => {
         try {
             setIsLoading(true);
             const queryString = new URLSearchParams(searchParams).toString();
-
             const res = await api({
                 method: 'GET',
-                url: `api/friends?${queryString}`
+                url: `api/friends?${queryString}`,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
-
             setFriends(await res.data.friends);
 
         } catch (error: any) {
@@ -44,26 +59,44 @@ const CariPage: React.FC = () => {
         } finally {
             setTimeout(() => {
                 setIsLoading(false);
-                
             }, 600);
         }
     }
 
     const handleSearch = debounce((query: string) => {
-        
         if (query) {
             router.push(`?name=${query}`)
         } 
         else {
             router.push("/cari");
         }
-    }, 400)
+    }, 400);
+
+    const getRandomQuote = async () => {
+        try {
+            const res = await api({
+                method: 'GET',
+                url: "api/quotes"
+            })
+            const { quote, user: { fullname, faculty, batch } } = await res.data;
+            setRandomQuote({ quote, fullname, faculty, batch });
+
+        } catch (error: any) {
+            console.error("Error in getting random quote")
+        }
+    }
 
     useEffect(() => {
         getData();
     }, [searchParams]);
 
-    // console.log(friends);
+    useEffect(() => {
+        getRandomQuote();
+    }, []);
+
+
+    console.log(friends, "ini teman");
+    console.log(randomQuote, "ini random kuwot")
 
     return (
         <div className="min-h-screen flex flex-col items-center gap-10">
@@ -88,7 +121,8 @@ const CariPage: React.FC = () => {
                 <>
                     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7">
                         {friends.map((data, key) => (
-                            <UserCard key={key} {...data}/>
+                            // TODO: Add fixed batch data
+                            <UserCard key={key} {...data} batch="2024"/>
                         ))}
                     </div>
 
