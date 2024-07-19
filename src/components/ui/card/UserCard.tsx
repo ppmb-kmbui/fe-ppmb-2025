@@ -91,7 +91,7 @@ export const UserCard: React.FC<FriendProps> = ({
                     <text className="font-medium">Ikuti</text>
                 </button>}
 
-                { dynamicStatus == "menunggu_konfirmasi" && <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
+                { dynamicStatus == "menunggu_konfirmasi" && <button className="mx-1 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
                     <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
                 </button>}
 
@@ -105,7 +105,7 @@ export const UserCard: React.FC<FriendProps> = ({
                     </button>
                 </div>}
 
-                { dynamicStatus == "accepted" && <button className="bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
+                { dynamicStatus == "accepted" && <button className="mx-1 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
                     <text className=" text-ppmb-000 font-medium">Networking</text>
                 </button>}
 
