@@ -10,15 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
 
-
-// interface UserProps {
-//     id?: string,
-//     email: string,
-//     fullname: string,
-//     batch: string,
-//     faculty: string,
-//     img_url: string
-// }
+import Cookies from "js-cookie";
 
 interface QuoteProps {
     quote: string
@@ -32,11 +24,11 @@ const CariPage: React.FC = () => {
     const [friends, setFriends] = useState<FriendProps[]>([]);
     const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
 
-    const [isFetchLoading, setIsFetchLoading] = useState<boolean>(true);
+    const [isFetching, setIsFetching] = useState<boolean>(true);
     const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(true);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    const { token } = useAuth(); 
+    const { token, user } = useAuth(); 
     const searchParams = useSearchParams();
     const router = useRouter();
     const hasFetchedQuote = useRef(false);
@@ -65,7 +57,7 @@ const CariPage: React.FC = () => {
 
     const getRandomQuote = useCallback(async () => {
         try {
-            setIsFetchLoading(true);
+            setIsFetching(true);
 
             const res = await api({
                 method: 'GET',
@@ -76,7 +68,7 @@ const CariPage: React.FC = () => {
         } catch (error: any) {
             console.error("Error in getting random quote");
         } finally {
-            setIsFetchLoading(false);
+            setIsFetching(false);
         }
     }, []);
 
@@ -95,7 +87,10 @@ const CariPage: React.FC = () => {
         } catch (error: any) {
             console.error("Error in submitting quote", error)
         }
-    }
+    };
+
+    console.log(token, "ini token use auth");
+    console.log(Cookies.get('token'), "ini token kukis")
 
     useEffect(() => {
         getData();
@@ -118,10 +113,8 @@ const CariPage: React.FC = () => {
         }
     }, 300);
 
-    console.log(friends)
-
     return (
-        isFetchLoading ? <LoadingScreen /> :
+        isFetching ? <LoadingScreen /> :
         <div className="min-h-screen flex flex-col items-center gap-10">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">

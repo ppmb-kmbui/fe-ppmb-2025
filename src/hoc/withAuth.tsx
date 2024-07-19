@@ -38,6 +38,8 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
             checkAuth();
         }, [checkAuth]);
 
+        
+
         useEffect(() => {
             if (!isLoading && isDataFetched) {
                 if (!isAuthenticated) {

@@ -1,17 +1,61 @@
 "use client"
 
 import { Button, FileInput, Header, Input } from "@/components";
+import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiChatAlt2 } from "react-icons/hi";
 
+interface QuestionProps {
+    id: number
+    question: string
+    created_at: string
+    updated_at: string
+    is_mandatory: boolean
+}
+
+interface QuestionAnswerProps {
+    questionId: number
+    fromId: number
+    toId: number
+    answer: string
+    question: QuestionProps
+}
+
+interface NetworkingAssignmentProps {
+    fromId: number
+    toId: number
+    is_done: boolean
+    questions: QuestionAnswerProps[]
+}
+
 const NetworkingAssignmentPage: React.FC = () => {
+    const [networkingAssignment, setNetworkingAssignment] = useState<NetworkingAssignmentProps>();
     const [answer1, setAnswer1] = useState<string>(""); 
     const [answer2, setAnswer2] = useState<string>(""); 
     const [answer3, setAnswer3] = useState<string>(""); 
-    const [answer4, setAnswer4] = useState<string>(""); 
+    const [answer4, setAnswer4] = useState<string>("");
     const [photo, setPhoto] = useState<File | null>(null);
+
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+
+    const { user } = useAuth();
+
+    const getData = async () => {
+        try {
+
+        } catch (error: any) {
+
+        }
+    }
+
+
+    useEffect(() => {
+
+    }, [])
+
+    console.log(user)
 
 
     return (
