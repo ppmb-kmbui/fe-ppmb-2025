@@ -98,7 +98,7 @@ const CariPage: React.FC = () => {
 
     useEffect(() => {
         if (!hasFetchedQuote.current) {
-            console.log("efek get ran");
+            // console.log("efek get ran");
             getRandomQuote();
             hasFetchedQuote.current = true;
         }

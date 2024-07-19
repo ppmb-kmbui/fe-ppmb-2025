@@ -3,6 +3,7 @@
 import { Button, FileInput, Header, Input } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
+import { api } from "@/utils/axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,7 +32,7 @@ interface NetworkingAssignmentProps {
     questions: QuestionAnswerProps[]
 }
 
-const NetworkingAssignmentPage: React.FC<{ params: { uuid: string } }> = ({ params: { uuid } }) => {
+const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ params: { userId } }) => {
     const [networkingAssignment, setNetworkingAssignment] = useState<NetworkingAssignmentProps>();
     const [answer1, setAnswer1] = useState<string>(""); 
     const [answer2, setAnswer2] = useState<string>(""); 
@@ -41,31 +42,42 @@ const NetworkingAssignmentPage: React.FC<{ params: { uuid: string } }> = ({ para
 
     const [isFetching, setIsFetching] = useState<boolean>(true);
 
-    const { user } = useAuth();
+    const { user, token } = useAuth();
 
     const getData = async () => {
         try {
+            const res = await api({
+                url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/networking/${userId}`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
 
+            setNetworkingAssignment(res.data);
+            console.log(res, "ini res");
         } catch (error: any) {
 
         }
     }
 
+    console.log(networkingAssignment);
+
 
     useEffect(() => {
-
+        getData();
     }, [])
 
-    console.log(user)
+    // console.log(user)
 
 
     return (
         <div className="min-h-screen flex flex-col h-full">
             <Header label="Networking" subLabel="dengan Ariana Grande"/>
-
+            {userId}
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
                 <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
-                    <Input label="Pertanyaan wajib 1" placeholder="Jawaban" setValue={setAnswer1} icon={<HiChatAlt2 />}/>
+                    <Input label={networkingAssignment?.questions[0].question.question} placeholder="Jawaban" setValue={setAnswer1} icon={<HiChatAlt2 />}/>
                     <Input label="Pertanyaan wajib 2" placeholder="Jawaban" setValue={setAnswer2} icon={<HiChatAlt2 />}/>
                     <Input label="Pertanyaan random 1" placeholder="Jawaban" setValue={setAnswer3} icon={<HiChatAlt2 />}/>
                     <Input label="Pertanyaan random 2" placeholder="Jawaban" setValue={setAnswer4} icon={<HiChatAlt2 />}/>

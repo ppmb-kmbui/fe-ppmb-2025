@@ -42,10 +42,9 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
     const getUser = async (token: string = Cookies.get('token') as string) => {
         try {
             setIsLoading(true);
-            const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             const res = await api({
                 method: 'GET',
-                url: `${baseUrl}/auth/profile`,
+                url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`,
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
