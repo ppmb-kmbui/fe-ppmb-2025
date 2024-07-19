@@ -21,13 +21,14 @@ export const UserCard: React.FC<FriendProps> = ({
     return (
         <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:p-5 rounded-xl min-h-[230px] lg:min-h-[270px] min-w-[160px] lg:min-w-[225px] shadow-ppmb-200 shadow-custom">
             <div className="flex h-[45%] items-center justify-center">
-                <div className="h-[75px] w-[75px] md:h-[90px] md:w-[90px] flex">
+                <div className="h-[80px] w-[80px] md:h-[90px] md:w-[90px] flex">
                     <Image
                         src={imgUrl}
                         alt="tidak submit foto"
-                        width={90}
-                        height={90}
+                        width={95}
+                        height={95}
                         className="rounded-full"
+                        objectFit="contain"
                     />
                 </div>
             </div>

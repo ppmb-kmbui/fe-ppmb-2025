@@ -2,6 +2,7 @@
 
 import { Button, Dropdown, FileInput, Header, Input } from "@/components";
 import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
@@ -58,16 +59,33 @@ const SignupPage: React.FC = () => {
     };
 
     const handleSignUp = async () => {
+        // Formality
+        if (!photo) {
+            console.error('No photo selected.');
+            return;
+        }
+    
         try {
+            const form = new FormData();
+            form.append('file', photo);
+            form.append('upload_preset', 'ppmb_kmbui');
+    
+            const res = await axios.post(
+                `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                form
+            );
+    
+            await setPhotoUrl(res.data.url);
             await register(email, parseInt(batch), fullname, password, faculty, photoUrl);
+
         } catch (error: any) {
             console.error("Error while signing up:", error);
         }
-    }
-
+    };
+    
     return (
         <div className="min-h-screen flex flex-col h-full">
-            <Header label="Buat Akun" subLabel="PPMB KMBUI 2024"/>                
+            <Header label="Buat Akun" subLabel="PPMB KMBUI 2024"/>            
 
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
                 <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
