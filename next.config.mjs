@@ -6,11 +6,11 @@ const nextConfig = {
         source: '/api/:path*',
         destination: `https://ppmb-server.vercel.app/api/v1/:path*`
       }
-    ]
+    ];
   },
 
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com', 'i.pinimg.com'],
     remotePatterns: [
       {
         protocol: 'https',
