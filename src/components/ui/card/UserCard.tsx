@@ -30,10 +30,32 @@ export const UserCard: React.FC<FriendProps> = ({
 
             setDynamicStatus("menunggu_konfirmasi");
         } catch (error: any) {
-            console.error("Error in following freshman", error)
+            console.error("Error in following friend", error);
         } finally {
             setIsLoading(false);
         }
+    }
+
+    const accept = async () => {
+        try{
+            setIsLoading(true);
+            await api({
+                url: `api/connect/${id}`,
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setDynamicStatus("accepted");
+        } catch (error: any) {
+            console.error("Error in accepting friend", error);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const reject = async () => {
+        // TODO: Ask backend to implement reject
     }
 
     const truncateFullname = (fullname: string) => {
@@ -63,29 +85,29 @@ export const UserCard: React.FC<FriendProps> = ({
                 <text className="text-xs md:text-sm italic text-ppmb-600">{faculty}, {batch}</text>
             </div>
 
-            <div className="flex h-[15%] justify-center items-center px-2 flex-col">
-                { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
+            <div className="flex h-[15%] justify-center items-center">
+                { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-1 bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
                     <HiPlus className="text-white"/>
                     <text className="font-medium">Ikuti</text>
                 </button>}
 
-                { dynamicStatus == "menunggu_konfirmasi" && <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-allowed">
+                { dynamicStatus == "menunggu_konfirmasi" && <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
                     <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
                 </button>}
 
                 { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
-                    <button className="border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-2">
+                    <button className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-2`} onClick={reject} disabled={isLoading}>
                         <text className=" text-ppmb-red-500 font-semibold">Tolak</text>
                     </button> 
 
-                    <button className="bg-ppmb-success flex items-center justify-center rounded-lg w-full px-4">
-                        <text className=" text-white font-medium">Terima</text>
+                    <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success flex items-center justify-center rounded-lg w-full px-4`} onClick={accept} disabled={isLoading}>
+                        <text className="text-white font-medium">Terima</text>
                     </button>
                 </div>}
 
-                {/* <button className="bg-ppmb-blue-600 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
+                { dynamicStatus == "accepted" && <button className="bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
                     <text className=" text-ppmb-000 font-medium">Networking</text>
-                </button> */}
+                </button>}
 
                 {/* <button className="bg-ppmb-200 text-ppmb-700 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium">
                     <text className="font-medium">Selesai</text>
