@@ -43,6 +43,7 @@ const CariPage: React.FC = () => {
 
      const getData = useCallback(async () => {
         try {
+            setIsSearching(true);
             const queryString = new URLSearchParams(searchParams).toString();
             const res = await api({
                 method: 'GET',

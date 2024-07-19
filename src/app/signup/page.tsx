@@ -91,7 +91,7 @@ const SignupPage: React.FC = () => {
                 <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
                     <div className="flex flex-col md:flex-row gap-5 w-full">
                         <Input label="Email" placeholder="Kocite" setValue={setEmail} icon={<HiMail />}/>
-                         <Dropdown options={BATCHES} dropdownValue={batch} setDropdownValue={setBatch} label="Angkatan" icon={<HiAcademicCap />}/>
+                        <Dropdown options={BATCHES} dropdownValue={batch} setDropdownValue={setBatch} label="Angkatan" icon={<HiAcademicCap />}/>
                     </div>
 
                     <Input label="Nama Lengkap" placeholder="Koko Cici Teman-teman" setValue={setFullname} icon={<HiUser />}/>
