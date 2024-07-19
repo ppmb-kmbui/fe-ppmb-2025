@@ -58,6 +58,25 @@ export const UserCard: React.FC<FriendProps> = ({
         // TODO: Ask backend to implement reject
     }
 
+    const createNetworkingTask = async () => {
+        try{
+            setIsLoading(true);
+            await api({
+                url: `api/networking/${id}`,
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setDynamicStatus("sedang_networking");
+        } catch (error: any) {
+            console.error("Error while creating networking task", error);
+        } finally {
+            setIsLoading(false);
+            router.push(`/networking/${id}`);
+        }
+    }
+
     const truncateFullname = (fullname: string) => {
         if (fullname.length > 30) {
             return fullname.slice(0, 27) + '...';
@@ -105,7 +124,11 @@ export const UserCard: React.FC<FriendProps> = ({
                     </button>
                 </div>}
 
-                { dynamicStatus == "accepted" && <button className="mx-1 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
+                { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-1 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={createNetworkingTask} disabled={isLoading}>
+                    <text className=" text-ppmb-000 font-medium">Networking</text>
+                </button>}
+
+                { dynamicStatus == "sedang_networking" && <button className={`mx-1 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={() => router.push(`/networking/${id}`)} >
                     <text className=" text-ppmb-000 font-medium">Networking</text>
                 </button>}
 
