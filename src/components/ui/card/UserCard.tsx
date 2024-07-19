@@ -1,15 +1,40 @@
 "use client"
 
+import { useAuth } from "@/context/AuthContext"
+import { api } from "@/utils/axios"
 import { FriendProps } from "@/utils/interface"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { HiCheck, HiPlus } from "react-icons/hi"
 
-
 export const UserCard: React.FC<FriendProps> = ({
-    fullname, faculty, batch, status, imgUrl
+    fullname, faculty, batch, status, imgUrl, id
 }) => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [dynamicStatus, setDynamicStatus] = useState<typeof status>(status); // connect response doesnt retrun typeof status, so need to manually change it :)
+
+    const { token } = useAuth();
+
+    const follow = async () => {
+        try {
+            setIsLoading(true)
+            await api({
+                url: `api/connect/${id}`,
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            setDynamicStatus("menunggu_konfirmasi");
+        } catch (error: any) {
+            console.error("Error in following freshman", error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
 
     const truncateFullname = (fullname: string) => {
         if (fullname.length > 30) {
@@ -39,16 +64,16 @@ export const UserCard: React.FC<FriendProps> = ({
             </div>
 
             <div className="flex h-[15%] justify-center items-center px-2 flex-col">
-                <button className="bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2">
+                { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
                     <HiPlus className="text-white"/>
                     <text className="font-medium">Ikuti</text>
-                </button>
+                </button>}
 
-                {/* <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-default">
+                { dynamicStatus == "menunggu_konfirmasi" && <button className="border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-allowed">
                     <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
-                </button> */}
+                </button>}
 
-                {/* <div className="flex flex-row w-full gap-[6px]">
+                { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
                     <button className="border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-2">
                         <text className=" text-ppmb-red-500 font-semibold">Tolak</text>
                     </button> 
@@ -56,7 +81,7 @@ export const UserCard: React.FC<FriendProps> = ({
                     <button className="bg-ppmb-success flex items-center justify-center rounded-lg w-full px-4">
                         <text className=" text-white font-medium">Terima</text>
                     </button>
-                </div> */}
+                </div>}
 
                 {/* <button className="bg-ppmb-blue-600 flex items-center justify-center py-[2px] rounded-lg w-full" onClick={() => router.push("/networking/dummy")}>
                     <text className=" text-ppmb-000 font-medium">Networking</text>
