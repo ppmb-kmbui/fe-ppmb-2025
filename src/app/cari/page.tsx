@@ -58,7 +58,6 @@ const CariPage: React.FC = () => {
     const getRandomQuote = useCallback(async () => {
         try {
             setIsFetching(true);
-
             const res = await api({
                 method: 'GET',
                 url: "api/quotes"
@@ -89,16 +88,12 @@ const CariPage: React.FC = () => {
         }
     };
 
-    console.log(token, "ini token use auth");
-    console.log(Cookies.get('token'), "ini token kukis")
-
     useEffect(() => {
         getData();
     }, [searchParams])
 
     useEffect(() => {
         if (!hasFetchedQuote.current) {
-            // console.log("efek get ran");
             getRandomQuote();
             hasFetchedQuote.current = true;
         }
