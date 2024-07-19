@@ -4,6 +4,7 @@ import { Button, FileInput, Header, Input } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { HiChatAlt2 } from "react-icons/hi";
 
@@ -30,7 +31,7 @@ interface NetworkingAssignmentProps {
     questions: QuestionAnswerProps[]
 }
 
-const NetworkingAssignmentPage: React.FC = () => {
+const NetworkingAssignmentPage: React.FC<{ params: { uuid: string } }> = ({ params: { uuid } }) => {
     const [networkingAssignment, setNetworkingAssignment] = useState<NetworkingAssignmentProps>();
     const [answer1, setAnswer1] = useState<string>(""); 
     const [answer2, setAnswer2] = useState<string>(""); 
