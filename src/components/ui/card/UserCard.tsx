@@ -30,7 +30,7 @@ export const UserCard: React.FC<FriendProps> = ({
 
             setDynamicStatus("menunggu_konfirmasi");
         } catch (error: any) {
-            console.error("Error in following friend", error);
+            console.error("Error while following friend", error);
         } finally {
             setIsLoading(false);
         }
@@ -48,7 +48,7 @@ export const UserCard: React.FC<FriendProps> = ({
             })
             setDynamicStatus("accepted");
         } catch (error: any) {
-            console.error("Error in accepting friend", error);
+            console.error("Error while accepting friend", error);
         } finally {
             setIsLoading(false);
         }
