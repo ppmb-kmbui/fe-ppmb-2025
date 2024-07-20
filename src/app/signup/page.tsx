@@ -17,7 +17,6 @@ const SignupPage: React.FC = () => {
     const [password, setPassword] = useState<string>("");
     const [repassword, setRepassword] = useState<string>("");
     const [photo, setPhoto] = useState<File | null>(null);
-    const [photoUrl, setPhotoUrl] = useState<string>("");
 
     const { register } = useAuth();
     const router = useRouter();
@@ -48,13 +47,10 @@ const SignupPage: React.FC = () => {
     ]
 
     const handleFileChange = (file: File | null) => {
-        setPhoto(file);
-
         if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            setPhotoUrl(imageUrl);
+            setPhoto(file);
         } else {
-            setPhotoUrl("");
+            setPhoto(null);
         }
     };
 
@@ -75,13 +71,13 @@ const SignupPage: React.FC = () => {
                 form
             );
     
-            await setPhotoUrl(res.data.url);
-            await register(email, parseInt(batch), fullname, password, faculty, photoUrl);
+            await register(email, parseInt(batch), fullname, password, faculty, res.data.url);
 
         } catch (error: any) {
             console.error("Error while signing up:", error);
         }
     };
+    
     
     return (
         <div className="min-h-screen flex flex-col h-full">

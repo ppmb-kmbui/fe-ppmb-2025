@@ -1,19 +1,80 @@
 "use client"
 
-import { UserCard } from "@/components";
+import { Modal, UserCard } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
+import axios from "axios";
 import Image from "next/image";
+import { useState } from "react";
 import { HiPencil } from "react-icons/hi";
+import { useDisclosure } from "react-use-disclosure";
 
 const ProfilPage: React.FC = () => {
+    const [photo, setPhoto] = useState<File | null>(null);
+    const [photoUrl, setPhotoUrl] = useState<string>("");
 
-    const { user } = useAuth();
+    const { close, open, isOpen } = useDisclosure();
 
-    // console.log(user);
+
+    const { user, token } = useAuth();
+
+    console.log(user);
+
+
+    const getData = () => {
+        try {
+
+        } catch {
+
+        } finally {
+
+        }
+    }
+
+    
+    console.log(user.imgUrl)
+
+
+    const handleEditProfile = async () => {
+        // Formality
+        if (!photo) {
+            console.error('No photo selected.');
+            return;
+        }
+
+        try {
+            const form = new FormData();
+            form.append('file', photo);
+            form.append('upload_preset', 'ppmb_kmbui');
+    
+            const res = await axios.post(
+                `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                form
+            );
+            await setPhotoUrl(res.data.url);
+
+        } catch {
+
+        } finally {
+
+        }
+    }
+
+    console.log(token)
+
+    console.log(user)
 
     return (
         <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
+            <Modal
+                isOpen={isOpen}
+                onClose={close}
+                type="image"
+                label="Edit foto profile"
+                sublabel="Foto harus dalam bentuk .jpg/.jpeg/.png"
+                handleSubmit={handleEditProfile}
+            />
+
             <div className="flex flex-col md:flex-row gap-5 lg:gap-10">
                 <div className="flex w-full md:w-[70%] lg:w-[80%] flex-row bg-white rounded-lg py-6 px-5 md:py-8 lg:p-8 gap-3 md:gap-5 lg:gap-7 h-[160px] md:h-[200px] items-center shadow-custom">
                     <div className="relative flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
@@ -25,7 +86,7 @@ const ProfilPage: React.FC = () => {
                             className="rounded-full"
                         />
 
-                        <button className="absolute bottom-0 right-0 bg-white p-1 md:p-[7px] md:text-[20px] rounded-full text-ppmb-blue-600 border-[2px] border-ppmb-blue-600">
+                        <button className="absolute bottom-0 right-0 bg-white p-1 md:p-[7px] md:text-[20px] rounded-full text-ppmb-blue-600 border-[2px] border-ppmb-blue-600" onClick={open}>
                             <HiPencil />
                         </button>
                     </div>

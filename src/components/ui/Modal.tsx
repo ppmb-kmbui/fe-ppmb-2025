@@ -7,13 +7,16 @@ import { Input } from "./Input";
 import { Button } from "./Button";
 
 interface ModalProps {
-    type: "input" | "file"
-    isOpen: boolean;
-    onClose: () => void;
+    type: "input" | "file" | "image"
+    isOpen: boolean
+    onClose: () => void
+    label: string
+    sublabel: string
+    handleSubmit: () => void
   }
 
 export const Modal:React.FC<ModalProps> = ({
-    isOpen, onClose, type="file"
+    isOpen, onClose, type="file", label, sublabel
 }) => {
     const [file, setFile] = useState<File | null>(null);
     const [input, setInput] = useState<string>("");
@@ -29,16 +32,16 @@ export const Modal:React.FC<ModalProps> = ({
 
                 <div className="flex flex-col gap-2">
                     {type == "input" && <div className="flex flex-col">
-                        <text className="text-xl font-medium">Kumpulkan tugasmu</text>
-                        <text className="italic text-sm">Ini kalo ada format pengumpulan nama</text>
+                        <text className="text-xl font-medium">{label}</text>
+                        <text className="italic text-sm">{sublabel}</text>
                     </div>}
                    
-                    {type == "file" ? 
+                    {type == "file" || type == "image" ? 
                         <FileInput
                             file={file}
-                            label="Unggah berkas tugas"
+                            label={label}
                             setFile={setFile}
-                            description="Ini kalo ada deskripsi pengumpulan"
+                            description={sublabel}
                         />
                         :
                         <Input 
