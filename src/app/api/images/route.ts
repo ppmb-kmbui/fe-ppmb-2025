@@ -1,22 +1,30 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import cloudinary from 'cloudinary';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { v2 as cloudinary } from 'cloudinary';
 
-cloudinary.v2.config({
+cloudinary.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+    api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-export const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { publicId } = req.body;
+export const DELETE = async (req: Request) => {
+    try {
+        const body = await req.json();
+        const imageUrl = body.imgUrl;
 
-    console.log(publicId, "test")
+        const parts = imageUrl.split('/');
+        const publicIdWithExtension = parts.pop();
+        if (!publicIdWithExtension) {
+            throw new Error('Invalid public ID');
+        }
+        const publicId = publicIdWithExtension.split('.')[0];
+        const response = await cloudinary.uploader.destroy(publicId);
 
-    // try {
-    //     await cloudinary.v2.uploader.destroy(publicId);
-    //     res.status(200).json({ message: 'Image deleted successfully' });
-    // } catch (error) {
-    //     console.error('Error deleting image:', error);
-    //     res.status(500).json({ message: 'Failed to delete image', error });
-    // }
+        // res.status(200).json({ message: 'Image deleted', response });
+        return new Response("yow")
+    } catch (error: any) {
+        // res.status(500).json({ error: 'Failed to delete image', details: error.message });
+        return new Response("nay");
+    }
+
 }

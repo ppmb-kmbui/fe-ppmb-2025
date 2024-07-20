@@ -8,6 +8,8 @@ export interface UserProps {
     faculty: string
     batch: number 
     isAdmin: boolean
+    followers: number
+    networking_tasks: any[]
 }
 
 export interface FriendProps extends UserProps {

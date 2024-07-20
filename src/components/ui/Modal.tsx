@@ -13,12 +13,14 @@ interface ModalProps {
     label: string
     sublabel: string
     handleSubmit: () => void
+    handleFileChange?: (file: File | null) => void
+    file?: File | null
   }
 
 export const Modal:React.FC<ModalProps> = ({
-    isOpen, onClose, type="file", label, sublabel
+    isOpen, onClose, type="file", label, sublabel, handleSubmit, 
+    handleFileChange=() => {}, file=null // default value for file
 }) => {
-    const [file, setFile] = useState<File | null>(null);
     const [input, setInput] = useState<string>("");
 
     return (
@@ -40,7 +42,7 @@ export const Modal:React.FC<ModalProps> = ({
                         <FileInput
                             file={file}
                             label={label}
-                            setFile={setFile}
+                            setFile={handleFileChange}
                             description={sublabel}
                         />
                         :
@@ -53,7 +55,7 @@ export const Modal:React.FC<ModalProps> = ({
 
                     <div className="flex justify-center mt-4">
                         <Button 
-                            handleClick={onClose}
+                            handleClick={() => {handleSubmit(), onClose()}}
                             label="Kumpulkan"
                             variant="md"
                         />
