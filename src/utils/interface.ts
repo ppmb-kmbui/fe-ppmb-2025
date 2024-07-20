@@ -9,7 +9,7 @@ export interface UserProps {
     batch: number 
     isAdmin: boolean
     followers: number
-    networking_tasks: any[]
+    networking_tasks: FriendProps[]
 }
 
 export interface FriendProps extends UserProps {

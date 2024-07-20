@@ -128,10 +128,12 @@ const ProfilPage: React.FC = () => {
 
             <div className="flex flex-col gap-1 md:gap-3 mt-2">
                 <text className="text-xl md:text-2xl lg:text-3xl font-semibold">Sudah Berkenalan dengan</text>
-                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6">
-                    {/* {DATA.map((data, key) => (
-                        <UserCard key={key} {...data}/>
-                    ))} */}
+                <div className={`${user.networking_tasks.length == 0 ?  "flex" : "grid"} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6`}>
+                    {user.networking_tasks.map((friend, key) => (
+                        <UserCard key={key} {...friend}/>
+                    ))}
+
+                    <text className={`${user.networking_tasks.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Kamu belum menyelesaikan networking dengan siapa pun</text>
                 </div>
             </div>
         </div>
