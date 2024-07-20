@@ -1,6 +1,7 @@
 "use client"
 
-import { Header, UserCard } from "@/components";
+import { Header, LoadingScreen, UserCard } from "@/components";
+import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
 import { FriendProps } from "@/utils/interface";
@@ -17,6 +18,8 @@ const NetworkingPage: React.FC = () => {
     const [menungguPersetujuanFriends, setMenungguPersetujuanFriends] = useState<FriendProps[]>([]);
     const [lanjutkanNetworkingFriends, setLanjutkanNetworkingFriends] = useState<FriendProps[]>([]);
 
+    const { token } = useAuth();
+
     const getData = async () => {
         try {
             setIsFetching(true);
@@ -24,11 +27,13 @@ const NetworkingPage: React.FC = () => {
                 url: "api/friends",
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer `
+                    Authorization: `Bearer ${token}`
                 }
             })
 
-            const friends: FriendProps[] = res.data;
+            const friends: FriendProps[] = res.data.friends;
+
+            console.log(friends, "ini friends dalem try")
 
             setMenungguPersetujuanFriends(
                 friends.filter(friend => friend.status === "menunggu_konfirmasi")
@@ -49,7 +54,10 @@ const NetworkingPage: React.FC = () => {
         getData();
     }, [])
 
+    console.log(lanjutkanNetworkingFriends, "lanjut")
+
     return (
+        isFetching ? <LoadingScreen /> :
         <div className="min-h-screen flex flex-col gap-10 pb-10">
             <Header label="Networking" subLabel="KMBUI" />
 
@@ -74,7 +82,7 @@ const NetworkingPage: React.FC = () => {
                         <UserCard key={key} {...friend}/>
                     ))}
 
-                    <text className={`${menungguPersetujuanFriends.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text>
+                    <text className={`${lanjutkanNetworkingFriends.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text>
                 </div>
             </div>
         </div>
