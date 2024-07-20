@@ -36,7 +36,7 @@ const NetworkingPage: React.FC = () => {
             console.log(friends, "ini friends dalem try")
 
             setMenungguPersetujuanFriends(
-                friends.filter(friend => friend.status === "menunggu_konfirmasi")
+                friends.filter(friend => friend.status === "meminta_konfirmasi")
             );
 
             setLanjutkanNetworkingFriends(
