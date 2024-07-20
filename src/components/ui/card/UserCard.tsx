@@ -55,7 +55,21 @@ export const UserCard: React.FC<FriendProps> = ({
     }
 
     const reject = async () => {
-        // TODO: Ask backend to implement reject
+        try {
+            setIsLoading(true);
+            await api({
+                url: `api/networking/${id}`,
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            setDynamicStatus("not_connected");
+        } catch (error: any) {
+            console.error("Error while rejecting friend", error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const createNetworkingTask = async () => {

@@ -7,55 +7,10 @@ import Image from "next/image";
 import { HiPencil } from "react-icons/hi";
 
 const ProfilPage: React.FC = () => {
-    const DATA = [
-        {
-            fullname: "Ariana Grande",
-            faculty: "FEB",
-            batch: '2024'           
-        },
-        {
-            fullname: "Lana del Rey",
-            faculty: "FIB",
-            batch: '2024'
-        },
-        {
-            fullname: "Billie Eilish",
-            faculty: "FT",
-            batch: '2024'
-        },
-        {
-            fullname: "Jennie BLACKPINK",
-            faculty: 'FEB',
-            batch: '2024'
-        },
-        {
-            fullname: "Stephen Sanchez",
-            faculty: "Fasilkom",
-            batch: '2024'
-        },
-        {
-            fullname: "Taylor Swift",
-            faculty: "FH",
-            batch: '2024'
-        },
-        {
-            fullname: "DJ Python Typescript Yeehaw",
-            faculty: "FF",
-            batch: '2024'
-        },
-        {
-            fullname: "Nadin Amizah",
-            faculty: "Fpsi",
-            batch: '2024'
-        },
-        {
-            fullname: "NIKI",
-            faculty: "FEB",
-            batch: '2024'
-        },
-    ]
 
     const { user } = useAuth();
+
+    // console.log(user);
 
     return (
         <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
@@ -93,9 +48,9 @@ const ProfilPage: React.FC = () => {
             <div className="flex flex-col gap-1 md:gap-3 mt-2">
                 <text className="text-xl md:text-2xl lg:text-3xl font-semibold">Sudah Berkenalan dengan</text>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6">
-                    {DATA.map((data, key) => (
+                    {/* {DATA.map((data, key) => (
                         <UserCard key={key} {...data}/>
-                    ))}
+                    ))} */}
                 </div>
             </div>
         </div>

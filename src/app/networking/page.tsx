@@ -14,7 +14,7 @@ interface ConnectionRequestProps {
 }
 
 const NetworkingPage: React.FC = () => {
-    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [isFetching, setIsFetching] = useState<boolean>(true);
     const [menungguPersetujuanFriends, setMenungguPersetujuanFriends] = useState<FriendProps[]>([]);
     const [lanjutkanNetworkingFriends, setLanjutkanNetworkingFriends] = useState<FriendProps[]>([]);
 
