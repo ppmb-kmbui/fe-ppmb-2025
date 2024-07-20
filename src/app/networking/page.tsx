@@ -5,13 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
 import { FriendProps } from "@/utils/interface";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-
-interface ConnectionRequestProps {
-    connection_request_received: []
-    connection_request_send: []
-}
 
 const NetworkingPage: React.FC = () => {
     const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -53,8 +47,6 @@ const NetworkingPage: React.FC = () => {
     useEffect(() => {
         getData();
     }, [])
-
-    console.log(lanjutkanNetworkingFriends, "lanjut")
 
     return (
         isFetching ? <LoadingScreen /> :
