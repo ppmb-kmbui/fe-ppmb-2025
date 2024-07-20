@@ -85,7 +85,7 @@ export const UserCard: React.FC<FriendProps> = ({
     }
 
     return (
-        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:p-5 rounded-xl min-h-[230px] lg:min-h-[270px] min-w-[160px] lg:min-w-[225px] shadow-ppmb-200 shadow-custom">
+        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:px-4 lg:py-5 rounded-xl min-h-[230px] lg:h-[270px] min-w-[160px] lg:w-[225px] shadow-ppmb-200 shadow-custom">
             <div className="flex h-[45%] items-center justify-center">
                 <div className="h-[80px] w-[80px] md:h-[90px] md:w-[90px] flex">
                     <Image
@@ -105,12 +105,12 @@ export const UserCard: React.FC<FriendProps> = ({
             </div>
 
             <div className="flex h-[15%] justify-center items-center">
-                { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-1 bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
+                { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
                     <HiPlus className="text-white"/>
                     <text className="font-medium">Ikuti</text>
                 </button>}
 
-                { dynamicStatus == "menunggu_konfirmasi" && <button className="mx-1 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
+                { dynamicStatus == "menunggu_konfirmasi" && <button className="mx-2 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
                     <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
                 </button>}
 
@@ -124,11 +124,11 @@ export const UserCard: React.FC<FriendProps> = ({
                     </button>
                 </div>}
 
-                { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-1 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={createNetworkingTask} disabled={isLoading}>
+                { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={createNetworkingTask} disabled={isLoading}>
                     <text className=" text-ppmb-000 font-medium">Networking</text>
                 </button>}
 
-                { dynamicStatus == "sedang_networking" && <button className={`mx-1 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={() => router.push(`/networking/${id}`)} >
+                { dynamicStatus == "sedang_networking" && <button className={`mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={() => router.push(`/networking/${id}`)} >
                     <text className=" text-ppmb-000 font-medium">Networking</text>
                 </button>}
 
