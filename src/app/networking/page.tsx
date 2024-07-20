@@ -2,7 +2,10 @@
 
 import { Header, UserCard } from "@/components";
 import withAuth from "@/hoc/withAuth";
+import { api } from "@/utils/axios";
+import { FriendProps } from "@/utils/interface";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface ConnectionRequestProps {
     connection_request_received: []
@@ -10,44 +13,41 @@ interface ConnectionRequestProps {
 }
 
 const NetworkingPage: React.FC = () => {
-    // const DATA = [
-    //     {
-    //         name: "Ariana Grande",
-    //         faculty: "FEB, 2024"
-    //     },
-    //     {
-    //         name: "Lana del Rey",
-    //         faculty: "FIB, 2024"
-    //     },
-    //     {
-    //         name: "Billie Eilish",
-    //         faculty: "FT, 2024"
-    //     },
-    //     {
-    //         name: "Jennie BLACKPINK",
-    //         faculty: "FEB, 2024"
-    //     },
-    //     {
-    //         name: "Stephen Sanchez",
-    //         faculty: "Fasilkom, 2024"
-    //     },
-    //     {
-    //         name: "Taylor Swift",
-    //         faculty: "FH, 2024"
-    //     },
-    //     {
-    //         name: "DJ Python Typescript Yeehaw",
-    //         faculty: "FF, 2024"
-    //     },
-    //     {
-    //         name: "Nadin Amizah",
-    //         faculty: "Fpsi, 2024"
-    //     },
-    //     {
-    //         name: "NIKI",
-    //         faculty: "FEB, 2024"
-    //     },
-    // ]
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [menungguPersetujuanFriends, setMenungguPersetujuanFriends] = useState<FriendProps[]>([]);
+    const [lanjutkanNetworkingFriends, setLanjutkanNetworkingFriends] = useState<FriendProps[]>([]);
+
+    const getData = async () => {
+        try {
+            setIsFetching(true);
+            const res = await api({
+                url: "api/friends",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer `
+                }
+            })
+
+            const friends: FriendProps[] = res.data;
+
+            setMenungguPersetujuanFriends(
+                friends.filter(friend => friend.status === "menunggu_konfirmasi")
+            );
+
+            setLanjutkanNetworkingFriends(
+                friends.filter(friend => friend.status === "accepted" || friend.status === "sedang_networking")
+            );
+
+        } catch (error: any) {
+            console.error("Error while getting networking data");
+        } finally {
+            setIsFetching(false);
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
 
     return (
         <div className="min-h-screen flex flex-col gap-10 pb-10">
@@ -57,11 +57,12 @@ const NetworkingPage: React.FC = () => {
                 <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
                 <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
-                    {/* {DATA.map((data, key) => (
-                        <UserCard key={key} fullname={data.name} faculty={data.faculty} />
-                    ))} */}
+                    
+                    {menungguPersetujuanFriends.map((friend, key) => (
+                        <UserCard key={key} {...friend} />
+                    ))}
 
-                    {/* <text className="text-lg italic w-full text-ppmb-500">Tidak ada permintaan pertemanan :(</text> */}
+                    <text className={`${menungguPersetujuanFriends.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Tidak ada permintaan pertemanan :(</text>
                 </div>
             </div>
 
@@ -69,11 +70,11 @@ const NetworkingPage: React.FC = () => {
                 <text className="text-[27px] leading-[1.6] font-semibold">Lanjutkan Networking</text>
 
                 <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
-                    {/* {DATA.map((data, key) => (
-                        <UserCard key={key} fullname={data.name} faculty={data.faculty}/>
-                    ))} */}
+                    {lanjutkanNetworkingFriends.map((friend, key) => (
+                        <UserCard key={key} {...friend}/>
+                    ))}
 
-                    {/* <text className="text-lg italic w-full text-ppmb-500">Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text> */}
+                    <text className={`${menungguPersetujuanFriends.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text>
                 </div>
             </div>
         </div>
