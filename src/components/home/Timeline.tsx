@@ -4,6 +4,7 @@ import { useState } from "react";
 import './style.css';
 import Image from "next/image";
 import { Button } from "../ui/Button";
+import { dateToIndonesianString } from "@/utils/date";
 
 interface TimelineProps {
     name: string
@@ -30,6 +31,13 @@ export const Timeline: React.FC = () => {
             description: "Lorem ipsum.",
             startDate: new Date(2024, 7, 3),
             endDate: new Date(2024, 7, 3),
+            img: "",
+        },
+        {
+            name: "Display UKM",
+            description: "Lorem ipsum.",
+            startDate: new Date(2024, 7, 13),
+            endDate: new Date(2024, 7, 14),
             img: "",
         },
         {
@@ -93,7 +101,7 @@ export const Timeline: React.FC = () => {
                     {TIMELINES.map((timeline, key) => (
                         <div key={key} className={`${key % 2 === 1 ? 'self-end' : 'self-start'} li flex flex-col items-center min-w-[180px]`}>
                             <div className="flex flex-col px-3 py-2 w-full rounded-xl items-center hover:bg-ppmb-100 hover:bg-opacity-70 cursor-pointer">
-                                <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{timeline.startDate == timeline.endDate ? "" : ""}</div>
+                                <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `- ${dateToIndonesianString(timeline.endDate)}` }</div>
                                 <span className="font-semibold text-xl text-ppmb-800">{timeline.name}</span>
                             </div>
                         </div>
