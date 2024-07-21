@@ -8,7 +8,7 @@ interface TaskProps extends AssingmentProps {
 }
 
 export const TaskCard: React.FC<TaskProps> = ({
-    name, description, deadline, icon, type, namingFormat
+    name, description, deadline, icon, type, namingFormat, template
 }) => {
     const { open, isOpen, close } = useDisclosure(false);
 
@@ -44,10 +44,14 @@ export const TaskCard: React.FC<TaskProps> = ({
             </div>
 
             <div className="flex justify-end gap-2 mt-2 lg:mt-3">
-                <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
-                    <text>Template</text>
-                    <HiDownload />
-                </button>
+                { template && 
+                  <a href={template} target="_blank" rel="noopener noreferrer">
+                        <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                            <text>Template</text>
+                            <HiDownload />
+                        </button> 
+                    </a>
+                }
 
                 {/* <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pr-[16px] py-[2px] text-sm rounded-lg">
                     <HiOutlineFolderOpen size={20}/>

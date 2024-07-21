@@ -129,7 +129,7 @@ const TugasPage: React.FC = () => {
             isFinished: progress.firstFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling1",
             type: "file",
-            template: ""
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
             id: "fossib-2",
@@ -140,7 +140,7 @@ const TugasPage: React.FC = () => {
             isFinished: progress.secondFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
             type: "file",
-            template: ""
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
             id: "networking-2023",
@@ -151,7 +151,7 @@ const TugasPage: React.FC = () => {
             isFinished: false,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
             type: "file",
-            template: ""
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
             id: "networking-2022",
@@ -162,7 +162,7 @@ const TugasPage: React.FC = () => {
             isFinished: false,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
             type: "file",
-            template: ""
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
             id: "networking-2021",
@@ -173,7 +173,7 @@ const TugasPage: React.FC = () => {
             isFinished: false,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
             type: "file",
-            template: ""
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
             id: "mentoring-sr",
@@ -184,7 +184,7 @@ const TugasPage: React.FC = () => {
             isFinished: false,
             namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
             type: "image",
-            template: ""
+            template: "https://www.canva.com/design/DAGKvoTzibg/xWWM0zwn6hPYRy5qN0hX6A/view?utm_content=DAGKvoTzibg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
         },
         {
             id: "mentoring-v",
@@ -204,8 +204,8 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineUsers />,
             isFinished: false,
             namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",
-            type: "image",
-            template: ""
+            type: "file",
+            template: "https://drive.google.com/file/d/1YlWD1fHyxUPzCd0f2qRbHaOKNBvelWol/view"
         },
     ]
 
