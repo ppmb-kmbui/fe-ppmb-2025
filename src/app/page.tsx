@@ -9,11 +9,11 @@ const Homepage = () => {
 
   // console.log(user, "ini user")
 
-  console.log("token di home", token);
-  console.log(isAuthenticated);
+  // console.log("token di home", token);
+  // console.log(isAuthenticated);
   
   return (
-    <div className='min-h-screen gap-5 md:gap-10 xl:gap-[60px] flex flex-col pb-10'>
+    <div className='min-h-screen gap-5 md:gap-8 flex flex-col pb-8'>
       <Carousel />
       <Timeline />
       <Faq />

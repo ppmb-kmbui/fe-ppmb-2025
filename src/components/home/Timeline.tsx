@@ -20,7 +20,7 @@ export const Timeline: React.FC = () => {
 
     const TIMELINES: TimelineProps[] = [
         {
-            name: "Welcoming MaBa Part 1",
+            name: "WelMab Part 1",
             description: "Welcoming MaBa Part 1 merupakan sebuah acara untuk mengenal dan saling berkenalan dengan mahasiswa baru yang masuk melalui jalur SNBP. Sebagai mahasiswa baru yang belum familiar dengan lingkungan UI, pada acara ini akan diperkenalkan lingkungan-lingkungan di UI seperti ada fakultas apa saja dan sarana prasarana apa saja yang disediakan oleh UI.",
             startDate: new Date(2024, 4, 11),
             endDate: new Date(2024, 4, 11),
@@ -84,7 +84,7 @@ export const Timeline: React.FC = () => {
         },
     ];
 
-    const timelineWidth = TIMELINES.length * 180;
+    // const timelineWidth = TIMELINES.length * 180;
 
     return (
         <div className='flex flex-col items-center gap-5'>
@@ -93,16 +93,13 @@ export const Timeline: React.FC = () => {
                 <span>Kegiatan</span>
             </div>
 
-            <div 
-                className='hidden timeline relative lg:flex min-h-[160px] overflow-x-auto w-[90vw] scrollbar-hide pl-5' 
-                style={{ '--timeline-width': `${timelineWidth}px` } as React.CSSProperties}
-            >
+            <div className='hidden timeline relative lg:flex min-h-[175px] overflow-x-auto w-[90vw] scrollbar-hide pl-5'>
                 <div className="inline-flex">
                     {TIMELINES.map((timeline, key) => (
-                        <div key={key} className={`${key % 2 === 1 ? 'self-end' : 'self-start'} li flex flex-col items-center min-w-[180px]`}>
-                            <div className="flex flex-col px-3 py-2 w-full rounded-xl items-center hover:bg-ppmb-100 hover:bg-opacity-70 cursor-pointer">
-                                <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `- ${dateToIndonesianString(timeline.endDate)}` }</div>
-                                <span className="font-semibold text-xl text-ppmb-800">{timeline.name}</span>
+                        <div key={key} className={`${key % 2 === 1 ? 'self-end' : 'self-start'} li flex flex-col items-center min-w-[200px]`}>
+                            <div className="flex flex-col px-3 py-2 w-full rounded-2xl items-center hover:bg-ppmb-100 hover:bg-opacity-70 cursor-pointer">
+                                <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-[5px] text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex whitespace-nowrap">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `— ${dateToIndonesianString(timeline.endDate)}` }</div>
+                                <span className="font-semibold text-xl text-ppmb-800 whitespace-nowrap">{timeline.name}</span>
                             </div>
                         </div>
                     ))}
