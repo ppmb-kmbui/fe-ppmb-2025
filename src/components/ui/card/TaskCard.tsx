@@ -1,4 +1,4 @@
-import { HiDownload, HiLink, HiOutlineAcademicCap, HiOutlineCalendar, HiOutlineFolderOpen } from "react-icons/hi"
+import { HiDownload, HiLink, HiOutlineAcademicCap, HiOutlineCalendar, HiOutlineCursorClick, HiOutlineFolderOpen } from "react-icons/hi"
 import { useDisclosure } from "react-use-disclosure"
 import { Modal } from "@/components";
 import { AssingmentProps } from "@/app/tugas/page";
@@ -8,9 +8,18 @@ interface TaskProps extends AssingmentProps {
 }
 
 export const TaskCard: React.FC<TaskProps> = ({
-    name, description, deadline, icon, type, namingFormat, template
+    id, name, description, deadline, icon, type, namingFormat, isFinished,
+    template, vbg, rsvp
 }) => {
     const { open, isOpen, close } = useDisclosure(false);
+
+    // const handleSubmit = () => {
+    //     switch (id) {
+    //         case (""):
+    //             console.log("hi");
+    //             break
+    //     }
+    // }
 
     return (
         <div className="flex flex-col p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2">
@@ -44,14 +53,29 @@ export const TaskCard: React.FC<TaskProps> = ({
             </div>
 
             <div className="flex justify-end gap-2 mt-2 lg:mt-3">
+                { rsvp && 
+                <a href={rsvp} target="_blank" rel="noopener noreferrer">
+                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                        <text>RSVP</text>
+                        <HiOutlineCursorClick size={17}/>
+                    </button> 
+                </a>}
+
+                { vbg && 
+                <a href={vbg} target="_blank" rel="noopener noreferrer">
+                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                        <text>VBG</text>
+                        <HiDownload />
+                    </button> 
+                </a>}
+
                 { template && 
-                  <a href={template} target="_blank" rel="noopener noreferrer">
-                        <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
-                            <text>Template</text>
-                            <HiDownload />
-                        </button> 
-                    </a>
-                }
+                <a href={template} target="_blank" rel="noopener noreferrer">
+                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                        <text>Template</text>
+                        <HiDownload />
+                    </button> 
+                </a>}
 
                 {/* <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pr-[16px] py-[2px] text-sm rounded-lg">
                     <HiOutlineFolderOpen size={20}/>
