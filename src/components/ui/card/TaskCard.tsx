@@ -1,17 +1,14 @@
 import { HiDownload, HiLink, HiOutlineAcademicCap, HiOutlineCalendar, HiOutlineFolderOpen } from "react-icons/hi"
 import { useDisclosure } from "react-use-disclosure"
 import { Modal } from "@/components";
+import { AssingmentProps } from "@/app/tugas/page";
 
-interface TaskProps {
-    name: string
-    description: string
-    deadline: string
-    icon: React.ReactNode
-    type?: string
+interface TaskProps extends AssingmentProps {
+
 }
 
 export const TaskCard: React.FC<TaskProps> = ({
-    name, description, deadline, icon, type
+    name, description, deadline, icon, type, namingFormat
 }) => {
     const { open, isOpen, close } = useDisclosure(false);
 
@@ -20,7 +17,10 @@ export const TaskCard: React.FC<TaskProps> = ({
             <Modal
                 isOpen={isOpen}
                 onClose={close}
-                type="input"
+                type={type}
+                label={`Kumpul berkas ${name}`}
+                handleSubmit={() => {}}
+                sublabel={namingFormat}
             />
 
             <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:justify-between">

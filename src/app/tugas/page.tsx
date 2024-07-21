@@ -38,7 +38,8 @@ interface ProgressProps {
     insightHuntingDone: boolean
 }
 
-interface AssingmentProps {
+export interface AssingmentProps {
+    id: string
     name: string
     description: string
     deadline: string
@@ -57,6 +58,7 @@ const TugasPage: React.FC = () => {
     const [progress, setProgress] = useState<ProgressProps>({} as any)
     const [isFetching, setIsFetching] = useState<boolean>(true);
 
+    // console.log(token);
 
     const getData = async () => {
         try {
@@ -106,6 +108,7 @@ const TugasPage: React.FC = () => {
 
     const ASSINGMENTS: AssingmentProps[] = [
         {
+            id: "insight-hunting",
             name: "Insight Hunting",
             description: "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
             deadline: "29/08/2024",
@@ -118,6 +121,7 @@ const TugasPage: React.FC = () => {
             vbg: "https://drive.google.com/file/d/18QDIWk0txOuxGM6OvyFeOjTdo8urAyC6/view?usp=drive_link"
         },
         {
+            id: "fossib-1",
             name: "Fossib: Sharing Insight",
             description: "Maba dan kakak asuh melakukan sharing bersama untuk dapat saling mengenal dan bertukar wawasan mengenai kehidupan perkuliahan.",
             deadline: "29/08/2024",
@@ -128,6 +132,7 @@ const TugasPage: React.FC = () => {
             template: ""
         },
         {
+            id: "fossib-2",
             name: "Fossib: Fun Activity",
             description: "Setelah sharing insight, maba dan kakak asuh melakukan kegiatan bersama untuk dapat saling mendekatkan diri.",
             deadline: "29/08/2024",
@@ -138,6 +143,7 @@ const TugasPage: React.FC = () => {
             template: ""
         },
         {
+            id: "networking-2023",
             name: "Networking Kating 2023",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2023.",
             deadline: "31/08/2024",
@@ -148,6 +154,7 @@ const TugasPage: React.FC = () => {
             template: ""
         },
         {
+            id: "networking-2022",
             name: "Networking Kating 2022",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2022.",
             deadline: "31/08/2024",
@@ -158,6 +165,7 @@ const TugasPage: React.FC = () => {
             template: ""
         },
         {
+            id: "networking-2021",
             name: "Networking Kating 2021",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2021.",
             deadline: "31/08/2024",
@@ -168,6 +176,7 @@ const TugasPage: React.FC = () => {
             template: ""
         },
         {
+            id: "mentoring-sr",
             name: "Mentoring: Self Reflection",
             description: "Setelah tiap sesi mentoring, maba diharapkan dapat menulis rangkuman intisari dari kegiatan yang dilakukan sesuai kreativitas masing-masing.",
             deadline: "11/09/2024",
@@ -178,6 +187,7 @@ const TugasPage: React.FC = () => {
             template: ""
         },
         {
+            id: "mentoring-v",
             name: "Mentoring: Vlog",
             description: "Vlog berisi  cuplikan kegiatan selama mentoring dengan durasi maksimal 3 menit, dikumpulkan oleh ketua kelompok.",
             deadline: "11/09/2024",
@@ -187,6 +197,7 @@ const TugasPage: React.FC = () => {
             type: "input",
         },
         {
+            id: "kmbui-explorer",
             name: "KMBUI Explorer",
             description: "Maba mengikuti paling sedikit 2 proker yang diadakan oleh KMBUI agar lebih mengenali KMBUI dan nilai-nilai Buddhis.",
             deadline: "11/09/2024",
@@ -242,6 +253,7 @@ const TugasPage: React.FC = () => {
                             </div>
                         ))}
                     </div>
+
                 </div>
             </div>
         </div>
