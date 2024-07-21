@@ -14,6 +14,7 @@ const config: Config = {
 
       colors: {
         'ppmb-000': '#f5f5f5',
+        'ppmb-50': "#e9e9e9",
         'ppmb-100': '#dddddd',
         'ppmb-200': '#c4c4c4',
         'ppmb-300': '#acacac',
