@@ -241,11 +241,12 @@ const TugasPage: React.FC = () => {
                             </div>
                         ))}
                     </div>
+                    <text className={`${ASSINGMENTS.filter(assignment => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
+
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
                     <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Sudah Dikumpulkan</text>
-
                     <div className="flex flex-col gap-5">
                         {ASSINGMENTS.map((assingment, key) => (
                             <div className={`${assingment.isFinished == false && "hidden"}`}>
@@ -253,7 +254,7 @@ const TugasPage: React.FC = () => {
                             </div>
                         ))}
                     </div>
-
+                    <text className={`${ASSINGMENTS.filter(assignment => assignment.isFinished).length > 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
                 </div>
             </div>
         </div>
