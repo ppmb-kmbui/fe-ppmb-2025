@@ -55,7 +55,7 @@ export const TaskCard: React.FC<TaskProps> = ({
             <div className="flex justify-end gap-2 mt-2 lg:mt-3">
                 { rsvp && 
                 <a href={rsvp} target="_blank" rel="noopener noreferrer">
-                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg hover:bg-ppmb-100">
                         <text>RSVP</text>
                         <HiOutlineCursorClick size={17}/>
                     </button> 
@@ -63,7 +63,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
                 { vbg && 
                 <a href={vbg} target="_blank" rel="noopener noreferrer">
-                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg hover:bg-ppmb-100">
                         <text>VBG</text>
                         <HiDownload />
                     </button> 
@@ -71,7 +71,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
                 { template && 
                 <a href={template} target="_blank" rel="noopener noreferrer">
-                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg">
+                    <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-sm rounded-lg hover:bg-ppmb-100">
                         <text>Template</text>
                         <HiDownload />
                     </button> 
@@ -87,7 +87,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                     <text>Cek Link</text>
                 </button> */}
 
-                <button className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-sm rounded-lg" onClick={open}>
+                <button className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-sm rounded-lg hover:bg-ppmb-blue-700" onClick={open}>
                     <text>Submit</text>
                 </button>
 
