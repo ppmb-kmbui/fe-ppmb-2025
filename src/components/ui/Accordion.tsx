@@ -24,7 +24,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                 </div>
             </div>
 
-            <div className={`${value == selected ? "max-h-[200px] mb-3" : "max-h-0"} bg-white px-4 lg:px-7 rounded-lg mt-2 overflow-hidden transition-max-height ease-in-out duration-300`}>
+            <div className={`${value == selected ? "max-h-[300px] mb-3 py-3" : "max-h-0"} bg-white px-4 lg:px-7  rounded-lg mt-2 overflow-hidden transition-max-height ease-in-out duration-300`}>
                 <div className="flex py-2 lg:py-3 text-xs md:text-sm lg:text-[16px] lg:leading-[1.65rem]">
                     {answer}
                 </div>
