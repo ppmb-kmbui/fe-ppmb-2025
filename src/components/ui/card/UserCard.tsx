@@ -119,37 +119,46 @@ export const UserCard: React.FC<FriendProps> = ({
             </div>
 
             <div className="flex h-[15%] justify-center items-center">
-                { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
-                    <HiPlus className="text-white"/>
-                    <text className="font-medium">Ikuti</text>
-                </button>}
-
-                { dynamicStatus == "menunggu_konfirmasi" && <button className="mx-2 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
-                    <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
-                </button>}
-
-                { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
-                    <button className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-2`} onClick={reject} disabled={isLoading}>
-                        <text className=" text-ppmb-red-500 font-semibold">Tolak</text>
-                    </button> 
-
-                    <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success flex items-center justify-center rounded-lg w-full px-4`} onClick={accept} disabled={isLoading}>
-                        <text className="text-white font-medium">Terima</text>
+                { batch != 2024 ? 
+                    <button className="mx-2 border-ppmb-500 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
+                        <text className=" text-ppmb-500 font-semibold">Angkatan {batch}</text>
                     </button>
-                </div>}
+                :
+                    <>
 
-                { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={createNetworkingTask} disabled={isLoading}>
-                    <text className=" text-ppmb-000 font-medium">Networking</text>
-                </button>}
+                        {dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2`} onClick={follow} disabled={isLoading}>
+                            <HiPlus className="text-white"/>
+                            <text className="font-medium">Ikuti</text>
+                        </button>}
 
-                { dynamicStatus == "sedang_networking" && <button className={`mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={() => router.push(`/networking/${id}`)} >
-                    <text className=" text-ppmb-000 font-medium">Networking</text>
-                </button>}
+                        { dynamicStatus == "menunggu_konfirmasi" && <button className="mx-2 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed">
+                            <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
+                        </button>}
 
-                { dynamicStatus == "done" && <button className="bg-ppmb-200 text-ppmb-700 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium">
-                    <text className="font-medium">Selesai</text>
-                    <HiCheck size={20}/>
-                </button>}
+                        { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
+                            <button className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-2`} onClick={reject} disabled={isLoading}>
+                                <text className=" text-ppmb-red-500 font-semibold">Tolak</text>
+                            </button> 
+
+                            <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success flex items-center justify-center rounded-lg w-full px-4`} onClick={accept} disabled={isLoading}>
+                                <text className="text-white font-medium">Terima</text>
+                            </button>
+                        </div>}
+
+                        { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={createNetworkingTask} disabled={isLoading}>
+                            <text className=" text-ppmb-000 font-medium">Networking</text>
+                        </button>}
+
+                        { dynamicStatus == "sedang_networking" && <button className={`mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full`} onClick={() => router.push(`/networking/${id}`)} >
+                            <text className=" text-ppmb-000 font-medium">Networking</text>
+                        </button>}
+
+                        { dynamicStatus == "done" && <button className="bg-ppmb-200 text-ppmb-700 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium">
+                            <text className="font-medium">Selesai</text>
+                            <HiCheck size={20}/>
+                        </button>}
+                    </>
+                }
             </div>
         </div>
     )
