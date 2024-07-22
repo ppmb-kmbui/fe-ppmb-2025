@@ -153,7 +153,7 @@ export const UserCard: React.FC<FriendProps> = ({
                             <text className=" text-ppmb-000 font-medium">Networking</text>
                         </button>}
 
-                        { dynamicStatus == "done" && <button className="bg-ppmb-200 text-ppmb-700 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium">
+                        { dynamicStatus == "done" && <button className="mx-2 bg-ppmb-success text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium">
                             <text className="font-medium">Selesai</text>
                             <HiCheck size={20}/>
                         </button>}
