@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext"
 import { api } from "@/utils/axios"
 import { FriendProps } from "@/utils/interface"
+import { facultyCase } from "@/utils/stringUtils"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -115,7 +116,7 @@ export const UserCard: React.FC<FriendProps> = ({
 
             <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center">
                 <text className="font-semibold md:text-lg leading-none">{truncateFullname(fullname)}</text>
-                <text className="text-xs md:text-sm italic text-ppmb-600">{faculty}, {batch}</text>
+                <text className="text-xs md:text-sm italic text-ppmb-600">{facultyCase(faculty)}, {batch}</text>
             </div>
 
             <div className="flex h-[15%] justify-center items-center">
