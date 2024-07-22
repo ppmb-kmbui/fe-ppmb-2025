@@ -131,7 +131,7 @@ export const Timeline: React.FC = () => {
                             src={TIMELINES[index].img}
                             width={210}
                             height={210}
-                            className="rounded-lg"
+                            className="rounded-xl"
                         />
                     </div>
                 </div>
