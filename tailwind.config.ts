@@ -25,21 +25,8 @@ const config: Config = {
         'ppmb-800': '#313131',
         'ppmb-900': '#181818',
 
-        // "ppmb-red-300": "#fba195",
-        // "ppmb-red-400": "#fb9588",
-        // // "ppmb-red-500": "#FA897B",
-        // "ppmb-red-500": "#db3324",
-        // // "ppmb-red-500": "#f2392a",
-        // "ppmb-red-600": "#e17b6f",
-        // "ppmb-red-700": "#c86e62",
-
         "ppmb-red-100": "#fde8e8",
-        // "ppmb-red-200": "#f37a72",
-        // "ppmb-red-300": "#f1645b",
-        // "ppmb-red-400": "#e91a1a",
         "ppmb-red-500": "#e91a1a",
-        // "ppmb-red-600": "#d41f12",
-
 
         "ppmb-blue-100": "#e9f1fc",
         "ppmb-blue-200": "#a8c9f4",
@@ -51,11 +38,8 @@ const config: Config = {
         "ppmb-blue-800": "#0b2444",
         "ppmb-blue-900": "#040c17",
 
-        // "ppmb-green-500": "#00b000",
-        // "ppmb-success": "#21cc21",
         "ppmb-success": "#1eb81e",
         "ppmb-warning": "#d6bd02"
-
       },
 
       boxShadow: {
