@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Dropdown } from "@/components";
+import { Button, Dropdown, LoadingScreen } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
@@ -71,6 +71,7 @@ const AdminPage: React.FC = () => {
     }, [])
 
     return (
+        isFetching ? <LoadingScreen /> :
         <div className="min-h-screen p-10 gap-10 flex-col flex">
             <div className="flex flex-col">
                 <div className="flex flex-row justify-between items-center">
