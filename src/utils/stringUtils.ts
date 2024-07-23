@@ -6,3 +6,13 @@ export const facultyCase = (str: string): string => {
     return str.toUpperCase();
 }
 
+export const generateAttendanceCode = (): string => {
+    const STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#"
+    let randomString = "";
+    for (let i = 0; i < 8; i++) {
+        const randomIndex = Math.floor(Math.random() * STRING.length);
+        randomString += STRING[randomIndex];
+    }
+
+    return randomString;
+}
