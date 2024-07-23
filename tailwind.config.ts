@@ -42,6 +42,7 @@ const config: Config = {
 
 
         "ppmb-blue-100": "#e9f1fc",
+        "ppmb-blue-200": "#a8c9f4",
         "ppmb-blue-300": "#66a0eb",
         "ppmb-blue-400": "#5192e9",
         "ppmb-blue-500": "#2577e3",
