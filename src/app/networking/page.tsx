@@ -27,8 +27,6 @@ const NetworkingPage: React.FC = () => {
 
             const friends: FriendProps[] = res.data.friends;
 
-            console.log(friends, "ini friends dalem try")
-
             setMenungguPersetujuanFriends(
                 friends.filter(friend => friend.status === "meminta_konfirmasi")
             );
