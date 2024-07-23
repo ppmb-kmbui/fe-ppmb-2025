@@ -33,7 +33,7 @@ const config: Config = {
         // "ppmb-red-600": "#e17b6f",
         // "ppmb-red-700": "#c86e62",
 
-        
+        "ppmb-red-100": "#fde8e8",
         // "ppmb-red-200": "#f37a72",
         // "ppmb-red-300": "#f1645b",
         // "ppmb-red-400": "#e91a1a",

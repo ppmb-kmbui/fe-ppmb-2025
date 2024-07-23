@@ -78,10 +78,22 @@ const AdminPage: React.FC = () => {
                     <Button label="Buat Absensi" handleClick={generateAttendance}/>
                 </div>
 
-                <div>
+                <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     {attendances.map((attendance, key) => (
-                        <div key={key}>
-                            hiii
+                        <div key={key} className="bg-white rounded-xl p-5 min-w-[340px] h-[230px] shadow-custom">
+                            <div className="flex flex-col h-full">
+                                <text className="text-xl font-medium">{attendance.name}</text>
+
+                                <div className="flex items-center justify-center flex-1">
+                                    <text className="text-5xl font-semibold ">{attendance.code}</text>
+                                </div>
+
+                                <div className="flex flex-row gap-2">
+                                    {/* TODO: implement dynamic style, add w-full */}
+                                    <Button label="Salin" handleClick={() => {}} />
+                                    <button className="text-ppmb-red-500 border-[2px] border-ppmb-red-500 rounded-md p-2 hover:bg-ppmb-red-100"><HiOutlineTrash size={20}/></button>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
