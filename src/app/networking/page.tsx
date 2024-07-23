@@ -48,6 +48,7 @@ const NetworkingPage: React.FC = () => {
 
     return (
         isFetching ? <LoadingScreen /> :
+        // TODO: [BUG] Card not moving after status changed
         <div className="min-h-screen flex flex-col gap-10 pb-10">
             <Header label="Networking" subLabel="KMBUI" />
 
