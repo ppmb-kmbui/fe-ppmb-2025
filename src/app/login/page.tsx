@@ -36,7 +36,7 @@ const LoginPage: React.FC = () => {
 
                     <div className="flex items-center flex-col gap-2">
                         <Button label="Masuk" handleClick={handleLogin} variant="lg"/>
-                        <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer" onClick={() => router.push("/signup")}>Buat Akun</span></span>
+                        <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   
                 </div>
 

@@ -101,7 +101,7 @@ const SignupPage: React.FC = () => {
                     <div className="flex items-center flex-col gap-2 mt-3">
                         {/* TODO: Implement Throttling */}
                         <Button label="Buat Akun" handleClick={handleSignUp} variant="lg"/>
-                        <span className="font-medium">Sudah memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer" onClick={() => router.push("/login")}>Login</span></span>
+                        <span className="font-medium">Sudah memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/login")}>Login</span></span>
                     </div>               
                 </div>
 
