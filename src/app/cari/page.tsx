@@ -10,8 +10,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
 
-import Cookies from "js-cookie";
-
 interface QuoteProps {
     quote: string
     fullname: string
@@ -36,7 +34,7 @@ const CariPage: React.FC = () => {
      const getData = useCallback(async () => {
         try {
             setIsSearching(true);
-            const queryString = new URLSearchParams(searchParams).toString();
+            const queryString = searchParams.toString();
             const res = await api({
                 method: 'GET',
                 url: `api/friends?${queryString}`,

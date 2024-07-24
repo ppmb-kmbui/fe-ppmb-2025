@@ -9,8 +9,14 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { HiCheck, HiPlus } from "react-icons/hi"
 
-export const UserCard: React.FC<FriendProps> = ({
-    fullname, faculty, batch, status, imgUrl, id
+interface UserCardProps extends FriendProps {
+    onAccept?: () => void
+    onReject?: () => void
+}
+
+export const UserCard: React.FC<UserCardProps> = ({
+    fullname, faculty, batch, status, imgUrl, id,
+    onAccept, onReject
 }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -48,6 +54,7 @@ export const UserCard: React.FC<FriendProps> = ({
                 }
             })
             setDynamicStatus("accepted");
+            onAccept?.();
         } catch (error: any) {
             console.error("Error while accepting friend", error);
         } finally {
@@ -66,6 +73,7 @@ export const UserCard: React.FC<FriendProps> = ({
                 }
             })
             setDynamicStatus("not_connected");
+            onReject?.()
         } catch (error: any) {
             console.error("Error while rejecting friend", error)
         } finally {

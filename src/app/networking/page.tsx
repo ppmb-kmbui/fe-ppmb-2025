@@ -42,13 +42,21 @@ const NetworkingPage: React.FC = () => {
         }
     }
 
+    const handleAccept = (acceptedFriend: FriendProps) => {
+        setMenungguPersetujuanFriends(prev => prev.filter(friend => friend.id != acceptedFriend.id));
+        setLanjutkanNetworkingFriends(prev => [...prev, {...acceptedFriend, status: "accepted"}])
+    }
+
+    const handleReject = (rejectedId: number) => {
+        setMenungguPersetujuanFriends(prev => prev.filter(friend => friend.id != rejectedId));
+    }
+
     useEffect(() => {
         getData();
     }, [])
 
     return (
         isFetching ? <LoadingScreen /> :
-        // TODO: [BUG] Card not moving after status changed
         <div className="min-h-screen flex flex-col gap-10 pb-10">
             <Header label="Networking" subLabel="KMBUI" />
 
@@ -58,7 +66,7 @@ const NetworkingPage: React.FC = () => {
                 <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
                     
                     {menungguPersetujuanFriends.map((friend, key) => (
-                        <UserCard key={key} {...friend} />
+                        <UserCard key={key} {...friend} onAccept={() => handleAccept(friend)} onReject={() => handleReject(friend.id)}/>
                     ))}
 
                     <text className={`${menungguPersetujuanFriends.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Tidak ada permintaan pertemanan :(</text>
