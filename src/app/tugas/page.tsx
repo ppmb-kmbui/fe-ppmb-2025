@@ -36,6 +36,8 @@ interface ProgressProps {
     firstFossibDone: boolean
     secondFossibDone: boolean
     insightHuntingDone: boolean
+    firstMentoringDone: boolean // TODO: ask be to change it into mentoringPptDone
+    mentoringVlogDone: boolean
 }
 
 export interface AssingmentProps {
@@ -51,6 +53,10 @@ export interface AssingmentProps {
     rsvp?: string
     vbg?: string
 }
+
+const DEFAULT_PROGRESS = [
+
+]
 
 const TugasPage: React.FC = () => {
     const { token } = useAuth();
@@ -106,6 +112,7 @@ const TugasPage: React.FC = () => {
         },
     ]
 
+    
     const ASSINGMENTS: AssingmentProps[] = [
         {
             id: "insight-hunting",
@@ -113,7 +120,7 @@ const TugasPage: React.FC = () => {
             description: "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
             deadline: "29/08/2024",
             icon: <HiOutlineLightBulb />,
-            isFinished: false,
+            isFinished: progress.insightHuntingDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
             type: "file",
             rsvp: "https://docs.google.com/forms/d/e/1FAIpQLScIHbDL7w-SaY_sDy-z7wabRaBLVKIRZ3CfwIQuJEuQD73S7Q/viewform",
@@ -181,7 +188,7 @@ const TugasPage: React.FC = () => {
             description: "Setelah tiap sesi mentoring, maba diharapkan dapat menulis rangkuman intisari dari kegiatan yang dilakukan sesuai kreativitas masing-masing.",
             deadline: "11/09/2024",
             icon: <HiOutlineDocumentText />,
-            isFinished: false,
+            isFinished: progress.firstMentoringDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
             type: "image",
             template: "https://www.canva.com/design/DAGKvoTzibg/xWWM0zwn6hPYRy5qN0hX6A/view?utm_content=DAGKvoTzibg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
@@ -192,7 +199,7 @@ const TugasPage: React.FC = () => {
             description: "Vlog berisi  cuplikan kegiatan selama mentoring dengan durasi maksimal 3 menit, dikumpulkan oleh ketua kelompok.",
             deadline: "11/09/2024",
             icon: <HiOutlineDocumentText />,
-            isFinished: false,
+            isFinished: progress.mentoringVlogDone,
             namingFormat: "[Nomor Kelompok]_[Nama Kelompok]_Vlog",
             type: "input",
         },
@@ -209,7 +216,7 @@ const TugasPage: React.FC = () => {
         },
     ]
 
-    // console.log(progress);
+    // console.log(progress.networkingKating[2021]);
     // console.log(ASSINGMENTS);
 
     return (
@@ -220,14 +227,15 @@ const TugasPage: React.FC = () => {
             <div className="flex flex-col items-center gap-3">
                 <text className="text-2xl lg:text-3xl font-semibold">Progress Tugas</text>
 
-                <div className="flex flex-col gap-2 items-center">
+                {/* TODO: wait until be fix everything about progress :)) */}
+                {/* <div className="flex flex-col gap-2 items-center">
                     <MultiProgressBar />
                     <MultiProgressBar />
 
                     {DUMMY_DATA_PROGRESS.map((data, key) => (
                         <ProgressBar key={key} {...data}/>
                     ))}
-                </div>
+                </div> */}
             </div>
 
             <div className="flex flex-col md:flex-row md:justify-evenly px-8 lg:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">

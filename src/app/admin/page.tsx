@@ -64,7 +64,7 @@ const AdminPage: React.FC = () => {
         }
     }
 
-    // console.log(attendances);
+    // console.log(token);
     
     useEffect(() => {
         getData();
