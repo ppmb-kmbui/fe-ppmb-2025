@@ -35,10 +35,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 <text className="font-semibold">{label}</text>
             </div>
 
-            <div className={`${isOpen ? "rounded-t-md" : "rounded-md"} border-[2px] border-ppmb-blue-600 relative font-semibold`} ref={ref}>
+            <div className={`${isOpen ? "rounded-t-md" : "rounded-md"} border-[2px] border-ppmb-blue-600 relative`} ref={ref}>
                 <div className="flex flex-row items-center justify-between px-3 py-[5px] cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                    <div className={`${getDisplay(dropdownValue) == null && "text-ppmb-400"} font-medium`}>
-                        {getDisplay(dropdownValue) == null ? `Pilih Fakultas` : getDisplay(dropdownValue)}
+                    <div className={`${getDisplay(dropdownValue) == null && "text-ppmb-400"} font-normal`}>
+                        {getDisplay(dropdownValue) == null ? `Pilih ${label}` : getDisplay(dropdownValue)}
                     </div>
                     <div className={`transform ${isOpen && 'rotate-180'} transition-transform duration-500 ease-in-out`}>
                         <HiChevronDown size={20}/>
