@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
 
     return (
         <div className="min-h-screen flex flex-col h-full">
-            <Header label="Buat Akun" subLabel="PPMB KMBUI 2024"/>
+            <Header label="Masuk dengan Akun" subLabel="PPMB KMBUI 2024"/>
 
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-5 h-full">
                 <div className="w-full flex flex-col font-medium gap-5 items-center justify-center">
