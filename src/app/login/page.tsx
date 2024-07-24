@@ -2,18 +2,31 @@
 
 import Image from "next/image";
 import { useState } from "react";
-
 import { Button, Header, Input } from "@/components";
 import { HiLockOpen, HiMail } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+
+const loginFormSchema = z.object({
+    email: z.string().email({ message: "Masukkan email yang valid!" }),
+    password: z.string().min(8, { message: "Password minimal terdiri dari 8 karakter!" })
+})
+
+
 
 const LoginPage: React.FC = () => {
+    const { login, isAuthenticated } = useAuth();
+    const router = useRouter();
+
+    const { register } = useForm<z.infer<typeof loginFormSchema>>({
+        resolver: zodResolver(loginFormSchema),
+    })
+
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const router = useRouter();
-    const { login, isLoading, isAuthenticated } = useAuth();
 
     console.log(isAuthenticated)
 
@@ -31,8 +44,8 @@ const LoginPage: React.FC = () => {
 
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-5 h-full">
                 <div className="w-full flex flex-col font-medium gap-5 items-center justify-center">
-                    <Input label="Email" placeholder="Kocite" setValue={setEmail} icon={<HiMail />}/>
-                    <Input label="Password" placeholder="password" setValue={setPassword} icon={<HiLockOpen />}/>
+                    <Input {...register("email")} label="Email" placeholder="Kocite" setValue={setEmail} icon={<HiMail />}/>
+                    <Input {...register("password")} label="Password" placeholder="password" setValue={setPassword} icon={<HiLockOpen />}/>
 
                     <div className="flex items-center flex-col gap-2">
                         <Button label="Masuk" handleClick={handleLogin} variant="lg"/>
@@ -55,3 +68,7 @@ const LoginPage: React.FC = () => {
 }
 
 export default LoginPage;
+
+function zodResolver(loginFormSchema: z.ZodObject<{ email: z.ZodString; password: z.ZodString; }, "strip", z.ZodTypeAny, { email: string; password: string; }, { email: string; password: string; }>): import("react-hook-form").Resolver<{ email: string; password: string; }, any> | undefined {
+    throw new Error("Function not implemented.");
+}
