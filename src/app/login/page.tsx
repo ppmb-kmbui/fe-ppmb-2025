@@ -38,8 +38,8 @@ const LoginPage: React.FC = () => {
         <div className="min-h-screen flex flex-col h-full">
             <Header label="Masuk dengan Akun" subLabel="PPMB KMBUI 2024"/>
 
-            <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-5 h-full">
-                <form onSubmit={handleSubmit(handleLogin)} className="w-full flex flex-col font-medium gap-5 items-center justify-center">
+            <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-8 lg:gap-5 h-full">
+                <form onSubmit={handleSubmit(handleLogin)} className="w-full flex flex-col font-medium gap-5 items-center justify-center px-2 lg:px-0">
                     <Input {...register("email")} placeholder="Masukkan email kamu" icon={<HiMail />} label="Email" error={errors.email?.message}/>
                     <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message}/>
 
@@ -50,12 +50,14 @@ const LoginPage: React.FC = () => {
                 </form>
 
                 <div className="flex flex-col justify-center items-center w-full">
-                    <Image 
-                        src={"/image/mascot.png"}
-                        alt="mascot"
-                        width={400}
-                        height={400}
-                    />
+                    <div className="w-[350px] lg:w-[480px] lg:h-full">
+                        <Image 
+                            src={"/image/mascot.png"}
+                            alt="mascot"
+                            width={500}
+                            height={500}
+                        />
+                    </div>
                     <text className="font-crimson text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800">#DiscoveringSelfAndPurpose</text>
                 </div>
             </div>
