@@ -18,24 +18,19 @@ const loginFormSchema = z.object({
 
 
 const LoginPage: React.FC = () => {
-    const { login, isAuthenticated } = useAuth();
+    const { login } = useAuth();
     const router = useRouter();
 
-    const { register } = useForm<z.infer<typeof loginFormSchema>>({
+    const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof loginFormSchema>>({
         resolver: zodResolver(loginFormSchema),
     })
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
-
-    console.log(isAuthenticated)
-
-    const handleLogin = async () => {
+    const handleLogin = async (data: z.infer<typeof loginFormSchema>) => {
         try{
-            await login(email, password);
-        } catch {
-            console.log("rusak bro");
+            console.log("Form Data:", data);
+            // await login(data.email, data.password);
+        } catch (error: any) {
+            console.log("Error while logging in", error);
         }
     }
 
@@ -44,15 +39,15 @@ const LoginPage: React.FC = () => {
             <Header label="Masuk dengan Akun" subLabel="PPMB KMBUI 2024"/>
 
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-5 h-full">
-                <div className="w-full flex flex-col font-medium gap-5 items-center justify-center">
-                    <Input {...register("email")} placeholder="Masukkan email kamu" icon={<HiMail />} label="Email" />
-                    <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" />
+                <form onSubmit={handleSubmit(handleLogin)} className="w-full flex flex-col font-medium gap-5 items-center justify-center">
+                    <Input {...register("email")} placeholder="Masukkan email kamu" icon={<HiMail />} label="Email" error={errors.email?.message}/>
+                    <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message}/>
 
-                    <div className="flex items-center flex-col gap-2 mt-2">
-                        <Button label="Masuk" handleClick={handleLogin} variant="lg"/>
+                    <div className="flex items-center flex-col gap-2 lg:mt-2">
+                        <Button label="Masuk" variant="lg"/>
                         <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   
-                </div>
+                </form>
 
                 <div className="flex flex-col justify-center items-center w-full">
                     <Image 

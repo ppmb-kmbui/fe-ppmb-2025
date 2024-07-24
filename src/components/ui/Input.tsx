@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { forwardRef, useState } from "react"
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi"
 import { tv } from "tailwind-variants"
 
@@ -11,7 +11,7 @@ interface InputProps {
     leftIcon?: React.ReactNode
     variant?: "standard" | "rounded"
     size?: "md" | "xl";
-    
+    error?: string
 }
 
 const inputVariants = tv({
@@ -32,9 +32,9 @@ const inputVariants = tv({
     }
 })
 
-export const Input: React.FC<InputProps> = ({
-    label, placeholder, icon, variant, size
-}) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((
+    { label, placeholder, icon, variant, size, error }, ref
+) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     return (
@@ -46,9 +46,11 @@ export const Input: React.FC<InputProps> = ({
             </div>
             
             <div className={inputVariants({ variant, size })}>
-                <input className="bg-ppmb-000 focus:outline-none placeholder:font-normal w-full" placeholder={placeholder}/>
-                {label?.split(" ").includes("Password") && <button className="pl-3" onClick={() => setIsVisible(!isVisible)}>{isVisible ? <HiEye /> : <HiEyeOff />}</button>}
+                <input ref={ref} className="bg-ppmb-000 focus:outline-none placeholder:font-normal w-full" placeholder={placeholder}/>
+                {label?.split(" ").includes("Password") && <button className="pl-3" onClick={() => setIsVisible(!isVisible)} type="button">{isVisible ? <HiEye /> : <HiEyeOff />}</button>}
             </div>
+
+            { error && <text className="text-sm text-ppmb-red-500">{error}</text>}
         </div>
     )
-}
+})

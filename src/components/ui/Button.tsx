@@ -1,6 +1,6 @@
 interface ButtonProps {
     label: string
-    handleClick: () => void
+    handleClick?: () => void
     variant?: 'lg' | 'md' | 'sm'
     type?: 'primary' | 'secondary'
 }
@@ -25,7 +25,8 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <button 
             className={`rounded-md font-medium transition-colors duration-200 ease-in-out ${variantClasses[variant]} ${typeClasses[type]}`}
-            onClick={() => handleClick()}
+            // onClick={() => handleClick()}
+            type="submit"
         >
             {label}
         </button>
