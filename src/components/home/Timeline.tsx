@@ -90,8 +90,8 @@ export const Timeline: React.FC = () => {
     ];
 
     return (
-        <div className='flex flex-col items-center gap-5'>
-            <div className='gap-3 flex text-2xl lg:text-6xl font-semibold items-center'>
+        <div className='flex flex-col items-center gap-3 lg:gap-5'>
+            <div className='gap-1 lg:gap-3 flex text-3xl md:text-4xl lg:text-6xl font-semibold items-center'>
                 <span className='text-ppmb-blue-600'>TIMELINE</span>
                 <span>Kegiatan</span>
             </div>
@@ -159,7 +159,7 @@ export const Timeline: React.FC = () => {
                             <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-ppmb-blue-600 rounded-full"></div>
                         </div>
 
-                        <div className="flex flex-row justify-between w-full p-4 rounded-lg border-[2px] border-ppmb-300 my-3">
+                        <div className={`${key == 0 ? 'mb-3' : key == TIMELINES.length - 1 ? 'mt-3' : 'my-3'} p-4 flex flex-row justify-between w-full rounded-lg border-[2px] border-ppmb-300`}>
                             <div className="w-full flex flex-col gap-4">
                                 <div className="flex flex-col gap-1">
                                     <text className="text-xl font-semibold">{timeline.name}</text>

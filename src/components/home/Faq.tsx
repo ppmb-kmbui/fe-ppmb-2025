@@ -22,8 +22,8 @@ export const Faq: React.FC = () => {
     ]
 
     return (
-        <div className='w-full flex flex-col items-center px-6 gap-1 md:gap-3 my-10'>
-          <text className='text-2xl lg:text-6xl font-semibold text-ppmb-blue-600'>FAQ</text>
+        <div className='w-full flex flex-col items-center px-6 gap-3 lg:gap-5 my-10'>
+          <text className='text-3xl md:text-4xl lg:text-6xl font-semibold text-ppmb-blue-600'>FAQ</text>
 
           <div className="flex flex-col gap-1 md:gap-2">
               {FAQS.map((data, key) => (
