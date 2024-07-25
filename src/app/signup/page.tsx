@@ -51,26 +51,14 @@ const signupFormSchema = z.object({
 })
 
 const SignupPage: React.FC = () => {
-    const [photo, setPhoto] = useState<File | null>(null);
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
     const { signUp } = useAuth();
     const router = useRouter();
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { register, control, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<z.infer<typeof signupFormSchema>>({
         resolver: zodResolver(signupFormSchema),
     });
-
-    console.log(errors);
-
-    const handleFileChange = (file: File | null) => {
-        if (file) {
-            setPhoto(file);
-        } else {
-            setPhoto(null);
-        }
-    };
 
     const handleSignUp = async (data: z.infer<typeof signupFormSchema>) => {
         console.log("ini data", data);
@@ -78,16 +66,16 @@ const SignupPage: React.FC = () => {
         try {
             setIsLoading(true);
             await new Promise<void>((resolve) => setTimeout(resolve, 5000));
-            // const form = new FormData();
-            // form.append('file', data.photo);
-            // form.append('upload_preset', 'ppmb_kmbui');
+            const form = new FormData();
+            form.append('file', data.photo);
+            form.append('upload_preset', 'ppmb_kmbui');
     
-            // const res = await axios.post(
-            //     `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-            //     form
-            // );
+            const res = await axios.post(
+                `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                form
+            );
     
-            // await signUp(email, parseInt(batch), fullname, password, faculty, res.data.url);
+            await signUp(data.email, parseInt(data.batch), data.fullname, data.password, data.faculty.toUpperCase(), res.data.url);
 
         } catch (error: any) {
             console.error("Error while signing up:", error);
@@ -108,12 +96,12 @@ const SignupPage: React.FC = () => {
                         <Dropdown options={BATCHES} dropdownValue={watch("batch")} setDropdownValue={(value) => setValue("batch", value)} label="Angkatan" icon={<HiAcademicCap />} error={errors.batch?.message && "Angkatan tidak boleh kosong!"}/>
                     </div>
 
-                    <Input {...register("fullname")} label="Nama Lengkap" placeholder="Koko Cici Teman-teman" icon={<HiUser />} error={errors.fullname?.message}/>
+                    <Input {...register("fullname")} label="Nama Lengkap" placeholder="Masukkan nama" icon={<HiUser />} error={errors.fullname?.message}/>
                     <Dropdown options={FACULTIES} dropdownValue={watch("faculty")} setDropdownValue={(value) => setValue("faculty", value)} label="Fakultas" icon={<HiLibrary />} error={errors.faculty?.message && "Fakultas tidak boleh kosong!"}/>
 
                     <div className="flex flex-col md:flex-row gap-5 w-full">
-                        <Input {...register("password")} label="Password" placeholder="password" icon={<HiLockOpen />} error={errors.password?.message}/>
-                        <Input {...register("reconfirmPassword")} label="Konfirmasi Password" placeholder="password" icon={<HiLockClosed />} error={errors.reconfirmPassword?.message}/>
+                        <Input {...register("password")} label="Password" placeholder="Masukkan password" icon={<HiLockOpen />} error={errors.password?.message}/>
+                        <Input {...register("reconfirmPassword")} label="Konfirmasi Password" placeholder="Konfirmasi password" icon={<HiLockClosed />} error={errors.reconfirmPassword?.message}/>
                     </div>
                   
                     <div className="flex items-center flex-col gap-1 lg:mt-1">
