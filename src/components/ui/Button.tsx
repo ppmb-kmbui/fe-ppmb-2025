@@ -26,8 +26,8 @@ const buttonVariants = tv({
         },
         size: {
             sm: "",
-            md: "px-6 py-[6px]",
-            lg: "w-[125px] h-[45px]"
+            md: "min-w-[80px] min-h-[35px]",
+            lg: "min-w-[125px] min-h-[45px]"
         }
     },
     compoundVariants: [
