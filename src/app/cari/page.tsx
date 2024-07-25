@@ -5,10 +5,13 @@ import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
 import { FriendProps, UserProps } from "@/utils/interface";
+import { zodResolver } from "@hookform/resolvers/zod";
 import debounce from "debounce";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { HiOutlineChat, HiSearch } from "react-icons/hi";
+import { z } from "zod";
 
 interface QuoteProps {
     quote: string
@@ -16,6 +19,10 @@ interface QuoteProps {
     faculty: string
     batch: string
 }
+
+const quoteFromSchema = z.object({
+    quote: z.string().min(1, { message: "Pesan minimal terdiri dari 1 karakter" }).max(100, { message: "Pesan maksimal terdiri dari 100 karakter" })
+})
 
 const CariPage: React.FC = () => {
     const [quote, setQuote] = useState<string>("");
@@ -26,10 +33,14 @@ const CariPage: React.FC = () => {
     const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(true);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
-    const { token, user } = useAuth(); 
+    const { token } = useAuth(); 
     const searchParams = useSearchParams();
     const router = useRouter();
     const hasFetchedQuote = useRef(false);
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof quoteFromSchema>>({
+        resolver: zodResolver(quoteFromSchema),
+    })
 
      const getData = useCallback(async () => {
         try {
@@ -141,9 +152,9 @@ const CariPage: React.FC = () => {
             <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
                 <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
                 <div className="flex gap-2 md:gap-4 items-center w-full justify-center">
-                    <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setQuote} type="rounded" />
+                    <Input {...register("quote")} placeholder="Kirim pesanmu!" leftIcon={<HiOutlineChat />} size="xl"/>
                     {/* TODO: Implement throttling */}
-                    <Button handleClick={handleSubmitQuote} label="Kirim" variant="lg"/>
+                    <Button label="Kirim" size="lg" type="submit"/>
                 </div>
             </div>
 

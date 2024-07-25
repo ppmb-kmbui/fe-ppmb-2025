@@ -9,21 +9,21 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "
     placeholder: string
     icon?: React.ReactNode
     leftIcon?: React.ReactNode
-    variant?: "standard" | "rounded"
+    variant?: "standard"
     error?: string
     size?: "md" | "xl";
 }
 
 const inputVariants = tv({
-    base: "flex flex-row border-[2px] border-ppmb-blue-600 text-ppmb-800 py-[5px] bg-ppmb-000 items-center",
+    base: "flex flex-row border-[2px] border-ppmb-blue-600 text-ppmb-800 bg-ppmb-000 items-center",
     variants: {
         variant: {
-            standard: "rounded-md px-3 w-full",
-            rounded: "rounded-3xl px-5" 
+            standard: "rounded-md w-full",
+            // rounded: "rounded-3xl px-5" 
         },
         size: {
-            md: "text-lg",
-            xl: ""
+            md: "text-lg py-[5px] px-3",
+            xl: "text-xl py-2 px-4"
         }
     },
     defaultVariants: {
@@ -46,7 +46,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((
             </div>
             
             <div className={inputVariants({ variant, size })}>
-                <input ref={ref} className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full" type={label?.split(" ").includes("Password") && !isVisible ? "password" : "text"} placeholder={placeholder} {...props}/>
+                <input ref={ref} className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full font-medium" type={label?.split(" ").includes("Password") && !isVisible ? "password" : "text"} placeholder={placeholder} {...props}/>
                 {label?.split(" ").includes("Password") && <button className="pl-3" onClick={() => setIsVisible(!isVisible)} type="button">{isVisible ? <HiEye /> : <HiEyeOff />}</button>}
             </div>
 
