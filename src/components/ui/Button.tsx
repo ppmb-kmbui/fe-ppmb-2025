@@ -26,7 +26,7 @@ const buttonVariants = tv({
         },
         size: {
             sm: "",
-            md: "min-w-[80px] min-h-[35px] px-6 py-[6px]",
+            md: "min-w-[60px] lg:min-w-[80px] min-h-[30px] lg:min-h-[35px] px-4 lg:px-6 py-1 lg:py-[6px] text-sm lg:text-[16px]",
             lg: "min-w-[125px] min-h-[45px]"
         }
     },
@@ -49,12 +49,12 @@ export const Button: React.FC<ButtonProps> = ({
     ...props
 }) => {
     return (
-        <button className={`${buttonVariants({ variant, color, size })} ${leftIcon && "pr-8"} ${rightIcon && "pl-2"}`} {...props}>
+        <button className={`${buttonVariants({ variant, color, size })} ${leftIcon && "pr-6 lg:pr-8"} ${rightIcon && "pl-2"}`} {...props}>
             {props.disabled ? 
                 <div className={`loader-button ${loaderSizes[size]}`} /> 
             : 
                 <>
-                    {leftIcon && <span className="text-[20px]">{leftIcon}</span>}
+                    {leftIcon && <span className="text-[18px] lg:text-[20px]">{leftIcon}</span>}
                     {label}
                     {rightIcon && <span>{rightIcon}</span>}
                 </>
