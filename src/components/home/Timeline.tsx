@@ -5,6 +5,8 @@ import './style.css';
 import Image from "next/image";
 import { Button } from "../ui/Button";
 import { dateToIndonesianString } from "@/utils/date";
+import { TbBrandZoom } from "react-icons/tb";
+import Link from "next/link";
 
 interface TimelineProps {
     name: string
@@ -12,7 +14,8 @@ interface TimelineProps {
     startDate: Date
     endDate: Date
     img: string
-    rsvp?: string 
+    rsvp?: string
+    zoom?: string
 
 }
 export const Timeline: React.FC = () => {
@@ -24,14 +27,15 @@ export const Timeline: React.FC = () => {
             description: "Welcoming MaBa Part 1 merupakan sebuah acara untuk mengenal dan saling berkenalan dengan mahasiswa baru yang masuk melalui jalur SNBP. Sebagai mahasiswa baru yang belum familiar dengan lingkungan UI, pada acara ini akan diperkenalkan lingkungan-lingkungan di UI seperti ada fakultas apa saja dan sarana prasarana apa saja yang disediakan oleh UI.",
             startDate: new Date(2024, 4, 11),
             endDate: new Date(2024, 4, 11),
-            img: "/image/eternal-sunshine.jpg",
+            img: "/image/welmab-1.jpg",
         },
         {
             name: "Pre-event",
-            description: "Lorem ipsum.",
+            description: "Pre-event merupakan acara PPMB 2024 untuk memperkenalkan KMBUI serta menjelaskan terkait main-event yaitu tugas-tugas yang perlu dikerjakan oleh mahasiswa baru.",
             startDate: new Date(2024, 7, 3),
             endDate: new Date(2024, 7, 3),
-            img: "/image/eternal-sunshine.jpg",
+            img: "/image/pre-event.jpg",
+            zoom: "https://www.ristek.link/WelmabKMB2024"
         },
         {
             name: "Display UKM",
@@ -42,49 +46,48 @@ export const Timeline: React.FC = () => {
         },
         {
             name: "Insight Hunting",
-            description: "Lorem ipsum.",
-            startDate: new Date(2024, 7, 16),
-            endDate: new Date(2024, 7, 16),
-            img: "/image/eternal-sunshine.jpg",
-        },
-        {
-            name: "Foster sibling",
-            description: "Lorem ipsum.",
-            startDate: new Date(2024, 7, 29),
-            endDate: new Date(2024, 7, 29),
-            img: "/image/eternal-sunshine.jpg",
-        },
-        {
-            name: "Networking",
-            description: "Lorem ipsum.",
-            startDate: new Date(2024, 7, 31),
-            endDate: new Date(2024, 7, 31),
-            img: "/image/eternal-sunshine.jpg",
+            description: "Insight Hunting menjadi sarana untuk menggali wawasan dari narasumber yang berpengalaman di kategori beasiswa, organisasi, lomba, dan student exchange.",
+            startDate: new Date(2024, 7, 5),
+            endDate: new Date(2024, 7, 9),
+            img: "/image/insight-hunting.jpg",
         },
         {
             name: "Mentoring",
-            description: "Lorem ipsum.",
-            startDate: new Date(2024, 8, 11),
-            endDate: new Date(2024, 8, 11),
-            img: "/image/eternal-sunshine.jpg",
+            description: "Pada sesi mentoring, maba secara berkelompok mengenal KMBUI, ajaran buddha, dan kehidupan perkuliahan.",
+            startDate: new Date(2024, 7, 5),
+            endDate: new Date(2024, 7, 28),
+            img: "/image/mentoring.jpg",
         },
         {
             name: "KMBUI Explorer",
-            description: "Lorem ipsum.",
-            startDate: new Date(2024, 8, 11),
+            description: "Yuk, ikuti keseruan kegiatan/proker di KMBUI!!",
+            startDate: new Date(2024, 7, 5),
             endDate: new Date(2024, 8, 11),
-            img: "/image/eternal-sunshine.jpg",
+            img: "/image/kmbui-explorer.jpg",
+        },
+        {
+            name: "Networking",
+            description: "Networking menjadi kesempatan untuk mencari teman sesama maba maupun kakak tingkat.",
+            startDate: new Date(2024, 7, 10),
+            endDate: new Date(2024, 7, 31),
+            img: "/image/networking.jpg",
+        },
+        {
+            name: "Foster sibling",
+            description: "Kakak asuh membimbing adiknya dalam menyesuaikan diri dengan kehidupan perkuliahan. Melalui kegiatan sharing insight dan fun activity, hubungan akan menjadi semakin erat.",
+            startDate: new Date(2024, 7, 16),
+            endDate: new Date(2024, 7, 29),
+            img: "/image/fossib.jpg",
         },
         {
             name: "Closing PPMB",
-            description: "Lorem ipsum.",
+            description: "Closing merupakan acara puncak dari seluruh rangkaian kegiatan PPMB 2024.",
             startDate: new Date(2024, 8, 21),
             endDate: new Date(2024, 8, 21),
-            img: "/image/eternal-sunshine.jpg",
+            img: "/image/closing.jpg",
+            rsvp: "hi"
         },
     ];
-
-    // const timelineWidth = TIMELINES.length * 180;
 
     return (
         <div className='flex flex-col items-center gap-5'>
@@ -107,7 +110,7 @@ export const Timeline: React.FC = () => {
             </div>
 
             <div className="w-full px-12 hidden lg:flex">
-                <div className="flex flex-row justify-between w-full p-14 rounded-2xl border-[2px] bg-ppmb-50 border-ppmb-blue-700 max-h-[300px]">
+                <div className="flex flex-row justify-between w-full p-[52px] rounded-2xl border-[2px] bg-ppmb-50 border-ppmb-blue-700 max-h-[300px]">
                     <div className="w-[75%] flex flex-col gap-4">
                         <div className="flex flex-col gap-2">
                             <text className="text-4xl font-semibold">{TIMELINES[index].name}</text>
@@ -120,7 +123,17 @@ export const Timeline: React.FC = () => {
 
                         {TIMELINES[index].rsvp && <div className="flex h-full">
                             <div className="self-end">
-                                <Button handleClick={() => {}} label="RSVP" variant="md"/>
+                                <Link href={TIMELINES[index].rsvp} target="_blank" rel="noopener noreferrer">
+                                    <Button label="RSVP" size="md"/>
+                                </Link>
+                            </div>
+                        </div>}
+
+                        {TIMELINES[index].zoom && <div className="flex h-full">
+                            <div className="self-end">
+                                <Link href={TIMELINES[index].zoom} target="_blank" rel="noopener noreferrer">
+                                    <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
+                                </Link>
                             </div>
                         </div>}
                     </div>
@@ -163,7 +176,7 @@ export const Timeline: React.FC = () => {
 
                                 <div className="flex h-full">
                                     <div className="self-end">
-                                    <Button handleClick={() => {}} label="RSVP" variant="md" />
+                                    <Button onClick={() => {}} label="RSVP" size="md" />
                                     </div>
                                 </div>
                             </div>
