@@ -44,6 +44,7 @@ const config: Config = {
 
       boxShadow: {
         'custom': '4px 4px 10px rgba(0, 0, 0, 0.1)',
+        'custom-sm': '3px 3px 7px rgba(0, 0, 0, 0.1)',
       },
     },
   },

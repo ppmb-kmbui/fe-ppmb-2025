@@ -108,7 +108,7 @@ export const UserCard: React.FC<UserCardProps> = ({
     }
 
     return (
-        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:px-4 lg:py-5 rounded-xl min-h-[230px] lg:h-[270px] min-w-[160px] lg:w-[225px] shadow-ppmb-200 shadow-custom">
+        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:px-4 lg:py-5 rounded-xl min-h-[240px] lg:h-[270px] min-w-[160px] lg:w-[225px] shadow-ppmb-200 shadow-custom-sm md:shadow-custom">
             <div className="flex h-[45%] items-center justify-center">
                 <div className="h-[80px] w-[80px] md:h-[90px] md:w-[90px] flex">
                     <Image

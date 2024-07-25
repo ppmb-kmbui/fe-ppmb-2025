@@ -122,7 +122,7 @@ const CariPage: React.FC = () => {
 
     return (
         isFetching ? <LoadingScreen /> :
-        <div className="min-h-screen flex flex-col items-center gap-10">
+        <div className="min-h-screen flex flex-col items-center gap-3 md:gap-5 lg:gap-8">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
                     <text className="text-ppmb-000">NETWORKING</text>
@@ -142,7 +142,7 @@ const CariPage: React.FC = () => {
                 <Loader />
                 : 
                 <>
-                    <div className={`${friends.length == 0 ? 'hidden' : 'grid'} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7`}>
+                    <div className={`${friends.length == 0 ? 'hidden' : 'grid'} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-8`}>
                         {friends.map((friend, key) => (
                             <UserCard key={key} {...friend} />
                         ))}
