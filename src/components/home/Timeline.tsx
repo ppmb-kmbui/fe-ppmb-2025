@@ -162,34 +162,30 @@ export const Timeline: React.FC = () => {
                         <div className="flex flex-row justify-between w-full p-4 rounded-lg border-[2px] border-ppmb-300 my-3">
                             <div className="w-full flex flex-col gap-4">
                                 <div className="flex flex-col gap-1">
-                                    <text className="text-xl font-semibold">Acara Placeholder</text>
+                                    <text className="text-xl font-semibold">{timeline.name}</text>
                                     <div className="flex">
-                                        <div className="bg-gradient-to-r from-ppmb-blue-700 to-ppmb-blue-500 rounded-xl py-1 px-3 text-[10px] font-medium text-ppmb-000 justify-center flex">
-                                            12 Jun 2024
-                                        </div>
+                                        <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `— ${dateToIndonesianString(timeline.endDate)}` }</div>
                                     </div>
                                 </div>  
 
-                                <div className="text-xs">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lorem purus, maximus sed est quis, hendrerit imperdiet nulla. Proin at sapien eget orci malesuada tincidunt. Vivamus a congue nibh, in suscipit massa. Mauris sapien nibh, aliquam ac maximus ut, auctor nec lacus. Nam tempor ut tortor eget consectetur.
-                                </div>
+                                <div className="text-xs">{timeline.description}</div>
 
-                                <div className="flex h-full">
+                                {timeline.rsvp && <div className="flex h-full mt-4">
                                     <div className="self-end">
-                                    <Button onClick={() => {}} label="RSVP" size="md" />
+                                        <Link href={timeline.rsvp} target="_blank" rel="noopener noreferrer">
+                                            <Button label="RSVP" size="md"/>
+                                        </Link>
                                     </div>
-                                </div>
-                            </div>
+                                </div>}
 
-                            {/* <div className="w-[35%] flex items-center justify-center">
-                            <Image 
-                                alt="rett"
-                                src={"/image/rett.jpg"}
-                                width={350}
-                                height={350}
-                                className="rounded-lg"
-                            />
-                            </div> */}
+                                {timeline.zoom && <div className="flex h-full mt-4">
+                                    <div className="self-end">
+                                        <Link href={timeline.zoom} target="_blank" rel="noopener noreferrer">
+                                            <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
+                                        </Link>
+                                    </div>
+                                </div>}
+                            </div>
                         </div>
                     </div>
                 ))}
