@@ -153,7 +153,7 @@ const CariPage: React.FC = () => {
             }
 
             <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
-                <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
+                <text className="text-lg md:text-2xl font-semibold">Kirim pesan ke teman-teman kamu!</text>
                 <form onSubmit={handleSubmit(handleSubmitQuote)} className="flex gap-2 md:gap-4 items-center w-full justify-center">
                     <Input {...register("quote")} placeholder="Kirim pesanmu!" leftIcon={<HiOutlineChat />} size="lg" error={errors.quote?.message}/>
                     <Button label="Kirim" size="lg" type="submit" disabled={isSubmitQuote} className="self-start"/>

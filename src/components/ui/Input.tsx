@@ -23,7 +23,7 @@ const inputVariants = tv({
         },
         size: {
             md: "text-lg py-[5px] px-3",
-            lg: "text-xl px-4 h-[45px]"
+            lg: "text-lg lg:text-xl px-3 lg:px-4 h-[40px] lg:h-[45px]"
         }
     },
     defaultVariants: {
