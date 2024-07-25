@@ -116,7 +116,7 @@ const SignupPage: React.FC = () => {
                         <Input {...register("reconfirmPassword")} label="Konfirmasi Password" placeholder="password" icon={<HiLockClosed />} error={errors.reconfirmPassword?.message}/>
                     </div>
                   
-                    <div className="flex items-center flex-col gap-2 mt-3">
+                    <div className="flex items-center flex-col gap-1 lg:mt-1">
                         <Button label="Buat Akun" size="lg" type="submit" disabled={isLoading}/>
                         <span className="font-medium">Sudah memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/login")}>Login</span></span>
                     </div>               
