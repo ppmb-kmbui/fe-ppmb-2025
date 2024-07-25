@@ -76,7 +76,7 @@ const AdminPage: React.FC = () => {
             <div className="flex flex-col">
                 <div className="flex flex-row justify-between items-center">
                     <text className="text-[27px] leading-[1.6] font-semibold">Absensi PPMB</text>
-                    <Button label="Buat Absensi" handleClick={generateAttendance}/>
+                    <Button label="Buat Absensi" onClick={generateAttendance}/>
                 </div>
 
                 <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
@@ -91,7 +91,7 @@ const AdminPage: React.FC = () => {
 
                                 <div className="flex flex-row gap-2">
                                     {/* TODO: implement dynamic style, add w-full */}
-                                    <Button label="Salin" handleClick={() => {}} />
+                                    <Button label="Salin" onClick={() => {}} />
                                     <button className="text-ppmb-red-500 border-[2px] border-ppmb-red-500 rounded-md p-2 hover:bg-ppmb-red-100"><HiOutlineTrash size={20}/></button>
                                 </div>
                             </div>
