@@ -75,6 +75,13 @@ body {
   animation: spin 2s linear infinite;
 }
 
+.loader-button {
+  border: 5px solid #f5f5f5; 
+  border-top: 5px solid #acacac;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
 
 @keyframes spin {
   0% { transform: rotate(0deg); }

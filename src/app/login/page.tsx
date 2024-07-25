@@ -15,10 +15,9 @@ const loginFormSchema = z.object({
     password: z.string().min(8, { message: "Password minimal terdiri dari 8 karakter!" })
 })
 
-
-
 const LoginPage: React.FC = () => {
     const { login } = useAuth();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
     const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof loginFormSchema>>({
@@ -27,9 +26,14 @@ const LoginPage: React.FC = () => {
 
     const handleLogin = async (data: z.infer<typeof loginFormSchema>) => {
         try{
+            setIsLoading(true)
             await login(data.email, data.password);
         } catch (error: any) {
-            console.log("Error while logging in", error);
+            console.log("Error while logging in", error.message);
+        } finally {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 500);
         }
     }
 
@@ -43,7 +47,7 @@ const LoginPage: React.FC = () => {
                     <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message} />
 
                     <div className="flex items-center flex-col gap-2 lg:mt-2">
-                        <Button label="Masuk" type="submit" size="lg"/>
+                        <Button label="Masuk" type="submit" size="lg" disabled={isLoading}/>
                         <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   
                 </form>
