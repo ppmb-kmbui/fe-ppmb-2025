@@ -27,8 +27,7 @@ const LoginPage: React.FC = () => {
 
     const handleLogin = async (data: z.infer<typeof loginFormSchema>) => {
         try{
-            console.log("Form Data:", data);
-            // await login(data.email, data.password);
+            await login(data.email, data.password);
         } catch (error: any) {
             console.log("Error while logging in", error);
         }
