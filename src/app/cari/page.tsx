@@ -10,7 +10,7 @@ import debounce from "debounce";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { HiOutlineChat, HiSearch } from "react-icons/hi";
+import { HiOutlineChat } from "react-icons/hi";
 import { z } from "zod";
 
 interface QuoteProps {
@@ -20,17 +20,16 @@ interface QuoteProps {
     batch: string
 }
 
-const quoteFromSchema = z.object({
-    quote: z.string().min(1, { message: "Pesan minimal terdiri dari 1 karakter" }).max(100, { message: "Pesan maksimal terdiri dari 100 karakter" })
+const quoteFormSchema = z.object({
+    quote: z.string().min(1, { message: "Pesan minimal terdiri dari 1 karakter!" }).max(100, { message: "Pesan maksimal terdiri dari 100 karakter!" })
 })
 
 const CariPage: React.FC = () => {
-    const [quote, setQuote] = useState<string>("");
     const [friends, setFriends] = useState<FriendProps[]>([]);
     const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
 
     const [isFetching, setIsFetching] = useState<boolean>(true);
-    const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(true);
+    const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(false);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
     const { token } = useAuth(); 
@@ -38,8 +37,8 @@ const CariPage: React.FC = () => {
     const router = useRouter();
     const hasFetchedQuote = useRef(false);
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof quoteFromSchema>>({
-        resolver: zodResolver(quoteFromSchema),
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof quoteFormSchema>>({
+        resolver: zodResolver(quoteFormSchema),
     })
 
      const getData = useCallback(async () => {
@@ -80,20 +79,24 @@ const CariPage: React.FC = () => {
         }
     }, []);
 
-    const handleSubmitQuote = async () => {
+    const handleSubmitQuote = async (data: z.infer<typeof quoteFormSchema>) => {
         try {
+            setIsSubmitQuote(true);
             await api({
                 method: 'POST',
                 url: 'api/quotes',
                 data: {
-                    quote: quote
+                    quote: data.quote
                 },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+            reset();
         } catch (error: any) {
             console.error("Error in submitting quote", error)
+        } finally {
+            setIsSubmitQuote(false);
         }
     };
 
@@ -151,11 +154,10 @@ const CariPage: React.FC = () => {
 
             <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
                 <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
-                <div className="flex gap-2 md:gap-4 items-center w-full justify-center">
-                    <Input {...register("quote")} placeholder="Kirim pesanmu!" leftIcon={<HiOutlineChat />} size="xl"/>
-                    {/* TODO: Implement throttling */}
-                    <Button label="Kirim" size="lg" type="submit"/>
-                </div>
+                <form onSubmit={handleSubmit(handleSubmitQuote)} className="flex gap-2 md:gap-4 items-center w-full justify-center">
+                    <Input {...register("quote")} placeholder="Kirim pesanmu!" leftIcon={<HiOutlineChat />} size="lg" error={errors.quote?.message}/>
+                    <Button label="Kirim" size="lg" type="submit" disabled={isSubmitQuote} className="self-start"/>
+                </form>
             </div>
 
         </div>

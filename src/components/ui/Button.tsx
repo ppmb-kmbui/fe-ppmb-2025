@@ -44,12 +44,12 @@ const loaderSizes = {
 };
 
 export const Button: React.FC<ButtonProps> = ({
-    label, leftIcon, rightIcon,
+    label, leftIcon, rightIcon, className,
     variant="primary", color="blue", size="md", 
     ...props
 }) => {
     return (
-        <button className={`${buttonVariants({ variant, color, size })} ${leftIcon && "pr-6 lg:pr-8"} ${rightIcon && "pl-2"}`} {...props}>
+        <button className={`${buttonVariants({ variant, color, size })} ${leftIcon && "pr-6 lg:pr-8"} ${rightIcon && "pl-2"} ${className}`} {...props}>
             {props.disabled ? 
                 <div className={`loader-button ${loaderSizes[size]}`} /> 
             : 

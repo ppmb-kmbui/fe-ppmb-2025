@@ -11,7 +11,7 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "
     leftIcon?: React.ReactNode
     variant?: "standard"
     error?: string
-    size?: "md" | "xl";
+    size?: "md" | "lg";
 }
 
 const inputVariants = tv({
@@ -23,7 +23,7 @@ const inputVariants = tv({
         },
         size: {
             md: "text-lg py-[5px] px-3",
-            xl: "text-xl py-2 px-4"
+            lg: "text-xl px-4 h-[45px]"
         }
     },
     defaultVariants: {
