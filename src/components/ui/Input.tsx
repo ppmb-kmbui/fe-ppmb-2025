@@ -4,14 +4,14 @@ import { forwardRef, useState } from "react"
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi"
 import { tv } from "tailwind-variants"
 
-interface InputProps {
+interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">{
     label?: string
     placeholder: string
     icon?: React.ReactNode
     leftIcon?: React.ReactNode
     variant?: "standard" | "rounded"
-    size?: "md" | "xl";
     error?: string
+    size?: "md" | "xl";
 }
 
 const inputVariants = tv({
@@ -33,7 +33,7 @@ const inputVariants = tv({
 })
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((
-    { label, placeholder, icon, variant, size, error }, ref
+    { label, placeholder, icon, variant="standard", size="md", error, leftIcon, onChange, ...props }, ref
 ) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -46,7 +46,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((
             </div>
             
             <div className={inputVariants({ variant, size })}>
-                <input ref={ref} className="bg-ppmb-000 focus:outline-none placeholder:font-normal w-full" placeholder={placeholder}/>
+                <input ref={ref} className="bg-ppmb-000 focus:outline-none placeholder:font-normal w-full" type={label?.split(" ").includes("Password") && !isVisible ? "password" : "text"} placeholder={placeholder} {...props}/>
                 {label?.split(" ").includes("Password") && <button className="pl-3" onClick={() => setIsVisible(!isVisible)} type="button">{isVisible ? <HiEye /> : <HiEyeOff />}</button>}
             </div>
 

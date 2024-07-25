@@ -40,11 +40,11 @@ const LoginPage: React.FC = () => {
 
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-5 md:px-[60px] gap-8 lg:gap-5 h-full">
                 <form onSubmit={handleSubmit(handleLogin)} className="w-full flex flex-col font-medium gap-5 items-center justify-center px-2 lg:px-0">
-                    <Input {...register("email")} placeholder="Masukkan email kamu" icon={<HiMail />} label="Email" error={errors.email?.message}/>
-                    <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message}/>
+                    <Input {...register("email")} placeholder="Masukkan email kamu" icon={<HiMail />} label="Email" error={errors.email?.message} />
+                    <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message} />
 
                     <div className="flex items-center flex-col gap-2 lg:mt-2">
-                        <Button label="Masuk" variant="lg"/>
+                        <Button label="Masuk" type="submit" />
                         <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   
                 </form>
