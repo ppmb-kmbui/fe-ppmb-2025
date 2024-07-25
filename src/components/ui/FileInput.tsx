@@ -6,13 +6,15 @@ import { Button } from "./Button";
 
 interface FileInputProps {
     file: File | null
-    setFile: (file: File | null) => void
+    onChange: (file: File | null) => void;
     label: string
     description: string
+    fileType: 'image' | 'pdf'
+    error?: string
 }
 
 export const FileInput: React.FC<FileInputProps> = ({
-    file, setFile, label, description
+    file, onChange, label, description, fileType, error
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,17 +38,17 @@ export const FileInput: React.FC<FileInputProps> = ({
     const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault()
         const file = event.dataTransfer.files?.[0]
-        setFile(file || null)
+        onChange(file || null)
     }, []);
 
     return (
-        <div className="w-full flex flex-col gap-7 items-center justify-center">
+        <div className="w-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-[2px]">
                 <text className="font-medium text-xl md:text-2xl text-center">{label}</text>
                 <text className="text-sm text-ppmb-600">{description}</text>
             </div>
             
-            <div className="border-dashed border-ppmb-600 border-[2px] px-7 justify-between rounded-lg w-[290px] md:w-[450px] max-h-[250px] md:max-h-[300px] p-6 md:pt-14 md:pb-10 flex flex-col items-center gap-2 md:gap-6" onDrop={handleDrop} onDragOver={handleDragOver}>
+            <div className="mt-5 border-dashed border-ppmb-600 border-[2px] px-7 justify-between rounded-lg w-[290px] md:w-[450px] max-h-[250px] md:max-h-[300px] p-6 md:pt-14 md:pb-10 flex flex-col items-center gap-2 md:gap-6" onDrop={handleDrop} onDragOver={handleDragOver}>
                 <FaFolderOpen className="text-ppmb-blue-600 text-[70px] md:text-[95px]"/>
 
                 <div className={`${file ? 'gap-3' : 'gap-2'} flex flex-col w-full`}>
@@ -61,10 +63,12 @@ export const FileInput: React.FC<FileInputProps> = ({
                         <span className="text-center text-sm">Drag dan drop <br /> atau</span>
                     )}
                     
-                    <Button handleClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`}/>
-                    <input ref={inputRef} accept={'.jpg'} type="file" className="hidden" onChange={(e) => setFile(e.target.files?.[0] || null)}/>
+                    <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`}/>
+                    <input ref={inputRef} accept={fileType === 'image' ? '.jpg, .jpeg, .png' : '.pdf'} type="file" className="hidden" onChange={(e) => onChange(e.target.files?.[0] || null)} />
                 </div>
             </div>
+
+            { error && <text className="mt-2 text-sm text-ppmb-red-500 font-medium">{error}</text>}
         </div>
     )
 }

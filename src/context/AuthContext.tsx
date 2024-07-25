@@ -12,7 +12,7 @@ interface AuthContextProps {
     token: string
     isAuthenticated: boolean
     isLoading: boolean
-    register: (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => void
+    signUp: (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => void
     login: (email: string, password: string) => void
     logout: () => void
     getUser: () => void
@@ -23,7 +23,7 @@ export const AuthContext = createContext({
     token: "",
     isAuthenticated: false,
     isLoading: false,
-    register: (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => {},
+    signUp: (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => {},
     login: (email: string, password: string) => {},
     logout: () => {},
   } as AuthContextProps);
@@ -63,7 +63,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         }
     }
 
-    const register = async (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => {
+    const signUp = async (email: string, batch: number, fullname: string, password: string, faculty: string, imgUrl: string) => {
         try {
             setIsLoading(true);
             const res = await api({
@@ -73,7 +73,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             });
             router.push("/login");
         } catch (error: any) {
-            console.error("[Auth context] error in register", error);
+            console.error("[Auth context] error in signup", error);
         } finally {
             setIsLoading(false);
         }
@@ -118,7 +118,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
         user: user,
         isLoading: isLoading,
         isAuthenticated: isAuthenticated,
-        register: register,
+        signUp: signUp,
         login: login,
         logout: logout,
         getUser: getUser

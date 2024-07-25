@@ -12,13 +12,14 @@ interface OptionProps {
 interface DropdownProps {
     options: OptionProps[]
     dropdownValue: string
-    setDropdownValue: React.Dispatch<React.SetStateAction<string>>
+    setDropdownValue: (value: string) => void
     icon: React.ReactNode
     label: string
+    error?: string
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
-    options, dropdownValue, setDropdownValue, icon, label
+    options, dropdownValue, setDropdownValue, icon, label, error
 }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const ref = useOutsideClick(() => setIsOpen(false));
@@ -55,6 +56,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     ))}
                 </div>
             </div>
+
+            { error && <text className="text-sm text-ppmb-red-500">{error}</text>}
         </div>
 
     )
