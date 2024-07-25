@@ -164,7 +164,7 @@ export const Timeline: React.FC = () => {
                                 <div className="flex flex-col gap-1">
                                     <text className="text-xl font-semibold">{timeline.name}</text>
                                     <div className="flex">
-                                        <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `— ${dateToIndonesianString(timeline.endDate)}` }</div>
+                                        <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-[10px] leading-[14px] font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `— ${dateToIndonesianString(timeline.endDate)}` }</div>
                                     </div>
                                 </div>  
 
