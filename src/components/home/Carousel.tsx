@@ -46,7 +46,7 @@ export const Carousel: React.FC = () => {
   ]
 
   return (
-      <div className='embla relative'>
+      <div className='embla relative bg-ppmb-800'>
       <div className='embla__viewport' ref={emblaRef}>
         <div className='embla__container'>
           {CONTENTS.map((content, key) => (
