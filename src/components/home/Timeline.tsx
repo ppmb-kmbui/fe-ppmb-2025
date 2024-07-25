@@ -111,7 +111,7 @@ export const Timeline: React.FC = () => {
 
             <div className="w-full px-12 hidden lg:flex">
                 <div className="flex flex-row justify-between w-full p-[52px] rounded-2xl border-[2px] bg-ppmb-50 border-ppmb-blue-700 max-h-[300px]">
-                    <div className="w-[75%] flex flex-col gap-4">
+                    <div className="w-[75%] flex flex-col gap-3">
                         <div className="flex flex-col gap-2">
                             <text className="text-4xl font-semibold">{TIMELINES[index].name}</text>
                             <div className="flex">
@@ -121,7 +121,7 @@ export const Timeline: React.FC = () => {
 
                         <div>{TIMELINES[index].description}</div>
 
-                        {TIMELINES[index].rsvp && <div className="flex h-full">
+                        {TIMELINES[index].rsvp && <div className="flex h-full mt-4">
                             <div className="self-end">
                                 <Link href={TIMELINES[index].rsvp} target="_blank" rel="noopener noreferrer">
                                     <Button label="RSVP" size="md"/>
@@ -129,7 +129,7 @@ export const Timeline: React.FC = () => {
                             </div>
                         </div>}
 
-                        {TIMELINES[index].zoom && <div className="flex h-full">
+                        {TIMELINES[index].zoom && <div className="flex h-full mt-4">
                             <div className="self-end">
                                 <Link href={TIMELINES[index].zoom} target="_blank" rel="noopener noreferrer">
                                     <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
