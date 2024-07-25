@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
                     <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message} />
 
                     <div className="flex items-center flex-col gap-2 lg:mt-2">
-                        <Button label="Masuk" type="submit" />
+                        <Button label="Masuk" type="submit" size="lg"/>
                         <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   
                 </form>

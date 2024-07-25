@@ -1,14 +1,39 @@
-interface ButtonProps {
+import { tv } from "tailwind-variants";
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label: string
-    handleClick?: () => void
-    type?: "button" | "submit"
+    variant?: "primary" | "secondary" | "icon"
+    color?: "blue" | "darkBlue" | "green" | "red" | "gray",
+    size?: "sm" | "md" | "lg"
 }
 
-const variantClasses = {
-    lg: 'py-[10px] px-8',
-    md: 'py-[6px] px-6',
-    sm: 'py-[1px] px-4',
-};
+const buttonVariants = tv({
+    base: "flex flex-row rounded-md font-medium transition-colors duration-200 ease-in-out",
+    variants: {
+        variant: {
+            primary: "bg-blue-500 text-white",
+            secondary: "border-[2px]",
+            icon: "p-1"
+        },
+        color: {
+            blue: "bg-ppmb-blue-500 text-white hover:bg-ppmb-blue-600",
+            darkBlue: "bg-ppmb-blue-700 text-white hover:bg-ppmb-800",
+            green: "bg-ppmb-success text-white",
+            red: "",
+            gray: "bg-ppmb-600"
+        },
+        size: {
+            sm: "",
+            md: "px-6 py-[6px]",
+            lg: "px-8 py-[9px]"
+        }
+    },
+    compoundVariants: [
+        {
+
+        }
+    ]
+})
 
 const typeClasses = {
     primary: 'bg-ppmb-blue-500 text-white hover:bg-ppmb-blue-700',
@@ -16,15 +41,11 @@ const typeClasses = {
 };
 
 export const Button: React.FC<ButtonProps> = ({
-    label, handleClick, type="button"
+    label, onClick, type="button", variant="primary", color="blue", size="md", ...props
 }) => {
     return (
-        <button
-      className={`rounded-md font-medium transition-colors duration-200 ease-in-out`}
-      onClick={handleClick}
-      type={type}
-    >
-      {label}
-    </button>
+        <button className={buttonVariants({ variant, color, size })} onClick={onClick} {...props}>
+            {label}
+        </button>
     )
 }
