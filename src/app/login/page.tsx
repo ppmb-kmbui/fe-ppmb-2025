@@ -20,7 +20,7 @@ const LoginPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<z.infer<typeof loginFormSchema>>({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof loginFormSchema>>({
         resolver: zodResolver(loginFormSchema),
     })
 
@@ -28,12 +28,14 @@ const LoginPage: React.FC = () => {
         try{
             setIsLoading(true)
             await login(data.email, data.password);
+            reset();
+
         } catch (error: any) {
             console.log("Error while logging in", error.message);
         } finally {
             setTimeout(() => {
                 setIsLoading(false);
-            }, 500);
+            }, 1000);
         }
     }
 
