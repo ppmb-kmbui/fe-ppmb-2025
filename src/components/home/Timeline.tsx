@@ -7,6 +7,7 @@ import { Button } from "../ui/Button";
 import { dateToIndonesianString } from "@/utils/date";
 import { TbBrandZoom } from "react-icons/tb";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 interface TimelineProps {
     name: string
@@ -19,6 +20,7 @@ interface TimelineProps {
 
 }
 export const Timeline: React.FC = () => {
+    const { isAuthenticated } = useAuth();
     const [index, setIndex] = useState<number>(0);
 
     const TIMELINES: TimelineProps[] = [
@@ -124,7 +126,7 @@ export const Timeline: React.FC = () => {
                         {TIMELINES[index].rsvp && <div className="flex h-full mt-4">
                             <div className="self-end">
                                 <Link href={TIMELINES[index].rsvp as string} target="_blank" rel="noopener noreferrer">
-                                    <Button label="RSVP" size="md"/>
+                                    <Button label="RSVP" size="md" isRestricted={isAuthenticated}/>
                                 </Link>
                             </div>
                         </div>}
@@ -132,7 +134,7 @@ export const Timeline: React.FC = () => {
                         {TIMELINES[index].zoom && <div className="flex h-full mt-4">
                             <div className="self-end">
                                 <Link href={TIMELINES[index].zoom as string} target="_blank" rel="noopener noreferrer">
-                                    <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
+                                    <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}  isRestricted={isAuthenticated}/>
                                 </Link>
                             </div>
                         </div>}
