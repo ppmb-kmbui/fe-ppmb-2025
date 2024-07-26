@@ -121,7 +121,7 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
         try {
             setIsFetching(true);
             const res = await api({
-                url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/networking/${userId}`,
+                url: `${process.env.API_BASE_URL}/networking/${userId}`,
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -145,12 +145,12 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
             form.append('upload_preset', 'ppmb_kmbui');
     
             const res = await axios.post(
-                `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
                 form
             );
             const uploadedPhotoUrl = res.data.url;
             await api({
-                url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/networking/${userId}`,
+                url: `${process.env.API_BASE_URL}/networking/${userId}`,
                 method: "PUT",
                 data: {
                     img_url: uploadedPhotoUrl,
