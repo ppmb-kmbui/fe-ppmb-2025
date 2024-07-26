@@ -4,10 +4,13 @@ import { Button, FileInput, Header, Input, LoadingScreen } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { HiChatAlt2 } from "react-icons/hi";
+import { z } from "zod";
 
 interface QuestionProps {
     id: number
@@ -92,20 +95,27 @@ const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
     ]
 }
 
+const networkingFromSchema = z.object({
+    answer1: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
+    answer2: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
+    answer3: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
+    answer4: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
+    photo: z.instanceof(File, { message: "Foto tidak boleh kosong!" })
+})
+
 const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ params: { userId } }) => {
-    const [networkingAssignment, setNetworkingAssignment] = useState<NetworkingAssignmentProps>(DEFAULT_NETWORKING_ASSINGMENT);
-    const [answer1, setAnswer1] = useState<string>(""); 
-    const [answer2, setAnswer2] = useState<string>(""); 
-    const [answer3, setAnswer3] = useState<string>(""); 
-    const [answer4, setAnswer4] = useState<string>("");
-    const [photo, setPhoto] = useState<File | null>(null);
-
-    const [isFetching, setIsFetching] = useState<boolean>(true);
-    // TODO: Handle trot
-    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
     const { token } = useAuth();
     const router = useRouter();
+
+    const [networkingAssignment, setNetworkingAssignment] = useState<NetworkingAssignmentProps>(DEFAULT_NETWORKING_ASSINGMENT);
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+    const { register, handleSubmit, formState: { errors }, reset, control } = useForm<z.infer<typeof networkingFromSchema>>({
+        resolver: zodResolver(networkingFromSchema),
+    })
+
+    // console.log(token)
 
     const getData = async () => {
         try {
@@ -127,17 +137,11 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
         }
     }
 
-    const handleSubmit = async () => {
-        // Formality
-        if (!photo) {
-            console.error('No photo selected.');
-            return;
-        }
-
+    const handleSubmitNetworking = async (data: z.infer<typeof networkingFromSchema>) => {
         try {
             setIsSubmitting(true);
             const form = new FormData();
-            form.append('file', photo);
+            form.append('file', data.photo);
             form.append('upload_preset', 'ppmb_kmbui');
     
             const res = await axios.post(
@@ -153,19 +157,19 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
                     answers: [
                         {
                             questionId: networkingAssignment.questions[0].questionId,
-                            answer: answer1
+                            answer: data.answer1
                         },
                         {
                             questionId: networkingAssignment.questions[1].questionId,
-                            answer: answer2
+                            answer: data.answer2
                         },
                         {
                             questionId: networkingAssignment.questions[2].questionId,
-                            answer: answer3
+                            answer: data.answer3
                         },
                         {
                             questionId: networkingAssignment.questions[3].questionId,
-                            answer: answer4
+                            answer: data.answer4
                         },
                     ]
                 },
@@ -173,6 +177,7 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
                     Authorization: `Bearer ${token}`
                 }
             });
+            reset();
 
         } catch (error: any) {
             console.error("Error while submitting assignment");
@@ -189,20 +194,29 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
     return (
         isFetching ? <LoadingScreen /> :
         <div className="min-h-screen flex flex-col h-full">
-            <Header label="Networking" subLabel={``}/>
+            <Header label="Networking" />
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
-                <div className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
-                    <Input label={networkingAssignment.questions[0].question.question} placeholder="Jawaban" setValue={setAnswer1} icon={<HiChatAlt2 />}/>
-                    <Input label={networkingAssignment.questions[1].question.question} placeholder="Jawaban" setValue={setAnswer2} icon={<HiChatAlt2 />}/>
-                    <Input label={networkingAssignment.questions[2].question.question} placeholder="Jawaban" setValue={setAnswer3} icon={<HiChatAlt2 />}/>
-                    <Input label={networkingAssignment.questions[3].question.question} placeholder="Jawaban" setValue={setAnswer4} icon={<HiChatAlt2 />}/>
+                <form onSubmit={handleSubmit(handleSubmitNetworking)} className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
+                    <Input {...register("answer1")} label={networkingAssignment.questions[0].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer1?.message}/>
+                    <Input {...register("answer2")} label={networkingAssignment.questions[1].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer2?.message}/>
+                    <Input {...register("answer3")} label={networkingAssignment.questions[2].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer3?.message}/>
+                    <Input {...register("answer4")} label={networkingAssignment.questions[3].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer4?.message}/>
 
                     <div className="flex mt-3">
-                        <Button label="Kumpulkan" handleClick={handleSubmit}/>
+                        <Button label="Kumpulkan" type="submit" size="lg" disabled={isSubmitting}/>
                     </div>
-                </div>
+                </form>
 
-                <FileInput file={photo} setFile={setPhoto} label="Unggah foto networking" description="Ini deskripsi perlu diganti nanti"/>
+                <Controller name="photo" control={control} render={({ field: { onChange, value } }) => (
+                    <FileInput
+                        file={value as File | null}
+                        onChange={(file) => onChange(file)}
+                        label="Unggah foto kamu"
+                        description="Unggah dalam bentuk .jpg/.jpeg/.png"
+                        fileType="image"
+                        error={errors.photo?.message}
+                    />
+                )} />
             </div>
         </div>
     )
