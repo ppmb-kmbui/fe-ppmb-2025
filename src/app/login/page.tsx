@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Header, Input } from "@/components";
 import { HiLockOpen, HiMail } from "react-icons/hi";
 import { useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ const loginFormSchema = z.object({
 })
 
 const LoginPage: React.FC = () => {
-    const { login } = useAuth();
+    const { login, isAuthenticated } = useAuth();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
 
@@ -39,6 +39,12 @@ const LoginPage: React.FC = () => {
             }, 1000);
         }
     }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            router.push("/");
+        }
+    }, [isAuthenticated])
 
     return (
         <div className="min-h-screen flex flex-col h-full">
