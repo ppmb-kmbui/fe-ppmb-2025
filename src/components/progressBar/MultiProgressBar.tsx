@@ -4,7 +4,7 @@ export const MultiProgressBar: React.FC = () => {
     return (
         <div className='flex flex-col'>
             <div className='w-full'>
-                <div className='ml-[120px] md:ml-[150px] flex flex-row text-xs font-medium'>
+                <div className='ml-[110px] md:ml-[160px] flex flex-row text-xs font-medium'>
                     <div className='w-1/4 flex justify-center'>
                         <text>RIK</text>
                     </div>
@@ -24,11 +24,11 @@ export const MultiProgressBar: React.FC = () => {
             </div>
 
             <div className="flex flex-row leading-[1.5]">
-                <div className="min-w-[120px] md:min-w-[160px]">
-                    <text className="font-semibold italic text-xs md:text-[16px]">Networking kating</text>
+                <div className="min-w-[110px] md:min-w-[160px]">
+                    <text className="font-semibold italic text-xs md:text-[16px]">Net. angkatan</text>
                 </div>
 
-                <div className="rounded-md min-w-[230px] md:min-w-[450px] bg-ppmb-200 relative flex flex-row">
+                <div className="rounded-md min-w-[240px] md:min-w-[450px] bg-ppmb-200 relative flex flex-row">
                     <div className="flex w-1/4 relative border-r-ppmb-800 border-r-[1px]">
                         <div className="absolute inset-0 flex items-center justify-center z-10">
                             <text className="text-ppmb-000 font-medium rounded-l-md text-xs md:text-[16px]">

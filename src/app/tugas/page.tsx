@@ -136,7 +136,7 @@ const TugasPage: React.FC = () => {
             isFinished: progress.firstFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling1",
             type: "file",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            template: "https://drive.google.com/drive/folders/1nai7H4PCZplp8qaP7VFqF90TEOwnWSly"
         },
         {
             id: "fossib-2",
@@ -228,14 +228,14 @@ const TugasPage: React.FC = () => {
                 <text className="text-2xl lg:text-3xl font-semibold">Progress Tugas</text>
 
                 {/* TODO: wait until be fix everything about progress :)) */}
-                {/* <div className="flex flex-col gap-2 items-center">
+                <div className="flex flex-col gap-2 items-center">
                     <MultiProgressBar />
                     <MultiProgressBar />
 
                     {DUMMY_DATA_PROGRESS.map((data, key) => (
                         <ProgressBar key={key} {...data}/>
                     ))}
-                </div> */}
+                </div>
             </div>
 
             <div className="flex flex-col md:flex-row md:justify-evenly px-8 lg:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
