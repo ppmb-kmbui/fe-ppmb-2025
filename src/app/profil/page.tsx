@@ -59,7 +59,7 @@ const ProfilPage: React.FC = () => {
             form.append('upload_preset', 'ppmb_kmbui');
     
             const res = await axios.post(
-                `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+                `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
                 form
             );
 
