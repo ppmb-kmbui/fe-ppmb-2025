@@ -126,7 +126,7 @@ export const Timeline: React.FC = () => {
                         {TIMELINES[index].rsvp && <div className="flex h-full mt-4">
                             <div className="self-end">
                                 <Link href={TIMELINES[index].rsvp as string} target="_blank" rel="noopener noreferrer">
-                                    <Button label="RSVP" size="md" isRestricted={isAuthenticated}/>
+                                    <Button label="RSVP" size="md" isRestricted={!isAuthenticated}/>
                                 </Link>
                             </div>
                         </div>}
@@ -134,7 +134,7 @@ export const Timeline: React.FC = () => {
                         {TIMELINES[index].zoom && <div className="flex h-full mt-4">
                             <div className="self-end">
                                 <Link href={TIMELINES[index].zoom as string} target="_blank" rel="noopener noreferrer">
-                                    <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}  isRestricted={isAuthenticated}/>
+                                    <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}  isRestricted={!isAuthenticated}/>
                                 </Link>
                             </div>
                         </div>}
@@ -175,15 +175,15 @@ export const Timeline: React.FC = () => {
                                 {timeline.rsvp && <div className="flex h-full mt-4">
                                     <div className="self-end">
                                         <Link href={timeline.rsvp as string} target="_blank" rel="noopener noreferrer">
-                                            <Button label="RSVP" size="md"/>
+                                            <Button label="RSVP" size="md" isRestricted={!isAuthenticated}/>
                                         </Link>
                                     </div>
                                 </div>}
 
                                 {timeline.zoom && <div className="flex h-full mt-4">
                                     <div className="self-end">
-                                        <Link href={timeline.zoom as string} target="_blank" rel="noopener noreferrer">
-                                            <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
+                                        <Link href={timeline.zoom as string} target="_blank" rel="noopener noreferrer">a
+                                            <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />} isRestricted={!isAuthenticated}/>
                                         </Link>
                                     </div>
                                 </div>}

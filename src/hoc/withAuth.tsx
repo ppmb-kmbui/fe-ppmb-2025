@@ -24,7 +24,7 @@ const withAuth = <P extends object>(Component: React.FC<P>, requiredRole: RouteR
                 if (isAuthenticated) {
                     logout();
                 }
-                router.push('/signup');
+                // router.push('/login');
                 return;
             }
       
@@ -43,7 +43,9 @@ const withAuth = <P extends object>(Component: React.FC<P>, requiredRole: RouteR
         useEffect(() => {
             if (!isLoading && isDataFetched) {
                 if (!isAuthenticated) {
-                    router.push('/');
+                    if (requiredRole == "optional") {
+                        router.push("/");
+                    }
                 } else {
                     if ((requiredRole === 'admin' && !user?.isAdmin) || 
                         (requiredRole === 'authenticated' && !isAuthenticated) || 
@@ -54,7 +56,7 @@ const withAuth = <P extends object>(Component: React.FC<P>, requiredRole: RouteR
             }
         }, [isLoading, isAuthenticated, user, router, isDataFetched, requiredRole]);
         
-        if (isLoading || !isAuthenticated) {
+        if ((isLoading || !isAuthenticated) && requiredRole !== "optional")  {
             return <LoadingScreen />;
         }
         return <Component {...props}/>;
