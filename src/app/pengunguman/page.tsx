@@ -35,10 +35,10 @@ const PengungumanPage: React.FC = () => {
         <div className="flex flex-col gap-10 min-h-screen pb-10">
             <Header label="Pengunguman"/>
 
-            <div className="flex px-14 flex-col gap-4 flex-1">
-                <text className="text-[27px] leading-[1.6] font-semibold">Tautan menuju informasi beberapa tugas PPMB</text>
+            <div className="flex px-10 md:px-14 flex-col gap-4 flex-1">
+                <text className="text-2xl md:text-[27px] leading-[1.6] font-semibold">Tautan menuju informasi beberapa tugas PPMB</text>
 
-                <div className="flex flex-row gap-10 flex-1">
+                <div className="flex flex-col lg:flex-row gap-10 flex-1">
                     {ANNOUNCEMENTS.map((announcement, key) => (
                         <AnnouncementCard key={key} {...announcement}/>
                     ))}
