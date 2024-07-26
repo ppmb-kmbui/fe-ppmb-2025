@@ -115,7 +115,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                 <div className="h-[80px] w-[80px] md:h-[90px] md:w-[90px] flex">
                     <Image
                         src={imgUrl}
-                        alt="tidak submit foto"
+                        alt=""
                         width={95}
                         height={95}
                         className="rounded-full"
