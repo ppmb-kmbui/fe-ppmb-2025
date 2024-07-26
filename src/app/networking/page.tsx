@@ -63,9 +63,9 @@ const NetworkingPage: React.FC = () => {
             <div className="px-3 md:px-5 md:pl-[40px] lg:pl-[60px] flex flex-col gap-1 lg:gap-3">
                 <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
-                <div className={`${menungguPersetujuanFriends.length == 0 ? "hidden" : "grid md:flex"} grid-cols-2 md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-3 lg:gap-5 scrollbar-hide lg:pr-3`}>
+                <div className={`${menungguPersetujuanFriends.length == 0 ? "hidden" : "grid md:flex"} grid-cols-2 sm:grid-cols-3 md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-3 lg:gap-5 scrollbar-hide lg:pr-3`}>
                     {menungguPersetujuanFriends.map((friend, key) => (
-                        <UserCard key={key} {...friend} onAccept={() => handleAccept(friend)} onReject={() => handleReject(friend.id)}/>
+                        <UserCard {...friend} onAccept={() => handleAccept(friend)} onReject={() => handleReject(friend.id)}/>
                     ))}
                 </div>
 
