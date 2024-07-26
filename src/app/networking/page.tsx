@@ -57,11 +57,11 @@ const NetworkingPage: React.FC = () => {
 
     return (
         isFetching ? <LoadingScreen /> :
-        <div className="min-h-screen flex flex-col gap-6 md:gap-8 lg:gap-10 pb-10">
+        <div className="min-h-screen flex flex-col gap-5 md:gap-8 lg:gap-10 pb-10">
             <Header label="Networking" subLabel="KMBUI" />
 
             <div className="px-3 md:px-5 md:pl-[40px] lg:pl-[60px] flex flex-col gap-1 lg:gap-3">
-                <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
+                <text className="text-2xl lg:text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
                 <div className={`${menungguPersetujuanFriends.length == 0 ? "hidden" : "grid md:flex"} grid-cols-2 sm:grid-cols-3 md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-3 lg:gap-5 scrollbar-hide lg:pr-3`}>
                     {menungguPersetujuanFriends.map((friend, key) => (
@@ -73,7 +73,7 @@ const NetworkingPage: React.FC = () => {
             </div>
 
             <div className="px-3 md:px-5 md:pl-[40px] lg:pl-[60px] flex flex-col gap-1 lg:gap-3">
-                <text className="text-[27px] leading-[1.6] font-semibold">Lanjutkan Networking</text>
+                <text className="text-2xl lg:text-[27px] leading-[1.6] font-semibold">Lanjutkan Networking</text>
 
                 <div className={`${lanjutkanNetworkingFriends.length == 0 ? "hidden" : "grid md:flex"} gap-3 lg:gap-5 grid-cols-2  md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center scrollbar-hide lg:pr-3`}>
                     {lanjutkanNetworkingFriends.map((friend, key) => (
