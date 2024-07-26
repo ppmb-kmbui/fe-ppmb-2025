@@ -2,20 +2,21 @@
     content: "";
     position: absolute;
     top: calc(50% - 2px);
-    width: var(--timeline-width);
+    width: 2350px;
     height: 3px;
     background: #c4c4c4;
     border-radius: 12px;
 }
 
+/* dots */
 .li::before {
     content: "";
     position: absolute;
     top: 50%;
     margin-left: 16px;
     transform: translate(-50%, -50%);
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: #1a539f;    
 }

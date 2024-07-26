@@ -1,10 +1,11 @@
 "use client"
 
 import Image from "next/image";
-import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogin, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineShieldCheck, HiOutlineUser, HiSearch } from "react-icons/hi";
+import { HiOutlineChatAlt2, HiOutlineHome, HiOutlineLogin, HiOutlineLogout, HiOutlinePencilAlt, HiOutlineShieldCheck, HiOutlineSpeakerphone, HiOutlineUser, HiSearch } from "react-icons/hi";
 import "./style.css"
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { RiMegaphoneLine } from "react-icons/ri";
 
 export const Sidebar: React.FC = () => {
     const router = useRouter();
@@ -17,6 +18,7 @@ export const Sidebar: React.FC = () => {
         { icon: <HiSearch />, text: "Cari teman", route: "/cari", role: "authenticated" },
         { icon: <HiOutlineChatAlt2 />, text: "Networking", route: "/networking", role: "freshman" },
         { icon: <HiOutlinePencilAlt />, text: "Tugas", route: "/tugas", role: "freshman" },
+        { icon: <RiMegaphoneLine />, text: "Pengunguman", route: "/pengunguman", role: "freshman" },
         { icon: <HiOutlineUser />, text: "Profil", route: "/profil", role: "authenticated" },
         { icon: <HiOutlineShieldCheck />, text: "Admin", route: "/admin", role: "admin" },
     ];

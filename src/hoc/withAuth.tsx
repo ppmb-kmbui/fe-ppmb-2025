@@ -10,8 +10,8 @@ const ROUTE_ROLES = ["optional", "authenticated", "freshman", "admin"] as const;
 
 type RouteRole = (typeof ROUTE_ROLES)[number];
 
-const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
-    const AuthComponent = () => {
+const withAuth = <P extends object>(Component: React.FC<P>, requiredRole: RouteRole) => {
+    const AuthComponent: React.FC<P> = (props) => {
         const { isAuthenticated, isLoading, user, logout, getUser } = useAuth();
         const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
         const router = useRouter();
@@ -24,7 +24,7 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
                 if (isAuthenticated) {
                     logout();
                 }
-                router.push('/signup');
+                // router.push('/login');
                 return;
             }
       
@@ -38,10 +38,14 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
             checkAuth();
         }, [checkAuth]);
 
+
+
         useEffect(() => {
             if (!isLoading && isDataFetched) {
                 if (!isAuthenticated) {
-                    router.push('/');
+                    if (requiredRole == "optional") {
+                        router.push("/");
+                    }
                 } else {
                     if ((requiredRole === 'admin' && !user?.isAdmin) || 
                         (requiredRole === 'authenticated' && !isAuthenticated) || 
@@ -52,10 +56,10 @@ const withAuth = (Component: React.FC, requiredRole: RouteRole) => {
             }
         }, [isLoading, isAuthenticated, user, router, isDataFetched, requiredRole]);
         
-        if (isLoading || !isAuthenticated) {
+        if ((isLoading || !isAuthenticated) && requiredRole !== "optional")  {
             return <LoadingScreen />;
         }
-        return <Component />;
+        return <Component {...props}/>;
     }
     return AuthComponent;
 }

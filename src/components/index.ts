@@ -5,11 +5,13 @@ export { Button } from './ui/Button';
 export { Sidebar } from './template/navbar/Sidebar';
 export { Modal } from './ui/Modal';
 export { Accordion } from './ui/Accordion';
-export { UserCard } from './ui/card/UserCard';
-export { TaskCard } from './ui/card/TaskCard';
 export { Header } from './ui/Header';
 export { SearchBar } from './ui/SearchBar';
 export { Loader } from './ui/Loader';
+
+export { AnnouncementCard } from './ui/card/AnnouncementCard';
+export { UserCard } from './ui/card/UserCard';
+export { TaskCard } from './ui/card/TaskCard';
 
 export { Carousel } from './home/Carousel';
 export { Timeline } from './home/Timeline';

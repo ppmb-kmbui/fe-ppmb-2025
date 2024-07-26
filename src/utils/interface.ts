@@ -1,5 +1,5 @@
 export interface UserProps {
-    id?: number
+    id: number
     email: string
     fullname: string
     imgUrl: string
@@ -8,5 +8,10 @@ export interface UserProps {
     faculty: string
     batch: number 
     isAdmin: boolean
+    followers: number
+    networking_tasks: FriendProps[]
 }
 
+export interface FriendProps extends UserProps {
+    status: "not_connected" | "meminta_konfirmasi" | "menunggu_konfirmasi" | "accepted" | "sedang_networking" | "done"
+}

@@ -4,21 +4,14 @@ import { Button, UserCard, Input, SearchBar, Loader, LoadingScreen } from "@/com
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
-import { UserProps } from "@/utils/interface";
+import { FriendProps, UserProps } from "@/utils/interface";
+import { zodResolver } from "@hookform/resolvers/zod";
 import debounce from "debounce";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { HiOutlineChat, HiSearch } from "react-icons/hi";
-
-
-// interface UserProps {
-//     id?: string,
-//     email: string,
-//     fullname: string,
-//     batch: string,
-//     faculty: string,
-//     img_url: string
-// }
+import { useForm } from "react-hook-form";
+import { HiOutlineChat } from "react-icons/hi";
+import { z } from "zod";
 
 interface QuoteProps {
     quote: string
@@ -27,17 +20,16 @@ interface QuoteProps {
     batch: string
 }
 
-interface FriendProps extends UserProps {
-    status: "not_connected" | "meminta_konfirmasi" | "menunggu_konfirmasi" | "accepted" | "sedang_networking" | "done"
-}
+const quoteFormSchema = z.object({
+    quote: z.string().min(1, { message: "Pesan minimal terdiri dari 1 karakter!" }).max(100, { message: "Pesan maksimal terdiri dari 100 karakter!" })
+})
 
 const CariPage: React.FC = () => {
-    const [quote, setQuote] = useState<string>("");
     const [friends, setFriends] = useState<FriendProps[]>([]);
     const [randomQuote, setRandomQuote] = useState<QuoteProps>({} as any);
 
-    const [isFetchLoading, setIsFetchLoading] = useState<boolean>(true);
-    const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(true);
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+    const [isSubmitQuote, setIsSubmitQuote] = useState<boolean>(false);
     const [isSearching, setIsSearching] = useState<boolean>(false);
 
     const { token } = useAuth(); 
@@ -45,9 +37,14 @@ const CariPage: React.FC = () => {
     const router = useRouter();
     const hasFetchedQuote = useRef(false);
 
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof quoteFormSchema>>({
+        resolver: zodResolver(quoteFormSchema),
+    })
+
      const getData = useCallback(async () => {
         try {
-            const queryString = new URLSearchParams(searchParams).toString();
+            setIsSearching(true);
+            const queryString = searchParams.toString();
             const res = await api({
                 method: 'GET',
                 url: `api/friends?${queryString}`,
@@ -68,8 +65,7 @@ const CariPage: React.FC = () => {
 
     const getRandomQuote = useCallback(async () => {
         try {
-            setIsFetchLoading(true);
-
+            setIsFetching(true);
             const res = await api({
                 method: 'GET',
                 url: "api/quotes"
@@ -79,26 +75,30 @@ const CariPage: React.FC = () => {
         } catch (error: any) {
             console.error("Error in getting random quote");
         } finally {
-            setIsFetchLoading(false);
+            setIsFetching(false);
         }
     }, []);
 
-    const handleSubmitQuote = async () => {
+    const handleSubmitQuote = async (data: z.infer<typeof quoteFormSchema>) => {
         try {
+            setIsSubmitQuote(true);
             await api({
                 method: 'POST',
                 url: 'api/quotes',
                 data: {
-                    quote: quote
+                    quote: data.quote
                 },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+            reset();
         } catch (error: any) {
             console.error("Error in submitting quote", error)
+        } finally {
+            setIsSubmitQuote(false);
         }
-    }
+    };
 
     useEffect(() => {
         getData();
@@ -106,7 +106,6 @@ const CariPage: React.FC = () => {
 
     useEffect(() => {
         if (!hasFetchedQuote.current) {
-            console.log("efek get ran");
             getRandomQuote();
             hasFetchedQuote.current = true;
         }
@@ -121,11 +120,9 @@ const CariPage: React.FC = () => {
         }
     }, 300);
 
-    console.log(friends)
-
     return (
-        isFetchLoading ? <LoadingScreen /> :
-        <div className="min-h-screen flex flex-col items-center gap-10">
+        isFetching ? <LoadingScreen /> :
+        <div className="min-h-screen flex flex-col items-center gap-4 md:gap-5 lg:gap-8">
             <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
                 <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
                     <text className="text-ppmb-000">NETWORKING</text>
@@ -145,10 +142,9 @@ const CariPage: React.FC = () => {
                 <Loader />
                 : 
                 <>
-                    <div className={`${friends.length == 0 ? 'hidden' : 'grid'} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-7`}>
-                        {friends.map((data, key) => (
-                            // TODO: Add fixed batch data
-                            <UserCard key={key} {...data} batch="2024"/>
+                    <div className={`${friends.length == 0 ? 'hidden' : 'grid'} w-full grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-8`}>
+                        {friends.map((friend, key) => (
+                            <UserCard key={key} {...friend} />
                         ))}
                     </div>
 
@@ -157,12 +153,11 @@ const CariPage: React.FC = () => {
             }
 
             <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
-                <text className="text-lg md:text-2xl font-semibold">Kirim pesan untuk teman-teman KMBUI kamu!</text>
-                <div className="flex gap-2 md:gap-4 items-center w-full justify-center">
-                    <Input icon={<HiOutlineChat />} placeholder="Kirim pesanmu!" setValue={setQuote} type="rounded" />
-                    {/* TODO: Implement throttling */}
-                    <Button handleClick={handleSubmitQuote} label="Kirim" variant="lg"/>
-                </div>
+                <text className="text-lg md:text-2xl font-semibold">Kirim pesan ke teman-teman kamu!</text>
+                <form onSubmit={handleSubmit(handleSubmitQuote)} className="flex gap-2 md:gap-4 items-center w-full justify-center">
+                    <Input {...register("quote")} placeholder="Kirim pesanmu!" leftIcon={<HiOutlineChat />} size="lg" error={errors.quote?.message}/>
+                    <Button label="Kirim" size="lg" type="submit" disabled={isSubmitQuote} className="self-start"/>
+                </form>
             </div>
 
         </div>

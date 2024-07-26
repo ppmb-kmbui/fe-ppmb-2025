@@ -1,11 +1,94 @@
 "use client"
 
-import { Header, MultiProgressBar, ProgressBar, TaskCard } from "@/components";
+import { Header, LoadingScreen, MultiProgressBar, ProgressBar, TaskCard } from "@/components";
+import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
+import { api } from "@/utils/axios";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
+interface ProgressDetailProps {
+    progress: number
+    min: number
+}
+
+interface ProgressRumpunProps {
+    SAINTEK: ProgressDetailProps
+    SOSHUM: ProgressDetailProps
+    RIK_VOK: ProgressDetailProps
+}
+
+interface NetworkingAngkatanProgressProps {
+    progress: ProgressRumpunProps
+    min: number
+}
+
+interface NetworkingKatingProgressProps {
+    2021: ProgressDetailProps
+    2022: ProgressDetailProps
+    2023: ProgressDetailProps
+}
+
+interface ProgressProps {
+    networkingAngkatan: NetworkingAngkatanProgressProps
+    networkingKating: NetworkingKatingProgressProps
+    firstFossibDone: boolean
+    secondFossibDone: boolean
+    insightHuntingDone: boolean
+    firstMentoringDone: boolean // TODO: ask be to change it into mentoringPptDone
+    mentoringVlogDone: boolean
+}
+
+export interface AssingmentProps {
+    id: string
+    name: string
+    description: string
+    deadline: string
+    icon: React.ReactNode
+    isFinished: boolean
+    type: "file" | "input" | "image"
+    namingFormat?: string
+    template?: string
+    rsvp?: string
+    vbg?: string
+}
+
+const DEFAULT_PROGRESS = [
+
+]
+
 const TugasPage: React.FC = () => {
+    const { token } = useAuth();
+
+    const [progress, setProgress] = useState<ProgressProps>({} as any)
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+
+    // console.log(token);
+
+    const getData = async () => {
+        try {
+            setIsFetching(true);
+            const res = await api({
+                url: 'api/tasks',
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setProgress(res.data)
+
+        } catch (error: any) {
+            console.error("Error while fetching assingment's progress")
+        } finally {
+            setIsFetching(false);
+        }
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
+
     const DUMMY_DATA_PROGRESS = [
         {
             label: "Mentoring",
@@ -29,73 +112,122 @@ const TugasPage: React.FC = () => {
         },
     ]
 
-    const DUMMY_DATA_TUGAS = [
+    
+    const ASSINGMENTS: AssingmentProps[] = [
         {
-            name: "Absensi - Grand Closing",
-            description: "Ini ceritanya deskripsi absensi, Ini ceritanya deskripsi absensi, Ini ceritanya deskripsi absensi",
-            deadline: "23/07/2024",
-            icon: <HiOutlineClipboardList />,
-            type: "input",
-            // isFinished: false
-        },
-        {
-            name: "Networking",
-            description: "Ini ceritanya deskripsi networking dan networqueen, Ini ceritanya deskripsi networking dan networqueen",
-            deadline: "23/07/2024",
-            icon: <HiOutlineChatAlt2 />,
-            // isFinished: false
-        },
-        {
+            id: "insight-hunting",
             name: "Insight Hunting",
-            description: "Ini bukan deskripsi insight hunting sebenarnya, Ini bukan deskripsi insight hunting sebenarnya",
-            deadline: "23/07/2024",
-            template: "",
+            description: "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
+            deadline: "29/08/2024",
             icon: <HiOutlineLightBulb />,
+            isFinished: progress.insightHuntingDone,
+            namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
             type: "file",
-            // isFinished: false
+            rsvp: "https://docs.google.com/forms/d/e/1FAIpQLScIHbDL7w-SaY_sDy-z7wabRaBLVKIRZ3CfwIQuJEuQD73S7Q/viewform",
+            template: "https://docs.google.com/document/d/1Z3engQq3QwqyE2HjhTSxwxJchf2brPr7/edit",
+            vbg: "https://drive.google.com/file/d/18QDIWk0txOuxGM6OvyFeOjTdo8urAyC6/view?usp=drive_link"
         },
         {
-            name: "Foster Sibling",
-            description: "Ini juga bukan deskripsi insight hunting sih.., Ini juga bukan deskripsi insight hunting sih..",
-            deadline: "23/07/2024",
-            template: "",
+            id: "fossib-1",
+            name: "Fossib: Sharing Insight",
+            description: "Maba dan kakak asuh melakukan sharing bersama untuk dapat saling mengenal dan bertukar wawasan mengenai kehidupan perkuliahan.",
+            deadline: "29/08/2024",
             icon: <HiOutlineUsers />,
+            isFinished: progress.firstFossibDone,
+            namingFormat: "Nama Lengkap_Fakultas_FosterSibling1",
             type: "file",
-            // isFinished: true
+            template: "https://drive.google.com/drive/folders/1nai7H4PCZplp8qaP7VFqF90TEOwnWSly"
         },
         {
-            name: "Mentoring 3",
-            description: "Mentoring tiga, kalo dua jadi mentoring dua, Mentoring tiga, kalo dua jadi mentoring dua",
-            deadline: "23/07/2024",
-            icon: <HiOutlineDocumentText />,
+            id: "fossib-2",
+            name: "Fossib: Fun Activity",
+            description: "Setelah sharing insight, maba dan kakak asuh melakukan kegiatan bersama untuk dapat saling mendekatkan diri.",
+            deadline: "29/08/2024",
+            icon: <HiOutlineUsers />,
+            isFinished: progress.secondFossibDone,
+            namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
             type: "file",
-            // isFinished: true
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
-            name: "Mentoring 4 [VLOG]",
-            description: "Mentoring empat, kalo dua jadi mentoring dua, Mentoring empat, kalo dua jadi mentoring dua",
-            deadline: "23/07/2024",
+            id: "networking-2023",
+            name: "Networking Kating 2023",
+            description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2023.",
+            deadline: "31/08/2024",
+            icon: <HiOutlineChatAlt2 />,
+            isFinished: false,
+            namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
+            type: "file",
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+        },
+        {
+            id: "networking-2022",
+            name: "Networking Kating 2022",
+            description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2022.",
+            deadline: "31/08/2024",
+            icon: <HiOutlineChatAlt2 />,
+            isFinished: false,
+            namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
+            type: "file",
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+        },
+        {
+            id: "networking-2021",
+            name: "Networking Kating 2021",
+            description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2021.",
+            deadline: "31/08/2024",
+            icon: <HiOutlineChatAlt2 />,
+            isFinished: false,
+            namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
+            type: "file",
+            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+        },
+        {
+            id: "mentoring-sr",
+            name: "Mentoring: Self Reflection",
+            description: "Setelah tiap sesi mentoring, maba diharapkan dapat menulis rangkuman intisari dari kegiatan yang dilakukan sesuai kreativitas masing-masing.",
+            deadline: "11/09/2024",
             icon: <HiOutlineDocumentText />,
+            isFinished: progress.firstMentoringDone,
+            namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
+            type: "image",
+            template: "https://www.canva.com/design/DAGKvoTzibg/xWWM0zwn6hPYRy5qN0hX6A/view?utm_content=DAGKvoTzibg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
+        },
+        {
+            id: "mentoring-v",
+            name: "Mentoring: Vlog",
+            description: "Vlog berisi  cuplikan kegiatan selama mentoring dengan durasi maksimal 3 menit, dikumpulkan oleh ketua kelompok.",
+            deadline: "11/09/2024",
+            icon: <HiOutlineDocumentText />,
+            isFinished: progress.mentoringVlogDone,
+            namingFormat: "[Nomor Kelompok]_[Nama Kelompok]_Vlog",
             type: "input",
-            // isFinished: true
         },
         {
-            name: "Mentoring 4 [PPT]",
-            description: "Mentoring empat, kalo dua jadi mentoring dua, Mentoring empat, kalo dua jadi mentoring dua",
-            deadline: "23/07/2024",
-            template: "",
-            icon: <HiOutlineDocumentText />,
+            id: "kmbui-explorer",
+            name: "KMBUI Explorer",
+            description: "Maba mengikuti paling sedikit 2 proker yang diadakan oleh KMBUI agar lebih mengenali KMBUI dan nilai-nilai Buddhis.",
+            deadline: "11/09/2024",
+            icon: <HiOutlineUsers />,
+            isFinished: false,
+            namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",
             type: "file",
+            template: "https://drive.google.com/file/d/1YlWD1fHyxUPzCd0f2qRbHaOKNBvelWol/view"
         },
     ]
 
+    // console.log(progress.networkingKating[2021]);
+    // console.log(ASSINGMENTS);
+
     return (
+        isFetching ? <LoadingScreen /> : 
         <div className="min-h-screen flex flex-col gap-5 lg:gap-10">
             <Header label="Tugas" subLabel="PPMB KMBUI"/>
 
             <div className="flex flex-col items-center gap-3">
                 <text className="text-2xl lg:text-3xl font-semibold">Progress Tugas</text>
 
+                {/* TODO: wait until be fix everything about progress :)) */}
                 <div className="flex flex-col gap-2 items-center">
                     <MultiProgressBar />
                     <MultiProgressBar />
@@ -110,21 +242,27 @@ const TugasPage: React.FC = () => {
                 <div className="flex flex-col gap-2">
                     <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Belum Dikerjakan</text>
 
-                    <div className="flex flex-col gap-5">
-                        {DUMMY_DATA_TUGAS.map((data, key) => (
-                            <TaskCard {...data}/>
+                    <div className="flex flex-col gap-5 w-full">
+                        {ASSINGMENTS.map((assignment, key) => (
+                            <div className={`${assignment.isFinished == true && "hidden"}`}>
+                                <TaskCard key={key} {...assignment}/>
+                            </div>
                         ))}
                     </div>
+                    <text className={`${ASSINGMENTS.filter(assignment => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
+
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 w-full">
                     <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Sudah Dikumpulkan</text>
-
                     <div className="flex flex-col gap-5">
-                        {DUMMY_DATA_TUGAS.map((data, key) => (
-                            <TaskCard {...data}/>
+                        {ASSINGMENTS.map((assingment, key) => (
+                            <div className={`${assingment.isFinished == false && "hidden"}`}>
+                                <TaskCard key={key} {...assingment}/>
+                            </div>
                         ))}
                     </div>
+                    <text className={`${ASSINGMENTS.filter(assignment => assignment.isFinished).length > 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
                 </div>
             </div>
         </div>

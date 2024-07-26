@@ -10,11 +10,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     
     return (
         <div className="flex flex-row leading-[1.5]">
-            <div className="min-w-[120px] md:min-w-[160px]">
+            <div className="min-w-[110px] md:min-w-[160px]">
                 <text className="font-semibold italic text-xs md:text-[16px]">{label}</text>
             </div>
 
-            <div className="rounded-md min-w-[230px] md:min-w-[450px] bg-ppmb-200 relative items-center flex">
+            <div className="rounded-md min-w-[240px] md:min-w-[450px] bg-ppmb-200 relative items-center flex">
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                     <text className="text-ppmb-000 font-medium rounded-md text-xs md:text-[16px]">{currentProgress/totalProgress == 1 ? "Selesai" : `${currentProgress}/${totalProgress}`}</text>
                 </div>

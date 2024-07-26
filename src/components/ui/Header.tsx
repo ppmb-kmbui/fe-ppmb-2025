@@ -2,7 +2,7 @@ import Image from "next/image"
 
 interface HeaderProps {
     label: string
-    subLabel: string
+    subLabel?: string
 }
 
 export const Header: React.FC<HeaderProps> = ({

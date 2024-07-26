@@ -7,5 +7,7 @@ export const DEFAULT_USER: UserProps = {
     imgUrl: '',
     faculty: 'Fasilkom',
     batch: 0,
-    isAdmin: false
+    isAdmin: false,
+    followers: 0,
+    networking_tasks: []
 }

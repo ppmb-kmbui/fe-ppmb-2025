@@ -1,80 +1,88 @@
 "use client"
 
-import { Header, UserCard } from "@/components";
+import { Header, LoadingScreen, UserCard } from "@/components";
+import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
-import Image from "next/image";
-
-interface ConnectionRequestProps {
-    connection_request_received: []
-    connection_request_send: []
-}
+import { api } from "@/utils/axios";
+import { FriendProps } from "@/utils/interface";
+import { useEffect, useState } from "react";
 
 const NetworkingPage: React.FC = () => {
-    const DATA = [
-        {
-            name: "Ariana Grande",
-            faculty: "FEB, 2024"
-        },
-        {
-            name: "Lana del Rey",
-            faculty: "FIB, 2024"
-        },
-        {
-            name: "Billie Eilish",
-            faculty: "FT, 2024"
-        },
-        {
-            name: "Jennie BLACKPINK",
-            faculty: "FEB, 2024"
-        },
-        {
-            name: "Stephen Sanchez",
-            faculty: "Fasilkom, 2024"
-        },
-        {
-            name: "Taylor Swift",
-            faculty: "FH, 2024"
-        },
-        {
-            name: "DJ Python Typescript Yeehaw",
-            faculty: "FF, 2024"
-        },
-        {
-            name: "Nadin Amizah",
-            faculty: "Fpsi, 2024"
-        },
-        {
-            name: "NIKI",
-            faculty: "FEB, 2024"
-        },
-    ]
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+    const [menungguPersetujuanFriends, setMenungguPersetujuanFriends] = useState<FriendProps[]>([]);
+    const [lanjutkanNetworkingFriends, setLanjutkanNetworkingFriends] = useState<FriendProps[]>([]);
+
+    const { token } = useAuth();
+
+    const getData = async () => {
+        try {
+            setIsFetching(true);
+            const res = await api({
+                url: "api/friends",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            const friends: FriendProps[] = res.data.friends;
+
+            setMenungguPersetujuanFriends(
+                friends.filter(friend => friend.status === "meminta_konfirmasi")
+            );
+
+            setLanjutkanNetworkingFriends(
+                friends.filter(friend => friend.status === "accepted" || friend.status === "sedang_networking")
+            );
+
+        } catch (error: any) {
+            console.error("Error while getting networking data");
+        } finally {
+            setIsFetching(false);
+        }
+    }
+
+    const handleAccept = (acceptedFriend: FriendProps) => {
+        setMenungguPersetujuanFriends(prev => prev.filter(friend => friend.id != acceptedFriend.id));
+        setLanjutkanNetworkingFriends(prev => [...prev, {...acceptedFriend, status: "accepted"}])
+    }
+
+    const handleReject = (rejectedId: number) => {
+        setMenungguPersetujuanFriends(prev => prev.filter(friend => friend.id != rejectedId));
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
 
     return (
-        <div className="min-h-screen flex flex-col gap-10 pb-10">
+        isFetching ? <LoadingScreen /> :
+        <div className="min-h-screen flex flex-col gap-5 md:gap-8 lg:gap-10 pb-10">
             <Header label="Networking" subLabel="KMBUI" />
 
-            <div className="px-5 md:pl-[40px] lg:pl-[60px]">
-                <text className="text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
+            <div className="px-3 md:px-5 md:pl-[40px] lg:pl-[60px] flex flex-col gap-1 lg:gap-3">
+                <text className="text-2xl lg:text-[27px] leading-[1.6] font-semibold">Menunggu Persetujuan</text>
 
-                <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
-                    {DATA.map((data, key) => (
-                        <UserCard key={key} fullname={data.name} faculty={data.faculty} batch="2024"/>
+                <div className={`${menungguPersetujuanFriends.length == 0 ? "hidden" : "grid md:flex"} grid-cols-2 sm:grid-cols-3 md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-3 lg:gap-5 scrollbar-hide lg:pr-3`}>
+                    {menungguPersetujuanFriends.map((friend, key) => (
+                        <UserCard {...friend} onAccept={() => handleAccept(friend)} onReject={() => handleReject(friend.id)}/>
                     ))}
-
-                    {/* <text className="text-lg italic w-full text-ppmb-500">Tidak ada permintaan pertemanan :(</text> */}
                 </div>
+
+                <text className={`${menungguPersetujuanFriends.length == 0 ? "flex" : "hidden"} lg:text-lg italic w-full text-ppmb-500`}>Tidak ada permintaan pertemanan :(</text>
             </div>
 
-            <div className="pl-[40px] lg:pl-[60px]">
-                <text className="text-[27px] leading-[1.6] font-semibold">Lanjutkan Networking</text>
+            <div className="px-3 md:px-5 md:pl-[40px] lg:pl-[60px] flex flex-col gap-1 lg:gap-3">
+                <text className="text-2xl lg:text-[27px] leading-[1.6] font-semibold">Lanjutkan Networking</text>
 
-                <div className="flex flex-row overflow-x-auto max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
-                    {DATA.map((data, key) => (
-                        <UserCard key={key} fullname={data.name} faculty={data.faculty} batch="2024"/>
+                <div className={`${lanjutkanNetworkingFriends.length == 0 ? "hidden" : "grid md:flex"} gap-3 lg:gap-5 grid-cols-2  md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center scrollbar-hide lg:pr-3`}>
+                    {lanjutkanNetworkingFriends.map((friend, key) => (
+                        <UserCard key={key} {...friend}/>
                     ))}
-
-                    {/* <text className="text-lg italic w-full text-ppmb-500">Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text> */}
+                    
                 </div>
+
+                <text className={`${lanjutkanNetworkingFriends.length == 0 ? "flex" : "hidden"} lg:text-lg italic w-full text-ppmb-500`}>Tidak ada teman yang bisa di-networking saat ini, silahkan follow teman pada page Cari!</text>                
             </div>
         </div>
     )
