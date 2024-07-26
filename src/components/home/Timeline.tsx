@@ -123,7 +123,7 @@ export const Timeline: React.FC = () => {
 
                         {TIMELINES[index].rsvp && <div className="flex h-full mt-4">
                             <div className="self-end">
-                                <Link href={TIMELINES[index].rsvp} target="_blank" rel="noopener noreferrer">
+                                <Link href={TIMELINES[index].rsvp as string} target="_blank" rel="noopener noreferrer">
                                     <Button label="RSVP" size="md"/>
                                 </Link>
                             </div>
@@ -131,7 +131,7 @@ export const Timeline: React.FC = () => {
 
                         {TIMELINES[index].zoom && <div className="flex h-full mt-4">
                             <div className="self-end">
-                                <Link href={TIMELINES[index].zoom} target="_blank" rel="noopener noreferrer">
+                                <Link href={TIMELINES[index].zoom as string} target="_blank" rel="noopener noreferrer">
                                     <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
                                 </Link>
                             </div>
@@ -172,7 +172,7 @@ export const Timeline: React.FC = () => {
 
                                 {timeline.rsvp && <div className="flex h-full mt-4">
                                     <div className="self-end">
-                                        <Link href={timeline.rsvp} target="_blank" rel="noopener noreferrer">
+                                        <Link href={timeline.rsvp as string} target="_blank" rel="noopener noreferrer">
                                             <Button label="RSVP" size="md"/>
                                         </Link>
                                     </div>
@@ -180,7 +180,7 @@ export const Timeline: React.FC = () => {
 
                                 {timeline.zoom && <div className="flex h-full mt-4">
                                     <div className="self-end">
-                                        <Link href={timeline.zoom} target="_blank" rel="noopener noreferrer">
+                                        <Link href={timeline.zoom as string} target="_blank" rel="noopener noreferrer">
                                             <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />}/>
                                         </Link>
                                     </div>

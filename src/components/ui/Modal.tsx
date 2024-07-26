@@ -1,11 +1,12 @@
 "use client"
 
 import { HiOutlineX } from "react-icons/hi";
-import { FileInput } from "./FileInput";
+import { FileInput, FileInputProps } from "./FileInput";
 import { useState } from "react";
-import { Input } from "./Input";
+import { Input, InputProps } from "./Input";
 import { Button } from "./Button";
 
+// sorry for unhinged interface :)
 interface ModalProps {
     type: "input" | "file" | "image"
     isOpen: boolean
@@ -37,12 +38,14 @@ export const Modal:React.FC<ModalProps> = ({
                         <text className="text-xl font-medium">{label}</text>
                         <text className="italic text-sm">{sublabel}</text>
                     </div>}
+
+                    nunggu back end kelar, baru benerin page ini
                    
-                    {type == "file" || type == "image" ? 
+                    {/* {type == "file" || type == "image" ? 
                         <FileInput
                             file={file}
                             label={label}
-                            setFile={handleFileChange}
+                            onChange={(file) => onChange(file)}
                             description={sublabel}
                         />
                         :
@@ -51,15 +54,15 @@ export const Modal:React.FC<ModalProps> = ({
                             setValue={setInput}
                             type="normal"
                         />
-                    }
+                    } */}
 
-                    <div className="flex justify-center mt-4">
+                    {/* <div className="flex justify-center mt-4">
                         <Button 
                             handleClick={() => {handleSubmit(), onClose()}}
                             label="Kumpulkan"
-                            variant="md"
+                            size="md"
                         />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

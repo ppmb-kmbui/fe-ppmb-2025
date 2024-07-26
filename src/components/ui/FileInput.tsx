@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useCallback, useRef } from "react";
 import { FaFolderOpen } from "react-icons/fa6";
 import { Button } from "./Button";
 
-interface FileInputProps {
+export interface FileInputProps {
     file: File | null
     onChange: (file: File | null) => void;
     label: string

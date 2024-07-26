@@ -4,14 +4,14 @@ import { forwardRef, useState } from "react"
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi"
 import { tv } from "tailwind-variants"
 
-interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">{
+export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">{
     label?: string
     placeholder: string
     icon?: React.ReactNode
     leftIcon?: React.ReactNode
     variant?: "standard"
     error?: string
-    size?: "md" | "lg";
+    size?: "md" | "lg"
 }
 
 const inputVariants = tv({
