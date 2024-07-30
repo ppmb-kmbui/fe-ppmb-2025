@@ -63,8 +63,6 @@ const AdminPage: React.FC = () => {
             
         }
     }
-
-    // console.log(token);
     
     useEffect(() => {
         getData();
