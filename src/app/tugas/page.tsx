@@ -8,6 +8,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
+interface ProgresDetailProps {
+    progres: number
+    min: number
+}
+
 interface ProgressDetailProps {
     progress: number
     min: number
@@ -25,9 +30,9 @@ interface NetworkingAngkatanProgressProps {
 }
 
 interface NetworkingKatingProgressProps {
-    2021: ProgressDetailProps
-    2022: ProgressDetailProps
-    2023: ProgressDetailProps
+    2021: ProgresDetailProps
+    2022: ProgresDetailProps
+    2023: ProgresDetailProps
 }
 
 interface ProgressProps {
@@ -36,8 +41,9 @@ interface ProgressProps {
     firstFossibDone: boolean
     secondFossibDone: boolean
     insightHuntingDone: boolean
-    firstMentoringDone: boolean // TODO: ask be to change it into mentoringPptDone
+    mentoringReflectionDone: boolean
     mentoringVlogDone: boolean
+    kmbuiExplorerDone: boolean
 }
 
 export interface AssingmentProps {
@@ -54,14 +60,32 @@ export interface AssingmentProps {
     vbg?: string
 }
 
-const DEFAULT_PROGRESS = [
-
-]
+const DEFAULT_PROGRESS: ProgressProps = {
+    networkingAngkatan: {
+        progress: {
+            SAINTEK: { progress: 0, min: 0 },
+            SOSHUM: { progress: 0, min: 0 },
+            RIK_VOK: { progress: 0, min: 0 }
+        },
+        min: 0
+    },
+    networkingKating: {
+        "2021": { progres: 0, min: 0 },
+        "2022": { progres: 0, min: 0 },
+        "2023": { progres: 0, min: 0 }
+    },
+    firstFossibDone: false,
+    secondFossibDone: false,
+    insightHuntingDone: false,
+    mentoringReflectionDone: false,
+    mentoringVlogDone: false,
+    kmbuiExplorerDone: false
+}
 
 const TugasPage: React.FC = () => {
     const { token } = useAuth();
 
-    const [progress, setProgress] = useState<ProgressProps>({} as any)
+    const [progress, setProgress] = useState<ProgressProps>(DEFAULT_PROGRESS)
     const [isFetching, setIsFetching] = useState<boolean>(true);
 
     // console.log(token);
@@ -89,30 +113,29 @@ const TugasPage: React.FC = () => {
         getData();
     }, [])
 
-    const DUMMY_DATA_PROGRESS = [
+    const DATA_PROGRESS = [
         {
             label: "Mentoring",
-            currentProgress: 2,
-            totalProgress: 3
+            currentProgress: progress.mentoringVlogDone && progress.mentoringReflectionDone ? 2 : progress.mentoringVlogDone || progress.mentoringReflectionDone ? 1 : 0,
+            totalProgress: 2
         },
         {
             label: "Insight Hunting",
-            currentProgress: 0,
+            currentProgress: progress.insightHuntingDone ? 1 : 0,
             totalProgress: 1
         },
         {
             label: "Foster Sibling",
-            currentProgress: 1,
+            currentProgress: progress.firstFossibDone && progress.secondFossibDone ? 2 : progress.firstFossibDone || progress.secondFossibDone ? 1 : 0,
             totalProgress: 1
         },
         {
             label: "KMBUI Explorer",
-            currentProgress: 0,
+            currentProgress: progress.kmbuiExplorerDone ? 1 : 0,
             totalProgress: 1
         },
     ]
-
-    
+      
     const ASSINGMENTS: AssingmentProps[] = [
         {
             id: "insight-hunting",
@@ -155,7 +178,7 @@ const TugasPage: React.FC = () => {
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2023.",
             deadline: "31/08/2024",
             icon: <HiOutlineChatAlt2 />,
-            isFinished: false,
+            isFinished: progress.networkingKating["2023"].progres >= progress.networkingKating["2023"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
             type: "file",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
@@ -166,7 +189,7 @@ const TugasPage: React.FC = () => {
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2022.",
             deadline: "31/08/2024",
             icon: <HiOutlineChatAlt2 />,
-            isFinished: false,
+            isFinished:  progress.networkingKating["2022"].progres >= progress.networkingKating["2022"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
             type: "file",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
@@ -177,7 +200,7 @@ const TugasPage: React.FC = () => {
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2021.",
             deadline: "31/08/2024",
             icon: <HiOutlineChatAlt2 />,
-            isFinished: false,
+            isFinished: progress.networkingKating["2021"].progres >= progress.networkingKating["2021"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
             type: "file",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
@@ -188,7 +211,7 @@ const TugasPage: React.FC = () => {
             description: "Setelah tiap sesi mentoring, maba diharapkan dapat menulis rangkuman intisari dari kegiatan yang dilakukan sesuai kreativitas masing-masing.",
             deadline: "11/09/2024",
             icon: <HiOutlineDocumentText />,
-            isFinished: progress.firstMentoringDone,
+            isFinished: progress.mentoringReflectionDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
             type: "image",
             template: "https://www.canva.com/design/DAGKvoTzibg/xWWM0zwn6hPYRy5qN0hX6A/view?utm_content=DAGKvoTzibg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
@@ -209,15 +232,61 @@ const TugasPage: React.FC = () => {
             description: "Maba mengikuti paling sedikit 2 proker yang diadakan oleh KMBUI agar lebih mengenali KMBUI dan nilai-nilai Buddhis.",
             deadline: "11/09/2024",
             icon: <HiOutlineUsers />,
-            isFinished: false,
+            isFinished: progress.kmbuiExplorerDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",
             type: "file",
             template: "https://drive.google.com/file/d/1YlWD1fHyxUPzCd0f2qRbHaOKNBvelWol/view"
         },
     ]
 
-    // console.log(progress.networkingKating[2021]);
-    // console.log(ASSINGMENTS);
+    const PROGRESS_ANGKATAN = [
+        {
+          name: "2021",
+          progres: progress.networkingKating["2021"].progres,
+          min: progress.networkingKating["2021"].min,
+        },
+        {
+          name: "2022",
+          progres: progress.networkingKating["2022"].progres,
+          min: progress.networkingKating["2022"].min,
+        },
+        {
+          name: "2023",
+          progres: progress.networkingKating["2023"].progres,
+          min: progress.networkingKating["2023"].min,
+        },
+        {
+          name: "2024",
+          progres:
+            progress.networkingAngkatan.progress.SAINTEK.progress +
+            progress.networkingAngkatan.progress.SOSHUM.progress +
+            progress.networkingAngkatan.progress.RIK_VOK.progress,
+          min: progress.networkingAngkatan.min,
+        },
+      ];
+      
+      const PROGRESS_RUMPUN = [
+        {
+          name: "SAINTEK",
+          progres: progress.networkingAngkatan.progress.SAINTEK.progress,
+          min: progress.networkingAngkatan.progress.SAINTEK.min,
+        },
+        {
+          name: "SOSHUM",
+          progres: progress.networkingAngkatan.progress.SOSHUM.progress,
+          min: progress.networkingAngkatan.progress.SOSHUM.min,
+        },
+        {
+          name: "RIK_VOK",
+          progres: progress.networkingAngkatan.progress.RIK_VOK.progress,
+          min: progress.networkingAngkatan.progress.RIK_VOK.min,
+        },
+    ];
+    
+    console.log(progress);
+    console.log("ini rimpun", PROGRESS_RUMPUN);
+    console.log("ini angkatan", PROGRESS_ANGKATAN);
+    console.log(ASSINGMENTS)
 
     return (
         isFetching ? <LoadingScreen /> : 
@@ -227,12 +296,13 @@ const TugasPage: React.FC = () => {
             <div className="flex flex-col items-center gap-3">
                 <text className="text-2xl lg:text-3xl font-semibold">Progress Tugas</text>
 
-                {/* TODO: wait until be fix everything about progress :)) */}
                 <div className="flex flex-col gap-2 items-center">
-                    <MultiProgressBar />
-                    <MultiProgressBar />
+                <MultiProgressBar
+                    progressData={PROGRESS_ANGKATAN}
+                    networkingRumpun={PROGRESS_RUMPUN}
+                />
 
-                    {DUMMY_DATA_PROGRESS.map((data, key) => (
+                    {DATA_PROGRESS.map((data, key) => (
                         <ProgressBar key={key} {...data}/>
                     ))}
                 </div>
