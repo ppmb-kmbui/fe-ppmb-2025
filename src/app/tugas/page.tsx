@@ -170,7 +170,6 @@ const TugasPage: React.FC = () => {
             isFinished: progress.secondFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
             type: "pdf",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
             id: "networking-2023",
@@ -181,7 +180,7 @@ const TugasPage: React.FC = () => {
             isFinished: progress.networkingKating["2023"].progres >= progress.networkingKating["2023"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
             type: "pdf",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            template: "https://docs.google.com/document/d/1lZgM33u7c1GUpFVZYDBeZWrPQjzvaDyPwwJYrnz-VB4/edit"
         },
         {
             id: "networking-2022",
@@ -192,7 +191,7 @@ const TugasPage: React.FC = () => {
             isFinished:  progress.networkingKating["2022"].progres >= progress.networkingKating["2022"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
             type: "pdf",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            template: "https://docs.google.com/document/d/1lZgM33u7c1GUpFVZYDBeZWrPQjzvaDyPwwJYrnz-VB4/edit"
         },
         {
             id: "networking-2021",
@@ -203,7 +202,7 @@ const TugasPage: React.FC = () => {
             isFinished: progress.networkingKating["2021"].progres >= progress.networkingKating["2021"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
             type: "pdf",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            template: "https://docs.google.com/document/d/1lZgM33u7c1GUpFVZYDBeZWrPQjzvaDyPwwJYrnz-VB4/edit"
         },
         {
             id: "mentoring-sr",
