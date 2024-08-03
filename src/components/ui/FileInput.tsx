@@ -32,9 +32,6 @@ export const FileInput: React.FC<FileInputProps> = ({
         }
     };
 
-    const noop = () => {}
-
-
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
     }
@@ -45,7 +42,7 @@ export const FileInput: React.FC<FileInputProps> = ({
         onChange(file || null)
     }, []);
 
-    console.log("ini jawbaan", answer)
+    console.log(answer, "ini answer")
 
     return (
         <div className="w-full flex flex-col items-center justify-center">
@@ -69,7 +66,7 @@ export const FileInput: React.FC<FileInputProps> = ({
                         answer != "" ? <a>{answer}</a> : <span className="text-center text-sm">Drag dan drop <br /> atau</span>
                     )}
                     
-                    <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`} isRestricted={answer != ""}/>
+                    <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`} isRestricted={answer != undefined}/>
                     <input ref={inputRef} accept={fileType === 'image' ? '.jpg, .jpeg, .png' : '.pdf'} type="file" className="hidden" onChange={(e) => onChange(e.target.files?.[0] || null)} />
                 </div>
             </div>
