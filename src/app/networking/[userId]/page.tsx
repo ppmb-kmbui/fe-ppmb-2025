@@ -40,6 +40,7 @@ const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
     fromId: -1,
     toId: -2,
     is_done: false,
+    to: { imgUrl: "" },
     questions: [
         {
             questionId: -1,
@@ -191,6 +192,8 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
     useEffect(() => {
         getData();
     }, []);
+
+    console.log("ini networking assignment", networkingAssignment)
 
     return (
         isFetching ? <LoadingScreen /> :
