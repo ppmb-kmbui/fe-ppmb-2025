@@ -50,15 +50,20 @@ export const Modal: React.FC<ModalProps> = ({
   file = null
 }) => {
   const { register, control, handleSubmit, formState: { errors } } = useDynamicForm(type);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const submitModal = async (data: ModalData) => {
-    // if (type == )
+    try{
+      setIsLoading(true);
+      await onSubmit(data);
 
-    console.log("kepanggil")
-    await onSubmit(data); // Call the function that handles form submission
+    } catch (error: any){
+      console.error("Error while submit", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Type assertion to handle errors based on the type
   const getErrorMessage = (field: string) => {
     if (type === "input") {
       return (errors as any).link?.message;
@@ -98,7 +103,7 @@ export const Modal: React.FC<ModalProps> = ({
                     handleFileChange?.(file);
                   }}
                   label="Unggah berkas kamu"
-                  description={`Unggah dalam bentuk ${type === "image" ? '.jpg/.jpeg/.png' : '.pdf'}`}
+                  description={`${sublabel ? `${sublabel}.pdf` : `Unggah dalam bentuk ${type === "image" ? '.jpg/.jpeg/.png' : '.pdf'}`}`}
                   fileType={type}
                   error={getErrorMessage('file')}
                 />
@@ -110,18 +115,22 @@ export const Modal: React.FC<ModalProps> = ({
                 placeholder="Isi di sini"
                 {...register("link")}
                 type="normal"
+                error={getErrorMessage(type)}
               />
-              {/* <div className="flex justify-center mt-4">
-                
-              </div> */}
             </form>
           )}
-         <Button 
-                  onClick={() => { handleSubmit(submitModal)(); onClose(); }}
-                  label="Kumpulkan"
-                  size="md"
-                  type="submit"
-                />
+
+        <div className="flex items-center justify-center">
+        <Button 
+              onClick={() => { handleSubmit(submitModal)() }}
+              label="Kumpulkan"
+              size="md"
+              type="submit"
+              disabled={isLoading}
+              className="w-[180px] mt-5"
+            />
+        </div>
+        
         </div>
       </div>
     </div>

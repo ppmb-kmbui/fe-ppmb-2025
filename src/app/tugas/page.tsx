@@ -222,7 +222,6 @@ const TugasPage: React.FC = () => {
             deadline: "11/09/2024",
             icon: <HiOutlineDocumentText />,
             isFinished: progress.mentoringVlogDone,
-            namingFormat: "[Nomor Kelompok]_[Nama Kelompok]_Vlog",
             type: "input",
         },
         {

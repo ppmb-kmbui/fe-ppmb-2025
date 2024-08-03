@@ -53,13 +53,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                     console.log('PDF uploaded successfully:', res.data.url);
                     setUrl(res.data.url);
                     
-                } catch (error) {
-                    console.error("Error uploading PDF:", error);
-                }
-            }
+                
 
             switch (id) {
-
                 case ("insight-hunting"):
                     let res = await api({
                         url: "api/tasks/insight-hunting",
@@ -173,6 +169,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                     })
                     break;
             }
+            if (res.status == 200){
+                close();
+            }
+        
+        } catch (error) {
+                console.error("Error uploading PDF:", error);
+            }
+        }
 
         } else {
             console.error("No file provided for upload");
