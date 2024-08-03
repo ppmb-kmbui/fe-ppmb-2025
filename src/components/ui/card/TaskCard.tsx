@@ -24,7 +24,12 @@ export const TaskCard: React.FC<TaskProps> = ({
 
     const handleSubmit = async (data: any) => {
         if (data) {
+            console.log("image", data);
+            console.log("ini id", id);
+            console.log("ini type", type)
             if (type === "image") {
+            console.log("haiiii2")
+
                 try {
                     const form = new FormData();
                     form.append('file', data);
@@ -35,13 +40,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         form
                     );
     
-                    // console.log('Image uploaded successfully:', res.data.url);
                     setUrl(res.data.url);
     
                 } catch (error) {
                     console.error("Error uploading image:", error);
                 }
             } else if (type === "pdf") {
+            console.log("haiiii3")
+
                 try {
                     const form = new FormData();
                     form.append('file', data.file);
@@ -54,150 +60,155 @@ export const TaskCard: React.FC<TaskProps> = ({
                     console.log('PDF uploaded successfully:', res.data.url);
                     setUrl(res.data.url);
 
-            switch (id) {
-                case ("insight-hunting"):
-                    await api({
-                        url: "api/tasks/insight-hunting",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, insightHuntingDone: true }));
-                    break;
+                switch (id) {
+                    case ("insight-hunting"):
+                        await api({
+                            url: "api/tasks/insight-hunting",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, insightHuntingDone: true }));
+                        break;
 
-                case ("fossib-1"):
-                    await api({
-                        url: "api/tasks/fossib/first",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            description: "",
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, firstFossibDone: true }));
-                    break;
+                    case ("fossib-1"):
+                        await api({
+                            url: "api/tasks/fossib/first",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                description: "",
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, firstFossibDone: true }));
+                        break;
 
-                case ("fossib-2"):
-                    await api({
-                        url: "api/tasks/fossib/second",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            description: "",
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, secondFossibDone: true }));
-                    break;
+                    case ("fossib-2"):
+                        await api({
+                            url: "api/tasks/fossib/second",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                description: "",
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, secondFossibDone: true }));
+                        break;
 
-                case ("networking-2023"):
-                    await api({
-                        url: "api/tasks/connect-kating",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            batch: 2023,
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2023": {  ...oldProgress.networkingKating["2023"], progres: oldProgress.networkingKating["2023"].progres + 1 }}}));
-                    break;
+                    case ("networking-2023"):
+                        await api({
+                            url: "api/tasks/connect-kating",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                batch: 2023,
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2023": {  ...oldProgress.networkingKating["2023"], progres: oldProgress.networkingKating["2023"].progres + 1 }}}));
+                        break;
 
-                case ("networking-2022"):
-                    await api({
-                        url: "api/tasks/connect-kating",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            batch: 2022,
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2022": {  ...oldProgress.networkingKating["2022"], progres: oldProgress.networkingKating["2022"].progres + 1 }}}));
-                    break;
+                    case ("networking-2022"):
+                        await api({
+                            url: "api/tasks/connect-kating",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                batch: 2022,
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2022": {  ...oldProgress.networkingKating["2022"], progres: oldProgress.networkingKating["2022"].progres + 1 }}}));
+                        break;
 
-                case ("networking-2021"):
-                    await api({
-                        url: "api/tasks/connect-kating",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            batch: 2021,
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2021": {  ...oldProgress.networkingKating["2021"], progres: oldProgress.networkingKating["2021"].progres + 1 }}}));
-                    break;
+                    case ("networking-2021"):
+                        await api({
+                            url: "api/tasks/connect-kating",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                batch: 2021,
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2021": {  ...oldProgress.networkingKating["2021"], progres: oldProgress.networkingKating["2021"].progres + 1 }}}));
+                        break;
 
-                case ("mentoring-sr"):
-                    await api({
-                        url: "api/tasks/mentoring/reflection",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            description: "",
-                            file_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, mentoringReflectionDone: true }));
-                    break;
+                    case ("mentoring-sr"):
+                        await api({
+                            url: "api/tasks/mentoring/reflection",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                description: "",
+                                file_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, mentoringReflectionDone: true }));
+                        break;
 
-                case ("mentoring-v"):
-                    await api({
-                        url: "api/tasks/mentoring/vlog",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            file_url: "url" //TODO: 
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, mentoringVlogDone: true }));
-                    break;
-
-                case ("kmbui-explorer"):
-                    await api({
-                        url: "api/tasks/explorer",
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        },
-                        data: {
-                            img_url: res.data.url
-                        }
-                    })
-                    setProgress(oldProgress => ({ ...oldProgress, kmbuiExplorerDone: true }));
-                    break;
-            }
-            if (res.status == 200){
-                close();
-            }
+                    case ("kmbui-explorer"):
+                        await api({
+                            url: "api/tasks/explorer",
+                            method: "POST",
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            },
+                            data: {
+                                img_url: res.data.url
+                            }
+                        })
+                        setProgress(oldProgress => ({ ...oldProgress, kmbuiExplorerDone: true }));
+                        break;
+                } 
+ 
+                    if (res.status == 200){
+                        close();
+                    }
         
         } catch (error) {
                 console.error("Error uploading PDF:", error);
             }
         }
 
+        if (id == "mentoring-v"){
+            console.log("masuk sini kok")
+            const res = await api({
+                url: "api/tasks/mentoring/vlog",
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                data: {
+                    file_url: data.link
+                }
+            })
+            setProgress(oldProgress => ({ ...oldProgress, mentoringVlogDone: true }));
+            if (res.status == 200){
+                close();
+            }
+        }
+
         } else {
-            console.error("No file provided for upload");
+            console.log("haiiii")
         }
     };
     return (
@@ -267,16 +278,6 @@ export const TaskCard: React.FC<TaskProps> = ({
                         <HiDownload />
                     </button> 
                 </a>}
-
-                {/* <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pr-[16px] py-[2px] text-[13px] md:text-sm rounded-lg">
-                    <HiOutlineFolderOpen size={20}/>
-                    <text>Cek File</text>
-                </button> */}
-
-                {/* <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pr-[16px] py-[2px] text-[13px] md:text-sm rounded-lg">
-                    <HiLink size={18} />
-                    <text>Cek Link</text>
-                </button> */}
 
                 <button className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-[13px] md:text-sm rounded-lg hover:bg-ppmb-blue-700 min-h-[27.5px]" onClick={open}>
                     <text>Submit</text>
