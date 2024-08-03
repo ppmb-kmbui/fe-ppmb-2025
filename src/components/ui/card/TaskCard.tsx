@@ -35,7 +35,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                         form
                     );
     
-                    console.log('Image uploaded successfully:', res.data.url);
+                    // console.log('Image uploaded successfully:', res.data.url);
                     setUrl(res.data.url);
     
                 } catch (error) {
@@ -56,21 +56,21 @@ export const TaskCard: React.FC<TaskProps> = ({
 
             switch (id) {
                 case ("insight-hunting"):
-                    let res = await api({
+                    await api({
                         url: "api/tasks/insight-hunting",
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`
                         },
                         data: {
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, insightHuntingDone: true }));
                     break;
 
                 case ("fossib-1"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/fossib/first",
                         method: "POST",
                         headers: {
@@ -78,14 +78,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         },
                         data: {
                             description: "",
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, firstFossibDone: true }));
                     break;
 
                 case ("fossib-2"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/fossib/second",
                         method: "POST",
                         headers: {
@@ -93,14 +93,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         },
                         data: {
                             description: "",
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, secondFossibDone: true }));
                     break;
 
                 case ("networking-2023"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/connect-kating",
                         method: "POST",
                         headers: {
@@ -108,14 +108,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         },
                         data: {
                             batch: 2023,
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2023": {  ...oldProgress.networkingKating["2023"], progres: oldProgress.networkingKating["2023"].progres + 1 }}}));
                     break;
 
                 case ("networking-2022"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/connect-kating",
                         method: "POST",
                         headers: {
@@ -123,14 +123,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         },
                         data: {
                             batch: 2022,
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2022": {  ...oldProgress.networkingKating["2022"], progres: oldProgress.networkingKating["2022"].progres + 1 }}}));
                     break;
 
                 case ("networking-2021"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/connect-kating",
                         method: "POST",
                         headers: {
@@ -138,14 +138,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         },
                         data: {
                             batch: 2021,
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2021": {  ...oldProgress.networkingKating["2021"], progres: oldProgress.networkingKating["2021"].progres + 1 }}}));
                     break;
 
                 case ("mentoring-sr"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/mentoring/reflection",
                         method: "POST",
                         headers: {
@@ -153,14 +153,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                         },
                         data: {
                             description: "",
-                            file_url: url
+                            file_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, mentoringReflectionDone: true }));
                     break;
 
                 case ("mentoring-v"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/mentoring/vlog",
                         method: "POST",
                         headers: {
@@ -174,14 +174,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                     break;
 
                 case ("kmbui-explorer"):
-                    res = await api({
+                    await api({
                         url: "api/tasks/explorer",
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${token}`
                         },
                         data: {
-                            file_url: url
+                            img_url: res.data.url
                         }
                     })
                     setProgress(oldProgress => ({ ...oldProgress, kmbuiExplorerDone: true }));

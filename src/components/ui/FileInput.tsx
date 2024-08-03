@@ -61,7 +61,7 @@ export const FileInput: React.FC<FileInputProps> = ({
                             {file.name}
                         </span>
                     ) : (
-                        answer != "" ? <a>{answer}</a> : <span className="text-center text-sm">Drag dan drop <br /> atau</span>
+                        answer != undefined ? <a>{answer}</a> : <span className="text-center text-sm">Drag dan drop <br /> atau</span>
                     )}
                     
                     <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`} isRestricted={answer != undefined}/>
