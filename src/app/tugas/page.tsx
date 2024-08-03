@@ -53,7 +53,7 @@ export interface AssingmentProps {
     deadline: string
     icon: React.ReactNode
     isFinished: boolean
-    type: "file" | "input" | "image"
+    type: "pdf" | "input" | "image"
     namingFormat?: string
     template?: string
     rsvp?: string
@@ -88,7 +88,7 @@ const TugasPage: React.FC = () => {
     const [progress, setProgress] = useState<ProgressProps>(DEFAULT_PROGRESS)
     const [isFetching, setIsFetching] = useState<boolean>(true);
 
-    // console.log(token);
+    console.log(token);
 
     const getData = async () => {
         try {
@@ -145,7 +145,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineLightBulb />,
             isFinished: progress.insightHuntingDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
-            type: "file",
+            type: "pdf",
             rsvp: "https://docs.google.com/forms/d/e/1FAIpQLScIHbDL7w-SaY_sDy-z7wabRaBLVKIRZ3CfwIQuJEuQD73S7Q/viewform",
             template: "https://docs.google.com/document/d/1Z3engQq3QwqyE2HjhTSxwxJchf2brPr7/edit",
             vbg: "https://drive.google.com/file/d/18QDIWk0txOuxGM6OvyFeOjTdo8urAyC6/view?usp=drive_link"
@@ -158,7 +158,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineUsers />,
             isFinished: progress.firstFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling1",
-            type: "file",
+            type: "pdf",
             template: "https://drive.google.com/drive/folders/1nai7H4PCZplp8qaP7VFqF90TEOwnWSly"
         },
         {
@@ -169,7 +169,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineUsers />,
             isFinished: progress.secondFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
-            type: "file",
+            type: "pdf",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
@@ -180,7 +180,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineChatAlt2 />,
             isFinished: progress.networkingKating["2023"].progres >= progress.networkingKating["2023"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
-            type: "file",
+            type: "pdf",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
@@ -191,7 +191,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineChatAlt2 />,
             isFinished:  progress.networkingKating["2022"].progres >= progress.networkingKating["2022"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
-            type: "file",
+            type: "pdf",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
@@ -202,7 +202,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineChatAlt2 />,
             isFinished: progress.networkingKating["2021"].progres >= progress.networkingKating["2021"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
-            type: "file",
+            type: "pdf",
             template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
         },
         {
@@ -213,7 +213,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineDocumentText />,
             isFinished: progress.mentoringReflectionDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
-            type: "image",
+            type: "pdf",
             template: "https://www.canva.com/design/DAGKvoTzibg/xWWM0zwn6hPYRy5qN0hX6A/view?utm_content=DAGKvoTzibg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
         },
         {
@@ -234,7 +234,7 @@ const TugasPage: React.FC = () => {
             icon: <HiOutlineUsers />,
             isFinished: progress.kmbuiExplorerDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",
-            type: "file",
+            type: "pdf",
             template: "https://drive.google.com/file/d/1YlWD1fHyxUPzCd0f2qRbHaOKNBvelWol/view"
         },
     ]
@@ -283,10 +283,10 @@ const TugasPage: React.FC = () => {
         },
     ];
     
-    console.log(progress);
-    console.log("ini rimpun", PROGRESS_RUMPUN);
-    console.log("ini angkatan", PROGRESS_ANGKATAN);
-    console.log(ASSINGMENTS)
+    // console.log(progress);
+    // console.log("ini rimpun", PROGRESS_RUMPUN);
+    // console.log("ini angkatan", PROGRESS_ANGKATAN);
+    // console.log(ASSINGMENTS)
 
     return (
         isFetching ? <LoadingScreen /> : 
@@ -308,7 +308,7 @@ const TugasPage: React.FC = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col md:flex-row md:justify-evenly px-8 lg:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 px-8 lg:px-[60px] xl:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
                 <div className="flex flex-col gap-2">
                     <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Belum Dikerjakan</text>
 
@@ -320,7 +320,6 @@ const TugasPage: React.FC = () => {
                         ))}
                     </div>
                     <text className={`${ASSINGMENTS.filter(assignment => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
-
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
