@@ -24,7 +24,7 @@ export const UserCard: React.FC<UserCardProps> = ({
     const [isRejectLoading, setIsRejectLoading] = useState<boolean>(false);
     const [dynamicStatus, setDynamicStatus] = useState<typeof status>(status); // connect response doesnt retrun typeof status, so need to manually change it :)
 
-    const { token } = useAuth();
+    const { token, user } = useAuth();
 
     const follow = async () => {
         try {
@@ -129,11 +129,13 @@ export const UserCard: React.FC<UserCardProps> = ({
             </div>
 
             <div className="flex h-[15%] justify-center items-center">
-                { batch != 2024 ? 
+               {user.batch == 2024 ? 
+               
+                batch != 2024 ? 
                     <button className="md:mx-2 border-ppmb-500 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
                         <text className="text-ppmb-500 font-semibold text-sm lg:text-[16px]">Angkatan {batch}</text>
                     </button>
-                :
+                    :
                     <>
                         { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 hover:bg-ppmb-blue-600 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2 min-h-[28px]`} onClick={follow} disabled={isLoading}>
                             { isLoading ? 
@@ -186,7 +188,12 @@ export const UserCard: React.FC<UserCardProps> = ({
                             <HiCheck size={20}/>
                         </button>}
                     </>
-                }
+               
+               :
+               
+               
+                user.batch != 2024 && <button className="md:mx-2 bg-ppmb-100 border-ppmb-100 text-ppmb-600 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">Anda kating</button>
+            } 
             </div>
         </div>
     )
