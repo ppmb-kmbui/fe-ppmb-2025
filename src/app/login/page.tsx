@@ -9,7 +9,6 @@ import { useAuth } from "@/context/AuthContext";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { watch } from "fs";
 
 const loginFormSchema = z.object({
     email: z.string().email({ message: "Masukkan email yang valid!" }),
@@ -19,6 +18,7 @@ const loginFormSchema = z.object({
 const LoginPage: React.FC = () => {
     const { login, isAuthenticated } = useAuth();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [loginError, setLoginError] = useState<string | null>(null);
     const router = useRouter();
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<z.infer<typeof loginFormSchema>>({
@@ -28,11 +28,21 @@ const LoginPage: React.FC = () => {
     const handleLogin = async (data: z.infer<typeof loginFormSchema>) => {
         try{
             setIsLoading(true)
+            setLoginError(null);
             await login(data.email, data.password);
             reset();
 
         } catch (error: any) {
-            console.log("Error while logging in", error.message);
+            console.log("error")
+            if (error.response && error.response.status === 404) {
+                console.log("error atas")
+
+                setLoginError("Email atau password tidak valid!");
+            } else {
+                console.log("error bawah")
+
+                console.log("Error while logging in", error.message);
+            }
         } finally {
             setTimeout(() => {
                 setIsLoading(false);
@@ -56,6 +66,7 @@ const LoginPage: React.FC = () => {
                     <Input {...register("password")} placeholder="Masukkan password kamu" icon={<HiLockOpen />} label="Password" error={errors.password?.message} />
 
                     <div className="flex items-center flex-col gap-1 lg:mt-1">
+                        {loginError && <div className="text-ppmb-red-500">{loginError}</div>}
                         <Button label="Masuk" type="submit" size="lg" disabled={isLoading}/>
                         <span className="font-medium">Belum memiliki akun? <span className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2" onClick={() => router.push("/signup")}>Buat Akun</span></span>
                     </div>   

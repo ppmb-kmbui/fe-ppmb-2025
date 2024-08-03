@@ -95,6 +95,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({ c
             router.push('/');
         } catch (error: any) {
             console.error("Error in login", error);
+            throw error;
         } finally {
             setIsLoading(false);
         }
