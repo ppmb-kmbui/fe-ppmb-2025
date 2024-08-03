@@ -106,7 +106,7 @@ const ProfilPage: React.FC = () => {
                             alt={"Logo"}
                             width={140}
                             height={140}
-                            className="rounded-full"
+                            className="rounded-full object-cover"
                         />
 
                         <button className={`${isLoading && "cursor-not-allowed"} absolute bottom-0 right-0 bg-white p-1 md:p-[7px] md:text-[20px] rounded-full text-ppmb-blue-600 border-[2px] border-ppmb-blue-600`} onClick={open} disabled={isLoading}>

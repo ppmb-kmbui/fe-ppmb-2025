@@ -42,8 +42,6 @@ export const FileInput: React.FC<FileInputProps> = ({
         onChange(file || null)
     }, []);
 
-    console.log(answer, "ini answer")
-
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-[2px]">
