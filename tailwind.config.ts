@@ -39,6 +39,7 @@ const config: Config = {
         "ppmb-blue-900": "#040c17",
 
         "ppmb-success": "#1eb81e",
+        "ppmb-success-dark": "#189318",
         "ppmb-warning": "#d6bd02"
       },
 

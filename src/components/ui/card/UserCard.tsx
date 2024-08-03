@@ -118,8 +118,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                         alt=""
                         width={95}
                         height={95}
-                        className="rounded-full"
-                        objectFit="contain"
+                        className="rounded-full object-cover"
                     />
                 </div>
             </div>
@@ -136,7 +135,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                     </button>
                 :
                     <>
-                        { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2 min-h-[28px]`} onClick={follow} disabled={isLoading}>
+                        { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 hover:bg-ppmb-blue-600 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2 min-h-[28px]`} onClick={follow} disabled={isLoading}>
                             { isLoading ? 
                                 <div className="loader-button-xs w-[16px] h-[16px]"/> 
                             : 
@@ -161,7 +160,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                                 }
                             </button>
 
-                            <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success flex items-center justify-center rounded-lg w-full px-3 md:px-4 min-h-[28px]`} onClick={accept} disabled={isLoading}>
+                            <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success hover:bg-ppmb-success-dark flex items-center justify-center rounded-lg w-full px-3 md:px-4 min-h-[28px]`} onClick={accept} disabled={isLoading}>
                                 { isAcceptLoading ? 
                                     <div className="loader-button-xs"/> 
                                 :
@@ -170,7 +169,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                             </button>
                         </div>}
 
-                        { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} md:mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={createNetworkingTask} disabled={isLoading}>
+                        { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={createNetworkingTask} disabled={isLoading}>
                             { isLoading ? 
                                 <div className="loader-button-sm"/>
                             :
@@ -178,11 +177,11 @@ export const UserCard: React.FC<UserCardProps> = ({
                             }
                         </button> }
 
-                        { dynamicStatus == "sedang_networking" && <button className={`md:mx-2 bg-ppmb-blue-700 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={() => router.push(`/networking/${id}`)} >
+                        { dynamicStatus == "sedang_networking" && <button className={`md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={() => router.push(`/networking/${id}`)} >
                             <text className=" text-ppmb-000 font-medium">Networking</text>
                         </button> }
 
-                        { dynamicStatus == "done" && <button className="md:mx-2 bg-ppmb-success text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 font-medium min-h-[28px]" onClick={() => router.push(`/networking/${id}`)}>
+                        { dynamicStatus == "done" && <button className="md:mx-2 bg-ppmb-success hover:bg-ppmb-success-dark text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 font-medium min-h-[28px]" onClick={() => router.push(`/networking/${id}`)}>
                             <text className="font-medium">Selesai</text>
                             <HiCheck size={20}/>
                         </button>}
