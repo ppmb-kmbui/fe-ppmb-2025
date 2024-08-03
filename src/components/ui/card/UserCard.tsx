@@ -182,7 +182,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                             <text className=" text-ppmb-000 font-medium">Networking</text>
                         </button> }
 
-                        { dynamicStatus == "done" && <button className="md:mx-2 bg-ppmb-success text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 cursor-not-allowed font-medium min-h-[28px]">
+                        { dynamicStatus == "done" && <button className="md:mx-2 bg-ppmb-success text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 font-medium min-h-[28px]" onClick={() => router.push(`/networking/${id}`)}>
                             <text className="font-medium">Selesai</text>
                             <HiCheck size={20}/>
                         </button>}

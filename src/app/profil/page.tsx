@@ -20,13 +20,16 @@ const ProfilPage: React.FC = () => {
     const { close, open, isOpen } = useDisclosure();
 
     const handleFileChange = (file: File | null) => {
-        console.log("run di sini")
         if (file) {
             setPhoto(file);
         } else {
             setPhoto(null);
         }
     };
+
+    // console.log(token)
+
+    console.log(user.networking_tasks)
 
     const deleteImageProfile = async () => {
         try {

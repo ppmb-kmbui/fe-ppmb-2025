@@ -11,10 +11,11 @@ export interface FileInputProps {
     description: string
     fileType: 'image' | 'pdf'
     error?: string
+    answer?: string
 }
 
 export const FileInput: React.FC<FileInputProps> = ({
-    file, onChange, label, description, fileType, error
+    file, onChange, label, description, fileType, error, answer
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,6 +31,9 @@ export const FileInput: React.FC<FileInputProps> = ({
             window.open(fileURL, '_blank');
         }
     };
+
+    const noop = () => {}
+
 
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
@@ -60,10 +64,10 @@ export const FileInput: React.FC<FileInputProps> = ({
                             {file.name}
                         </span>
                     ) : (
-                        <span className="text-center text-sm">Drag dan drop <br /> atau</span>
+                        answer ? <a>{answer}</a> : <span className="text-center text-sm">Drag dan drop <br /> atau</span>
                     )}
                     
-                    <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`}/>
+                    <Button onClick={answer != "" ? noop : onChooseFile} label={`Cari ${label.split(" ")[1]}`} />
                     <input ref={inputRef} accept={fileType === 'image' ? '.jpg, .jpeg, .png' : '.pdf'} type="file" className="hidden" onChange={(e) => onChange(e.target.files?.[0] || null)} />
                 </div>
             </div>
