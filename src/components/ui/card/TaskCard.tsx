@@ -3,19 +3,20 @@
 import { HiDownload, HiLink, HiOutlineAcademicCap, HiOutlineCalendar, HiOutlineCursorClick, HiOutlineFolderOpen } from "react-icons/hi"
 import { useDisclosure } from "react-use-disclosure"
 import { Modal } from "@/components";
-import { AssingmentProps } from "@/app/tugas/page";
+import { AssingmentProps, ProgressProps } from "@/app/tugas/page";
 import axios from "axios";
 import { api } from "@/utils/axios";
 import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface TaskProps extends AssingmentProps {
-
+    setProgress: Dispatch<SetStateAction<ProgressProps>>
 }
 
 export const TaskCard: React.FC<TaskProps> = ({
     id, name, description, deadline, icon, type, namingFormat, isFinished,
-    template, vbg, rsvp
+    template, vbg, rsvp,
+    setProgress
 }) => {
     const [url, setUrl] = useState<string>("");
     const { token } = useAuth();
@@ -52,8 +53,6 @@ export const TaskCard: React.FC<TaskProps> = ({
                     );
                     console.log('PDF uploaded successfully:', res.data.url);
                     setUrl(res.data.url);
-                    
-                
 
             switch (id) {
                 case ("insight-hunting"):
@@ -67,7 +66,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, insightHuntingDone: true }));
                     break;
+
                 case ("fossib-1"):
                     res = await api({
                         url: "api/tasks/fossib/first",
@@ -76,10 +77,13 @@ export const TaskCard: React.FC<TaskProps> = ({
                             Authorization: `Bearer ${token}`
                         },
                         data: {
+                            description: "",
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, firstFossibDone: true }));
                     break;
+
                 case ("fossib-2"):
                     res = await api({
                         url: "api/tasks/fossib/second",
@@ -88,10 +92,13 @@ export const TaskCard: React.FC<TaskProps> = ({
                             Authorization: `Bearer ${token}`
                         },
                         data: {
+                            description: "",
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, secondFossibDone: true }));
                     break;
+
                 case ("networking-2023"):
                     res = await api({
                         url: "api/tasks/connect-kating",
@@ -104,7 +111,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2023": {  ...oldProgress.networkingKating["2023"], progres: oldProgress.networkingKating["2023"].progres + 1 }}}));
                     break;
+
                 case ("networking-2022"):
                     res = await api({
                         url: "api/tasks/connect-kating",
@@ -117,7 +126,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2022": {  ...oldProgress.networkingKating["2022"], progres: oldProgress.networkingKating["2022"].progres + 1 }}}));
                     break;
+
                 case ("networking-2021"):
                     res = await api({
                         url: "api/tasks/connect-kating",
@@ -130,7 +141,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, networkingKating: { ...oldProgress.networkingKating, "2021": {  ...oldProgress.networkingKating["2021"], progres: oldProgress.networkingKating["2021"].progres + 1 }}}));
                     break;
+
                 case ("mentoring-sr"):
                     res = await api({
                         url: "api/tasks/mentoring/reflection",
@@ -143,7 +156,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, mentoringReflectionDone: true }));
                     break;
+
                 case ("mentoring-v"):
                     res = await api({
                         url: "api/tasks/mentoring/vlog",
@@ -155,7 +170,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: "url" //TODO: 
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, mentoringVlogDone: true }));
                     break;
+
                 case ("kmbui-explorer"):
                     res = await api({
                         url: "api/tasks/explorer",
@@ -167,6 +184,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                             file_url: url
                         }
                     })
+                    setProgress(oldProgress => ({ ...oldProgress, kmbuiExplorerDone: true }));
                     break;
             }
             if (res.status == 200){

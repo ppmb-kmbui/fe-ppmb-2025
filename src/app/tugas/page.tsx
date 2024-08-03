@@ -35,7 +35,7 @@ interface NetworkingKatingProgressProps {
     2023: ProgresDetailProps
 }
 
-interface ProgressProps {
+export interface ProgressProps {
     networkingAngkatan: NetworkingAngkatanProgressProps
     networkingKating: NetworkingKatingProgressProps
     firstFossibDone: boolean
@@ -87,8 +87,6 @@ const TugasPage: React.FC = () => {
 
     const [progress, setProgress] = useState<ProgressProps>(DEFAULT_PROGRESS)
     const [isFetching, setIsFetching] = useState<boolean>(true);
-
-    console.log(token);
 
     const getData = async () => {
         try {
@@ -280,11 +278,6 @@ const TugasPage: React.FC = () => {
           min: progress.networkingAngkatan.progress.RIK_VOK.min,
         },
     ];
-    
-    // console.log(progress);
-    // console.log("ini rimpun", PROGRESS_RUMPUN);
-    // console.log("ini angkatan", PROGRESS_ANGKATAN);
-    // console.log(ASSINGMENTS)
 
     return (
         isFetching ? <LoadingScreen /> : 
@@ -313,7 +306,7 @@ const TugasPage: React.FC = () => {
                     <div className="flex flex-col gap-5 w-full">
                         {ASSINGMENTS.map((assignment, key) => (
                             <div className={`${assignment.isFinished == true && "hidden"}`}>
-                                <TaskCard key={key} {...assignment}/>
+                                <TaskCard key={key} {...assignment} setProgress={setProgress}/>
                             </div>
                         ))}
                     </div>
@@ -325,7 +318,7 @@ const TugasPage: React.FC = () => {
                     <div className="flex flex-col gap-5">
                         {ASSINGMENTS.map((assingment, key) => (
                             <div className={`${assingment.isFinished == false && "hidden"}`}>
-                                <TaskCard key={key} {...assingment}/>
+                                <TaskCard key={key} {...assingment} setProgress={setProgress}/>
                             </div>
                         ))}
                     </div>
