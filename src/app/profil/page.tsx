@@ -90,7 +90,7 @@ const ProfilPage: React.FC = () => {
                 type="image"
                 label="Edit foto profile"
                 sublabel="Foto harus dalam bentuk .jpg/.jpeg/.png"
-                handleSubmit={handleEditProfile}
+                onSubmit={handleEditProfile}
                 handleFileChange={handleFileChange}
                 file={photo}
             />
