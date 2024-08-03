@@ -64,7 +64,13 @@ const AdminPage: React.FC = () => {
         }
     }
 
-    // console.log(token);
+    const copyToClipboard = (code: string) => {
+        navigator.clipboard.writeText(code).then(() => {
+            alert('Kode absensi berhasil disalin!');
+        }).catch((error) => {
+            console.error("Error copying to clipboard", error);
+        });
+    }
     
     useEffect(() => {
         getData();
@@ -89,9 +95,8 @@ const AdminPage: React.FC = () => {
                                     <text className="text-5xl font-semibold ">{attendance.code}</text>
                                 </div>
 
-                                <div className="flex flex-row gap-2">
-                                    {/* TODO: implement dynamic style, add w-full */}
-                                    <Button label="Salin" onClick={() => {}} />
+                                <div className="flex flex-row gap-3">
+                                    <Button label="Salin" onClick={() => copyToClipboard(attendance.code)} className="w-full"/>
                                     <button className="text-ppmb-red-500 border-[2px] border-ppmb-red-500 rounded-md p-2 hover:bg-ppmb-red-100"><HiOutlineTrash size={20}/></button>
                                 </div>
                             </div>
