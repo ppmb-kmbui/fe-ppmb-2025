@@ -225,7 +225,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                 onSubmit={handleSubmit}
                 sublabel={namingFormat}
             />
-        <div className={`${(!isOverdue && !isFinished) && 'opacity-70'} flex flex-col p-3 md:p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2`}>
+        <div className={`${(isOverdue && !isFinished) && 'opacity-70'} flex flex-col p-3 md:p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2`}>
             
 
             <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:justify-between">
@@ -246,7 +246,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                         </button> 
                     </a>}
 
-                    <div className={`${(!isOverdue && !isFinished) ? 'bg-ppmb-red-500 text-ppmb-000' : 'bg-ppmb-100 text-ppmb-800'} rounded-xl  text-sm md:text-[16px]  px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit`}>
+                    <div className={`${(isOverdue && !isFinished) ? 'bg-ppmb-red-500 text-ppmb-000' : 'bg-ppmb-100 text-ppmb-800'} rounded-xl  text-sm md:text-[16px]  px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit`}>
                     <HiOutlineCalendar />
                     <text className="font-medium">{formatDate(deadline)}</text>
                 </div>
