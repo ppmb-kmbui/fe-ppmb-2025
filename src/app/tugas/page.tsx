@@ -310,7 +310,7 @@ const TugasPage: React.FC = () => {
                             </div>
                         ))}
                     </div>
-                    <text className={`${ASSINGMENTS.filter(assignment => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
+                    <text className={`${ASSINGMENTS.filter(assignment => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}>Selamat kamu sudah menyelesaikan semua tugas!</text>
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
