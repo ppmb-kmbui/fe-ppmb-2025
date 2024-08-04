@@ -48,9 +48,9 @@ export const SmallBar: React.FC = () => {
                     <div className="flex flex-col gap-4 w-full">
                         <button className="p-2 text-lg" onClick={() => navigateTo('/')}>Beranda</button>
                         <button className="p-2 text-lg" onClick={() => navigateTo('/cari')}>Cari</button> 
-                        { user.batch != 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/networking')}>Networking</button> }
-                        { user.batch != 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/tugas')}>Tugas</button> }
-                        { user.batch != 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/pengumuman')}>Pengumuman</button> }
+                        { user.batch == 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/networking')}>Networking</button> }
+                        { user.batch == 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/tugas')}>Tugas</button> }
+                        { user.batch == 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/pengumuman')}>Pengumuman</button> }
                         <button className="p-2 text-lg" onClick={() => navigateTo('/profil')}>Profil</button>
                         { user.isAdmin && <button className="p-2 text-lg" onClick={() => navigateTo('/admin')}>Admin</button> }
 
