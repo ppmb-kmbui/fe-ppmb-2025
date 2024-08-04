@@ -14,7 +14,11 @@ const lexend_init = Lexend({
 export const metadata: Metadata = {
   title: "PPMB Connect",
   description: "Website PPMB KMBUI 2024",
+  icons: {
+    icon: "/ppmb.ico",
+  },
 };
+
 
 export default function RootLayout({
   children,
@@ -23,9 +27,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <meta>
-      <link rel="icon" type="image/x-icon" href="/ppmb.ico"/>
-      </meta>
       <body className={`${lexend_init.variable}`}>
         <AuthContextProvider>
         <div className="flex">
