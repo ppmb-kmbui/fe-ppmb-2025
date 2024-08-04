@@ -50,7 +50,7 @@ export interface AssingmentProps {
     id: string
     name: string
     description: string
-    deadline: string
+    deadline: Date
     icon: React.ReactNode
     isFinished: boolean
     type: "pdf" | "input" | "image"
@@ -139,7 +139,7 @@ const TugasPage: React.FC = () => {
             id: "insight-hunting",
             name: "Insight Hunting",
             description: "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
-            deadline: "29/08/2024",
+            deadline: new Date(2024, 7, 29),
             icon: <HiOutlineLightBulb />,
             isFinished: progress.insightHuntingDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
@@ -152,7 +152,7 @@ const TugasPage: React.FC = () => {
             id: "fossib-1",
             name: "Fossib: Sharing Insight",
             description: "Maba dan kakak asuh melakukan sharing bersama untuk dapat saling mengenal dan bertukar wawasan mengenai kehidupan perkuliahan.",
-            deadline: "29/08/2024",
+            deadline: new Date(2024, 7, 29),
             icon: <HiOutlineUsers />,
             isFinished: progress.firstFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling1",
@@ -163,7 +163,7 @@ const TugasPage: React.FC = () => {
             id: "fossib-2",
             name: "Fossib: Fun Activity",
             description: "Setelah sharing insight, maba dan kakak asuh melakukan kegiatan bersama untuk dapat saling mendekatkan diri.",
-            deadline: "29/08/2024",
+            deadline: new Date(2024, 7, 29),
             icon: <HiOutlineUsers />,
             isFinished: progress.secondFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
@@ -173,7 +173,7 @@ const TugasPage: React.FC = () => {
             id: "networking-2023",
             name: "Networking Kating 2023",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2023.",
-            deadline: "31/08/2024",
+            deadline: new Date(2024, 7, 31),
             icon: <HiOutlineChatAlt2 />,
             isFinished: progress.networkingKating["2023"].progres >= progress.networkingKating["2023"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
@@ -184,7 +184,7 @@ const TugasPage: React.FC = () => {
             id: "networking-2022",
             name: "Networking Kating 2022",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2022.",
-            deadline: "31/08/2024",
+            deadline: new Date(2024, 7, 31),
             icon: <HiOutlineChatAlt2 />,
             isFinished:  progress.networkingKating["2022"].progres >= progress.networkingKating["2022"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
@@ -195,7 +195,7 @@ const TugasPage: React.FC = () => {
             id: "networking-2021",
             name: "Networking Kating 2021",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2021.",
-            deadline: "31/08/2024",
+            deadline: new Date(2024, 7, 31),
             icon: <HiOutlineChatAlt2 />,
             isFinished: progress.networkingKating["2021"].progres >= progress.networkingKating["2021"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
@@ -206,7 +206,7 @@ const TugasPage: React.FC = () => {
             id: "mentoring-sr",
             name: "Mentoring: Self Reflection",
             description: "Setelah tiap sesi mentoring, maba diharapkan dapat menulis rangkuman intisari dari kegiatan yang dilakukan sesuai kreativitas masing-masing.",
-            deadline: "11/09/2024",
+            deadline: new Date(2024, 8, 11),
             icon: <HiOutlineDocumentText />,
             isFinished: progress.mentoringReflectionDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
@@ -217,7 +217,7 @@ const TugasPage: React.FC = () => {
             id: "mentoring-v",
             name: "Mentoring: Vlog",
             description: "Vlog berisi  cuplikan kegiatan selama mentoring dengan durasi maksimal 3 menit, dikumpulkan oleh ketua kelompok.",
-            deadline: "11/09/2024",
+            deadline: new Date(2024, 8, 11),
             icon: <HiOutlineDocumentText />,
             isFinished: progress.mentoringVlogDone,
             type: "input",
@@ -226,7 +226,7 @@ const TugasPage: React.FC = () => {
             id: "kmbui-explorer",
             name: "KMBUI Explorer",
             description: "Maba mengikuti paling sedikit 2 proker yang diadakan oleh KMBUI agar lebih mengenali KMBUI dan nilai-nilai Buddhis.",
-            deadline: "11/09/2024",
+            deadline: new Date(2024, 8, 15),
             icon: <HiOutlineUsers />,
             isFinished: progress.kmbuiExplorerDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",

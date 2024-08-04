@@ -191,7 +191,6 @@ export const UserCard: React.FC<UserCardProps> = ({
                
                :
                
-               
                 user.batch != 2024 && <button className="md:mx-2 bg-ppmb-100 border-ppmb-100 text-ppmb-600 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">Anda kating</button>
             } 
             </div>

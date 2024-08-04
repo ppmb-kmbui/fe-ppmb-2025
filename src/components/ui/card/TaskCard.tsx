@@ -8,6 +8,7 @@ import axios from "axios";
 import { api } from "@/utils/axios";
 import { useAuth } from "@/context/AuthContext";
 import { Dispatch, SetStateAction, useState } from "react";
+import { formatDate } from "@/utils/stringUtils";
 
 interface TaskProps extends AssingmentProps {
     setProgress: Dispatch<SetStateAction<ProgressProps>>
@@ -208,12 +209,15 @@ export const TaskCard: React.FC<TaskProps> = ({
         }
 
         } else {
-            console.log("haiiii")
+            
         }
     };
+
+    const isOverdue = new Date() >= new Date(deadline);
+
     return (
-        <div className="flex flex-col p-3 md:p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2">
-            <Modal
+        <>
+        <Modal
                 isOpen={isOpen}
                 onClose={close}
                 type={type}
@@ -221,6 +225,8 @@ export const TaskCard: React.FC<TaskProps> = ({
                 onSubmit={handleSubmit}
                 sublabel={namingFormat}
             />
+        <div className={`${(!isOverdue && !isFinished) && 'opacity-70'} flex flex-col p-3 md:p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2`}>
+            
 
             <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:justify-between">
                 <div className="flex flex-row gap-2 md:gap-[10px] items-center">
@@ -240,9 +246,9 @@ export const TaskCard: React.FC<TaskProps> = ({
                         </button> 
                     </a>}
 
-                    <div className="rounded-xl bg-ppmb-100 text-sm md:text-[16px] text-ppmb-800 px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit">
+                    <div className={`${(!isOverdue && !isFinished) ? 'bg-ppmb-red-500 text-ppmb-000' : 'bg-ppmb-100 text-ppmb-800'} rounded-xl  text-sm md:text-[16px]  px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit`}>
                     <HiOutlineCalendar />
-                    <text className="font-medium">{deadline}</text>
+                    <text className="font-medium">{formatDate(deadline)}</text>
                 </div>
                 </div>                
             </div>
@@ -287,5 +293,6 @@ export const TaskCard: React.FC<TaskProps> = ({
                 { isFinished && <></>}
            </div>
         </div>
+        </>
     )
 }
