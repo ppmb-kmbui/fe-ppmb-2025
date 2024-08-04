@@ -28,7 +28,7 @@ export const MultiProgressBar: React.FC<MultiProgressBarProps> = ({
         </div>
       </div>
 
-      <div className="flex flex-row leading-[1.5] mb-4">
+      <div className="flex flex-row leading-[1.5] mb-[6px]">
         <div className="min-w-[110px] md:min-w-[160px]">
           <span className="font-semibold italic text-xs md:text-[16px]">Netw. Angkatan</span>
         </div>
