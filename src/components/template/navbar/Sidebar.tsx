@@ -18,7 +18,7 @@ export const Sidebar: React.FC = () => {
         { icon: <HiSearch />, text: "Cari teman", route: "/cari", role: "authenticated" },
         { icon: <HiOutlineChatAlt2 />, text: "Networking", route: "/networking", role: "freshman" },
         { icon: <HiOutlinePencilAlt />, text: "Tugas", route: "/tugas", role: "freshman" },
-        { icon: <RiMegaphoneLine />, text: "Pengumuman", route: "/pengumuman", role: "freshman" },
+        { icon: <RiMegaphoneLine />, text: "Pengumuman", route: "/penguuman", role: "freshman" },
         { icon: <HiOutlineUser />, text: "Profil", route: "/profil", role: "authenticated" },
         { icon: <HiOutlineShieldCheck />, text: "Admin", route: "/admin", role: "admin" },
     ];

@@ -3,6 +3,7 @@ import { Lexend } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components";
 import { AuthContextProvider } from "@/context/AuthContext";
+import { SmallBar } from "@/components/template/navbar/SmallBar";
 
 const lexend_init = Lexend({
   subsets: ['latin'],
@@ -27,6 +28,7 @@ export default function RootLayout({
         <div className="flex">
           <nav className="z-50">
             <Sidebar />
+            <SmallBar />
           </nav>
           
           <main className="flex-1">
