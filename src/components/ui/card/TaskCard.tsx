@@ -25,11 +25,11 @@ export const TaskCard: React.FC<TaskProps> = ({
 
     const handleSubmit = async (data: any) => {
         if (data) {
-            console.log("image", data);
-            console.log("ini id", id);
-            console.log("ini type", type)
+            // console.log("image", data);
+            // console.log("ini id", id);
+            // console.log("ini type", type)
             if (type === "image") {
-            console.log("haiiii2")
+            // console.log("haiiii2")
 
                 try {
                     const form = new FormData();
@@ -47,7 +47,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                     console.error("Error uploading image:", error);
                 }
             } else if (type === "pdf") {
-            console.log("haiiii3")
+            // console.log("haiiii3")
 
                 try {
                     const form = new FormData();
@@ -58,7 +58,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
                         form
                     );
-                    console.log('PDF uploaded successfully:', res.data.url);
+                    // console.log('PDF uploaded successfully:', res.data.url);
                     setUrl(res.data.url);
 
                 switch (id) {
@@ -191,7 +191,7 @@ export const TaskCard: React.FC<TaskProps> = ({
         }
 
         if (id == "mentoring-v"){
-            console.log("masuk sini kok")
+            // console.log("masuk sini kok")
             const res = await api({
                 url: "api/tasks/mentoring/vlog",
                 method: "POST",
