@@ -42,6 +42,8 @@ export const FileInput: React.FC<FileInputProps> = ({
         onChange(file || null)
     }, []);
 
+    console.log("ini jawbana", answer)
+
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-[2px]">
@@ -61,10 +63,10 @@ export const FileInput: React.FC<FileInputProps> = ({
                             {file.name}
                         </span>
                     ) : (
-                        answer != undefined ? <a>{answer}</a> : <span className="text-center text-sm">Drag dan drop <br /> atau</span>
+                        answer != "" ? <a className="underline text-ppmb-blue-500 text-center" href={answer} target="_blank" rel="noopener noreferrer">{answer}</a> : <span className="text-center text-sm">Drag dan drop <br /> atau</span>
                     )}
                     
-                    <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`} isRestricted={answer != undefined}/>
+                    <Button onClick={onChooseFile} label={`Cari ${label.split(" ")[1]}`} isRestricted={answer == undefined}/>
                     <input ref={inputRef} accept={fileType === 'image' ? '.jpg, .jpeg, .png' : '.pdf'} type="file" className="hidden" onChange={(e) => onChange(e.target.files?.[0] || null)} />
                 </div>
             </div>
