@@ -1,6 +1,6 @@
 "use client"
 
-import { AnnouncementProps } from "@/app/pengunguman/page"
+import { AnnouncementProps } from "@/app/pengumuman/page"
 import Image from "next/image"
 
 interface AnnouncementCardProps extends AnnouncementProps {}
