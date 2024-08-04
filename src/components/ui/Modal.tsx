@@ -103,7 +103,7 @@ export const Modal: React.FC<ModalProps> = ({
                     handleFileChange?.(file);
                   }}
                   label="Unggah berkas kamu"
-                  description={`${sublabel ? `${sublabel}.pdf` : `Unggah dalam bentuk ${type === "image" ? '.jpg/.jpeg/.png' : '.pdf'}`}`}
+                  description={`${sublabel ? `${sublabel}` : `Unggah dalam bentuk ${type === "image" ? '.jpg/.jpeg/.png' : ''}`}`}
                   fileType={type}
                   error={getErrorMessage('file')}
                 />

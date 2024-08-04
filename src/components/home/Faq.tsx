@@ -13,7 +13,7 @@ export const Faq: React.FC = () => {
         },
         {
           question: "Bagaimana cara networking dengan angkatan 2024?",
-          answer: " Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol Connect dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Profile dan lakukan networking kepada teman kalian."
+          answer: "Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol Connect dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Networking dan lakukan networking kepada teman kalian"
         },
         {
           question: "Bagaimana cara mengumpulkan tugas berformat PDF?",

@@ -156,7 +156,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                         { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
                             <button className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-[6px] md:px-2 min-h-[28px]`} onClick={reject} disabled={isLoading}>
                                 { isRejectLoading ? 
-                                    <div className="loader-button-xs"/> 
+                                    <div className="loader-button-xs w-[16px] h-[16px]"/> 
                                 : 
                                     <text className=" text-ppmb-red-500 font-semibold text-sm lg:text-[16px]">Tolak</text>
                                 }
@@ -164,7 +164,7 @@ export const UserCard: React.FC<UserCardProps> = ({
 
                             <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success hover:bg-ppmb-success-dark flex items-center justify-center rounded-lg w-full px-3 md:px-4 min-h-[28px]`} onClick={accept} disabled={isLoading}>
                                 { isAcceptLoading ? 
-                                    <div className="loader-button-xs"/> 
+                                    <div className="loader-button-xs w-[16px] h-[16px]"/> 
                                 :
                                     <text className="text-white font-medium text-sm lg:text-[16px]">Terima</text>
                                 }
@@ -173,7 +173,7 @@ export const UserCard: React.FC<UserCardProps> = ({
 
                         { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={createNetworkingTask} disabled={isLoading}>
                             { isLoading ? 
-                                <div className="loader-button-sm"/>
+                                <div className="loader-button-sm w-[16px] h-[16px]"/>
                             :
                                 <text className=" text-ppmb-000 font-medium">Networking</text>
                             }

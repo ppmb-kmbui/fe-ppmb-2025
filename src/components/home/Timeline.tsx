@@ -182,7 +182,7 @@ export const Timeline: React.FC = () => {
 
                                 {timeline.zoom && <div className="flex h-full mt-4">
                                     <div className="self-end">
-                                        <Link href={timeline.zoom as string} target="_blank" rel="noopener noreferrer">a
+                                        <Link href={timeline.zoom as string} target="_blank" rel="noopener noreferrer">
                                             <Button label="Zoom" size="md" leftIcon={<TbBrandZoom />} isRestricted={!isAuthenticated}/>
                                         </Link>
                                     </div>

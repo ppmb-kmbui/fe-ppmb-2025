@@ -33,14 +33,14 @@ interface NetworkingAssignmentProps {
     toId: number
     is_done: boolean
     questions: QuestionAnswerProps[]
-    to?: {imgUrl: string}
+    img_url: string
 }
 
 const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
     fromId: -1,
     toId: -2,
     is_done: false,
-    to: { imgUrl: "" },
+    img_url: "",
     questions: [
         {
             questionId: -1,
@@ -219,7 +219,7 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
                         description="Unggah dalam bentuk .jpg/.jpeg/.png"
                         fileType="image"
                         error={errors.photo?.message}
-                        answer={networkingAssignment.is_done ? networkingAssignment.to?.imgUrl : ""}
+                        answer={networkingAssignment.is_done ? networkingAssignment.img_url : ""}
                     />
                 )} />
             </div>
