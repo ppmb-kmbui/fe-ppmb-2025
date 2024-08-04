@@ -41,10 +41,10 @@ export const Timeline: React.FC = () => {
         },
         {
             name: "Display UKM",
-            description: "Lorem ipsum.",
+            description: "Display UKM adalah kegiatan yang diadakan oleh OKK UI untuk mengenalkan UKM-UKM yang ada di Universitas Indonesia",
             startDate: new Date(2024, 7, 13),
             endDate: new Date(2024, 7, 14),
-            img: "/image/eternal-sunshine.jpg",
+            img: "/image/kmb.jpg",
         },
         {
             name: "Insight Hunting",

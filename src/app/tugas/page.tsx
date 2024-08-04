@@ -8,6 +8,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { HiOutlineChatAlt2, HiOutlineClipboardList, HiOutlineDocumentText, HiOutlineLightBulb, HiOutlineUsers } from "react-icons/hi";
 
+interface ProgresDetailProps {
+    progres: number
+    min: number
+}
+
 interface ProgressDetailProps {
     progress: number
     min: number
@@ -25,46 +30,63 @@ interface NetworkingAngkatanProgressProps {
 }
 
 interface NetworkingKatingProgressProps {
-    2021: ProgressDetailProps
-    2022: ProgressDetailProps
-    2023: ProgressDetailProps
+    2021: ProgresDetailProps
+    2022: ProgresDetailProps
+    2023: ProgresDetailProps
 }
 
-interface ProgressProps {
+export interface ProgressProps {
     networkingAngkatan: NetworkingAngkatanProgressProps
     networkingKating: NetworkingKatingProgressProps
     firstFossibDone: boolean
     secondFossibDone: boolean
     insightHuntingDone: boolean
-    firstMentoringDone: boolean // TODO: ask be to change it into mentoringPptDone
+    mentoringReflectionDone: boolean
     mentoringVlogDone: boolean
+    kmbuiExplorerDone: boolean
 }
 
 export interface AssingmentProps {
     id: string
     name: string
     description: string
-    deadline: string
+    deadline: Date
     icon: React.ReactNode
     isFinished: boolean
-    type: "file" | "input" | "image"
+    type: "pdf" | "input" | "image"
     namingFormat?: string
     template?: string
     rsvp?: string
     vbg?: string
 }
 
-const DEFAULT_PROGRESS = [
-
-]
+const DEFAULT_PROGRESS: ProgressProps = {
+    networkingAngkatan: {
+        progress: {
+            SAINTEK: { progress: 0, min: 0 },
+            SOSHUM: { progress: 0, min: 0 },
+            RIK_VOK: { progress: 0, min: 0 }
+        },
+        min: 0
+    },
+    networkingKating: {
+        "2021": { progres: 0, min: 0 },
+        "2022": { progres: 0, min: 0 },
+        "2023": { progres: 0, min: 0 }
+    },
+    firstFossibDone: false,
+    secondFossibDone: false,
+    insightHuntingDone: false,
+    mentoringReflectionDone: false,
+    mentoringVlogDone: false,
+    kmbuiExplorerDone: false
+}
 
 const TugasPage: React.FC = () => {
     const { token } = useAuth();
 
-    const [progress, setProgress] = useState<ProgressProps>({} as any)
+    const [progress, setProgress] = useState<ProgressProps>(DEFAULT_PROGRESS)
     const [isFetching, setIsFetching] = useState<boolean>(true);
-
-    // console.log(token);
 
     const getData = async () => {
         try {
@@ -89,40 +111,39 @@ const TugasPage: React.FC = () => {
         getData();
     }, [])
 
-    const DUMMY_DATA_PROGRESS = [
+    const DATA_PROGRESS = [
         {
             label: "Mentoring",
-            currentProgress: 2,
-            totalProgress: 3
+            currentProgress: progress.mentoringVlogDone && progress.mentoringReflectionDone ? 2 : progress.mentoringVlogDone || progress.mentoringReflectionDone ? 1 : 0,
+            totalProgress: 2
         },
         {
             label: "Insight Hunting",
-            currentProgress: 0,
+            currentProgress: progress.insightHuntingDone ? 1 : 0,
             totalProgress: 1
         },
         {
             label: "Foster Sibling",
-            currentProgress: 1,
+            currentProgress: progress.firstFossibDone && progress.secondFossibDone ? 2 : progress.firstFossibDone || progress.secondFossibDone ? 1 : 0,
             totalProgress: 1
         },
         {
             label: "KMBUI Explorer",
-            currentProgress: 0,
+            currentProgress: progress.kmbuiExplorerDone ? 1 : 0,
             totalProgress: 1
         },
     ]
-
-    
+      
     const ASSINGMENTS: AssingmentProps[] = [
         {
             id: "insight-hunting",
             name: "Insight Hunting",
             description: "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
-            deadline: "29/08/2024",
+            deadline: new Date(2024, 7, 29),
             icon: <HiOutlineLightBulb />,
             isFinished: progress.insightHuntingDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
-            type: "file",
+            type: "pdf",
             rsvp: "https://docs.google.com/forms/d/e/1FAIpQLScIHbDL7w-SaY_sDy-z7wabRaBLVKIRZ3CfwIQuJEuQD73S7Q/viewform",
             template: "https://docs.google.com/document/d/1Z3engQq3QwqyE2HjhTSxwxJchf2brPr7/edit",
             vbg: "https://drive.google.com/file/d/18QDIWk0txOuxGM6OvyFeOjTdo8urAyC6/view?usp=drive_link"
@@ -131,93 +152,132 @@ const TugasPage: React.FC = () => {
             id: "fossib-1",
             name: "Fossib: Sharing Insight",
             description: "Maba dan kakak asuh melakukan sharing bersama untuk dapat saling mengenal dan bertukar wawasan mengenai kehidupan perkuliahan.",
-            deadline: "29/08/2024",
+            deadline: new Date(2024, 7, 29),
             icon: <HiOutlineUsers />,
             isFinished: progress.firstFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling1",
-            type: "file",
+            type: "pdf",
             template: "https://drive.google.com/drive/folders/1nai7H4PCZplp8qaP7VFqF90TEOwnWSly"
         },
         {
             id: "fossib-2",
             name: "Fossib: Fun Activity",
             description: "Setelah sharing insight, maba dan kakak asuh melakukan kegiatan bersama untuk dapat saling mendekatkan diri.",
-            deadline: "29/08/2024",
+            deadline: new Date(2024, 7, 29),
             icon: <HiOutlineUsers />,
             isFinished: progress.secondFossibDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",
-            type: "file",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            type: "pdf",
         },
         {
             id: "networking-2023",
             name: "Networking Kating 2023",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2023.",
-            deadline: "31/08/2024",
+            deadline: new Date(2024, 7, 31),
             icon: <HiOutlineChatAlt2 />,
-            isFinished: false,
+            isFinished: progress.networkingKating["2023"].progres >= progress.networkingKating["2023"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2023_[nomor].pdf",
-            type: "file",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            type: "pdf",
+            template: "https://docs.google.com/document/d/1lZgM33u7c1GUpFVZYDBeZWrPQjzvaDyPwwJYrnz-VB4/edit"
         },
         {
             id: "networking-2022",
             name: "Networking Kating 2022",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2022.",
-            deadline: "31/08/2024",
+            deadline: new Date(2024, 7, 31),
             icon: <HiOutlineChatAlt2 />,
-            isFinished: false,
+            isFinished:  progress.networkingKating["2022"].progres >= progress.networkingKating["2022"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2022_[nomor].pdf",
-            type: "file",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            type: "pdf",
+            template: "https://docs.google.com/document/d/1lZgM33u7c1GUpFVZYDBeZWrPQjzvaDyPwwJYrnz-VB4/edit"
         },
         {
             id: "networking-2021",
             name: "Networking Kating 2021",
             description: "Maba bersama teman satu kelompok networking menjalin relasi dengan kakak tingkat KMBUI angkatan 2021.",
-            deadline: "31/08/2024",
+            deadline: new Date(2024, 7, 31),
             icon: <HiOutlineChatAlt2 />,
-            isFinished: false,
+            isFinished: progress.networkingKating["2021"].progres >= progress.networkingKating["2021"].min,
             namingFormat: "[Nama Lengkap]_[Fakultas]_Networking2021_[nomor].pdf",
-            type: "file",
-            template: "https://youtu.be/dQw4w9WgXcQ?si=pJPVVKaMtRnoYhXd"
+            type: "pdf",
+            template: "https://docs.google.com/document/d/1lZgM33u7c1GUpFVZYDBeZWrPQjzvaDyPwwJYrnz-VB4/edit"
         },
         {
             id: "mentoring-sr",
             name: "Mentoring: Self Reflection",
             description: "Setelah tiap sesi mentoring, maba diharapkan dapat menulis rangkuman intisari dari kegiatan yang dilakukan sesuai kreativitas masing-masing.",
-            deadline: "11/09/2024",
+            deadline: new Date(2024, 8, 11),
             icon: <HiOutlineDocumentText />,
-            isFinished: progress.firstMentoringDone,
+            isFinished: progress.mentoringReflectionDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_SelfReflection",
-            type: "image",
+            type: "pdf",
             template: "https://www.canva.com/design/DAGKvoTzibg/xWWM0zwn6hPYRy5qN0hX6A/view?utm_content=DAGKvoTzibg&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview"
         },
         {
             id: "mentoring-v",
             name: "Mentoring: Vlog",
             description: "Vlog berisi  cuplikan kegiatan selama mentoring dengan durasi maksimal 3 menit, dikumpulkan oleh ketua kelompok.",
-            deadline: "11/09/2024",
+            deadline: new Date(2024, 8, 11),
             icon: <HiOutlineDocumentText />,
             isFinished: progress.mentoringVlogDone,
-            namingFormat: "[Nomor Kelompok]_[Nama Kelompok]_Vlog",
             type: "input",
         },
         {
             id: "kmbui-explorer",
             name: "KMBUI Explorer",
             description: "Maba mengikuti paling sedikit 2 proker yang diadakan oleh KMBUI agar lebih mengenali KMBUI dan nilai-nilai Buddhis.",
-            deadline: "11/09/2024",
+            deadline: new Date(2024, 8, 15),
             icon: <HiOutlineUsers />,
-            isFinished: false,
+            isFinished: progress.kmbuiExplorerDone,
             namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",
-            type: "file",
+            type: "pdf",
             template: "https://drive.google.com/file/d/1YlWD1fHyxUPzCd0f2qRbHaOKNBvelWol/view"
         },
     ]
 
-    // console.log(progress.networkingKating[2021]);
-    // console.log(ASSINGMENTS);
+    const PROGRESS_ANGKATAN = [
+        {
+          name: "2021",
+          progres: progress.networkingKating["2021"].progres,
+          min: progress.networkingKating["2021"].min,
+        },
+        {
+          name: "2022",
+          progres: progress.networkingKating["2022"].progres,
+          min: progress.networkingKating["2022"].min,
+        },
+        {
+          name: "2023",
+          progres: progress.networkingKating["2023"].progres,
+          min: progress.networkingKating["2023"].min,
+        },
+        {
+          name: "2024",
+          progres:
+            progress.networkingAngkatan.progress.SAINTEK.progress +
+            progress.networkingAngkatan.progress.SOSHUM.progress +
+            progress.networkingAngkatan.progress.RIK_VOK.progress,
+          min: progress.networkingAngkatan.min,
+        },
+      ];
+      
+      const PROGRESS_RUMPUN = [
+        {
+          name: "SAINTEK",
+          progres: progress.networkingAngkatan.progress.SAINTEK.progress,
+          min: progress.networkingAngkatan.progress.SAINTEK.min,
+        },
+        {
+          name: "SOSHUM",
+          progres: progress.networkingAngkatan.progress.SOSHUM.progress,
+          min: progress.networkingAngkatan.progress.SOSHUM.min,
+        },
+        {
+          name: "RIK_VOK",
+          progres: progress.networkingAngkatan.progress.RIK_VOK.progress,
+          min: progress.networkingAngkatan.progress.RIK_VOK.min,
+        },
+    ];
 
     return (
         isFetching ? <LoadingScreen /> : 
@@ -227,30 +287,30 @@ const TugasPage: React.FC = () => {
             <div className="flex flex-col items-center gap-3">
                 <text className="text-2xl lg:text-3xl font-semibold">Progress Tugas</text>
 
-                {/* TODO: wait until be fix everything about progress :)) */}
                 <div className="flex flex-col gap-2 items-center">
-                    <MultiProgressBar />
-                    <MultiProgressBar />
+                <MultiProgressBar
+                    progressData={PROGRESS_ANGKATAN}
+                    networkingRumpun={PROGRESS_RUMPUN}
+                />
 
-                    {DUMMY_DATA_PROGRESS.map((data, key) => (
+                    {DATA_PROGRESS.map((data, key) => (
                         <ProgressBar key={key} {...data}/>
                     ))}
                 </div>
             </div>
 
-            <div className="flex flex-col md:flex-row md:justify-evenly px-8 lg:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 px-8 lg:px-[60px] xl:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
                 <div className="flex flex-col gap-2">
                     <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">Belum Dikerjakan</text>
 
                     <div className="flex flex-col gap-5 w-full">
                         {ASSINGMENTS.map((assignment, key) => (
                             <div className={`${assignment.isFinished == true && "hidden"}`}>
-                                <TaskCard key={key} {...assignment}/>
+                                <TaskCard key={key} {...assignment} setProgress={setProgress}/>
                             </div>
                         ))}
                     </div>
                     <text className={`${ASSINGMENTS.filter(assignment => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}>Kamu belum menyelesaikan tugas apa pun :(</text>
-
                 </div>
 
                 <div className="flex flex-col gap-2 w-full">
@@ -258,7 +318,7 @@ const TugasPage: React.FC = () => {
                     <div className="flex flex-col gap-5">
                         {ASSINGMENTS.map((assingment, key) => (
                             <div className={`${assingment.isFinished == false && "hidden"}`}>
-                                <TaskCard key={key} {...assingment}/>
+                                <TaskCard key={key} {...assingment} setProgress={setProgress}/>
                             </div>
                         ))}
                     </div>

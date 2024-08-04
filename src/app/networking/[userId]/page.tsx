@@ -33,12 +33,14 @@ interface NetworkingAssignmentProps {
     toId: number
     is_done: boolean
     questions: QuestionAnswerProps[]
+    to?: {imgUrl: string}
 }
 
 const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
     fromId: -1,
     toId: -2,
     is_done: false,
+    to: { imgUrl: "" },
     questions: [
         {
             questionId: -1,
@@ -191,19 +193,21 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
         getData();
     }, []);
 
+    console.log("ini networking assignment", networkingAssignment)
+
     return (
         isFetching ? <LoadingScreen /> :
         <div className="min-h-screen flex flex-col h-full">
             <Header label="Networking" />
             <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
                 <form onSubmit={handleSubmit(handleSubmitNetworking)} className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full">
-                    <Input {...register("answer1")} label={networkingAssignment.questions[0].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer1?.message}/>
-                    <Input {...register("answer2")} label={networkingAssignment.questions[1].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer2?.message}/>
-                    <Input {...register("answer3")} label={networkingAssignment.questions[2].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer3?.message}/>
-                    <Input {...register("answer4")} label={networkingAssignment.questions[3].question.question} placeholder="Masukkan jawabanmu di sini" icon={<HiChatAlt2 />} error={errors.answer4?.message}/>
+                    <Input {...register("answer1")} label={networkingAssignment.questions[0].question.question} placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[0].answer : "Masukkan jawabanmu di sini"}`} icon={<HiChatAlt2 />} error={errors.answer1?.message} disabled={networkingAssignment.is_done}/>
+                    <Input {...register("answer2")} label={networkingAssignment.questions[1].question.question} placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[1].answer : "Masukkan jawabanmu di sini"}`} icon={<HiChatAlt2 />} error={errors.answer2?.message} disabled={networkingAssignment.is_done}/>
+                    <Input {...register("answer3")} label={networkingAssignment.questions[2].question.question} placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[2].answer : "Masukkan jawabanmu di sini"}`} icon={<HiChatAlt2 />} error={errors.answer3?.message} disabled={networkingAssignment.is_done}/>
+                    <Input {...register("answer4")} label={networkingAssignment.questions[3].question.question} placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[3].answer : "Masukkan jawabanmu di sini"}`} icon={<HiChatAlt2 />} error={errors.answer4?.message} disabled={networkingAssignment.is_done}/>
 
                     <div className="flex mt-3">
-                        <Button label="Kumpulkan" type="submit" size="lg" disabled={isSubmitting}/>
+                        <Button label="Kumpulkan" type={`${networkingAssignment.is_done ? "reset" : "submit"}`} size="lg" disabled={isSubmitting} className={`${networkingAssignment.is_done && 'cursor-not-allowed hover:bg-none'}`} />
                     </div>
                 </form>
 
@@ -215,6 +219,7 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
                         description="Unggah dalam bentuk .jpg/.jpeg/.png"
                         fileType="image"
                         error={errors.photo?.message}
+                        answer={networkingAssignment.is_done ? networkingAssignment.to?.imgUrl : ""}
                     />
                 )} />
             </div>

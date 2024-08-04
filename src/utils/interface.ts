@@ -1,3 +1,7 @@
+interface Idk {
+    to: UserProps
+}
+
 export interface UserProps {
     id: number
     email: string
@@ -9,7 +13,7 @@ export interface UserProps {
     batch: number 
     isAdmin: boolean
     followers: number
-    networking_tasks: FriendProps[]
+    networking_tasks: Idk[]
 }
 
 export interface FriendProps extends UserProps {

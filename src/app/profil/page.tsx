@@ -20,13 +20,16 @@ const ProfilPage: React.FC = () => {
     const { close, open, isOpen } = useDisclosure();
 
     const handleFileChange = (file: File | null) => {
-        console.log("run di sini")
         if (file) {
             setPhoto(file);
         } else {
             setPhoto(null);
         }
     };
+
+    // console.log(token)
+
+    console.log(user.networking_tasks)
 
     const deleteImageProfile = async () => {
         try {
@@ -90,7 +93,7 @@ const ProfilPage: React.FC = () => {
                 type="image"
                 label="Edit foto profile"
                 sublabel="Foto harus dalam bentuk .jpg/.jpeg/.png"
-                handleSubmit={handleEditProfile}
+                onSubmit={handleEditProfile}
                 handleFileChange={handleFileChange}
                 file={photo}
             />
@@ -103,7 +106,7 @@ const ProfilPage: React.FC = () => {
                             alt={"Logo"}
                             width={140}
                             height={140}
-                            className="rounded-full"
+                            className="rounded-full object-cover"
                         />
 
                         <button className={`${isLoading && "cursor-not-allowed"} absolute bottom-0 right-0 bg-white p-1 md:p-[7px] md:text-[20px] rounded-full text-ppmb-blue-600 border-[2px] border-ppmb-blue-600`} onClick={open} disabled={isLoading}>
@@ -115,7 +118,6 @@ const ProfilPage: React.FC = () => {
 
                     <div className="flex flex-col">
                         <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">{user?.fullname}</text>
-                        {/* TODO: Change to valid batch */}
                         <text className="italic text-ppmb-500 text-sm md:text-lg">{user.faculty}, {user.batch}</text>
                     </div>
                 </div>
@@ -129,10 +131,9 @@ const ProfilPage: React.FC = () => {
             <div className="flex flex-col gap-1 md:gap-3 mt-2">
                 <text className="text-xl md:text-2xl lg:text-3xl font-semibold">Sudah Berkenalan dengan</text>
                 <div className={`${user.networking_tasks.length == 0 ?  "flex" : "grid"} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6`}>
-                    {/* TODO: ask be to retrun user object */}
-                    {/* {user.networking_tasks.map((friend, key) => (
-                        <UserCard key={key} {...friend}/>
-                    ))} */}
+                    {user.networking_tasks.map((friend, key) => (
+                        <UserCard key={key} {...friend.to} status="done"/>
+                    ))}
 
                     <text className={`${user.networking_tasks.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}>Kamu belum menyelesaikan networking dengan siapa pun</text>
                 </div>
