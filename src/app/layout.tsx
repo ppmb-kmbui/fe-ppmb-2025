@@ -23,6 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <meta>
+      <link rel="icon" type="image/x-icon" href="/ppmb.ico"/>
+      </meta>
       <body className={`${lexend_init.variable}`}>
         <AuthContextProvider>
         <div className="flex">
