@@ -61,7 +61,7 @@ const SignupPage: React.FC = () => {
     });
 
     const handleSignUp = async (data: z.infer<typeof signupFormSchema>) => {
-        console.log("ini data", data);
+        // console.log("ini data", data);
     
         try {
             setIsLoading(true);
@@ -75,7 +75,7 @@ const SignupPage: React.FC = () => {
                 form
             );
     
-            await signUp(data.email, parseInt(data.batch), data.fullname, data.password, data.faculty.toUpperCase(), res.data.url);
+            await signUp(data.email.toLowerCase(), parseInt(data.batch), data.fullname, data.password, data.faculty.toUpperCase(), res.data.url);
 
         } catch (error: any) {
             console.error("Error while signing up:", error);
@@ -118,6 +118,7 @@ const SignupPage: React.FC = () => {
                         description="Unggah dalam bentuk .jpg/.jpeg/.png"
                         fileType="image"
                         error={errors.photo?.message}
+                        answer=""
                     />
                 )} />
             </div>

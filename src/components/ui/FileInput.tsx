@@ -42,7 +42,7 @@ export const FileInput: React.FC<FileInputProps> = ({
         onChange(file || null)
     }, []);
 
-    console.log("ini jawbana", answer)
+    // console.log("ini jawbana", answer)
 
     return (
         <div className="w-full flex flex-col items-center justify-center">

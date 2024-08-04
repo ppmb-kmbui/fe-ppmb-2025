@@ -106,6 +106,7 @@ export const Modal: React.FC<ModalProps> = ({
                   description={`${sublabel ? `${sublabel}` : `Unggah dalam bentuk ${type === "image" ? '.jpg/.jpeg/.png' : ''}`}`}
                   fileType={type}
                   error={getErrorMessage('file')}
+                  answer=""
                 />
               )}
             />

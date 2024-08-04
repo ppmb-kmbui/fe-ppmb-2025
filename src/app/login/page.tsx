@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
         try{
             setIsLoading(true)
             setLoginError(null);
-            await login(data.email, data.password);
+            await login(data.email.toLowerCase(), data.password);
             reset();
 
         } catch (error: any) {

@@ -26,12 +26,12 @@ export const SmallBar: React.FC = () => {
     return (
         <div className="flex items-center md:hidden">
             <div
-                className={`md:hidden fixed top-1/2 flex left-[-20px] justify-end items-center transform -translate-y-1/2 z-50 p-1 bg-white rounded-full shadow-lg cursor-pointer ${isSidebarOpen ? "hidden" : "block"}`}
+                className={`md:hidden fixed top-1/2 flex left-[-25px] justify-end items-center transform -translate-y-1/2 z-50 p-1 bg-white rounded-full shadow-lg cursor-pointer ${isSidebarOpen ? "hidden" : "block"}`}
                 onClick={handleSidebarToggle}
-                style={{ width: '40px', height: '40px' }}
+                style={{ width: '50px', height: '50px' }}
             >
                 {/* <div className="relative flex items-center justify-end"> */}
-                    <HiChevronRight size={18}/>
+                    <HiChevronRight size={20}/>
                 {/* </div> */}
             </div>
 
@@ -47,10 +47,10 @@ export const SmallBar: React.FC = () => {
                     </div>
                     <div className="flex flex-col gap-4 w-full">
                         <button className="p-2 text-lg" onClick={() => navigateTo('/')}>Beranda</button>
-                        <button className="p-2 text-lg" onClick={() => navigateTo('/cari')}>Cari</button>
-                        <button className="p-2 text-lg" onClick={() => navigateTo('/networking')}>Networking</button>
-                        <button className="p-2 text-lg" onClick={() => navigateTo('/tugas')}>Tugas</button>
-                        <button className="p-2 text-lg" onClick={() => navigateTo('/pengumuman')}>Pengumuman</button>
+                        <button className="p-2 text-lg" onClick={() => navigateTo('/cari')}>Cari</button> 
+                        { user.batch != 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/networking')}>Networking</button> }
+                        { user.batch != 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/tugas')}>Tugas</button> }
+                        { user.batch != 2024 && <button className="p-2 text-lg" onClick={() => navigateTo('/pengumuman')}>Pengumuman</button> }
                         <button className="p-2 text-lg" onClick={() => navigateTo('/profil')}>Profil</button>
                         { user.isAdmin && <button className="p-2 text-lg" onClick={() => navigateTo('/admin')}>Admin</button> }
 

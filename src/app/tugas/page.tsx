@@ -139,7 +139,7 @@ const TugasPage: React.FC = () => {
             id: "insight-hunting",
             name: "Insight Hunting",
             description: "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
-            deadline: new Date(2024, 7, 29),
+            deadline: new Date(2024, 7, 16),
             icon: <HiOutlineLightBulb />,
             isFinished: progress.insightHuntingDone,
             namingFormat: "Nama Lengkap_Fakultas_FosterSibling2",

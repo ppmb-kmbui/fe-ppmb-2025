@@ -29,7 +29,7 @@ const ProfilPage: React.FC = () => {
 
     // console.log(token)
 
-    console.log(user.networking_tasks)
+    // console.log(user.networking_tasks)
 
     const deleteImageProfile = async () => {
         try {
@@ -82,6 +82,7 @@ const ProfilPage: React.FC = () => {
             console.error("Error while editing profile", error);
         } finally {
             setIsLoading(false);
+            close();
         }
     }
 

@@ -10,7 +10,7 @@ const Homepage = () => {
   // console.log(user, "ini user")
 
   // console.log("token di home", token);
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
   
   return (
     <div className='min-h-screen gap-5 md:gap-8 flex flex-col pb-8'>

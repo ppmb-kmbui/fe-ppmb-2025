@@ -131,7 +131,7 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
             })
 
             setNetworkingAssignment(res.data);
-            console.log(res, "ini res");
+            // console.log(res, "ini res");
         } catch (error: any) {
             console.log("Error while getting networking assignment");
         } finally {
@@ -193,7 +193,7 @@ const NetworkingAssignmentPage: React.FC<{ params: { userId: string } }> = ({ pa
         getData();
     }, []);
 
-    console.log("ini networking assignment", networkingAssignment)
+    // console.log("ini networking assignment", networkingAssignment)
 
     return (
         isFetching ? <LoadingScreen /> :
