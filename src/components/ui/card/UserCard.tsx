@@ -68,10 +68,10 @@ export const UserCard: React.FC<UserCardProps> = ({
         try {
             setIsRejectLoading(true);
             await api({
-                url: `api/networking/${id}`,
+                url: `api/v1/connect/${id}`,
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: Bearer ${token},
                 }
             })
             setDynamicStatus("not_connected");
