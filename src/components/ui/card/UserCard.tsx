@@ -68,7 +68,7 @@ export const UserCard: React.FC<UserCardProps> = ({
         try {
             setIsRejectLoading(true);
             await api({
-                url: `api/v1/connect/${id}`,
+                url: `api/connect/${id}`,
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
