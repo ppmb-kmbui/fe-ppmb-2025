@@ -71,7 +71,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                 url: `api/v1/connect/${id}`,
                 method: "DELETE",
                 headers: {
-                    Authorization: Bearer ${token},
+                    Authorization: `Bearer ${token}`,
                 }
             })
             setDynamicStatus("not_connected");
