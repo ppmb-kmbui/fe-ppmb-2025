@@ -161,7 +161,7 @@ const TugasPage: React.FC = () => {
         },
         {
             id: "fossib-2",
-            name: "Fossib: Fun Activity",
+            name: "Fossib: TTS",
             description: "Setelah sharing insight, maba dan kakak asuh melakukan kegiatan bersama untuk dapat saling mendekatkan diri.",
             deadline: new Date(2024, 7, 29),
             icon: <HiOutlineUsers />,
