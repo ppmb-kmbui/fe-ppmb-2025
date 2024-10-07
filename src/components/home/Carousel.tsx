@@ -41,7 +41,7 @@ export const Carousel: React.FC = () => {
       src: '/sponsorImage/kmbui.png'
     },
     {
-      src: '/sponsorImage/kmbui.png'
+      src: '/sponsorImage/sponsor.png'
     }
   ]
 
