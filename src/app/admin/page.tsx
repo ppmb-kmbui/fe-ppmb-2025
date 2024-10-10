@@ -303,9 +303,7 @@ const AdminPage: React.FC = () => {
                                 
                             </div>
 
-                        <div className="flex items-center space-x-2">
-                      
-                        </div>
+
                     </div>
                     </form>
 
@@ -404,6 +402,9 @@ const AdminPage: React.FC = () => {
                             <div key={key} className="bg-ppmb-50 p-4 rounded-xl flex flex-col">
                                 <text>{key+1}. Nama: {task.to.fullname}</text>
                                 <text>Fakultas: {task.to.faculty}</text>
+                                <text>Dokumentasi: <a key={key} href={task.img_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline ml-2">
+                                        {task.img_url}
+                                    </a></text>
                                 {task.questions.map((question: any, keyy: number) => (
                                     <div className="flex flex-col py-2" key={key}>
                                         <text className="font-semibold">{question.question.question}</text>
@@ -413,6 +414,22 @@ const AdminPage: React.FC = () => {
                             </div>
                         ))}
                     </div>
+
+                    <text className="mt-5 text-xl font-semibold">Networking kating</text>
+
+                    <div className="flex flex-col gap-4">
+                        {userTask?.networkingKating.map((task: any, key: number) => (
+                            <div key={key} className="bg-ppmb-50 p-4 rounded-xl flex flex-col">
+                                <text>Berkas: {}</text>
+
+                                <a key={key} href={task.file_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline ml-2">
+                                        {task.file_url}
+                                    </a>
+                            </div>
+                        ))}
+                    </div>
+
+
 
                 </div>
 
