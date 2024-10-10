@@ -152,6 +152,24 @@ const AdminPage: React.FC = () => {
         }
     };
 
+    const onSubmitNetworking = async (data: any) => {
+        try {
+            const res = await api({ 
+                url: `api/admin/score/${id}/networking`,
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                data: {
+                    score: Number(data),
+                }
+            });
+        } catch (error) {   
+            console.error(`Error submitting score for networking`, error);
+        }
+    }
+
+
     return (
         isFetching ? <LoadingScreen /> :
         <div className="min-h-screen p-10 gap-10 flex-col flex">
@@ -374,12 +392,7 @@ const AdminPage: React.FC = () => {
 
                     </form>
 
-
-
-                    
-
-
-                    <form onSubmit={handleSubmit((data) => onSubmit(data, 1, 'networking'))}>
+                    <form onSubmit={handleSubmit((data) => onSubmitNetworking(data))}>
                         <div className="flex justify-between items-center">
                             <text>networking</text>
                             <div className="flex items-center space-x-2">
