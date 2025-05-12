@@ -17,7 +17,7 @@ const nextConfig = {
   },
 
   images: {
-    domains: ['res.cloudinary.com', 'i.pinimg.com'],
+    // domains: ['res.cloudinary.com', 'i.pinimg.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -25,6 +25,18 @@ const nextConfig = {
         port: '',
         pathname: '/api/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/api/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com',
+        port: '',
+        pathname: '/api/**',
+      }
     ],
   },
 };
