@@ -1,9 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-base: "#fff8e5";
+
+  --color-accent-yellow: "#f2c20a";
+  --color-accent-turquoise: "#3aafa9";
+  --color-accent-blue: "#2c7bb6";
+
+  --color-complementary-purple: "#800080";
+  --color-complementary-pink: "#f67280";
+  --color-complementary-orange: "#ff7f11";
+
+  --font-lexend: var(--font-quicksand)
+}
 
 :root {
-  background-color: #F5F5F5;
+  background-color: #F5F5F5; 
   color: #313131;
 }
 
