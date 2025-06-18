@@ -42,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((
         <div className="flex flex-col w-full">
             <div className="flex flex-row items-center gap-1">
                 <div className="text-[18px]">{icon}</div>
-                <text className="font-medium lg:text-lg">{label}</text>
+                <p className="font-medium lg:text-lg">{label}</p>
             </div>
             
             <div className={inputVariants({ variant, size })}>
@@ -50,7 +50,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((
                 {label?.split(" ").includes("Password") && <button className="pl-3" onClick={() => setIsVisible(!isVisible)} type="button">{isVisible ? <HiEye /> : <HiEyeOff />}</button>}
             </div>
 
-            { error && <text className="text-sm text-ppmb-red-500">{error}</text>}
+            { error && <p className="text-sm text-ppmb-red-500">{error}</p>}
         </div>
     )
 })

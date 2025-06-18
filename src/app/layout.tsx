@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components";
 import { AuthContextProvider } from "@/context/AuthContext";
 import { SmallBar } from "@/components/template/navbar/SmallBar";
+import { body } from '@/styles/fonts';
 
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${body.className} bg-base`}>
         <AuthContextProvider>
         <div className="flex">
           <nav className="z-50">

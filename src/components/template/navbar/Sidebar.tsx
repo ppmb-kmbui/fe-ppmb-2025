@@ -49,14 +49,14 @@ export const Sidebar: React.FC = () => {
                     {MAIN_MENU.map((menu, i) => (
                         renderMenu(menu) && (
                             <div key={i} className={`${pathname == menu.route ? "bg-ppmb-blue-100 text-ppmb-blue-500" : "hover:bg-ppmb-100 text-ppmb-800"} group flex items-center justify-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => router.push(menu.route)}>
-                                <text className="text-[26px]">{menu.icon}</text>
+                                <p className="text-[26px]">{menu.icon}</p>
                                 <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">{menu.text}</div>
                             </div>
                         )
                     ))}
 
                     {/* <div className={`${pathname == "/admin" ? "bg-ppmb-blue-100 text-ppmb-blue-500" : "hover:bg-ppmb-100 text-ppmb-800"} group flex items-center justify-center px-3 py-2 rounded-lg cursor-pointer`} onClick={() => router.push("/admin")}>
-                        <text className="text-[26px]"><HiOutlineShieldCheck /></text>
+                        <p className="text-[26px]"><HiOutlineShieldCheck /></p>
                         <div className="absolute transition-transform delay-500 bg-ppmb-blue-900 text-ppmb-100 px-3 py-1 rounded-sm text-[14px] left-[55px] invisible group-hover:visible whitespace-nowrap duration-500">Admin</div>
                     </div> */}
                 </div>

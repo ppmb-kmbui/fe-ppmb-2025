@@ -124,8 +124,8 @@ export const UserCard: React.FC<UserCardProps> = ({
             </div>
 
             <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center">
-                <text className="font-semibold md:text-lg leading-none">{truncateFullname(fullname)}</text>
-                <text className="text-xs md:text-sm italic text-ppmb-600">{facultyCase(faculty)}, {batch}</text>
+                <p className="font-semibold md:text-lg leading-none">{truncateFullname(fullname)}</p>
+                <p className="text-xs md:text-sm italic text-ppmb-600">{facultyCase(faculty)}, {batch}</p>
             </div>
 
             <div className="flex h-[15%] justify-center items-center">
@@ -133,7 +133,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                
                 batch != 2024 ? 
                     <button className="md:mx-2 border-ppmb-500 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
-                        <text className="text-ppmb-500 font-semibold text-sm lg:text-[16px]">Angkatan {batch}</text>
+                        <p className="text-ppmb-500 font-semibold text-sm lg:text-[16px]">Angkatan {batch}</p>
                     </button>
                     :
                     <>
@@ -143,14 +143,14 @@ export const UserCard: React.FC<UserCardProps> = ({
                             : 
                                 <>
                                     <HiPlus className="text-white"/>
-                                    <text className="font-medium text-sm lg:text-[16px]">Ikuti</text>
+                                    <p className="font-medium text-sm lg:text-[16px]">Ikuti</p>
                                 </>
                             }
 
                         </button>}
 
                         { dynamicStatus == "menunggu_konfirmasi" && <button className="md:mx-2 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
-                            <text className=" text-ppmb-warning font-semibold">Menunggu...</text>
+                            <p className=" text-ppmb-warning font-semibold">Menunggu...</p>
                         </button>}
 
                         { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
@@ -158,7 +158,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                                 { isRejectLoading ? 
                                     <div className="loader-button-xs w-[16px] h-[16px]"/> 
                                 : 
-                                    <text className=" text-ppmb-red-500 font-semibold text-sm lg:text-[16px]">Tolak</text>
+                                    <p className=" text-ppmb-red-500 font-semibold text-sm lg:text-[16px]">Tolak</p>
                                 }
                             </button>
 
@@ -166,7 +166,7 @@ export const UserCard: React.FC<UserCardProps> = ({
                                 { isAcceptLoading ? 
                                     <div className="loader-button-xs w-[16px] h-[16px]"/> 
                                 :
-                                    <text className="text-white font-medium text-sm lg:text-[16px]">Terima</text>
+                                    <p className="text-white font-medium text-sm lg:text-[16px]">Terima</p>
                                 }
                             </button>
                         </div>}
@@ -175,16 +175,16 @@ export const UserCard: React.FC<UserCardProps> = ({
                             { isLoading ? 
                                 <div className="loader-button-sm w-[16px] h-[16px]"/>
                             :
-                                <text className=" text-ppmb-000 font-medium">Networking</text>
+                                <p className=" text-ppmb-000 font-medium">Networking</p>
                             }
                         </button> }
 
                         { dynamicStatus == "sedang_networking" && <button className={`md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={() => router.push(`/networking/${id}`)} >
-                            <text className=" text-ppmb-000 font-medium">Networking</text>
+                            <p className=" text-ppmb-000 font-medium">Networking</p>
                         </button> }
 
                         { dynamicStatus == "done" && <button className="md:mx-2 bg-ppmb-success hover:bg-ppmb-success-dark text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 font-medium min-h-[28px]" onClick={() => router.push(`/networking/${id}`)}>
-                            <text className="font-medium">Selesai</text>
+                            <p className="font-medium">Selesai</p>
                             <HiCheck size={20}/>
                         </button>}
                     </>

@@ -47,8 +47,8 @@ export const FileInput: React.FC<FileInputProps> = ({
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-[2px]">
-                <text className="font-medium text-xl md:text-2xl text-center">{label}</text>
-                <text className="text-sm text-ppmb-600">{description}</text>
+                <p className="font-medium text-xl md:text-2xl text-center">{label}</p>
+                <p className="text-sm text-ppmb-600">{description}</p>
             </div>
             
             <div className="mt-5 border-dashed border-ppmb-600 border-[2px] px-7 justify-between rounded-lg w-[290px] md:w-[450px] max-h-[250px] md:max-h-[300px] p-6 md:pt-14 md:pb-10 flex flex-col items-center gap-2 md:gap-6" onDrop={handleDrop} onDragOver={handleDragOver}>
@@ -71,7 +71,7 @@ export const FileInput: React.FC<FileInputProps> = ({
                 </div>
             </div>
 
-            { error && <text className="mt-2 text-sm text-ppmb-red-500 font-medium">{error}</text>}
+            { error && <p className="mt-2 text-sm text-ppmb-red-500 font-medium">{error}</p>}
         </div>
     )
 }

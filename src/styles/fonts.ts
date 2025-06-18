@@ -7,10 +7,10 @@ const number = Black_Han_Sans({
     weight: '400'
 });
 
-const title = localFont({src: "./Cocogoose-Pro-Regular-trial.ttf"})
+const title = localFont({ src: "./Cocogoose-Pro-Regular-trial.ttf" })
 
-const body = Quicksand();
+const body = Quicksand({ subsets: ['latin'] });
 
-const body_alternative = Montserrat();
+const body_alternative = Montserrat({ subsets: ['latin'] });
 
 export { number, body, body_alternative, title }

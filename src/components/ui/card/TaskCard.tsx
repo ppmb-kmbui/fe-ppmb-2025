@@ -233,7 +233,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                     <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md text-xl md:text-[24px] text-ppmb-000 text-[16px]">
                         {icon}
                     </div>
-                    <text className="font-semibold text-lg md:text-xl">{name}</text>
+                    <p className="font-semibold text-lg md:text-xl">{name}</p>
                 </div>
 
                 <div className="flex flex-row gap-2">
@@ -241,14 +241,14 @@ export const TaskCard: React.FC<TaskProps> = ({
                     { rsvp && 
                     <a href={rsvp} target="_blank" rel="noopener noreferrer" className={`flex md:hidden`}>
                         <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
-                            <text>RSVP</text>
+                            <p>RSVP</p>
                             <HiOutlineCursorClick size={17}/>
                         </button> 
                     </a>}
 
                     <div className={`${(isOverdue && !isFinished) ? 'bg-ppmb-red-500 text-ppmb-000' : 'bg-ppmb-100 text-ppmb-800'} rounded-xl  text-sm md:text-[16px]  px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit`}>
                     <HiOutlineCalendar />
-                    <text className="font-medium">{formatDate(deadline)}</text>
+                    <p className="font-medium">{formatDate(deadline)}</p>
                 </div>
                 </div>                
             </div>
@@ -256,7 +256,7 @@ export const TaskCard: React.FC<TaskProps> = ({
             <div className="min-h-[1px] bg-ppmb-200 mt-[2px]"/>
 
             <div className="flex text-sm md:text-[16px]">
-                <text>{description}</text>
+                <p>{description}</p>
             </div>
 
             <div className="flex justify-end gap-2 mt-2 lg:mt-3 items-center">
@@ -264,7 +264,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                 { rsvp && 
                 <a href={rsvp} target="_blank" rel="noopener noreferrer" className={`hidden md:flex`}>
                     <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
-                        <text>RSVP</text>
+                        <p>RSVP</p>
                         <HiOutlineCursorClick size={17}/>
                     </button> 
                 </a>}
@@ -272,7 +272,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                 { vbg && 
                 <a href={vbg} target="_blank" rel="noopener noreferrer">
                     <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
-                        <text>VBG</text>
+                        <p>VBG</p>
                         <HiDownload />
                     </button> 
                 </a>}
@@ -280,13 +280,13 @@ export const TaskCard: React.FC<TaskProps> = ({
                 { template && 
                 <a href={template} target="_blank" rel="noopener noreferrer">
                     <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
-                        <text>Template</text>
+                        <p>Template</p>
                         <HiDownload />
                     </button> 
                 </a>}
 
                 <button className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-[13px] md:text-sm rounded-lg hover:bg-ppmb-blue-700 min-h-[27.5px]" onClick={open}>
-                    <text>Submit</text>
+                    <p>Submit</p>
                 </button>
                 </>}
 
