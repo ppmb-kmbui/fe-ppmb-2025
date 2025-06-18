@@ -11,7 +11,7 @@ export const LoadingScreen: React.FC = () => {
             />
             
             <div className="text-3xl font-semibold text-center">
-                <text>Loading</text>
+                <p>Loading</p>
                 <span className="animate-dots">
                     <span className="dot">.</span><span className="dot">.</span><span className="dot">.</span>
                 </span>

@@ -20,8 +20,8 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
             </div>
 
             <div className="flex flex-col items-center text-center gap-1">
-                <text className="text-xl font-semibold">{name}</text>
-                <text className="text-ppmb-700">{description}</text>
+                <p className="text-xl font-semibold">{name}</p>
+                <p className="text-ppmb-700">{description}</p>
             </div>
         </a>
     )

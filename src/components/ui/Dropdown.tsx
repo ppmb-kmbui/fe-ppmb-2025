@@ -33,7 +33,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         <div className="flex flex-col text-lg w-full text-ppmb-800">
             <div className="flex flex-row items-center gap-1 ">
                 <div className="text-[18px]">{icon}</div>
-                <text className="font-semibold">{label}</text>
+                <p className="font-semibold">{label}</p>
             </div>
 
             <div className={`${isOpen ? "rounded-t-md" : "rounded-md"} border-[2px] border-ppmb-blue-600 relative`} ref={ref}>
@@ -57,7 +57,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 </div>
             </div>
 
-            { error && <text className="text-sm text-ppmb-red-500">{error}</text>}
+            { error && <p className="text-sm text-ppmb-red-500">{error}</p>}
         </div>
 
     )

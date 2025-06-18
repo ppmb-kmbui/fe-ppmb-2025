@@ -18,7 +18,7 @@ export const Accordion: React.FC<AccordionProps> = ({
     return (
         <div className="md:w-[700px]">
             <div className="flex flex-row bg-ppmb-blue-600 items-center justify-between rounded-lg py-2 lg:py-[14px] text-[14px] md:text-[16px] lg:text-[18px] leading-[1.8] text-ppmb-000 px-4 lg:px-8 cursor-pointer" onClick={() => setSelected(value == selected ? -1 : value)}>
-                <text>{question}</text>
+                <p>{question}</p>
                 <div className={`${value == selected && "rotate-180"} transition-transform duration-500 ease-in-out`}>
                     <HiChevronDown size={22} />
                 </div>

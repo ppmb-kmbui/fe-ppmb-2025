@@ -115,7 +115,7 @@ export const Timeline: React.FC = () => {
                 <div className="flex flex-row justify-between w-full p-[52px] rounded-2xl border-[2px] bg-ppmb-50 border-ppmb-blue-700 max-h-[300px]">
                     <div className="w-[75%] flex flex-col gap-3">
                         <div className="flex flex-col gap-2">
-                            <text className="text-4xl font-semibold">{TIMELINES[index].name}</text>
+                            <p className="text-4xl font-semibold">{TIMELINES[index].name}</p>
                             <div className="flex">
                                 <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(TIMELINES[index].startDate)} {TIMELINES[index].startDate.getTime() != TIMELINES[index].endDate.getTime() && `— ${dateToIndonesianString(TIMELINES[index].endDate)}` }</div>
                             </div>
@@ -164,7 +164,7 @@ export const Timeline: React.FC = () => {
                         <div className={`${key == 0 ? 'mb-3' : key == TIMELINES.length - 1 ? 'mt-3' : 'my-3'} p-4 flex flex-row justify-between w-full rounded-lg border-[2px] border-ppmb-300`}>
                             <div className="w-full flex flex-col gap-4">
                                 <div className="flex flex-col gap-1">
-                                    <text className="text-xl font-semibold">{timeline.name}</text>
+                                    <p className="text-xl font-semibold">{timeline.name}</p>
                                     <div className="flex">
                                         <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-[10px] leading-[14px] font-medium text-ppmb-000 min-w-[110px] justify-center flex">{dateToIndonesianString(timeline.startDate)} {timeline.startDate.getTime() != timeline.endDate.getTime() && `— ${dateToIndonesianString(timeline.endDate)}` }</div>
                                     </div>
