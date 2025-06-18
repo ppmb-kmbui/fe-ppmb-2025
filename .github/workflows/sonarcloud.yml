@@ -55,7 +55,7 @@ jobs:
           args:
             # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
             # mandatory
-            -Dsonar.projectKey=ppmb-kmbui_be-ppmb-2025
+            -Dsonar.projectKey=ppmb-kmbui_fe-ppmb-2025
             -Dsonar.organization=ppmb-kmbui
             # Comma-separated paths to directories containing main source files.
             #-Dsonar.sources= # optional, default is project base directory
