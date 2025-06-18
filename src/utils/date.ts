@@ -1,4 +1,8 @@
 export const dateToIndonesianString = (date: Date): string => {
-    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-    return date.toLocaleDateString('id-ID', options);
-}
+  const options: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  return date.toLocaleDateString("id-ID", options);
+};

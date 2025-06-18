@@ -1,199 +1,254 @@
-"use client"
+"use client";
 
-import { useAuth } from "@/context/AuthContext"
-import { api } from "@/utils/axios"
-import { FriendProps } from "@/utils/interface"
-import { facultyCase } from "@/utils/stringUtils"
-import Image from "next/image"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { HiCheck, HiPlus } from "react-icons/hi"
+import { useAuth } from "@/context/AuthContext";
+import { api } from "@/utils/axios";
+import { FriendProps } from "@/utils/interface";
+import { facultyCase } from "@/utils/stringUtils";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { HiCheck, HiPlus } from "react-icons/hi";
 
 interface UserCardProps extends FriendProps {
-    onAccept?: () => void
-    onReject?: () => void
+  onAccept?: () => void;
+  onReject?: () => void;
 }
 
 export const UserCard: React.FC<UserCardProps> = ({
-    fullname, faculty, batch, status, imgUrl, id,
-    onAccept, onReject
+  fullname,
+  faculty,
+  batch,
+  status,
+  imgUrl,
+  id,
+  onAccept,
+  onReject,
 }) => {
-    const router = useRouter();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isAcceptLoading, setIsAcceptLoading] = useState<boolean>(false);
-    const [isRejectLoading, setIsRejectLoading] = useState<boolean>(false);
-    const [dynamicStatus, setDynamicStatus] = useState<typeof status>(status); // connect response doesnt retrun typeof status, so need to manually change it :)
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAcceptLoading, setIsAcceptLoading] = useState<boolean>(false);
+  const [isRejectLoading, setIsRejectLoading] = useState<boolean>(false);
+  const [dynamicStatus, setDynamicStatus] = useState<typeof status>(status); // connect response doesnt retrun typeof status, so need to manually change it :)
 
-    const { token, user } = useAuth();
+  const { token, user } = useAuth();
 
-    const follow = async () => {
-        try {
-            setIsLoading(true)
-            await api({
-                url: `api/connect/${id}`,
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+  const follow = async () => {
+    try {
+      setIsLoading(true);
+      await api({
+        url: `api/connect/${id}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-            setDynamicStatus("menunggu_konfirmasi");
-        } catch (error: any) {
-            console.error("Error while following friend", error);
-        } finally {
-            setIsLoading(false);
-        }
+      setDynamicStatus("menunggu_konfirmasi");
+    } catch (error: any) {
+      console.error("Error while following friend", error);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    const accept = async () => {
-        try{
-            setIsAcceptLoading(true);
-            await api({
-                url: `api/connect/${id}`,
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setDynamicStatus("accepted");
-            onAccept?.();
-        } catch (error: any) {
-            console.error("Error while accepting friend", error);
-        } finally {
-            setIsAcceptLoading(false);
-        }
+  const accept = async () => {
+    try {
+      setIsAcceptLoading(true);
+      await api({
+        url: `api/connect/${id}`,
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDynamicStatus("accepted");
+      onAccept?.();
+    } catch (error: any) {
+      console.error("Error while accepting friend", error);
+    } finally {
+      setIsAcceptLoading(false);
     }
+  };
 
-    const reject = async () => {
-        try {
-            setIsRejectLoading(true);
-            await api({
-                url: `api/connect/${id}`,
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            })
-            setDynamicStatus("not_connected");
-            onReject?.()
-        } catch (error: any) {
-            console.error("Error while rejecting friend", error)
-        } finally {
-            setIsRejectLoading(false)
-        }
+  const reject = async () => {
+    try {
+      setIsRejectLoading(true);
+      await api({
+        url: `api/connect/${id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDynamicStatus("not_connected");
+      onReject?.();
+    } catch (error: any) {
+      console.error("Error while rejecting friend", error);
+    } finally {
+      setIsRejectLoading(false);
     }
+  };
 
-    const createNetworkingTask = async () => {
-        try{
-            setIsLoading(true);
-            await api({
-                url: `api/networking/${id}`,
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setDynamicStatus("sedang_networking");
-        } catch (error: any) {
-            console.error("Error while creating networking task", error);
-        } finally {
-            setIsLoading(false);
-            router.push(`/networking/${id}`);
-        }
+  const createNetworkingTask = async () => {
+    try {
+      setIsLoading(true);
+      await api({
+        url: `api/networking/${id}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDynamicStatus("sedang_networking");
+    } catch (error: any) {
+      console.error("Error while creating networking task", error);
+    } finally {
+      setIsLoading(false);
+      router.push(`/networking/${id}`);
     }
+  };
 
-    const truncateFullname = (fullname: string) => {
-        if (fullname.length > 30) {
-            return fullname.slice(0, 27) + '...';
-        }
-        return fullname;
+  const truncateFullname = (fullname: string) => {
+    if (fullname.length > 30) {
+      return fullname.slice(0, 27) + "...";
     }
+    return fullname;
+  };
 
-    return (
-        <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:px-4 lg:py-5 rounded-xl min-h-[240px] lg:h-[270px] min-w-[160px] sm:min-w-[200px] sm:max-w-[200px] lg:min-w-[225px] lg:max-w-full shadow-ppmb-200 shadow-custom-sm md:shadow-custom">
-            <div className="flex h-[45%] items-center justify-center">
-                <div className="h-[80px] w-[80px] md:h-[90px] md:w-[90px] flex">
-                    <Image
-                        src={imgUrl}
-                        alt=""
-                        width={95}
-                        height={95}
-                        className="rounded-full object-cover"
-                    />
-                </div>
-            </div>
-
-            <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center">
-                <p className="font-semibold md:text-lg leading-none">{truncateFullname(fullname)}</p>
-                <p className="text-xs md:text-sm italic text-ppmb-600">{facultyCase(faculty)}, {batch}</p>
-            </div>
-
-            <div className="flex h-[15%] justify-center items-center">
-               {user.batch == 2024 ? 
-               
-                batch != 2024 ? 
-                    <button className="md:mx-2 border-ppmb-500 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
-                        <p className="text-ppmb-500 font-semibold text-sm lg:text-[16px]">Angkatan {batch}</p>
-                    </button>
-                    :
-                    <>
-                        { dynamicStatus == "not_connected" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 hover:bg-ppmb-blue-600 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2 min-h-[28px]`} onClick={follow} disabled={isLoading}>
-                            { isLoading ? 
-                                <div className="loader-button-xs w-[16px] h-[16px]"/> 
-                            : 
-                                <>
-                                    <HiPlus className="text-white"/>
-                                    <p className="font-medium text-sm lg:text-[16px]">Ikuti</p>
-                                </>
-                            }
-
-                        </button>}
-
-                        { dynamicStatus == "menunggu_konfirmasi" && <button className="md:mx-2 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
-                            <p className=" text-ppmb-warning font-semibold">Menunggu...</p>
-                        </button>}
-
-                        { dynamicStatus == "meminta_konfirmasi" && <div className="flex flex-row w-full gap-[6px]">
-                            <button className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-[6px] md:px-2 min-h-[28px]`} onClick={reject} disabled={isLoading}>
-                                { isRejectLoading ? 
-                                    <div className="loader-button-xs w-[16px] h-[16px]"/> 
-                                : 
-                                    <p className=" text-ppmb-red-500 font-semibold text-sm lg:text-[16px]">Tolak</p>
-                                }
-                            </button>
-
-                            <button className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success hover:bg-ppmb-success-dark flex items-center justify-center rounded-lg w-full px-3 md:px-4 min-h-[28px]`} onClick={accept} disabled={isLoading}>
-                                { isAcceptLoading ? 
-                                    <div className="loader-button-xs w-[16px] h-[16px]"/> 
-                                :
-                                    <p className="text-white font-medium text-sm lg:text-[16px]">Terima</p>
-                                }
-                            </button>
-                        </div>}
-
-                        { dynamicStatus == "accepted" && <button className={`${isLoading && "cursor-not-allowed opacity-80"} md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={createNetworkingTask} disabled={isLoading}>
-                            { isLoading ? 
-                                <div className="loader-button-sm w-[16px] h-[16px]"/>
-                            :
-                                <p className=" text-ppmb-000 font-medium">Networking</p>
-                            }
-                        </button> }
-
-                        { dynamicStatus == "sedang_networking" && <button className={`md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`} onClick={() => router.push(`/networking/${id}`)} >
-                            <p className=" text-ppmb-000 font-medium">Networking</p>
-                        </button> }
-
-                        { dynamicStatus == "done" && <button className="md:mx-2 bg-ppmb-success hover:bg-ppmb-success-dark text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 font-medium min-h-[28px]" onClick={() => router.push(`/networking/${id}`)}>
-                            <p className="font-medium">Selesai</p>
-                            <HiCheck size={20}/>
-                        </button>}
-                    </>
-               
-               :
-               
-                user.batch != 2024 && <button className="md:mx-2 bg-ppmb-100 border-ppmb-100 text-ppmb-600 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">Anda kating</button>
-            } 
-            </div>
+  return (
+    <div className="flex flex-col justify-between border-ppmb-100 border-[2px] px-3 py-4 lg:px-4 lg:py-5 rounded-xl min-h-[240px] lg:h-[270px] min-w-[160px] sm:min-w-[200px] sm:max-w-[200px] lg:min-w-[225px] lg:max-w-full shadow-ppmb-200 shadow-custom-sm md:shadow-custom">
+      <div className="flex h-[45%] items-center justify-center">
+        <div className="h-[80px] w-[80px] md:h-[90px] md:w-[90px] flex">
+          <Image
+            src={imgUrl}
+            alt=""
+            width={95}
+            height={95}
+            className="rounded-full object-cover"
+          />
         </div>
-    )
-}
+      </div>
+
+      <div className="flex flex-col justify-start items-center gap-1 mt-4 mb-2 h-[40%] text-center">
+        <p className="font-semibold md:text-lg leading-none">
+          {truncateFullname(fullname)}
+        </p>
+        <p className="text-xs md:text-sm italic text-ppmb-600">
+          {facultyCase(faculty)}, {batch}
+        </p>
+      </div>
+
+      <div className="flex h-[15%] justify-center items-center">
+        {user.batch == 2024 ? (
+          batch != 2024 ? (
+            <button className="md:mx-2 border-ppmb-500 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
+              <p className="text-ppmb-500 font-semibold text-sm lg:text-[16px]">
+                Angkatan {batch}
+              </p>
+            </button>
+          ) : (
+            <>
+              {dynamicStatus == "not_connected" && (
+                <button
+                  className={`${isLoading && "cursor-not-allowed opacity-80"} mx-2 bg-ppmb-blue-500 hover:bg-ppmb-blue-600 text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pr-2 min-h-[28px]`}
+                  onClick={follow}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="loader-button-xs w-[16px] h-[16px]" />
+                  ) : (
+                    <>
+                      <HiPlus className="text-white" />
+                      <p className="font-medium text-sm lg:text-[16px]">
+                        Ikuti
+                      </p>
+                    </>
+                  )}
+                </button>
+              )}
+
+              {dynamicStatus == "menunggu_konfirmasi" && (
+                <button className="md:mx-2 border-ppmb-warning border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
+                  <p className=" text-ppmb-warning font-semibold">
+                    Menunggu...
+                  </p>
+                </button>
+              )}
+
+              {dynamicStatus == "meminta_konfirmasi" && (
+                <div className="flex flex-row w-full gap-[6px]">
+                  <button
+                    className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 border-[2px] flex items-center justify-center rounded-lg w-full px-[6px] md:px-2 min-h-[28px]`}
+                    onClick={reject}
+                    disabled={isLoading}
+                  >
+                    {isRejectLoading ? (
+                      <div className="loader-button-xs w-[16px] h-[16px]" />
+                    ) : (
+                      <p className=" text-ppmb-red-500 font-semibold text-sm lg:text-[16px]">
+                        Tolak
+                      </p>
+                    )}
+                  </button>
+
+                  <button
+                    className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success hover:bg-ppmb-success-dark flex items-center justify-center rounded-lg w-full px-3 md:px-4 min-h-[28px]`}
+                    onClick={accept}
+                    disabled={isLoading}
+                  >
+                    {isAcceptLoading ? (
+                      <div className="loader-button-xs w-[16px] h-[16px]" />
+                    ) : (
+                      <p className="text-white font-medium text-sm lg:text-[16px]">
+                        Terima
+                      </p>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {dynamicStatus == "accepted" && (
+                <button
+                  className={`${isLoading && "cursor-not-allowed opacity-80"} md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`}
+                  onClick={createNetworkingTask}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="loader-button-sm w-[16px] h-[16px]" />
+                  ) : (
+                    <p className=" text-ppmb-000 font-medium">Networking</p>
+                  )}
+                </button>
+              )}
+
+              {dynamicStatus == "sedang_networking" && (
+                <button
+                  className={`md:mx-2 bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex items-center justify-center py-[2px] rounded-lg w-full min-h-[28px]`}
+                  onClick={() => router.push(`/networking/${id}`)}
+                >
+                  <p className=" text-ppmb-000 font-medium">Networking</p>
+                </button>
+              )}
+
+              {dynamicStatus == "done" && (
+                <button
+                  className="md:mx-2 bg-ppmb-success hover:bg-ppmb-success-dark text-ppmb-000 flex items-center gap-2 justify-center py-[2px] rounded-lg w-full pl-2 font-medium min-h-[28px]"
+                  onClick={() => router.push(`/networking/${id}`)}
+                >
+                  <p className="font-medium">Selesai</p>
+                  <HiCheck size={20} />
+                </button>
+              )}
+            </>
+          )
+        ) : (
+          user.batch != 2024 && (
+            <button className="md:mx-2 bg-ppmb-100 border-ppmb-100 text-ppmb-600 border-[2px] flex items-center justify-center rounded-lg w-full cursor-not-allowed min-h-[28px]">
+              Anda kating
+            </button>
+          )
+        )}
+      </div>
+    </div>
+  );
+};
