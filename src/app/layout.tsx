@@ -3,8 +3,7 @@ import "./globals.css";
 import { Sidebar } from "@/components";
 import { AuthContextProvider } from "@/context/AuthContext";
 import { SmallBar } from "@/components/template/navbar/SmallBar";
-import { body } from '@/styles/fonts';
-
+import { body } from "@/styles/fonts";
 
 export const metadata: Metadata = {
   title: "PPMB Connect",
@@ -13,7 +12,6 @@ export const metadata: Metadata = {
     icon: "/ppmb.ico",
   },
 };
-
 
 export default function RootLayout({
   children,
@@ -24,16 +22,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${body.className} bg-base`}>
         <AuthContextProvider>
-        <div className="flex">
-          <nav className="z-50">
-            <Sidebar />
-            <SmallBar />
-          </nav>
-          
-          <main className="flex-1">
-            {children}
-          </main>
-        </div>
+          <div className="flex">
+            <nav className="z-50">
+              <Sidebar />
+              <SmallBar />
+            </nav>
+
+            <main className="flex-1">{children}</main>
+          </div>
         </AuthContextProvider>
       </body>
     </html>

@@ -6,13 +6,13 @@ const nextConfig = {
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
     API_BASE_URL: process.env.API_BASE_URL,
   },
-  
+
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: `https://ppmb-server.vercel.app/api/v1/:path*`
-      }
+        source: "/api/:path*",
+        destination: `https://ppmb-server.vercel.app/api/v1/:path*`,
+      },
     ];
   },
 
@@ -20,23 +20,23 @@ const nextConfig = {
     // domains: ['res.cloudinary.com', 'i.pinimg.com'],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'ui-avatars.com',
-        port: '',
-        pathname: '/api/**',
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        port: "",
+        pathname: "/api/**",
       },
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/api/**',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/api/**",
       },
       {
-        protocol: 'https',
-        hostname: 'i.pinimg.com',
-        port: '',
-        pathname: '/api/**',
-      }
+        protocol: "https",
+        hostname: "i.pinimg.com",
+        port: "",
+        pathname: "/api/**",
+      },
     ],
   },
 };
