@@ -37,15 +37,12 @@ export const Carousel: React.FC = () => {
 
   const CONTENTS = [
     {
-      src: "/sponsorImage/sponsor.png",
-    },
-    {
-      src: "/sponsorImage/kmbui.png",
+      src: "/carouselImages/coming-soon-banner.svg",
     },
   ];
 
   return (
-    <div className="embla relative bg-ppmb-800">
+    <div className="embla relative bg-neutral-light">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {CONTENTS.map((content, key) => (

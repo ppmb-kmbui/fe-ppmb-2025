@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Accordion } from "../ui/Accordion";
+import { Accordion } from "@/components/ui/Accordion";
 
 export const Faq: React.FC = () => {
   const [selected, setSelected] = useState(-1);

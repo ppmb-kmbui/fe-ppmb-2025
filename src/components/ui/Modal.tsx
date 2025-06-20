@@ -19,9 +19,7 @@ const fileSchema = z.object({
   file: z.instanceof(File, { message: "Berkas tidak boleh kosong!" }),
 });
 
-const modalSchema = z.discriminatedUnion("type", [
-  linkSchema, fileSchema
-])
+const modalSchema = z.discriminatedUnion("type", [linkSchema, fileSchema]);
 
 type LinkSchemaType = z.infer<typeof linkSchema>;
 type FileSchemaType = z.infer<typeof fileSchema>;
@@ -45,7 +43,7 @@ export const Modal: React.FC<ModalProps> = ({
   label,
   sublabel = "",
   onSubmit,
-  handleFileChange = () => { },
+  handleFileChange = () => {},
   file = null,
 }) => {
   const {
