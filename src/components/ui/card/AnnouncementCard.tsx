@@ -1,9 +1,9 @@
 "use client";
 
-import { AnnouncementProps } from "@/app/pengumuman/page";
+import { AnnouncementProps } from "@/app/_pengumuman/page";
 import Image from "next/image";
 
-interface AnnouncementCardProps extends AnnouncementProps {}
+interface AnnouncementCardProps extends AnnouncementProps { }
 
 export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   name,

@@ -58,7 +58,7 @@ export interface ProgressProps {
   kmbuiExplorerDone: boolean;
 }
 
-export interface AssingmentProps {
+export interface AssignmentProps {
   id: string;
   name: string;
   description: string;
@@ -155,7 +155,7 @@ const TugasPage: React.FC = () => {
     },
   ];
 
-  const ASSINGMENTS: AssingmentProps[] = [
+  const ASSINGMENTS: AssignmentProps[] = [
     {
       id: "insight-hunting",
       name: "Insight Hunting",

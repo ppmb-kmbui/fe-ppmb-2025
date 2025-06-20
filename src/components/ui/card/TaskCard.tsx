@@ -10,14 +10,14 @@ import {
 } from "react-icons/hi";
 import { useDisclosure } from "react-use-disclosure";
 import { Modal } from "@/components";
-import { AssingmentProps, ProgressProps } from "@/app/tugas/page";
+import { AssignmentProps, ProgressProps } from "@/app/_tugas/page";
 import axios from "axios";
 import { api } from "@/utils/axios";
 import { useAuth } from "@/context/AuthContext";
 import { Dispatch, SetStateAction, useState } from "react";
 import { formatDate } from "@/utils/stringUtils";
 
-interface TaskProps extends AssingmentProps {
+interface TaskProps extends AssignmentProps {
   setProgress: Dispatch<SetStateAction<ProgressProps>>;
 }
 

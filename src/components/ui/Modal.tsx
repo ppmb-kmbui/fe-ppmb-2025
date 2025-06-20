@@ -10,16 +10,22 @@ import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 
 const linkSchema = z.object({
+  type: z.literal("link"),
   link: z.string().min(1, { message: "Link harus diisi!" }),
 });
 
 const fileSchema = z.object({
+  type: z.literal("file"),
   file: z.instanceof(File, { message: "Berkas tidak boleh kosong!" }),
 });
 
+const modalSchema = z.discriminatedUnion("type", [
+  linkSchema, fileSchema
+])
+
 type LinkSchemaType = z.infer<typeof linkSchema>;
 type FileSchemaType = z.infer<typeof fileSchema>;
-type ModalData = LinkSchemaType | FileSchemaType;
+type ModalData = z.infer<typeof modalSchema>;
 
 interface ModalProps {
   type: "input" | "pdf" | "image";
@@ -32,13 +38,6 @@ interface ModalProps {
   file?: File | null;
 }
 
-const useDynamicForm = (type: "input" | "pdf" | "image") => {
-  const schema = type === "input" ? linkSchema : fileSchema;
-  return useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
-  });
-};
-
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
@@ -46,21 +45,22 @@ export const Modal: React.FC<ModalProps> = ({
   label,
   sublabel = "",
   onSubmit,
-  handleFileChange = () => {},
+  handleFileChange = () => { },
   file = null,
 }) => {
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
-  } = useDynamicForm(type);
+    formState: { errors, isSubmitting },
+  } = useForm<ModalData>({ resolver: zodResolver(modalSchema) });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const submitModal = async (data: ModalData) => {
     try {
       setIsLoading(true);
-      await onSubmit(data);
+      onSubmit(data);
     } catch (error: any) {
       console.error("Error while submit", error);
     } finally {
