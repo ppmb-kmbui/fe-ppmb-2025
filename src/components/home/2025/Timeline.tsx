@@ -3,11 +3,12 @@
 import { useState } from "react";
 import "./style.css";
 import Image from "next/image";
-import { Button } from "../ui/Button";
+import { Button } from "@/components/ui/Button";
 import { dateToIndonesianString } from "@/utils/date";
 import { TbBrandZoom } from "react-icons/tb";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { title } from "@/styles/fonts";
 
 interface TimelineProps {
   name: string;
@@ -27,104 +28,104 @@ export const Timeline: React.FC = () => {
       name: "WelMab Part 1",
       description:
         "Welcoming MaBa Part 1 merupakan sebuah acara untuk mengenal dan saling berkenalan dengan mahasiswa baru yang masuk melalui jalur SNBP. Sebagai mahasiswa baru yang belum familiar dengan lingkungan UI, pada acara ini akan diperkenalkan lingkungan-lingkungan di UI seperti ada fakultas apa saja dan sarana prasarana apa saja yang disediakan oleh UI.",
-      startDate: new Date(2024, 4, 11),
-      endDate: new Date(2024, 4, 11),
+      startDate: new Date(2025, 4, 11),
+      endDate: new Date(2025, 4, 11),
       img: "/image/welmab-1.jpg",
     },
     {
       name: "Pre-event",
       description:
-        "Pre-event merupakan acara PPMB 2024 untuk memperkenalkan KMBUI serta menjelaskan terkait main-event yaitu tugas-tugas yang perlu dikerjakan oleh mahasiswa baru.",
-      startDate: new Date(2024, 7, 3),
-      endDate: new Date(2024, 7, 3),
+        "Pre-event merupakan acara PPMB 2025 untuk memperkenalkan KMBUI serta menjelaskan terkait main-event yaitu tugas-tugas yang perlu dikerjakan oleh mahasiswa baru.",
+      startDate: new Date(2025, 7, 3),
+      endDate: new Date(2025, 7, 3),
       img: "/image/pre-event.jpg",
-      zoom: "https://www.ristek.link/WelmabKMB2024",
+      zoom: "https://www.ristek.link/WelmabKMB2025",
     },
     {
       name: "Display UKM",
       description:
         "Display UKM adalah kegiatan yang diadakan oleh OKK UI untuk mengenalkan UKM-UKM yang ada di Universitas Indonesia",
-      startDate: new Date(2024, 7, 13),
-      endDate: new Date(2024, 7, 14),
+      startDate: new Date(2025, 7, 13),
+      endDate: new Date(2025, 7, 14),
       img: "/image/kmb.jpg",
     },
     {
       name: "Insight Hunting",
       description:
         "Insight Hunting menjadi sarana untuk menggali wawasan dari narasumber yang berpengalaman di kategori beasiswa, organisasi, lomba, dan student exchange.",
-      startDate: new Date(2024, 7, 5),
-      endDate: new Date(2024, 7, 9),
+      startDate: new Date(2025, 7, 5),
+      endDate: new Date(2025, 7, 9),
       img: "/image/insight-hunting.jpg",
     },
     {
       name: "Mentoring",
       description:
         "Pada sesi mentoring, maba secara berkelompok mengenal KMBUI, ajaran buddha, dan kehidupan perkuliahan.",
-      startDate: new Date(2024, 7, 5),
-      endDate: new Date(2024, 7, 28),
+      startDate: new Date(2025, 7, 5),
+      endDate: new Date(2025, 7, 28),
       img: "/image/mentoring.jpg",
     },
     {
       name: "KMBUI Explorer",
       description: "Yuk, ikuti keseruan kegiatan/proker di KMBUI!!",
-      startDate: new Date(2024, 7, 5),
-      endDate: new Date(2024, 8, 11),
+      startDate: new Date(2025, 7, 5),
+      endDate: new Date(2025, 8, 11),
       img: "/image/kmbui-explorer.jpg",
     },
     {
       name: "Networking",
       description:
         "Networking menjadi kesempatan untuk mencari teman sesama maba maupun kakak tingkat.",
-      startDate: new Date(2024, 7, 10),
-      endDate: new Date(2024, 7, 31),
+      startDate: new Date(2025, 7, 10),
+      endDate: new Date(2025, 7, 31),
       img: "/image/networking.jpg",
     },
     {
       name: "Foster sibling",
       description:
         "Kakak asuh membimbing adiknya dalam menyesuaikan diri dengan kehidupan perkuliahan. Melalui kegiatan sharing insight dan fun activity, hubungan akan menjadi semakin erat.",
-      startDate: new Date(2024, 7, 16),
-      endDate: new Date(2024, 7, 29),
+      startDate: new Date(2025, 7, 16),
+      endDate: new Date(2025, 7, 29),
       img: "/image/fossib.jpg",
     },
     {
       name: "Closing PPMB",
       description:
-        "Closing merupakan acara puncak dari seluruh rangkaian kegiatan PPMB 2024.",
-      startDate: new Date(2024, 8, 21),
-      endDate: new Date(2024, 8, 21),
+        "Closing merupakan acara puncak dari seluruh rangkaian kegiatan PPMB 2025.",
+      startDate: new Date(2025, 8, 21),
+      endDate: new Date(2025, 8, 21),
       img: "/image/closing.jpg",
       rsvp: "hi",
     },
   ];
 
   return (
-    <div className="flex flex-col items-center gap-3 lg:gap-5">
+    <div className="flex flex-col items-center gap-3 lg:gap-5 bg-linear-to-b from-transparent from-0% via-neutral-light via-[2%] to-white pt-20 -m-[2%] z-40">
       <div className="gap-1 lg:gap-3 flex text-3xl md:text-4xl lg:text-6xl font-semibold items-center">
-        <span className="text-ppmb-blue-600">TIMELINE</span>
-        <span>Kegiatan</span>
+        <span className={`${title.className} text-blue-300 text-h1`}>
+          TIMELINE
+        </span>
+        <span className={`${title.className} text-h1`}>KEGIATAN</span>
       </div>
 
-      <div className="hidden timeline relative lg:flex min-h-[175px] overflow-x-auto w-[90vw] scrollbar-hide pl-5">
-        <div className="inline-flex">
+      <div className="hidden timeline relative lg:flex lg:flex-col overflow-y-auto w-[90vw] scrollbar-hide">
+        <div className="flex flex-col items-center">
           {TIMELINES.map((timeline, key) => (
             <div
               key={key}
-              className={`${key % 2 === 1 ? "self-end" : "self-start"} li flex flex-col items-center min-w-[200px]`}
+              className={`${key % 2 == 1 ? "-translate-x-full before:left-(--offset-left) items-end" : "translate-x-full before:left-(--offset-right) items-start"} li flex flex-col w-(--panel-width) cursor-pointer`}
+              onClick={() => setIndex(key)}
             >
               <div
-                className="flex flex-col px-3 py-2 w-full rounded-2xl items-center hover:bg-ppmb-100 hover:bg-opacity-70 cursor-pointer"
-                onClick={() => setIndex(key)}
+                className={`px-3 py-[5px] text-sm font-medium justify-center flex whitespace-nowrap`}
               >
-                <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-[5px] text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex whitespace-nowrap">
-                  {dateToIndonesianString(timeline.startDate)}{" "}
-                  {timeline.startDate.getTime() != timeline.endDate.getTime() &&
-                    `— ${dateToIndonesianString(timeline.endDate)}`}
-                </div>
-                <span className="font-semibold text-xl text-ppmb-800 whitespace-nowrap">
-                  {timeline.name}
-                </span>
+                {dateToIndonesianString(timeline.startDate)}{" "}
+                {timeline.startDate.getTime() != timeline.endDate.getTime() &&
+                  `— ${dateToIndonesianString(timeline.endDate)}`}
               </div>
+              <span className="font-semibold text-xl text-ppmb-800 whitespace-nowrap px-3 py-[5px]">
+                {timeline.name}
+              </span>
             </div>
           ))}
         </div>
@@ -207,7 +208,7 @@ export const Timeline: React.FC = () => {
             </div>
 
             <div
-              className={`${key == 0 ? "mb-3" : key == TIMELINES.length - 1 ? "mt-3" : "my-3"} p-4 flex flex-row justify-between w-full rounded-lg border-[2px] border-ppmb-300`}
+              className={`p-4 flex flex-row justify-between w-full rounded-lg border-[2px] border-neutral-medium`}
             >
               <div className="w-full flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
