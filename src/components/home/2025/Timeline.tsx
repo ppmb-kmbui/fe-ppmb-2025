@@ -9,93 +9,55 @@ import { TbBrandZoom } from "react-icons/tb";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { title } from "@/styles/fonts";
+import TimelinePanel from "./subcomponents/TimelinePanel";
 
-interface TimelineProps {
+export interface PPMBEventProps {
   name: string;
   description: string;
   startDate: Date;
   endDate: Date;
   img: string;
+  imgAlt: string;
+  monthLong?: boolean;
+  location?: string;
   rsvp?: string;
-  zoom?: string;
+  meetingUrl?: string;
 }
 export const Timeline: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const [index, setIndex] = useState<number>(0);
 
-  const TIMELINES: TimelineProps[] = [
+  const PPMB_EVENTS: PPMBEventProps[] = [
     {
-      name: "WelMab Part 1",
+      name: "Welcoming Mahasiswa Baru",
       description:
-        "Welcoming MaBa Part 1 merupakan sebuah acara untuk mengenal dan saling berkenalan dengan mahasiswa baru yang masuk melalui jalur SNBP. Sebagai mahasiswa baru yang belum familiar dengan lingkungan UI, pada acara ini akan diperkenalkan lingkungan-lingkungan di UI seperti ada fakultas apa saja dan sarana prasarana apa saja yang disediakan oleh UI.",
-      startDate: new Date(2025, 4, 11),
-      endDate: new Date(2025, 4, 11),
+        "Acara ini bertujuan untuk menyambut mahasiswa baru UI yang beragama Buddha, termasuk mengenalkan fakultas dan sarana prasarana yang tersedia",
+      startDate: new Date(2025, 6, 26),
+      endDate: new Date(2025, 6, 26),
       img: "/image/welmab-1.jpg",
+      imgAlt: "Welcoming Mahasiswa Baru",
+      location: "online",
     },
     {
-      name: "Pre-event",
+      name: "Keliling UI",
       description:
-        "Pre-event merupakan acara PPMB 2025 untuk memperkenalkan KMBUI serta menjelaskan terkait main-event yaitu tugas-tugas yang perlu dikerjakan oleh mahasiswa baru.",
-      startDate: new Date(2025, 7, 3),
-      endDate: new Date(2025, 7, 3),
+        "Mengenalkan lingkungan Universitas Indonesia kepada mahasiswa baru, termasuk fakultas dan sarana prasarana yang tersedia",
+      startDate: new Date(2025, 6, 30),
+      endDate: new Date(2025, 6, 30),
       img: "/image/pre-event.jpg",
-      zoom: "https://www.ristek.link/WelmabKMB2025",
+      imgAlt: "Keliling UI",
+      location: "Lingkungan UI",
     },
     {
       name: "Display UKM",
       description:
-        "Display UKM adalah kegiatan yang diadakan oleh OKK UI untuk mengenalkan UKM-UKM yang ada di Universitas Indonesia",
-      startDate: new Date(2025, 7, 13),
-      endDate: new Date(2025, 7, 14),
+        "OKK UI menghadirkan kegiatan untuk memperkenalkan seluruh UKM yang ada di lingkungan Universitas Indonesia. KMBUI akan menyediakan booth dan menayangkan video profil kepada mahasiswa baru sebagai bentuk perkenalan pada kegiatan ini",
+      startDate: new Date(2025, 7),
+      endDate: new Date(2025, 7),
       img: "/image/kmb.jpg",
-    },
-    {
-      name: "Insight Hunting",
-      description:
-        "Insight Hunting menjadi sarana untuk menggali wawasan dari narasumber yang berpengalaman di kategori beasiswa, organisasi, lomba, dan student exchange.",
-      startDate: new Date(2025, 7, 5),
-      endDate: new Date(2025, 7, 9),
-      img: "/image/insight-hunting.jpg",
-    },
-    {
-      name: "Mentoring",
-      description:
-        "Pada sesi mentoring, maba secara berkelompok mengenal KMBUI, ajaran buddha, dan kehidupan perkuliahan.",
-      startDate: new Date(2025, 7, 5),
-      endDate: new Date(2025, 7, 28),
-      img: "/image/mentoring.jpg",
-    },
-    {
-      name: "KMBUI Explorer",
-      description: "Yuk, ikuti keseruan kegiatan/proker di KMBUI!!",
-      startDate: new Date(2025, 7, 5),
-      endDate: new Date(2025, 8, 11),
-      img: "/image/kmbui-explorer.jpg",
-    },
-    {
-      name: "Networking",
-      description:
-        "Networking menjadi kesempatan untuk mencari teman sesama maba maupun kakak tingkat.",
-      startDate: new Date(2025, 7, 10),
-      endDate: new Date(2025, 7, 31),
-      img: "/image/networking.jpg",
-    },
-    {
-      name: "Foster sibling",
-      description:
-        "Kakak asuh membimbing adiknya dalam menyesuaikan diri dengan kehidupan perkuliahan. Melalui kegiatan sharing insight dan fun activity, hubungan akan menjadi semakin erat.",
-      startDate: new Date(2025, 7, 16),
-      endDate: new Date(2025, 7, 29),
-      img: "/image/fossib.jpg",
-    },
-    {
-      name: "Closing PPMB",
-      description:
-        "Closing merupakan acara puncak dari seluruh rangkaian kegiatan PPMB 2025.",
-      startDate: new Date(2025, 8, 21),
-      endDate: new Date(2025, 8, 21),
-      img: "/image/closing.jpg",
-      rsvp: "hi",
+      imgAlt: "Display UKM",
+      location: "Pusat Kegiatan Mahasiswa (Pusgiwa)",
+      monthLong: true,
     },
   ];
 
@@ -108,25 +70,15 @@ export const Timeline: React.FC = () => {
         <span className={`${title.className} text-h1`}>KEGIATAN</span>
       </div>
 
-      <div className="hidden timeline relative lg:flex lg:flex-col overflow-y-auto w-[90vw] scrollbar-hide">
+      <div className="hidden timeline relative lg:flex lg:flex-col overflow-y-visible w-[90vw] scrollbar-hide my-5">
         <div className="flex flex-col items-center">
-          {TIMELINES.map((timeline, key) => (
-            <div
+          {PPMB_EVENTS.map((timeline, key) => (
+            <TimelinePanel
               key={key}
-              className={`${key % 2 == 1 ? "-translate-x-full before:left-(--offset-left) items-end" : "translate-x-full before:left-(--offset-right) items-start"} li flex flex-col w-(--panel-width) cursor-pointer`}
-              onClick={() => setIndex(key)}
-            >
-              <div
-                className={`px-3 py-[5px] text-sm font-medium justify-center flex whitespace-nowrap`}
-              >
-                {dateToIndonesianString(timeline.startDate)}{" "}
-                {timeline.startDate.getTime() != timeline.endDate.getTime() &&
-                  `— ${dateToIndonesianString(timeline.endDate)}`}
-              </div>
-              <span className="font-semibold text-xl text-ppmb-800 whitespace-nowrap px-3 py-[5px]">
-                {timeline.name}
-              </span>
-            </div>
+              timeline={timeline}
+              index={key}
+              setIndex={setIndex}
+            />
           ))}
         </div>
       </div>
@@ -135,24 +87,29 @@ export const Timeline: React.FC = () => {
         <div className="flex flex-row justify-between w-full p-[52px] rounded-2xl border-[2px] bg-ppmb-50 border-ppmb-blue-700 max-h-[300px]">
           <div className="w-[75%] flex flex-col gap-3">
             <div className="flex flex-col gap-2">
-              <p className="text-4xl font-semibold">{TIMELINES[index].name}</p>
+              <p className="text-4xl font-semibold">
+                {PPMB_EVENTS[index].name}
+              </p>
               <div className="flex">
                 <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">
-                  {dateToIndonesianString(TIMELINES[index].startDate)}{" "}
-                  {TIMELINES[index].startDate.getTime() !=
-                    TIMELINES[index].endDate.getTime() &&
-                    `— ${dateToIndonesianString(TIMELINES[index].endDate)}`}
+                  {dateToIndonesianString(
+                    PPMB_EVENTS[index].startDate,
+                    PPMB_EVENTS[index].monthLong,
+                  )}{" "}
+                  {PPMB_EVENTS[index].startDate.getTime() !=
+                    PPMB_EVENTS[index].endDate.getTime() &&
+                    `— ${dateToIndonesianString(PPMB_EVENTS[index].endDate)}`}
                 </div>
               </div>
             </div>
 
-            <div>{TIMELINES[index].description}</div>
+            <div>{PPMB_EVENTS[index].description}</div>
 
-            {TIMELINES[index].rsvp && (
+            {PPMB_EVENTS[index].rsvp && (
               <div className="flex h-full mt-4">
                 <div className="self-end">
                   <Link
-                    href={TIMELINES[index].rsvp as string}
+                    href={PPMB_EVENTS[index].rsvp as string}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -166,11 +123,11 @@ export const Timeline: React.FC = () => {
               </div>
             )}
 
-            {TIMELINES[index].zoom && (
+            {PPMB_EVENTS[index].meetingUrl && (
               <div className="flex h-full mt-4">
                 <div className="self-end">
                   <Link
-                    href={TIMELINES[index].zoom as string}
+                    href={PPMB_EVENTS[index].meetingUrl as string}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -189,7 +146,7 @@ export const Timeline: React.FC = () => {
           <div className="w-[25%] flex items-center justify-end">
             <Image
               alt="timeline-img"
-              src={TIMELINES[index].img}
+              src={PPMB_EVENTS[index].img}
               width={210}
               height={210}
               className="rounded-xl"
@@ -199,10 +156,10 @@ export const Timeline: React.FC = () => {
       </div>
 
       <div className="flex lg:hidden flex-col h-full items-start px-8">
-        {TIMELINES.map((timeline, key) => (
+        {PPMB_EVENTS.map((timeline, key) => (
           <div key={key} className="flex w-full h-full flex-row gap-5">
             <div
-              className={`relative ${key == 0 && "rounded-t-lg"} ${key == TIMELINES.length - 1 && "rounded-b-lg"} flex min-h-[100px] min-w-[4px] bg-ppmb-300`}
+              className={`relative ${key == 0 && "rounded-t-lg"} ${key == PPMB_EVENTS.length - 1 && "rounded-b-lg"} flex min-h-[100px] min-w-[4px] bg-ppmb-300`}
             >
               <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-ppmb-blue-600 rounded-full"></div>
             </div>
@@ -215,7 +172,10 @@ export const Timeline: React.FC = () => {
                   <p className="text-xl font-semibold">{timeline.name}</p>
                   <div className="flex">
                     <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-[10px] leading-[14px] font-medium text-ppmb-000 min-w-[110px] justify-center flex">
-                      {dateToIndonesianString(timeline.startDate)}{" "}
+                      {dateToIndonesianString(
+                        timeline.startDate,
+                        PPMB_EVENTS[index].monthLong,
+                      )}{" "}
                       {timeline.startDate.getTime() !=
                         timeline.endDate.getTime() &&
                         `— ${dateToIndonesianString(timeline.endDate)}`}
@@ -243,11 +203,11 @@ export const Timeline: React.FC = () => {
                   </div>
                 )}
 
-                {timeline.zoom && (
+                {timeline.meetingUrl && (
                   <div className="flex h-full mt-4">
                     <div className="self-end">
                       <Link
-                        href={timeline.zoom as string}
+                        href={timeline.meetingUrl as string}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
