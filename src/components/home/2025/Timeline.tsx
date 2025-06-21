@@ -64,10 +64,10 @@ export const Timeline: React.FC = () => {
   return (
     <div className="flex flex-col items-center gap-3 lg:gap-5 bg-linear-to-b from-transparent from-0% via-neutral-light via-[2%] to-white pt-20 -m-[2%] z-40">
       <div className="gap-1 lg:gap-3 flex text-3xl md:text-4xl lg:text-6xl font-semibold items-center">
-        <span className={`${title.className} text-blue-300 text-h1`}>
+        <span className={`${title.className} text-blue-300 text-h5 lg:text-h1`}>
           TIMELINE
         </span>
-        <span className={`${title.className} text-h1`}>KEGIATAN</span>
+        <span className={`${title.className} text-h5 lg:text-h1`}>KEGIATAN</span>
       </div>
 
       <div className="hidden timeline relative lg:flex lg:flex-col overflow-y-visible w-[90vw] scrollbar-hide my-5">
@@ -80,78 +80,6 @@ export const Timeline: React.FC = () => {
               setIndex={setIndex}
             />
           ))}
-        </div>
-      </div>
-
-      <div className="w-full px-12 hidden lg:flex">
-        <div className="flex flex-row justify-between w-full p-[52px] rounded-2xl border-[2px] bg-ppmb-50 border-ppmb-blue-700 max-h-[300px]">
-          <div className="w-[75%] flex flex-col gap-3">
-            <div className="flex flex-col gap-2">
-              <p className="text-4xl font-semibold">
-                {PPMB_EVENTS[index].name}
-              </p>
-              <div className="flex">
-                <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-sm font-medium text-ppmb-000 min-w-[110px] justify-center flex">
-                  {dateToIndonesianString(
-                    PPMB_EVENTS[index].startDate,
-                    PPMB_EVENTS[index].monthLong,
-                  )}{" "}
-                  {PPMB_EVENTS[index].startDate.getTime() !=
-                    PPMB_EVENTS[index].endDate.getTime() &&
-                    `— ${dateToIndonesianString(PPMB_EVENTS[index].endDate)}`}
-                </div>
-              </div>
-            </div>
-
-            <div>{PPMB_EVENTS[index].description}</div>
-
-            {PPMB_EVENTS[index].rsvp && (
-              <div className="flex h-full mt-4">
-                <div className="self-end">
-                  <Link
-                    href={PPMB_EVENTS[index].rsvp as string}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button
-                      label="RSVP"
-                      size="md"
-                      isRestricted={!isAuthenticated}
-                    />
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            {PPMB_EVENTS[index].meetingUrl && (
-              <div className="flex h-full mt-4">
-                <div className="self-end">
-                  <Link
-                    href={PPMB_EVENTS[index].meetingUrl as string}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button
-                      label="Zoom"
-                      size="md"
-                      leftIcon={<TbBrandZoom />}
-                      isRestricted={!isAuthenticated}
-                    />
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="w-[25%] flex items-center justify-end">
-            <Image
-              alt="timeline-img"
-              src={PPMB_EVENTS[index].img}
-              width={210}
-              height={210}
-              className="rounded-xl"
-            />
-          </div>
         </div>
       </div>
 
