@@ -91,7 +91,7 @@ export const Timeline: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center gap-3 lg:gap-5 bg-linear-to-b from-transparent from-0% via-neutral-light via-[2%] to-white pt-20 -m-[2%] z-40">
+    <div className="flex flex-col items-center gap-3 lg:gap-5 bg-linear-to-b from-transparent from-0% grow via-neutral-light via-[2%] to-white pt-20 -m-[2%] z-40">
       <div className="gap-1 lg:gap-3 flex text-3xl md:text-4xl lg:text-6xl font-semibold items-center">
         <span className={`${title.className} text-blue-300 text-h5 lg:text-h1`}>
           TIMELINE
