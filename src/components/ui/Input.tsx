@@ -60,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={inputVariants({ variant, size })}>
           <input
             ref={ref}
-            className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full font-medium text-neutral-800"
+            className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full font-medium text-neutral-800  border-b-neutral-dark"
             type={
               label?.split(" ").includes("Password") && !isVisible
                 ? "password"
