@@ -18,10 +18,18 @@ export interface UserProps {
 
 export interface FriendProps extends UserProps {
   status:
-    | "not_connected"
-    | "meminta_konfirmasi"
-    | "menunggu_konfirmasi"
-    | "accepted"
-    | "sedang_networking"
-    | "done";
+  | "not_connected"
+  | "meminta_konfirmasi"
+  | "menunggu_konfirmasi"
+  | "accepted"
+  | "sedang_networking"
+  | "done";
+}
+
+export interface APIResponse {
+  success: boolean;
+  message: string;
+  data?: object;
+  error?: string;
+  status: number;
 }
