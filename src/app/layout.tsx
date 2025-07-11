@@ -24,8 +24,8 @@ export default function RootLayout({
         <AuthContextProvider>
           <div className="flex">
             <nav className="z-50">
-              <Sidebar />
-              <SmallBar />
+              {/* <Sidebar />
+              <SmallBar /> */}
             </nav>
 
             <main className="flex-1">{children}</main>

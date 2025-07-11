@@ -16,7 +16,7 @@ export interface InputProps
 }
 
 const inputVariants = tv({
-  base: "flex flex-row border-[2px] border-ppmb-blue-600 text-ppmb-800 bg-ppmb-000 items-center",
+  base: "flex flex-row bg-white items-center",
   variants: {
     variant: {
       standard: "rounded-md w-full",
@@ -51,16 +51,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
     return (
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full gap-2">
         <div className="flex flex-row items-center gap-1">
           <div className="text-[18px]">{icon}</div>
-          <p className="font-medium lg:text-lg">{label}</p>
+          <p className="font-medium lg:text-lg text-neutral-800">{label}</p>
         </div>
 
         <div className={inputVariants({ variant, size })}>
           <input
             ref={ref}
-            className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full font-medium"
+            className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full font-medium text-neutral-800"
             type={
               label?.split(" ").includes("Password") && !isVisible
                 ? "password"
