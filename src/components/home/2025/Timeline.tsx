@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import "./style.css";
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { dateToIndonesianString } from "@/utils/date";
 import { TbBrandZoom } from "react-icons/tb";
@@ -25,7 +24,6 @@ export interface PPMBEventProps {
 }
 export const Timeline: React.FC = () => {
   const { isAuthenticated } = useAuth();
-  const [index, setIndex] = useState<number>(0);
 
   const PPMB_EVENTS: PPMBEventProps[] = [
     {
@@ -108,21 +106,14 @@ export const Timeline: React.FC = () => {
               key={key}
               timeline={timeline}
               index={key}
-              setIndex={setIndex}
             />
           ))}
         </div>
       </div>
 
-      <div className="flex lg:hidden flex-col h-full items-start px-8">
+      <div className="flex lg:hidden flex-col gap-y-2 h-full items-start px-8">
         {PPMB_EVENTS.map((timeline, key) => (
-          <div key={key} className="flex w-full h-full flex-row gap-5">
-            <div
-              className={`relative ${key == 0 && "rounded-t-lg"} ${key == PPMB_EVENTS.length - 1 && "rounded-b-lg"} flex min-h-[100px] min-w-[4px] bg-ppmb-300`}
-            >
-              <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 w-4 h-4 bg-ppmb-blue-600 rounded-full"></div>
-            </div>
-
+          <div key={key} className="flex w-full h-full flex-row">
             <div
               className={`p-4 flex flex-row justify-between w-full rounded-lg border-[2px] border-neutral-medium`}
             >
@@ -130,14 +121,14 @@ export const Timeline: React.FC = () => {
                 <div className="flex flex-col gap-1">
                   <p className="text-xl font-semibold">{timeline.name}</p>
                   <div className="flex">
-                    <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl px-3 py-1 text-[10px] leading-[14px] font-medium text-ppmb-000 min-w-[110px] justify-center flex">
+                    <div className="bg-gradient-to-r from-ppmb-blue-800 to-ppmb-blue-600 rounded-xl py-1 text-[10px] leading-[14px] font-medium text-ppmb-000 min-w-[110px] flex">
                       {dateToIndonesianString(
                         timeline.startDate,
-                        PPMB_EVENTS[index].monthLong,
+                        timeline.monthLong,
                       )}{" "}
-                      {timeline.startDate.getTime() !=
+                      {timeline.startDate.getTime() !==
                         timeline.endDate.getTime() &&
-                        `— ${dateToIndonesianString(timeline.endDate)}`}
+                        `- ${dateToIndonesianString(timeline.endDate)}`}
                     </div>
                   </div>
                 </div>
