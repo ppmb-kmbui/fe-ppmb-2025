@@ -29,35 +29,66 @@ export const Timeline: React.FC = () => {
 
   const PPMB_EVENTS: PPMBEventProps[] = [
     {
-      name: "Welcoming Mahasiswa Baru",
+      name: "Welcoming Mahasiswa Baru (WelMab)",
       description:
-        "Acara ini bertujuan untuk menyambut mahasiswa baru UI yang beragama Buddha, termasuk mengenalkan fakultas dan sarana prasarana yang tersedia",
+        "Acara ini bertujuan untuk menyambut mahasiswa baru UI yang beragama Buddha, termasuk mengenalkan fakultas dan sarana prasarana yang tersedia.",
       startDate: new Date(2025, 6, 26),
       endDate: new Date(2025, 6, 26),
-      img: "/image/welmab-1.jpg",
-      imgAlt: "Welcoming Mahasiswa Baru",
-      location: "online",
+      img: "/event-thumbnails/welmab.png",
+      imgAlt: "Welcoming Mahasiswa Baru (WelMab)",
+      location: "Zoom",
     },
     {
       name: "Keliling UI",
       description:
-        "Mengenalkan lingkungan Universitas Indonesia kepada mahasiswa baru, termasuk fakultas dan sarana prasarana yang tersedia",
+        "Mengenalkan lingkungan Universitas Indonesia (UI) kepada mahasiswa baru, termasuk fakultas dan sarana prasarana yang tersedia.",
       startDate: new Date(2025, 6, 30),
       endDate: new Date(2025, 6, 30),
-      img: "/image/pre-event.jpg",
+      img: "/event-thumbnails/keliling-ui.png",
       imgAlt: "Keliling UI",
-      location: "Lingkungan UI",
+      location: "Universitas Indonesia",
     },
     {
       name: "Display UKM",
       description:
-        "OKK UI menghadirkan kegiatan untuk memperkenalkan seluruh UKM yang ada di lingkungan Universitas Indonesia. KMBUI akan menyediakan booth dan menayangkan video profil kepada mahasiswa baru sebagai bentuk perkenalan pada kegiatan ini",
+        "OKK UI menghadirkan kegiatan untuk memperkenalkan seluruh UKM yang ada di lingkungan Universitas Indonesia. KMBUI akan menyediakan booth dan menayangkan video profil kepada mahasiswa baru sebagai bentuk perkenalan pada kegiatan ini.",
       startDate: new Date(2025, 7),
       endDate: new Date(2025, 7),
-      img: "/image/kmb.jpg",
+      img: "/event-thumbnails/display-ukm.png",
       imgAlt: "Display UKM",
-      location: "Pusat Kegiatan Mahasiswa (Pusgiwa)",
+      location: "Balairung UI",
       monthLong: true,
+    },
+    {
+      name: "OKK UI & PSAF",
+      description:
+        "KMBUI akan menemani mahasiswa baru yang beragama Buddha saat sesi kerohanian. Salah satu bentuknya dengan menyediakan mentor yang akan mendampingi dan memberikan informasi kepada mahasiswa baru mengenai OKK UI.",
+      startDate: new Date(2025, 7),
+      endDate: new Date(2025, 7),
+      img: "/event-thumbnails/okk-and-psaf.png",
+      imgAlt: "OKK UI",
+      location: "Universitas Indonesia",
+      monthLong: true,
+    },
+    {
+      name: "Main Event",
+      description:
+        "Mahasiswa baru akan mengikuti rangkaian kegiatan serta menyelesaikan tugas dari PPMB yang bertujuan untuk membekali mereka dengan pengetahuan dan keterampilan yang bermanfaat selama menjalani masa perkuliahan.",
+      startDate: new Date(2025, 7, 1),
+      endDate: new Date(2025, 8, 6),
+      img: "/event-thumbnails/main-event.png",
+      imgAlt: "Main Event",
+      location: "Online dan Offline",
+    },
+    {
+      name: "Grand Closing",
+      description:
+        "Kegiatan terakhir yang diikuti oleh mahasiswa baru. Kegiatan akan diisi dengan sesi pembicara, bermain games, penampilan vlog seluruh grup mentoring, dan apresiasi.",
+      startDate: new Date(2025, 8, 20),
+      endDate: new Date(2025, 8, 20),
+      img: "/event-thumbnails/grand-closing.png",
+      imgAlt: "Grand Closing",
+      location: "Universitas Indonesia",
     },
   ];
 
