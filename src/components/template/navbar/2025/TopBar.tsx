@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function TopBar() {
+export function TopBar() {
   return (
     <nav className="w-full h-fit p-2 justify-start bg-yellow-200">
       {/* Image container to adjust image size */}
