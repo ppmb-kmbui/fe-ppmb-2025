@@ -1,17 +1,14 @@
 import { dateToIndonesianString } from "@/utils/date";
 import { PPMBEventProps } from "../Timeline";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 import { LocationPill } from "./TimelinePanelExtras";
 
 export default function TimelinePanel({
   timeline,
   index,
-  setIndex,
 }: {
   timeline: PPMBEventProps;
   index: number;
-  setIndex: Dispatch<SetStateAction<number>>;
 }) {
   const isOdd = index % 2 === 1;
 
@@ -58,7 +55,6 @@ export default function TimelinePanel({
   const infoBox = (
     <div
       className={`${liDivTranslateClass} ${liDivBeforeLeftClass} ${liDivItemsClass} ${commonClasses}`}
-      onClick={() => setIndex(index)}
     >
       <div
         className={`px-3 py-[5px] text-sm font-medium justify-center flex whitespace-nowrap`}
