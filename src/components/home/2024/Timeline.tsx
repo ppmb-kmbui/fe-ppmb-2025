@@ -3,7 +3,7 @@
 import { useState } from "react";
 import "./style.css";
 import Image from "next/image";
-import { Button } from "../ui/Button";
+import { Button } from "@/components/ui/Button";
 import { dateToIndonesianString } from "@/utils/date";
 import { TbBrandZoom } from "react-icons/tb";
 import Link from "next/link";

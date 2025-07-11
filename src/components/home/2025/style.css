@@ -1,0 +1,32 @@
+:root {
+  /* Use this to modify panel size */
+  --panel-width: 100px;
+  --offset-left: calc(50% + var(--panel-width));
+  --offset-right: calc(50% - var(--panel-width));
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 2px);
+  height: 102%;
+  width: 4px;
+  background-image: linear-gradient(
+    to bottom,
+    var(--color-blue-200) 95%,
+    transparent
+  );
+  border-radius: 12px;
+}
+
+/* dots */
+.li::before {
+  content: "";
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1a539f;
+}

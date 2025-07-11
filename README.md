@@ -1,9 +1,10 @@
 # PPMB KMBUI 2025
+
 Production status: [![Netlify Status](https://api.netlify.com/api/v1/badges/2d138704-5f05-4394-953b-84d11072c063/deploy-status)](https://app.netlify.com/projects/ppmbkmbui/deploys)
 
 Development status: [![Netlify Status](https://api.netlify.com/api/v1/badges/0705eb5d-b021-4040-b634-446e33cebde6/deploy-status)](https://app.netlify.com/projects/ppmbkmbui-dev/deploys)
 
-----------
+---
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -28,9 +29,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The project is deployed on **Netlify**, and uses **Cloudflare DNS**.
 
-| Domain | Environment |
-| ------------- | -------------- |
-| [ppmbkmbui.netlify.app](ppmbkmbui.netlify.app) | production |
-| [www.ppmbkmbui.com](www.ppmbkmbui.com) | production |
-| [ppmbkmbui.com](ppmbkmbui.com) | production |
-| [dev.ppmbkmbui.com](dev.ppmbkmbui.com) | development |
+| Domain                                         | Environment |
+| ---------------------------------------------- | ----------- |
+| [ppmbkmbui.netlify.app](ppmbkmbui.netlify.app) | production  |
+| [www.ppmbkmbui.com](www.ppmbkmbui.com)         | production  |
+| [ppmbkmbui.com](ppmbkmbui.com)                 | production  |
+| [dev.ppmbkmbui.com](dev.ppmbkmbui.com)         | development |

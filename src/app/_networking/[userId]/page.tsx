@@ -105,7 +105,11 @@ const networkingFromSchema = z.object({
   photo: z.instanceof(File, { message: "Foto tidak boleh kosong!" }),
 });
 
-async function NetworkingAssignmentPage({ params }: { params: Promise<{ userId: string }> }) {
+async function NetworkingAssignmentPage({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}) {
   const { userId } = await params;
   const { token } = useAuth();
   const router = useRouter();
@@ -278,6 +282,6 @@ async function NetworkingAssignmentPage({ params }: { params: Promise<{ userId: 
       </div>
     </div>
   );
-};
+}
 
 export default withAuth(NetworkingAssignmentPage, "freshman");
