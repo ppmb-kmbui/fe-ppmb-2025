@@ -11,9 +11,10 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
-import { FriendProps, UserProps } from "@/utils/interface";
+import { APIResponse, FriendProps, UserProps } from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import debounce from "debounce";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,9 +23,11 @@ import { z } from "zod";
 
 interface QuoteProps {
   quote: string;
-  fullname: string;
-  faculty: string;
-  batch: string;
+  user: {
+    fullname: string;
+    faculty: string;
+    batch: string;
+  };
 }
 
 const quoteFormSchema = z.object({
@@ -62,12 +65,23 @@ const CariPage: React.FC = () => {
       const queryString = searchParams.toString();
       const res = await api({
         method: "GET",
-        url: `api/friends?${queryString}`,
+        url: `friends?${queryString}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setFriends(await res.data.friends);
+
+      type FriendResponse = {
+        friends?: FriendProps[];
+      };
+
+      const payload: APIResponse<FriendResponse> = res.data;
+
+      if (payload.data!.friends == undefined) {
+        setFriends([]);
+      } else {
+        setFriends(payload.data!.friends!);
+      }
     } catch (error: any) {
       console.error("Error in getting friends data");
     } finally {
@@ -82,13 +96,12 @@ const CariPage: React.FC = () => {
       setIsFetching(true);
       const res = await api({
         method: "GET",
-        url: "api/quotes",
+        url: "quotes",
       });
-      const {
-        quote,
-        user: { fullname, faculty, batch },
-      } = await res.data;
-      setRandomQuote({ quote, fullname, faculty, batch });
+
+      const payload: APIResponse<QuoteProps> = res.data;
+
+      setRandomQuote(payload.data!);
     } catch (error: any) {
       console.error("Error in getting random quote");
     } finally {
@@ -101,7 +114,7 @@ const CariPage: React.FC = () => {
       setIsSubmitQuote(true);
       await api({
         method: "POST",
-        url: "api/quotes",
+        url: "quotes",
         data: {
           quote: data.quote,
         },
@@ -130,8 +143,10 @@ const CariPage: React.FC = () => {
 
   const handleSearch = debounce((query: string) => {
     if (query) {
+      // Take note that this is a relative path to /cari?name=${query}
       router.push(`?name=${query}`);
     } else {
+      // While this is an absolute path
       router.push("/cari");
     }
   }, 300);
@@ -139,23 +154,41 @@ const CariPage: React.FC = () => {
   return isFetching ? (
     <LoadingScreen />
   ) : (
-    <div className="min-h-screen flex flex-col items-center gap-4 md:gap-5 lg:gap-8">
-      <div className="bg-gradient-to-r from-ppmb-blue-600 to-ppmb-blue-300 px-[30px] md:px-[100px] flex flex-col py-10 gap-3 items-center w-full">
-        <div className="flex text-ppmb-800 justify-center items-center text-xl md:text-3xl lg:text-4xl gap-2 font-semibold">
-          <text className="text-ppmb-000">NETWORKING</text>
-          <text>dengan</text>
-          <text>KMB</text>
+    <div className="flex min-h-screen flex-col items-center gap-4 md:gap-5 lg:gap-8">
+      <Image
+        src="/bg-cari-teman.png"
+        width={0}
+        height={0}
+        sizes="100vw"
+        alt="bg"
+        className="pointer-events-none fixed top-0 -z-50 h-auto w-full"
+      />
+      <div className="flex w-full flex-col items-center gap-3 px-[30px] py-10 md:px-[100px]">
+        <div className="flex items-center justify-center gap-2 text-xl font-semibold md:text-3xl lg:text-4xl">
+          <Image
+            src="/networking-dengan-kmb.png"
+            alt="Networking dengan KMB"
+            sizes="100vw"
+            height={0}
+            width={0}
+            className="h-20 w-auto md:h-24 lg:h-30"
+          />
         </div>
 
         <SearchBar handleSearch={handleSearch} />
 
-        <div className="text-white flex flex-col items-center text-center mt-2 md:mt-4">
-          <text className="font-semibold md:text-lg">
-            "{randomQuote.quote}"
-          </text>
-          <text className="italic text-ppmb-100 font-light text-sm md:text-[16px]">
-            ── {randomQuote.fullname}, {randomQuote.faculty} {randomQuote.batch}
-          </text>
+        <div className="mt-2 flex flex-col items-center text-center text-white md:mt-4">
+          {randomQuote != undefined && (
+            <>
+              <span className="font-semibold md:text-lg">
+                "{randomQuote.quote}"
+              </span>
+              <span className="text-ppmb-100 text-sm font-light italic md:text-[16px]">
+                ── {randomQuote.user.fullname}, {randomQuote.user.faculty}{" "}
+                {randomQuote.user.batch}
+              </span>
+            </>
+          )}
         </div>
       </div>
 
@@ -164,7 +197,7 @@ const CariPage: React.FC = () => {
       ) : (
         <>
           <div
-            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 md:gap-7 lg:gap-6 px-3 md:px-5 lg:px-8`}
+            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grow grid-cols-2 gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:gap-6 lg:px-8 xl:grid-cols-6`}
           >
             {friends.map((friend, key) => (
               <UserCard key={key} {...friend} />
@@ -172,20 +205,20 @@ const CariPage: React.FC = () => {
           </div>
 
           <div
-            className={`${friends.length == 0 ? "flex" : "hidden"} justify-center items-center italic md:text-2xl text-ppmb-500`}
+            className={`${friends.length == 0 ? "flex" : "hidden"} items-center justify-center italic md:text-2xl`}
           >
             Tidak ditemukan teman dengan nama tersebut!
           </div>
         </>
       )}
 
-      <div className="flex flex-col items-center gap-[2px] md:gap-1 w-full px-8 lg:px-[100px] mb-10">
-        <text className="text-lg md:text-2xl font-semibold">
+      <div className="mb-10 flex w-full flex-col items-center gap-[2px] px-8 md:gap-1 lg:px-[100px]">
+        <span className="text-lg font-semibold md:text-2xl">
           Kirim pesan ke teman-teman kamu!
-        </text>
+        </span>
         <form
           onSubmit={handleSubmit(handleSubmitQuote)}
-          className="flex gap-2 md:gap-4 items-center w-full justify-center"
+          className="flex w-full items-center justify-center gap-2 md:gap-4"
         >
           <Input
             {...register("quote")}
