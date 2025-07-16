@@ -21,14 +21,14 @@ export default function RootLayout({
       </head>
       <body className={`${body.className} bg-white`}>
         <AuthContextProvider>
-          <div className="hidden z-50 md:flex flex-col w-screen h-screen pointer-events-none fixed top-0">
+          <div className="pointer-events-none fixed top-0 z-50 hidden h-screen w-screen flex-col md:flex">
             <TopBar />
             <Sidebar />
           </div>
-          <div className="md:hidden z-50 flex flex-col w-screen h-screen pointer-events-none fixed top-0">
+          <div className="pointer-events-none fixed top-0 z-50 flex h-screen w-screen flex-col md:hidden">
             <TopBar />
           </div>
-          <main className="overflow-y-scroll h-full flex-1 md:ml-[65px] mt-16">
+          <main className="mt-16 h-full overflow-y-scroll md:ml-[65px]">
             {children}
           </main>
         </AuthContextProvider>

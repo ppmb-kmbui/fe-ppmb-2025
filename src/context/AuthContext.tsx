@@ -60,7 +60,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(true);
       const res = await api({
         method: "GET",
-        url: `${process.env.API_BASE_URL}/profile`,
+        url: `profile`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,7 +89,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(true);
       const res = await api({
         method: "POST",
-        url: "api/auth/register",
+        url: "auth/register",
         data: { email, batch, fullname, password, faculty, imgUrl },
       });
       router.push("/login");
@@ -105,7 +105,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsLoading(true);
       const res = await api({
         method: "POST",
-        url: "api/auth/login",
+        url: "auth/login",
         data: { email, password },
       });
 
