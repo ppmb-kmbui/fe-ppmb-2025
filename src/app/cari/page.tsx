@@ -161,7 +161,7 @@ const CariPage: React.FC = () => {
         height={0}
         sizes="100vw"
         alt="bg"
-        className="pointer-events-none fixed top-0 -z-50 h-auto w-full"
+        className="fixed top-0 -z-50 h-auto w-full"
       />
       <div className="flex w-full flex-col items-center gap-3 px-[30px] py-10 md:px-[100px]">
         <div className="flex items-center justify-center gap-2 text-xl font-semibold md:text-3xl lg:text-4xl">
@@ -197,7 +197,7 @@ const CariPage: React.FC = () => {
       ) : (
         <>
           <div
-            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grow grid-cols-2 gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:gap-6 lg:px-8 xl:grid-cols-6`}
+            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grid-cols-2 grow gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:gap-6 lg:px-8 xl:grid-cols-6`}
           >
             {friends.map((friend, key) => (
               <UserCard key={key} {...friend} />
@@ -213,7 +213,7 @@ const CariPage: React.FC = () => {
       )}
 
       <div className="mb-10 flex w-full flex-col items-center gap-[2px] px-8 md:gap-1 lg:px-[100px]">
-        <span className="text-lg font-semibold md:text-2xl">
+        <span className="font-semibold text-lg md:text-2xl">
           Kirim pesan ke teman-teman kamu!
         </span>
         <form
