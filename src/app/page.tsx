@@ -5,7 +5,6 @@ import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 
 const Homepage = () => {
-<<<<<<< HEAD
   const { isAuthenticated, token, isLoading, user } = useAuth();
 
   return (
