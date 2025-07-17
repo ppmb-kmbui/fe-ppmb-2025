@@ -16,10 +16,10 @@ export interface InputProps
 }
 
 const inputVariants = tv({
-  base: "flex flex-row bg-white items-center",
+  base: "flex flex-row bg-white items-center  border-b-neutral-medium border-b-2",
   variants: {
     variant: {
-      standard: "rounded-md w-full",
+      standard: "w-full",
       // rounded: "rounded-3xl px-5"
     },
     size: {
@@ -60,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={inputVariants({ variant, size })}>
           <input
             ref={ref}
-            className="bg-ppmb-000 focus:outline-none placeholder:font-normal placeholder:text-ppmb-300 w-full font-medium text-neutral-800  border-b-neutral-dark"
+            className="focus:outline-none placeholder:font-normal w-full font-medium text-neutral-800 p-1"
             type={
               label?.split(" ").includes("Password") && !isVisible
                 ? "password"
@@ -68,6 +68,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             }
             placeholder={placeholder}
             {...props}
+            onChange={onChange}
           />
           {label?.split(" ").includes("Password") && (
             <button

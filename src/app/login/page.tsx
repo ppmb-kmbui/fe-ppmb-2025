@@ -150,7 +150,7 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center overflow-hidden">
+    <div className="w-full h-full flex justify-center items-center overflow-hidden">
         <div className="flex flex-col gap-7 w-3/8">
             <h1 className="text-h1 text-neutral-800 font-bold">
                 Masuk dengan Akun PPMB KMB UI 2025
@@ -171,7 +171,7 @@ export const Login: React.FC = () => {
             
                 <div className="flex justify-center">
                     <h1>
-                        Belum memiliki akun? <a href="" className="font-bold">Buat Akun</a>
+                        Belum memiliki akun? <a href="/signup" className="font-bold">Buat Akun</a>
                     </h1>
                 </div>
             </form>

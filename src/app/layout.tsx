@@ -24,7 +24,7 @@ export default function RootLayout({
           <div className="z-50 flex flex-col w-full fixed top-0">
             <TopBar />
           </div>
-          <main className="overflow-scroll h-screen flex-1 mt-16">
+          <main className="overflow-scroll h-screen flex-1">
             {children}
           </main>
         </AuthContextProvider>

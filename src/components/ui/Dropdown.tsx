@@ -13,7 +13,7 @@ interface DropdownProps {
   options: OptionProps[];
   dropdownValue: string;
   setDropdownValue: (value: string) => void;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   label: string;
   error?: string;
 }
@@ -35,14 +35,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className="flex flex-col text-lg w-full text-ppmb-800">
-      <div className="flex flex-row items-center gap-1 ">
+    <div className="flex flex-col text-lg w-full gap-2">
+      <div className="flex flex-row items-center gap-1 text-neutral-800">
         <div className="text-[18px]">{icon}</div>
-        <p className="font-semibold">{label}</p>
+        <p className="font-medium text-neutral-800">{label}</p>
       </div>
 
       <div
-        className={`${isOpen ? "rounded-t-md" : "rounded-md"} border-[2px] border-ppmb-blue-600 relative`}
+        className= "bg-white border-b-neutral-medium border-b-2 relative p-1"
         ref={ref}
       >
         <div
@@ -50,7 +50,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           onClick={() => setIsOpen(!isOpen)}
         >
           <div
-            className={`${getDisplay(dropdownValue) == null && "text-ppmb-300 select-none"} font-normal`}
+            className={`${getDisplay(dropdownValue) == null && "select-none" ? "text-neutral-400" : "text-neutral-800 font-medium"} font-normal`}
           >
             {getDisplay(dropdownValue) == null
               ? `Pilih ${label}`
