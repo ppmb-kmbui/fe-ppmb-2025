@@ -198,6 +198,7 @@ import { useRouter } from "next/navigation";
 import { Dropdown } from "@/components";
 import { z, ZodIssue } from "zod";
 import { watch } from "fs";
+import Link from "next/link";
 
 const signupFormSchema = z
   .object({
@@ -248,19 +249,19 @@ export const SignUp: React.FC = () => {
   const [password, setPassword] = useState('')
   const [konfirmPw, setKonfirmPw] = useState('')
   const [isRestricted, setIsRestricted] = useState<boolean>(true)
-  const [error, setError] = useState<Record<string,string>>({})
+  const [error, setError] = useState<Record<string, string>>({})
   const router = useRouter();
 
   type Error = {
-    [key: string] : string;
+    [key: string]: string;
   }
 
   const handleSignUp = async () => {
-      try {
-          const res = await axios.post("http://localhost:4000/api/v1/auth/register", { nama, email, password, fakultas, angkatan });
-      } catch (err) {
-          console.log(err)
-      }
+    try {
+      const res = await axios.post(`${process.env.API_BASE_URL}/auth/register", { nama, email, password, fakultas, angkatan });
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {
@@ -275,8 +276,8 @@ export const SignUp: React.FC = () => {
         setError(errorMessage);
       }
     }
-    
-  }, [ email, angkatan, nama, fakultas, password, konfirmPw ])
+
+  }, [email, angkatan, nama, fakultas, password, konfirmPw])
 
   useEffect(() => {
     if (password !== konfirmPw && password != '') {
@@ -284,77 +285,77 @@ export const SignUp: React.FC = () => {
     } else {
       setIsRestricted(false)
     }
-  }, [ password, konfirmPw ])
+  }, [password, konfirmPw])
 
   return (
-    <div className="w-full h-full flex justify-center items-center overflow-hidden">
-        <div className="flex flex-col gap-7">
-            <h1 className="text-h1 text-neutral-800 font-bold">
-                Buat Akun PPMB KMB UI 2025
-            </h1>
-            <form
-                onSubmit={handleSignUp}
-                className="flex flex-col gap-5"
-            >
-              <div>
-                <div className="flex flex-row justify-center items-center gap-7">
-                  <Input label="Email" placeholder="Masukkan Email Kamu" onChange={(e) => setEmail(e.target.value)} required/>
-                  <Dropdown 
-                    options={ANGKATAN}
-                    label="Angkatan"
-                    setDropdownValue={setAngkatan}
-                    dropdownValue={angkatan}
-                    
-                  />
-                </div>
-                <div className="flex flex-row justify-center items-center gap-7">
-                  {error.email && (
-                    <p className="text-red-600">{error.email}</p>
-                  )}
-                  {error.angkatan && (
-                    <p className="text-red-600">{error.angkatan}</p>
-                  )}
-                </div>
-              </div>
-              
-              <Input label="Nama Lengkap" placeholder="Masukkan nama" onChange={(e) => setNama(e.target.value)} required/>
-              {error.nama && (
-                <p className="text-red-600">{error.nama}</p>
-              )}
-              <Dropdown 
-                options={FAKULTAS}
-                label="Fakultas"
-                setDropdownValue={setFakultas}
-                dropdownValue={fakultas}
+    <div className="w-full h-full flex justify-around items-center overflow-hidden">
+      <div className="flex flex-col w-3/4 md:w-1/2 lg:w-1/3 gap-7">
+        <h1 className="text-h1 text-neutral-800 grow font-bold">
+          Buat Akun PPMB KMB UI 2025
+        </h1>
+        <form
+          onSubmit={handleSignUp}
+          className="flex flex-col grow gap-5"
+        >
+          <div>
+            <div className="flex flex-row justify-center items-center gap-7">
+              <Input label="Email" placeholder="Masukkan Email Kamu" onChange={(e) => setEmail(e.target.value)} required />
+              <Dropdown
+                options={ANGKATAN}
+                label="Angkatan"
+                setDropdownValue={setAngkatan}
+                dropdownValue={angkatan}
+
               />
-              {error.fakultas && (
-                <p className="text-red-600">{error.fakultas}</p>
+            </div>
+            <div className="flex flex-row justify-center items-center gap-7">
+              {error.email && (
+                <p className="text-red-600">{error.email}</p>
               )}
-              <div className="flex flex-row justify-center items-center gap-7">
-                <Input label="Password" placeholder="Masukkan password" onChange={(e) => setPassword(e.target.value)} required/>
-                <Input label="Konfirmasi Password" placeholder="Konfirmasi password" onChange={(e) => setKonfirmPw(e.target.value)} required/>
-              </div>
-              
-              {isRestricted ? (
-                <div className="text-red-600">
-                  Password tidak sama
-                </div>
-              ) : ""}
-              <Button isRestricted={isRestricted} label="Buat Akun" className="bg-neutral-dark" type="submit"/>
-          
-          
-              <div className="flex justify-center">
-                  <h1>
-                      Sudah memiliki akun? <a href="/login" className="font-bold">Login</a>
-                  </h1>
-              </div>
-            </form>
-        </div>
-        
-        <div className="w-1/2 overflow-visible flex justify-center items-center">
-            <img src="/image/Logo-Login.png" alt="gambar" className="w-full"/>
-        </div>
-        
+              {error.angkatan && (
+                <p className="text-red-600">{error.angkatan}</p>
+              )}
+            </div>
+          </div>
+
+          <Input label="Nama Lengkap" placeholder="Masukkan nama" onChange={(e) => setNama(e.target.value)} required />
+          {error.nama && (
+            <p className="text-red-600">{error.nama}</p>
+          )}
+          <Dropdown
+            options={FAKULTAS}
+            label="Fakultas"
+            setDropdownValue={setFakultas}
+            dropdownValue={fakultas}
+          />
+          {error.fakultas && (
+            <p className="text-red-600">{error.fakultas}</p>
+          )}
+          <div className="flex flex-row justify-center items-center gap-7">
+            <Input label="Password" placeholder="Masukkan password" onChange={(e) => setPassword(e.target.value)} required />
+            <Input label="Konfirmasi Password" placeholder="Konfirmasi password" onChange={(e) => setKonfirmPw(e.target.value)} required />
+          </div>
+
+          {isRestricted ? (
+            <div className="text-red-600">
+              Password tidak sama
+            </div>
+          ) : ""}
+          <Button isRestricted={isRestricted} label="Buat Akun" className="bg-neutral-dark" type="submit" />
+
+
+          <div className="flex justify-center">
+            <h1>
+              Sudah memiliki akun? <Link href="/login" className="font-bold">Login</Link>
+            </h1>
+          </div>
+        </form>
+      </div>
+
+      <div className="w-1/3 hidden lg:flex overflow-visible justify-center items-center">
+        <img src="/image/Logo-Login.png" alt="gambar" className="shrink-0 max-w-[150%] min-w-96 h-auto" />
+      </div>
+
     </div>
   )
 }
