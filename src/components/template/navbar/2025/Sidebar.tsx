@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  HiLogin,
-  HiLogout,
-} from "react-icons/hi";
+import { HiLogin, HiLogout } from "react-icons/hi";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { MAIN_MENU, renderMenu } from "./navbar-commons";
@@ -51,7 +48,7 @@ export const Sidebar: React.FC = () => {
             {isAuthenticated ? "Keluar" : "Masuk"}
           </div>
         </button>
-      </div>
-    </nav>
+      </div >
+    </nav >
   );
 };

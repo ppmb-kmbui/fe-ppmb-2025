@@ -1,5 +1,12 @@
 import { UserProps } from "@/utils/interface";
-import { HiOutlineChatAlt2, HiOutlineHome, HiOutlinePencilAlt, HiOutlineShieldCheck, HiOutlineUser, HiSearch } from "react-icons/hi";
+import {
+  HiOutlineChatAlt2,
+  HiOutlineHome,
+  HiOutlinePencilAlt,
+  HiOutlineShieldCheck,
+  HiOutlineUser,
+  HiSearch,
+} from "react-icons/hi";
 import { RiMegaphoneLine } from "react-icons/ri";
 
 export const MAIN_MENU = [
@@ -50,4 +57,3 @@ export const renderMenu = (menu: (typeof MAIN_MENU)[number], isAuthenticated: bo
   if (menu.role === "admin" && user?.isAdmin) return true;
   return false;
 };
-
