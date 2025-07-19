@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Accordion } from "@/components/ui/Accordion";
+import { title } from "@/styles/fonts";
 
 interface FAQProps {
   question: string,
@@ -34,8 +35,8 @@ export const Faq: React.FC = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col items-center px-6 gap-3 lg:gap-5 mt-3 mb-5 lg:mt-5 lg:mb-10">
-      <p className="text-3xl md:text-4xl lg:text-6xl font-semibold text-ppmb-blue-600">
+    <div className="w-full flex flex-col items-center px-6 gap-3 lg:gap-5 mt-5 mb-5 lg:mt-16 lg:mb-10">
+      <p className={`${title.className} text-3xl md:text-4xl lg:text-6xl font-semibold`}>
         FAQ
       </p>
 
