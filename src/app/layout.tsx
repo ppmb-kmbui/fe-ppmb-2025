@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
 import { body } from "@/styles/fonts";
-import TopBar from "@/components/template/navbar/2025/TopBar";
+import { TopBar, Sidebar } from "@/components";
 
 export const metadata: Metadata = {
   title: "PPMB Connect",
@@ -21,10 +21,14 @@ export default function RootLayout({
       </head>
       <body className={`${body.className} bg-white`}>
         <AuthContextProvider>
-          <div className="z-50 flex flex-col w-full fixed top-0">
+          <div className="pointer-events-none fixed top-0 z-50 hidden h-screen w-screen flex-col md:flex">
+            <TopBar />
+            <Sidebar />
+          </div>
+          <div className="pointer-events-none fixed top-0 z-50 flex h-screen w-screen flex-col md:hidden">
             <TopBar />
           </div>
-          <main className="overflow-scroll h-screen flex-1">
+          <main className="mt-16 h-full overflow-y-scroll md:ml-[65px]">
             {children}
           </main>
         </AuthContextProvider>
