@@ -199,6 +199,8 @@ import { Dropdown } from "@/components";
 import { z, ZodIssue } from "zod";
 import { watch } from "fs";
 import Link from "next/link";
+import { api } from "@/utils/axios";
+import { Controller } from "react-hook-form";
 
 const signupFormSchema = z
   .object({
@@ -241,51 +243,64 @@ const ANGKATAN = [
   { display: "2023", value: "2023" },
   { display: "2022", value: "2022" },
 ];
-export const SignUp: React.FC = () => {
-  const [email, setEmail] = useState('')
-  const [angkatan, setAngkatan] = useState('')
-  const [nama, setNama] = useState('')
-  const [fakultas, setFakultas] = useState('')
-  const [password, setPassword] = useState('')
-  const [konfirmPw, setKonfirmPw] = useState('')
-  const [isRestricted, setIsRestricted] = useState<boolean>(true)
-  const [error, setError] = useState<Record<string, string>>({})
+
+export default function SignUp() {
+  const [email, setEmail] = useState('');
+  const [angkatan, setAngkatan] = useState('');
+  const [nama, setNama] = useState('');
+  const [fakultas, setFakultas] = useState('');
+  const [password, setPassword] = useState('');
+  const [konfirmPw, setKonfirmPw] = useState('');
+  const [isRestricted, setIsRestricted] = useState<boolean>(true);
+  const [error, setError] = useState<Record<string, string>>({});
   const router = useRouter();
 
   type Error = {
     [key: string]: string;
-  }
+  };
 
   const handleSignUp = async () => {
     try {
-      const res = await axios.post(`${process.env.API_BASE_URL}/auth/register", { nama, email, password, fakultas, angkatan });
+      const res = await axios.post(`${process.env.API_BASE_URL}/auth/register`, { nama, email, password, fakultas, angkatan });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+
+    try {
+      const res = await api({
+        method: "POST",
+        url: "auth/register",
+        data: {
+          nama, email, password, fakultas, angkatan
+        }
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     try {
-      signupFormSchema.parse({ email, angkatan, nama, fakultas, password, konfirmPw })
+      signupFormSchema.parse({ email, angkatan, nama, fakultas, password, konfirmPw });
     } catch (err) {
       if (err instanceof z.ZodError) {
         const errorMessage = err.issues.reduce((acc: Error, curr) => {
-          acc[curr.path[0] as string] = curr.message
+          acc[curr.path[0] as string] = curr.message;
           return acc;
-        }, {})
+        }, {});
         setError(errorMessage);
       }
     }
 
-  }, [email, angkatan, nama, fakultas, password, konfirmPw])
+  }, [email, angkatan, nama, fakultas, password, konfirmPw]);
 
   useEffect(() => {
     if (password !== konfirmPw && password != '') {
-      setIsRestricted(true)
+      setIsRestricted(true);
     } else {
-      setIsRestricted(false)
+      setIsRestricted(false);
     }
-  }, [password, konfirmPw])
+  }, [password, konfirmPw]);
 
   return (
     <div className="w-full h-full flex justify-around items-center overflow-hidden">
@@ -304,9 +319,7 @@ export const SignUp: React.FC = () => {
                 options={ANGKATAN}
                 label="Angkatan"
                 setDropdownValue={setAngkatan}
-                dropdownValue={angkatan}
-
-              />
+                dropdownValue={angkatan} />
             </div>
             <div className="flex flex-row justify-center items-center gap-7">
               {error.email && (
@@ -326,8 +339,7 @@ export const SignUp: React.FC = () => {
             options={FAKULTAS}
             label="Fakultas"
             setDropdownValue={setFakultas}
-            dropdownValue={fakultas}
-          />
+            dropdownValue={fakultas} />
           {error.fakultas && (
             <p className="text-red-600">{error.fakultas}</p>
           )}
@@ -353,11 +365,10 @@ export const SignUp: React.FC = () => {
       </div>
 
       <div className="w-1/3 hidden lg:flex overflow-visible justify-center items-center">
-        <img src="/image/Logo-Login.png" alt="gambar" className="shrink-0 max-w-[150%] min-w-96 h-auto" />
+        {/* <img src="/image/Logo-Login.png" alt="gambar" className="shrink-0 max-w-[150%] min-w-96 h-auto" /> */}
       </div>
 
     </div>
-  )
+  );
 }
 
-export default SignUp
