@@ -35,12 +35,12 @@ export const Faq: React.FC = () => {
   ];
 
   return (
-    <div className="w-full flex flex-col items-center px-6 gap-3 lg:gap-5 mt-5 mb-5 lg:mt-16 lg:mb-10">
+    <div className="flex flex-col items-center px-6 gap-3 lg:gap-5 mt-5 mb-5 lg:mt-16 lg:mb-10">
       <p className={`${title.className} text-3xl md:text-4xl lg:text-6xl font-semibold`}>
-        FAQ
+        <span className="text-blue-300">F</span>AQ
       </p>
 
-      <div className="flex flex-col gap-1 md:gap-2">
+      <div className="flex flex-col items-center gap-1 md:gap-2">
         {FAQS.map((data, key) => (
           <Accordion
             variant={data.panelColor}
