@@ -16,7 +16,7 @@ export { TaskCard } from "./ui/card/TaskCard";
 
 export { Carousel } from "./home/Carousel";
 export { Timeline } from "./home/2025/Timeline";
-export { Faq } from "./home/2024/Faq";
+export { Faq } from "./home/2025/Faq";
 
 export { LoadingScreen } from "./template/LoadingScreen";
 

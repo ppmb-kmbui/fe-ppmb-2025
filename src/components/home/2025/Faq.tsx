@@ -3,24 +3,33 @@
 import { useState } from "react";
 import { Accordion } from "@/components/ui/Accordion";
 
+interface FAQProps {
+  question: string,
+  answer: string,
+  panelColor?: "yellow" | "turquoise" | "orange",
+}
+
 export const Faq: React.FC = () => {
   const [selected, setSelected] = useState(-1);
 
-  const FAQS = [
+  const FAQS: FAQProps[] = [
     {
       question: "Bagaimana cara melakukan RSVP acara?",
       answer:
         "Desktop: Buka halaman beranda dan scroll hingga menemukan TIMELINE KEGIATAN. Kemudian, klik acara yang ingin dihadiri dan dibawah TIMELINE KEGIATAN pada penjelasan acara, klik tombol RSVP\nMobile: Buka halaman beranda dan klik RSVP pada box acara yang ingin dihadiri.",
+      panelColor: "yellow"
     },
     {
       question: "Bagaimana cara networking dengan angkatan 2024?",
       answer:
         "Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol Connect dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Networking dan lakukan networking kepada teman kalian",
+      panelColor: "turquoise"
     },
     {
       question: "Bagaimana cara mengumpulkan tugas berformat PDF?",
       answer:
         "Buka halaman Tugas dan pilih submisi untuk tugas yang ingin dikumpulkan. Di halaman Tugas juga menyediakan template untuk pengumpulan tugas.",
+      panelColor: "orange"
     },
   ];
 
@@ -33,6 +42,7 @@ export const Faq: React.FC = () => {
       <div className="flex flex-col gap-1 md:gap-2">
         {FAQS.map((data, key) => (
           <Accordion
+            variant={data.panelColor}
             key={key}
             question={data.question}
             answer={data.answer}
