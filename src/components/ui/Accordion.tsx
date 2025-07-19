@@ -38,7 +38,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 }) => {
   const ref = useRef(null);
   return (
-    <div className="md:w-[700px]">
+    <div className="md:w-1/2">
       <div
         className={accordionVariants({ variant })}
         onClick={() => setSelected(value == selected ? -1 : value)}
