@@ -25,3 +25,11 @@ export interface FriendProps extends UserProps {
     | "sedang_networking"
     | "done";
 }
+
+export type APIResponse<T> = {
+  success: boolean;
+  message: string;
+  data?: T;
+  error?: string;
+  status: number;
+};
