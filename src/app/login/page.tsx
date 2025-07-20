@@ -129,28 +129,83 @@
 // export default LoginPage;
 
 "use client";
-import { useState } from "react";
-import axios from "axios";
+import { FormEvent, useState } from "react";
 import { Input } from "@/components";
 import { Button } from "@/components";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import axios, { AxiosError } from "axios";
+import { APIResponse } from "@/utils/interface";
+import { z } from "zod";
+
+interface LoginFormErrors {
+  nonFieldError?: string;
+  emailError?: string;
+  passwordError?: string;
+}
+
+const loginFormSchema = z.object({
+  email: z.email("Email tidak valid"),
+  password: z.string()
+})
 
 export default function Login() {
+  const { login, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  const [errors, setErrors] = useState<LoginFormErrors>({});
 
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post("http://localhost:4000/api/v1/auth/login", { email, password });
-    } catch (err) {
-      console.log(err);
+  const reset = () => {
+    setEmail('');
+    setPassword('');
+  }
+
+  const handleLogin = async (e: FormEvent) => {
+    // Prevent refreshing page
+    e.preventDefault();
+
+    setErrors({});
+
+    // Frontend validation first before relying on backend validation #PKPL
+    const zodParseResult = loginFormSchema.safeParse({ email, password });
+
+    if (zodParseResult.error) {
+      const flattened = z.flattenError(zodParseResult.error);
+
+      // Only set errors if they're not undefined
+      setErrors({
+        emailError: flattened.fieldErrors.email?.[0] ?? '',
+        passwordError: flattened.fieldErrors.password?.[0] ?? ''
+      })
+    } else {
+      try {
+        await login(email, password);
+        reset();
+      } catch (error: any) {
+        if (axios.isAxiosError(error)) {
+          switch (error.status) {
+            case 400:
+              setErrors({ nonFieldError: "Email atau password tidak valid" })
+              break;
+
+            case 404:
+              setErrors({ nonFieldError: "Pengguna dengan email tersebut tidak ditemukan" })
+              break;
+
+            default:
+              setErrors({ nonFieldError: "Terjadi error internal, kontak administrator untuk informasi lebih lanjut" })
+              break;
+          }
+        } else {
+          console.error("An unexpected error occurred");
+          reset();
+        }
+      }
     }
-
   };
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center overflow-hidden">
+    <div className="w-screen h-full flex justify-center items-center overflow-hidden">
       <div className="flex flex-col gap-7 w-3/4 lg:w-3/8">
         <h1 className="text-h1 text-neutral-800 font-bold">
           Masuk dengan Akun PPMB KMB UI 2025
@@ -159,14 +214,20 @@ export default function Login() {
           onSubmit={handleLogin}
           className="flex flex-col gap-5"
         >
-          <Input label="Email" placeholder="Masukkan Email Kamu" onChange={(e) => setEmail(e.target.value)} />
-          <Input label="Password" placeholder="Masukkan Password Kamu" onChange={(e) => setPassword(e.target.value)} />
+          <Input label="Email" placeholder="Masukkan Email Kamu" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <p className="text-red-600">{!!errors.emailError && errors.emailError}</p>
+
+          <Input label="Password" placeholder="Masukkan Password Kamu" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <p className="text-red-600">{!!errors.passwordError && errors.passwordError}</p>
+
+          <p>{!!errors.nonFieldError && errors.nonFieldError}</p>
+
           <div className="flex justify-end">
             <a href="" className="w-fit">
               Lupa password?
             </a>
           </div>
-          <Button label="Masuk" className="bg-neutral-dark" type="submit" />
+          <Button disabled={isLoading} label="Masuk" className="bg-neutral-dark cursor-pointer" type="submit" />
 
           <div className="flex justify-center">
             <h1>

@@ -19,10 +19,6 @@
 // } from "react-icons/hi";
 // import { z } from "zod";
 
-
-
-
-
 // const signupFormSchema = z
 //   .object({
 //     email: z.string().email({ message: "Masukkan email yang valid!" }),
@@ -190,22 +186,20 @@
 // export default SignupPage;
 
 "use client";
+
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Input } from "@/components";
 import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import { Dropdown } from "@/components";
-import { z, ZodIssue } from "zod";
-import { watch } from "fs";
+import { z } from "zod";
 import Link from "next/link";
-import { api } from "@/utils/axios";
-import { Controller } from "react-hook-form";
+import { useAuth } from "@/context/AuthContext";
 
 const signupFormSchema = z
   .object({
-    email: z.string().email({ message: "Masukkan email yang valid!" }),
-    angkatan: z.string().min(1), // 1 hour debug, couldn't pass the error message correctly, so I typed it manually (solution: use <Controller />, but the developer too lazy to refactor it)
+    email: z.email({ message: "Masukkan email yang valid!" }),
+    angkatan: z.string().length(4), // 1 hour debug, couldn't pass the error message correctly, so I typed it manually (solution: use <Controller />, but the developer too lazy to refactor it)
     nama: z.string().min(1, { message: "Nama tidak boleh kosong!" }),
     fakultas: z.string().min(1, { message: "Fakultas tidak boleh kosong!" }),
     password: z
@@ -245,15 +239,17 @@ const ANGKATAN = [
 ];
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [angkatan, setAngkatan] = useState('');
-  const [nama, setNama] = useState('');
-  const [fakultas, setFakultas] = useState('');
-  const [password, setPassword] = useState('');
-  const [konfirmPw, setKonfirmPw] = useState('');
+  const [email, setEmail] = useState("");
+  const [angkatan, setAngkatan] = useState("");
+  const [nama, setNama] = useState("");
+  const [fakultas, setFakultas] = useState("");
+  const [password, setPassword] = useState("");
+  const [konfirmPw, setKonfirmPw] = useState("");
   const [isRestricted, setIsRestricted] = useState<boolean>(true);
   const [error, setError] = useState<Record<string, string>>({});
   const router = useRouter();
+
+  const { signUp } = useAuth();
 
   type Error = {
     [key: string]: string;
@@ -261,114 +257,128 @@ export default function SignUp() {
 
   const handleSignUp = async () => {
     try {
-      const res = await axios.post(`${process.env.API_BASE_URL}/auth/register`, { nama, email, password, fakultas, angkatan });
-    } catch (err) {
-      console.log(err);
-    }
-
-    try {
-      const res = await api({
-        method: "POST",
-        url: "auth/register",
-        data: {
-          nama, email, password, fakultas, angkatan
-        }
-      })
+      const batchNo = parseInt(angkatan, 10);
+      signUp(email, batchNo, nama, password, fakultas, "");
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    try {
-      signupFormSchema.parse({ email, angkatan, nama, fakultas, password, konfirmPw });
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        const errorMessage = err.issues.reduce((acc: Error, curr) => {
-          acc[curr.path[0] as string] = curr.message;
-          return acc;
-        }, {});
-        setError(errorMessage);
-      }
-    }
+    const zodParseResult = signupFormSchema.safeParse({
+      email,
+      angkatan,
+      nama,
+      fakultas,
+      password,
+      konfirmPw,
+    });
 
-  }, [email, angkatan, nama, fakultas, password, konfirmPw]);
-
-  useEffect(() => {
-    if (password !== konfirmPw && password != '') {
+    if (zodParseResult.error) {
       setIsRestricted(true);
+      const err = zodParseResult.error;
+      const errorMessage = err.issues.reduce((acc: Error, curr) => {
+        acc[curr.path[0] as string] = curr.message;
+        return acc;
+      }, {});
+      setError(errorMessage);
     } else {
       setIsRestricted(false);
     }
-  }, [password, konfirmPw]);
+  }, [email, angkatan, nama, fakultas, password, konfirmPw]);
 
   return (
-    <div className="w-full h-full flex justify-around items-center overflow-hidden">
-      <div className="flex flex-col w-3/4 md:w-1/2 lg:w-1/3 gap-7">
-        <h1 className="text-h1 text-neutral-800 grow font-bold">
+    <div className="flex h-full w-full items-center justify-around overflow-y-scroll lg:flex-col lg:overflow-hidden">
+      <div className="flex h-full w-3/4 flex-col gap-7 py-10 xl:w-3/8">
+        <h1 className="text-h3 lg:text-h1 grow font-bold text-neutral-800">
           Buat Akun PPMB KMB UI 2025
         </h1>
-        <form
-          onSubmit={handleSignUp}
-          className="flex flex-col grow gap-5"
-        >
-          <div>
-            <div className="flex flex-row justify-center items-center gap-7">
-              <Input label="Email" placeholder="Masukkan Email Kamu" onChange={(e) => setEmail(e.target.value)} required />
+
+        <form onSubmit={handleSignUp} className="flex grow flex-col gap-5">
+          <div className="flex w-full flex-col items-start justify-start gap-5 lg:flex-row lg:gap-x-7">
+            <div className="flex w-full grow flex-col">
+              <Input
+                label="Email"
+                placeholder="Masukkan Email Kamu"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              {error.email && <p className="text-red-600">{error.email}</p>}
+            </div>
+            <div className="flex w-full grow flex-col">
               <Dropdown
                 options={ANGKATAN}
                 label="Angkatan"
                 setDropdownValue={setAngkatan}
-                dropdownValue={angkatan} />
-            </div>
-            <div className="flex flex-row justify-center items-center gap-7">
-              {error.email && (
-                <p className="text-red-600">{error.email}</p>
-              )}
+                dropdownValue={angkatan}
+              />
               {error.angkatan && (
                 <p className="text-red-600">{error.angkatan}</p>
               )}
             </div>
           </div>
 
-          <Input label="Nama Lengkap" placeholder="Masukkan nama" onChange={(e) => setNama(e.target.value)} required />
-          {error.nama && (
-            <p className="text-red-600">{error.nama}</p>
-          )}
-          <Dropdown
-            options={FAKULTAS}
-            label="Fakultas"
-            setDropdownValue={setFakultas}
-            dropdownValue={fakultas} />
-          {error.fakultas && (
-            <p className="text-red-600">{error.fakultas}</p>
-          )}
-          <div className="flex flex-row justify-center items-center gap-7">
-            <Input label="Password" placeholder="Masukkan password" onChange={(e) => setPassword(e.target.value)} required />
-            <Input label="Konfirmasi Password" placeholder="Konfirmasi password" onChange={(e) => setKonfirmPw(e.target.value)} required />
+          <div>
+            <Input
+              label="Nama Lengkap"
+              placeholder="Masukkan nama"
+              onChange={(e) => setNama(e.target.value)}
+              required
+            />
+            {error.nama && <p className="text-red-600">{error.nama}</p>}
+          </div>
+
+          <div>
+            <Dropdown
+              options={FAKULTAS}
+              label="Fakultas"
+              setDropdownValue={setFakultas}
+              dropdownValue={fakultas}
+            />
+            {error.fakultas && <p className="text-red-600">{error.fakultas}</p>}
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-5 lg:flex-row lg:gap-x-7">
+            <Input
+              label="Password"
+              placeholder="Masukkan password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <Input
+              label="Konfirmasi Password"
+              placeholder="Konfirmasi password"
+              onChange={(e) => setKonfirmPw(e.target.value)}
+              required
+            />
           </div>
 
           {isRestricted ? (
-            <div className="text-red-600">
-              Password tidak sama
-            </div>
-          ) : ""}
-          <Button isRestricted={isRestricted} label="Buat Akun" className="bg-neutral-dark" type="submit" />
-
+            <div className="text-red-600">Password tidak sama</div>
+          ) : (
+            ""
+          )}
+          <Button
+            isRestricted={isRestricted}
+            label="Buat Akun"
+            className="bg-neutral-dark"
+            type="submit"
+          />
 
           <div className="flex justify-center">
             <h1>
-              Sudah memiliki akun? <Link href="/login" className="font-bold">Login</Link>
+              Sudah memiliki akun?{" "}
+              <Link href="/login" className="font-bold">
+                Login
+              </Link>
             </h1>
           </div>
         </form>
       </div>
 
-      <div className="w-1/3 hidden lg:flex overflow-visible justify-center items-center">
+      <div className="hidden w-1/3 items-center justify-center overflow-visible xl:flex">
         {/* <img src="/image/Logo-Login.png" alt="gambar" className="shrink-0 max-w-[150%] min-w-96 h-auto" /> */}
       </div>
-
     </div>
   );
 }
-

@@ -1,5 +1,6 @@
 "use client";
 
+import { body, title } from "@/styles/fonts";
 import { forwardRef, Ref, useState } from "react";
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi";
 import { tv } from "tailwind-variants";
@@ -13,7 +14,7 @@ export interface InputProps
   variant?: "standard";
   error?: string;
   size?: "md" | "lg";
-  ref: Ref<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
 }
 
 const inputVariants = tv({
@@ -34,58 +35,33 @@ const inputVariants = tv({
   },
 });
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      label,
-      placeholder,
-      icon,
-      variant = "standard",
-      size = "md",
-      error,
-      leftIcon,
-      onChange,
-      ...props
-    },
-    ref,
-  ) => {
-    const [isVisible, setIsVisible] = useState<boolean>(false);
+export const Input = ({
+  label,
+  placeholder,
+  icon,
+  variant = "standard",
+  size = "md",
+  error,
+  leftIcon,
+  onChange,
+  ref,
+  ...props
+}: InputProps) => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    return (
-      <div className="flex flex-col w-full gap-2">
-        <div className="flex flex-row items-center gap-1">
-          <div className="text-[18px]">{icon}</div>
-          <p className="font-medium lg:text-lg text-neutral-800">{label}</p>
-        </div>
-
-        <div className={inputVariants({ variant, size })}>
-          <input
-            ref={ref}
-            className="focus:outline-none placeholder:font-normal w-full font-medium text-neutral-800 p-1"
-            type={
-              label?.split(" ").includes("Password") && !isVisible
-                ? "password"
-                : "text"
-            }
-            placeholder={placeholder}
-            {...props}
-            onChange={onChange}
-          />
-          {label?.split(" ").includes("Password") && (
-            <button
-              className="pl-3"
-              onClick={() => setIsVisible(!isVisible)}
-              type="button"
-            >
-              {isVisible ? <HiEye /> : <HiEyeOff />}
-            </button>
-          )}
-        </div>
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <div className="flex flex-row items-center gap-1">
+        <div className="text-[18px]">{icon}</div>
+        <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
+      </div>
 
       <div className={inputVariants({ variant, size })}>
         <input
           ref={ref}
-          className="placeholder:text-neutral-medium w-full bg-white font-medium placeholder:font-normal focus:outline-none"
+          value={props.value}
+          onChange={onChange}
+          className={`placeholder:${title.className}! placeholder:text-neutral-medium placeholder:text-md w-full bg-white font-medium placeholder:font-normal focus:outline-none lg:placeholder:text-lg`}
           type={
             label?.split(" ").includes("Password") && !isVisible
               ? "password"
