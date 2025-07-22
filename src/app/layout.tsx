@@ -1,35 +1,35 @@
-"use client"
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
 import { body } from "@/styles/fonts";
 import { TopBar, Sidebar } from "@/components";
-import { usePathname } from "next/navigation";
+import { headers } from "next/headers";
 
-;
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname()
+  const headersList = await headers();
+  const pathname = headersList.get("x-current-path");
 
   return (
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`${body.className} flex flex-col min-h-screen max-w-screen bg-white`}>
+      <body
+        className={`${body.className} flex min-h-screen max-w-screen flex-col bg-white`}
+      >
         <AuthContextProvider>
-          <div className="hidden z-50 md:flex flex-col w-screen h-screen pointer-events-none fixed top-0">
+          <div className="pointer-events-none fixed top-0 z-50 hidden h-screen w-screen flex-col md:flex">
             <TopBar />
             <Sidebar />
           </div>
-          <div className="md:hidden z-50 flex flex-col w-screen h-screen pointer-events-none fixed top-0">
+          <div className="pointer-events-none fixed top-0 z-50 flex h-screen w-screen flex-col md:hidden">
             <TopBar />
           </div>
-          <main className={`${pathname == "/signup" || pathname == "/login" && "lg:ml-[65px]"} h-[calc(100vh-4rem)] overflow-y-scroll grow mt-16`}>
+          <main className="mt-16 h-[calc(100vh-4rem)] grow overflow-y-scroll lg:ml-[65px]">
             {children}
           </main>
         </AuthContextProvider>

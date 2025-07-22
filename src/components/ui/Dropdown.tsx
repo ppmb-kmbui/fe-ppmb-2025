@@ -43,7 +43,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       </div>
 
       <div
-        className="border-b-neutral-medium relative border-b-2 bg-white p-1"
+        className="border-b-neutral-medium relative border-b-2 bg-white"
         ref={ref}
       >
         <div
@@ -70,7 +70,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           {options.map(({ display, value }, key) => (
             <div key={key} className="flex w-full flex-col text-[14px]">
               <div
-                className={`${value != dropdownValue ? "block" : "hidden"} z-50 flex cursor-pointer flex-row items-center gap-2 bg-white px-3 py-2 font-medium`}
+                className={`${value != dropdownValue ? "block" : "hidden"} hover:bg-neutral-medium z-50 flex cursor-pointer flex-row items-center gap-2 bg-white px-3 py-2 font-medium hover:cursor-pointer`}
                 onClick={() => {
                   (setDropdownValue(value), setIsOpen(false));
                 }}

@@ -1,205 +1,21 @@
-// "use client";
-
-// import { Button, Dropdown, FileInput, Header, Input } from "@/components";
-// import { useAuth } from "@/context/AuthContext";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import axios from "axios";
-// import Image from "next/image";
-// import { useRouter } from "next/navigation";
-// import { useCallback, useRef, useState } from "react";
-// import { Controller, useForm } from "react-hook-form";
-// import { FaFolderOpen, FaK } from "react-icons/fa6";
-// import {
-//   HiAcademicCap,
-//   HiLibrary,
-//   HiLockClosed,
-//   HiLockOpen,
-//   HiMail,
-//   HiUser,
-// } from "react-icons/hi";
-// import { z } from "zod";
-
-// const signupFormSchema = z
-//   .object({
-//     email: z.string().email({ message: "Masukkan email yang valid!" }),
-//     batch: z.string().min(1), // 1 hour debug, couldn't pass the error message correctly, so I typed it manually (solution: use <Controller />, but the developer too lazy to refactor it)
-//     fullname: z.string().min(1, { message: "Nama tidak boleh kosong!" }),
-//     faculty: z.string().min(1, { message: "Fakultas tidak boleh kosong!" }),
-//     password: z
-//       .string()
-//       .min(8, { message: "Password minimal terdiri dari 8 karakter!" }),
-//     reconfirmPassword: z.string(),
-//     photo: z.instanceof(File, { message: "Foto tidak boleh kosong!" }),
-//   })
-//   .refine((data) => data.password === data.reconfirmPassword, {
-//     message: "Password tidak sesuai",
-//     path: ["reconfirmPassword"],
-//   });
-
-// const SignupPage: React.FC = () => {
-//   const { signUp } = useAuth();
-//   const router = useRouter();
-
-//   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-//   const {
-//     register,
-//     control,
-//     handleSubmit,
-//     formState: { errors },
-//     reset,
-//     setValue,
-//     watch,
-//   } = useForm<z.infer<typeof signupFormSchema>>({
-//     resolver: zodResolver(signupFormSchema),
-//   });
-
-//   const handleSignUp = async (data: z.infer<typeof signupFormSchema>) => {
-//     // console.log("ini data", data);
-
-//     try {
-//       setIsLoading(true);
-//       await new Promise<void>((resolve) => setTimeout(resolve, 5000));
-//       const form = new FormData();
-//       form.append("file", data.photo);
-//       form.append("upload_preset", "ppmb_kmbui");
-
-//       const res = await axios.post(
-//         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
-//         form,
-//       );
-
-//       await signUp(
-//         data.email.toLowerCase(),
-//         parseInt(data.batch),
-//         data.fullname,
-//         data.password,
-//         data.faculty.toUpperCase(),
-//         res.data.url,
-//       );
-//     } catch (error: any) {
-//       console.error("Error while signing up:", error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen flex flex-col h-full">
-//       <Header label="Buat Akun" subLabel="PPMB KMBUI 2024" />
-
-//       <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10 md:py-0">
-//         <form
-//           onSubmit={handleSubmit(handleSignUp)}
-//           className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full"
-//         >
-//           <div className="flex flex-col md:flex-row gap-5 w-full">
-//             <Input
-//               {...register("email")}
-//               label="Email"
-//               placeholder="Masukkan email"
-//               icon={<HiMail />}
-//               error={errors.email?.message}
-//             />
-//             <Dropdown
-//               options={BATCHES}
-//               dropdownValue={watch("batch")}
-//               setDropdownValue={(value) => setValue("batch", value)}
-//               label="Angkatan"
-//               icon={<HiAcademicCap />}
-//               error={errors.batch?.message && "Angkatan tidak boleh kosong!"}
-//             />
-//           </div>
-
-//           <Input
-//             {...register("fullname")}
-//             label="Nama Lengkap"
-//             placeholder="Masukkan nama"
-//             icon={<HiUser />}
-//             error={errors.fullname?.message}
-//           />
-//           <Dropdown
-//             options={FACULTIES}
-//             dropdownValue={watch("faculty")}
-//             setDropdownValue={(value) => setValue("faculty", value)}
-//             label="Fakultas"
-//             icon={<HiLibrary />}
-//             error={errors.faculty?.message && "Fakultas tidak boleh kosong!"}
-//           />
-
-//           <div className="flex flex-col md:flex-row gap-5 w-full">
-//             <Input
-//               {...register("password")}
-//               label="Password"
-//               placeholder="Masukkan password"
-//               icon={<HiLockOpen />}
-//               error={errors.password?.message}
-//             />
-//             <Input
-//               {...register("reconfirmPassword")}
-//               label="Konfirmasi Password"
-//               placeholder="Konfirmasi password"
-//               icon={<HiLockClosed />}
-//               error={errors.reconfirmPassword?.message}
-//             />
-//           </div>
-
-//           <div className="flex items-center flex-col gap-1 lg:mt-1">
-//             <Button
-//               label="Buat Akun"
-//               size="lg"
-//               type="submit"
-//               disabled={isLoading}
-//             />
-//             <span className="font-medium">
-//               Sudah memiliki akun?{" "}
-//               <span
-//                 className="text-ppmb-blue-500 font-semibold hover:text-ppmb-blue-700 cursor-pointer hover:underline decoration-2"
-//                 onClick={() => router.push("/login")}
-//               >
-//                 Login
-//               </span>
-//             </span>
-//           </div>
-//         </form>
-
-//         <Controller
-//           name="photo"
-//           control={control}
-//           render={({ field: { onChange, value } }) => (
-//             <FileInput
-//               file={value as File | null}
-//               onChange={(file) => onChange(file)}
-//               label="Unggah foto kamu"
-//               description="Unggah dalam bentuk .jpg/.jpeg/.png"
-//               fileType="image"
-//               error={errors.photo?.message}
-//               answer=""
-//             />
-//           )}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default SignupPage;
-
 "use client";
 
-import { useEffect, useState } from "react";
-import { Input } from "@/components";
+import Image from "next/image";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FileInput, Input } from "@/components";
 import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import { Dropdown } from "@/components";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import axios, { AxiosError } from "axios";
+import { APIResponse } from "@/utils/interface";
 
 const signupFormSchema = z
   .object({
     email: z.email({ message: "Masukkan email yang valid!" }),
-    angkatan: z.string().length(4), // 1 hour debug, couldn't pass the error message correctly, so I typed it manually (solution: use <Controller />, but the developer too lazy to refactor it)
+    angkatan: z.string().length(4, "Angkatan harus dipilih!"), // 1 hour debug, couldn't pass the error message correctly, so I typed it manually (solution: use <Controller />, but the developer too lazy to refactor it)
     nama: z.string().min(1, { message: "Nama tidak boleh kosong!" }),
     fakultas: z.string().min(1, { message: "Fakultas tidak boleh kosong!" }),
     password: z
@@ -246,21 +62,43 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [konfirmPw, setKonfirmPw] = useState("");
   const [isRestricted, setIsRestricted] = useState<boolean>(true);
-  const [error, setError] = useState<Record<string, string>>({});
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [error, setError] = useState<any>();
   const router = useRouter();
 
   const { signUp } = useAuth();
 
-  type Error = {
-    [key: string]: string;
-  };
+  const handleSignUp = async (e: FormEvent) => {
+    e.preventDefault();
 
-  const handleSignUp = async () => {
-    try {
-      const batchNo = parseInt(angkatan, 10);
-      signUp(email, batchNo, nama, password, fakultas, "");
-    } catch (err) {
-      console.log(err);
+    const formData = new FormData();
+    formData.append("file", profilePicture!);
+    formData.append("upload_preset", "profile_pictures");
+
+    const res = await axios.post(
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+      formData,
+    );
+
+    if (res.status !== 200) {
+      setError({
+        fileUploadError: "Error terjadi saat sedang mengunggah foto",
+      });
+
+      return;
+    } else {
+      const imgUrl: string = res.data.url;
+
+      try {
+        const batchNo = parseInt(angkatan, 10);
+        await signUp(email, batchNo, nama, password, fakultas, imgUrl);
+      } catch (err: any) {
+        if (err instanceof AxiosError) {
+          let payload: APIResponse<any> = err.response?.data;
+          console.log(payload.message);
+          setError({ registrationError: payload.message });
+        }
+      }
     }
   };
 
@@ -272,23 +110,28 @@ export default function SignUp() {
       fakultas,
       password,
       konfirmPw,
+      photo: profilePicture,
     });
 
     if (zodParseResult.error) {
       setIsRestricted(true);
-      const err = zodParseResult.error;
-      const errorMessage = err.issues.reduce((acc: Error, curr) => {
-        acc[curr.path[0] as string] = curr.message;
-        return acc;
-      }, {});
-      setError(errorMessage);
+      const flattened = z.flattenError(zodParseResult.error);
+      setError(flattened);
     } else {
       setIsRestricted(false);
     }
-  }, [email, angkatan, nama, fakultas, password, konfirmPw]);
+  }, [email, angkatan, nama, fakultas, password, konfirmPw, profilePicture]);
 
   return (
-    <div className="flex h-full w-full items-center justify-around overflow-y-scroll lg:flex-col lg:overflow-hidden">
+    <div className="flex h-full w-full flex-col items-center justify-around overflow-y-scroll lg:flex-row lg:overflow-hidden">
+      <Image
+        src="/background/bg-auth-wider.png"
+        alt="bg auth"
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="object-fit top-16 -z-50 hidden h-auto w-full object-scale-down lg:fixed lg:flex"
+      />
       <div className="flex h-full w-3/4 flex-col gap-7 py-10 xl:w-3/8">
         <h1 className="text-h3 lg:text-h1 grow font-bold text-neutral-800">
           Buat Akun PPMB KMB UI 2025
@@ -303,8 +146,11 @@ export default function SignUp() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              {error.email && <p className="text-red-600">{error.email}</p>}
+              {error?.fieldErrors?.email && (
+                <p className="text-red-600">{error.fieldErrors?.email}</p>
+              )}
             </div>
+
             <div className="flex w-full grow flex-col">
               <Dropdown
                 options={ANGKATAN}
@@ -312,8 +158,8 @@ export default function SignUp() {
                 setDropdownValue={setAngkatan}
                 dropdownValue={angkatan}
               />
-              {error.angkatan && (
-                <p className="text-red-600">{error.angkatan}</p>
+              {error?.fieldErrors?.angkatan && (
+                <p className="text-red-600">{error.fieldErrors?.angkatan}</p>
               )}
             </div>
           </div>
@@ -325,7 +171,9 @@ export default function SignUp() {
               onChange={(e) => setNama(e.target.value)}
               required
             />
-            {error.nama && <p className="text-red-600">{error.nama}</p>}
+            {error?.fieldErrors?.nama && (
+              <p className="text-red-600">{error?.fieldErrors?.nama}</p>
+            )}
           </div>
 
           <div>
@@ -335,29 +183,54 @@ export default function SignUp() {
               setDropdownValue={setFakultas}
               dropdownValue={fakultas}
             />
-            {error.fakultas && <p className="text-red-600">{error.fakultas}</p>}
+            {error?.fieldErrors?.fakultas && (
+              <p className="text-red-600">{error?.fieldErrors?.fakultas}</p>
+            )}
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-5 lg:flex-row lg:gap-x-7">
-            <Input
-              label="Password"
-              placeholder="Masukkan password"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <Input
-              label="Konfirmasi Password"
-              placeholder="Konfirmasi password"
-              onChange={(e) => setKonfirmPw(e.target.value)}
-              required
-            />
+          <div className="flex flex-col items-start justify-center gap-5 lg:flex-row lg:gap-x-7">
+            <div className="w-full">
+              <Input
+                label="Password"
+                placeholder="Masukkan password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {error?.fieldErrors?.password && (
+                <p className="text-red-600">{error?.fieldErrors?.password}</p>
+              )}
+            </div>
+
+            <div className="w-full">
+              <Input
+                label="Konfirmasi Password"
+                placeholder="Konfirmasi password"
+                onChange={(e) => setKonfirmPw(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
-          {isRestricted ? (
-            <div className="text-red-600">Password tidak sama</div>
-          ) : (
-            ""
+          {error?.registrationError && (
+            <div className="text-red-600">{error.registrationError}</div>
           )}
+
+          <div className="flex w-full flex-col items-center justify-center overflow-visible lg:hidden">
+            <FileInput
+              file={profilePicture}
+              onChange={(file) => setProfilePicture(file)}
+              label="Foto Profil"
+              description="Unduh foto profil kamu di sini"
+              fileType="image"
+              error={error?.fieldErrors?.photo}
+              answer=""
+              buttonText="Cari foto"
+            />
+            {error?.fileUploadError && (
+              <p className="text-red-600">{error.fileUploadError}</p>
+            )}
+          </div>
+
           <Button
             isRestricted={isRestricted}
             label="Buat Akun"
@@ -376,8 +249,20 @@ export default function SignUp() {
         </form>
       </div>
 
-      <div className="hidden w-1/3 items-center justify-center overflow-visible xl:flex">
-        {/* <img src="/image/Logo-Login.png" alt="gambar" className="shrink-0 max-w-[150%] min-w-96 h-auto" /> */}
+      <div className="hidden w-1/3 items-center justify-center overflow-visible lg:flex lg:flex-col">
+        <FileInput
+          file={profilePicture}
+          onChange={(file) => setProfilePicture(file)}
+          label="Foto Profil"
+          description="Unduh foto profil kamu di sini"
+          fileType="image"
+          error={error?.fieldErrors?.photo}
+          answer=""
+          buttonText="Cari foto"
+        />
+        {error?.fileUploadError && (
+          <p className="text-red-600">{error.fileUploadError}</p>
+        )}
       </div>
     </div>
   );

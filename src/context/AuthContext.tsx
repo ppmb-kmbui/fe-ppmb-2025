@@ -19,7 +19,7 @@ interface AuthContextProps {
     password: string,
     faculty: string,
     imgUrl: string,
-  ) => void;
+  ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   getUser: () => void;
@@ -30,16 +30,16 @@ export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
   isLoading: false,
-  signUp: (
+  signUp: async (
     email: string,
     batch: number,
     fullname: string,
     password: string,
     faculty: string,
     imgUrl: string,
-  ) => { },
-  login: async (email: string, password: string) => { },
-  logout: () => { },
+  ) => {},
+  login: async (email: string, password: string) => {},
+  logout: () => {},
 } as AuthContextProps);
 
 export const useAuth = () => useContext(AuthContext);
@@ -97,14 +97,15 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       router.push("/login");
     } catch (error: any) {
       console.error("[Auth context] error in signup", error);
+      throw error;
     } finally {
       setIsLoading(false);
     }
   };
 
   interface Token {
-    token: string
-  };
+    token: string;
+  }
 
   const login = async (email: string, password: string) => {
     try {
@@ -123,7 +124,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
       getUser(payload.data!.token);
       router.push("/");
     } catch (error: any) {
-      throw error
+      throw error;
     } finally {
       setIsLoading(false);
     }

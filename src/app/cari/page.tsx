@@ -97,11 +97,14 @@ const CariPage: React.FC = () => {
       const res = await api({
         method: "GET",
         url: "quotes",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      const payload: APIResponse<QuoteProps> = res.data;
+      const payload: QuoteProps = res.data;
 
-      setRandomQuote(payload.data!);
+      setRandomQuote(payload);
     } catch (error: any) {
       console.error("Error in getting random quote");
     } finally {
@@ -156,7 +159,7 @@ const CariPage: React.FC = () => {
   ) : (
     <div className="flex min-h-screen flex-col items-center gap-4 md:gap-5 lg:gap-8">
       <Image
-        src="/bg-cari-teman.png"
+        src="/image/bg-cari-teman.png"
         width={0}
         height={0}
         sizes="100vw"
@@ -178,13 +181,13 @@ const CariPage: React.FC = () => {
         <SearchBar handleSearch={handleSearch} />
 
         <div className="mt-2 flex flex-col items-center text-center text-white md:mt-4">
-          {randomQuote != undefined && (
+          {randomQuote && (
             <>
-              <span className="font-semibold md:text-lg">
+              <span className="text-neutral-dark font-semibold md:text-lg">
                 "{randomQuote.quote}"
               </span>
-              <span className="text-ppmb-100 text-sm font-light italic md:text-[16px]">
-                ── {randomQuote.user.fullname}, {randomQuote.user.faculty}{" "}
+              <span className="text-neutral-dark text-sm font-light italic md:text-[16px]">
+                {randomQuote.user.fullname}, {randomQuote.user.faculty}{" "}
                 {randomQuote.user.batch}
               </span>
             </>
@@ -197,7 +200,7 @@ const CariPage: React.FC = () => {
       ) : (
         <>
           <div
-            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grid-cols-2 grow gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:gap-6 lg:px-8 xl:grid-cols-6`}
+            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grow grid-cols-2 gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:gap-6 lg:px-8 xl:grid-cols-6`}
           >
             {friends.map((friend, key) => (
               <UserCard key={key} {...friend} />
@@ -213,7 +216,7 @@ const CariPage: React.FC = () => {
       )}
 
       <div className="mb-10 flex w-full flex-col items-center gap-[2px] px-8 md:gap-1 lg:px-[100px]">
-        <span className="font-semibold text-lg md:text-2xl">
+        <span className="text-lg font-semibold md:text-2xl">
           Kirim pesan ke teman-teman kamu!
         </span>
         <form

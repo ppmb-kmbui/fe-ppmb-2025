@@ -8,8 +8,11 @@ const nextConfig = {
   },
 
   images: {
-    // domains: ['res.cloudinary.com', 'i.pinimg.com'],
-    remotePatterns: [new URL("https://res.cloudinary.com/**")],
+    // domains: ["res.cloudinary.com", "i.pinimg.com"],
+    remotePatterns: [
+      new URL("http://res.cloudinary.com/**"),
+      new URL("https://res.cloudinary.com/**"),
+    ],
   },
 };
 

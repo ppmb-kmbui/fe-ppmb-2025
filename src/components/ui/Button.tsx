@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   variant?: "primary" | "secondary" | "icon";
-  color?: "blue" | "darkBlue" | "green" | "red" | "gray";
+  color?: "yellow" | "gray";
   size?: "sm" | "md" | "lg";
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -11,19 +11,17 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const buttonVariants = tv({
-  base: "flex flex-row font-medium transition-colors duration-200 justify-center items-center ease-in-out gap-2 disabled:cursor-not-allowed disabled:opacity-80",
+  base: "flex flex-row font-medium hover:opacity-[0.8] transition-colors duration-75 justify-center items-center ease-in-out gap-2 disabled:cursor-not-allowed disabled:text-neutral-light disabled:opacity-80 hover:cursor-pointer",
   variants: {
     variant: {
-      primary: "bg-blue-500 text-white",
+      primary: "",
       secondary: "border-[2px] bg-transparent",
       icon: "p-1",
     },
     color: {
-      blue: "bg-ppmb-blue-500 text-white hover:bg-ppmb-blue-600 disabled:hover:bg-ppmb-blue-500",
-      darkBlue: "bg-ppmb-blue-700 text-white hover:bg-ppmb-800",
-      green: "bg-ppmb-success text-white",
-      red: "",
-      gray: "bg-ppmb-600",
+      yellow:
+        "bg-yellow-300 text-neutral-dark hover:opacity-[0.8] hover:cursor-pointer disabled:hover:bg-yellow-300",
+      gray: "bg-neutral-medium disabled:hover:bg-neutral-medium",
     },
     size: {
       sm: "",
@@ -47,7 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   isRestricted,
   variant = "primary",
-  color = "blue",
+  color = "gray",
   size = "md",
   ...props
 }) => {
