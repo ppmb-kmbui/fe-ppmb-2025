@@ -13,7 +13,7 @@ export const Sidebar: React.FC = () => {
 
   return (
     <nav
-      className={`${pathname == "/signup" || pathname == "/login" ? "hidden" : "md:flex"} pointer-events-auto hidden h-screen w-[65px] flex-col gap-3 overflow-hidden bg-white px-[10px] pt-4 duration-300 ease-in-out hover:w-[200px]`}
+      className="pointer-events-auto hidden h-screen w-[65px] flex-col gap-3 overflow-hidden bg-white px-[10px] pt-4 duration-300 ease-in-out hover:w-[200px] md:flex"
       aria-label="Side bar navigation"
     >
       {/* This gap-[8px] is to add a gap between the main button group and login/logout*/}

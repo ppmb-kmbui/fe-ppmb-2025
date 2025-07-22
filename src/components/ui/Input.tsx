@@ -1,5 +1,6 @@
 "use client";
 
+import { body, title } from "@/styles/fonts";
 import { forwardRef, Ref, useState } from "react";
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi";
 import { tv } from "tailwind-variants";
@@ -13,14 +14,14 @@ export interface InputProps
   variant?: "standard";
   error?: string;
   size?: "md" | "lg";
-  ref: Ref<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
 }
 
 const inputVariants = tv({
-  base: "flex flex-row border-[2px] text-neutral-medium bg-white items-center",
+  base: "flex flex-row bg-white items-center  border-b-neutral-medium border-b-2",
   variants: {
     variant: {
-      standard: "rounded-md w-full",
+      standard: "w-full",
       // rounded: "rounded-3xl px-5"
     },
     size: {
@@ -49,16 +50,18 @@ export const Input = ({
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col gap-2">
       <div className="flex flex-row items-center gap-1">
         <div className="text-[18px]">{icon}</div>
-        <p className="font-medium lg:text-lg">{label}</p>
+        <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
       </div>
 
       <div className={inputVariants({ variant, size })}>
         <input
           ref={ref}
-          className="placeholder:text-neutral-medium w-full bg-white font-medium placeholder:font-normal focus:outline-none"
+          value={props.value}
+          onChange={onChange}
+          className={`placeholder:${title.className}! placeholder:text-neutral-medium placeholder:text-md w-full bg-white font-medium placeholder:font-normal focus:outline-none lg:placeholder:text-lg`}
           type={
             label?.split(" ").includes("Password") && !isVisible
               ? "password"

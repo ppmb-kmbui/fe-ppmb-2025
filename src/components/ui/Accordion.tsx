@@ -59,7 +59,6 @@ export const Accordion: React.FC<AccordionProps> = ({
             {answer}
           </div>
         </div>
-
       </div>
     </div>
   );

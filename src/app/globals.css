@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+body {
+  background: #FEF9E7;
+}
 @theme {
   --color-neutral-light: #fff8e5;
   --color-neutral-medium: #ccc6b7;

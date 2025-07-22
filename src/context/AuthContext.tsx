@@ -2,7 +2,7 @@
 
 import { api } from "@/utils/axios";
 import { DEFAULT_USER } from "@/utils/const";
-import { UserProps } from "@/utils/interface";
+import { APIResponse, UserProps } from "@/utils/interface";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -19,8 +19,8 @@ interface AuthContextProps {
     password: string,
     faculty: string,
     imgUrl: string,
-  ) => void;
-  login: (email: string, password: string) => void;
+  ) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   getUser: () => void;
 }
@@ -30,7 +30,7 @@ export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
   isLoading: false,
-  signUp: (
+  signUp: async (
     email: string,
     batch: number,
     fullname: string,
@@ -38,7 +38,7 @@ export const AuthContext = createContext({
     faculty: string,
     imgUrl: string,
   ) => {},
-  login: (email: string, password: string) => {},
+  login: async (email: string, password: string) => {},
   logout: () => {},
 } as AuthContextProps);
 
@@ -87,18 +87,25 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   ) => {
     try {
       setIsLoading(true);
-      const res = await api({
+
+      await api({
         method: "POST",
         url: "auth/register",
         data: { email, batch, fullname, password, faculty, imgUrl },
       });
+
       router.push("/login");
     } catch (error: any) {
       console.error("[Auth context] error in signup", error);
+      throw error;
     } finally {
       setIsLoading(false);
     }
   };
+
+  interface Token {
+    token: string;
+  }
 
   const login = async (email: string, password: string) => {
     try {
@@ -109,13 +116,14 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
         data: { email, password },
       });
 
-      Cookies.set("token", res.data.token);
-      setToken(res.data.token);
+      const payload: APIResponse<Token> = res.data!;
+
+      Cookies.set("token", payload.data!.token);
+      setToken(payload.data!.token);
       setIsAuthenticated(true);
-      getUser(token);
+      getUser(payload.data!.token);
       router.push("/");
     } catch (error: any) {
-      console.error("Error in login", error);
       throw error;
     } finally {
       setIsLoading(false);

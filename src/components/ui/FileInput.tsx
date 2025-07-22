@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useCallback, useRef } from "react";
-import { FaFolderOpen } from "react-icons/fa6";
+import { FaFolderOpen, FaPlus } from "react-icons/fa6";
 import { Button } from "./Button";
 
 export interface FileInputProps {
@@ -12,6 +12,7 @@ export interface FileInputProps {
   fileType: "image" | "pdf";
   error?: string;
   answer?: string;
+  buttonText?: string;
 }
 
 export const FileInput: React.FC<FileInputProps> = ({
@@ -22,6 +23,7 @@ export const FileInput: React.FC<FileInputProps> = ({
   fileType,
   error,
   answer,
+  buttonText,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -48,33 +50,33 @@ export const FileInput: React.FC<FileInputProps> = ({
     onChange(file || null);
   }, []);
 
-  // console.log("ini jawbana", answer)
-
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="flex w-full flex-col items-center justify-center">
       <div className="flex flex-col items-center justify-center gap-[2px]">
-        <p className="font-medium text-xl md:text-2xl text-center">{label}</p>
-        <p className="text-sm text-ppmb-600">{description}</p>
+        <p className="text-neutral-dark text-center text-xl font-medium md:text-2xl">
+          {label}
+        </p>
+        <p className="text-neutral-dark text-sm">{description}</p>
       </div>
 
       <div
-        className="mt-5 border-dashed border-ppmb-600 border-[2px] px-7 justify-between rounded-lg w-[290px] md:w-[450px] max-h-[250px] md:max-h-[300px] p-6 md:pt-14 md:pb-10 flex flex-col items-center gap-2 md:gap-6"
+        className="border-neutral-dark mt-5 flex max-h-[250px] w-[290px] flex-col items-center justify-between gap-2 rounded-lg border-[2px] border-dashed p-6 px-7 md:max-h-[300px] md:w-[450px] md:gap-6 md:pt-14 md:pb-10"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
       >
-        <FaFolderOpen className="text-ppmb-blue-600 text-[70px] md:text-[95px]" />
+        <FaFolderOpen className="text-neutral-dark text-[70px] md:text-[95px]" />
 
-        <div className={`${file ? "gap-3" : "gap-2"} flex flex-col w-full`}>
+        <div className={`${file ? "gap-3" : "gap-2"} flex w-full flex-col`}>
           {file?.name ? (
             <span
-              className="text-sm text-center underline text-ppmb-blue-500 font-medium cursor-pointer"
+              className="text-neutral-dark cursor-pointer text-center text-sm font-medium underline"
               onClick={openPhoto}
             >
               {file.name}
             </span>
           ) : answer != "" ? (
             <a
-              className="underline text-ppmb-blue-500 text-center"
+              className="text-neutral-dark text-center underline"
               href={answer}
               target="_blank"
               rel="noopener noreferrer"
@@ -89,12 +91,14 @@ export const FileInput: React.FC<FileInputProps> = ({
 
           <Button
             onClick={onChooseFile}
-            label={`Cari ${label.split(" ")[1]}`}
+            label={buttonText || "Cari berkas"}
+            leftIcon={<FaPlus />}
             isRestricted={answer == undefined}
+            variant="primary"
           />
           <input
             ref={inputRef}
-            accept={fileType === "image" ? ".jpg, .jpeg, .png" : ".pdf"}
+            accept={fileType === "image" ? "image/*" : ".pdf"}
             type="file"
             className="hidden"
             onChange={(e) => onChange(e.target.files?.[0] || null)}
@@ -103,7 +107,7 @@ export const FileInput: React.FC<FileInputProps> = ({
       </div>
 
       {error && (
-        <p className="mt-2 text-sm text-ppmb-red-500 font-medium">{error}</p>
+        <p className="mt-2 text-sm font-medium text-red-600">{error}</p>
       )}
     </div>
   );

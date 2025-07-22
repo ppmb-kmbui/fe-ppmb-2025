@@ -1,6 +1,7 @@
 "use client";
 
 import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { body } from "@/styles/fonts";
 import { useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 
@@ -13,7 +14,7 @@ interface DropdownProps {
   options: OptionProps[];
   dropdownValue: string;
   setDropdownValue: (value: string) => void;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   label: string;
   error?: string;
 }
@@ -35,22 +36,22 @@ export const Dropdown: React.FC<DropdownProps> = ({
   };
 
   return (
-    <div className="flex flex-col text-lg w-full text-ppmb-800">
-      <div className="flex flex-row items-center gap-1 ">
+    <div className="flex w-full flex-col gap-2">
+      <div className="flex flex-row items-center gap-1 text-neutral-800">
         <div className="text-[18px]">{icon}</div>
-        <p className="font-semibold">{label}</p>
+        <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
       </div>
 
       <div
-        className={`${isOpen ? "rounded-t-md" : "rounded-md"} border-[2px] border-ppmb-blue-600 relative`}
+        className="border-b-neutral-medium relative border-b-2 bg-white"
         ref={ref}
       >
         <div
-          className="flex flex-row items-center justify-between px-3 py-[5px] cursor-pointer"
+          className="flex cursor-pointer flex-row items-center justify-between px-3 py-[5px]"
           onClick={() => setIsOpen(!isOpen)}
         >
           <div
-            className={`${getDisplay(dropdownValue) == null && "text-ppmb-300 select-none"} font-normal`}
+            className={`${getDisplay(dropdownValue) == null && "select-none" ? "text-neutral-400" : "font-medium text-neutral-800"} text-md font-normal lg:text-lg`}
           >
             {getDisplay(dropdownValue) == null
               ? `Pilih ${label}`
@@ -64,14 +65,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
         </div>
 
         <div
-          className={`${isOpen ? "flex" : "hidden"} flex-col absolute top-[105%] w-full items-center overflow-y-auto max-h-[30vh] rounded-b-md transition-all duration-300 font-medium`}
+          className={`${isOpen ? "flex" : "hidden"} absolute top-[105%] max-h-[30vh] w-full flex-col items-center overflow-y-auto rounded-b-md font-medium transition-all duration-300`}
         >
           {options.map(({ display, value }, key) => (
-            <div key={key} className="flex flex-col w-full text-[14px]">
+            <div key={key} className="flex w-full flex-col text-[14px]">
               <div
-                className={`${value != dropdownValue ? "block" : "hidden"} flex flex-row cursor-pointer bg-white hover:bg-stonks-100 gap-2 px-3 py-2 items-center font-medium z-50`}
+                className={`${value != dropdownValue ? "block" : "hidden"} hover:bg-neutral-medium z-50 flex cursor-pointer flex-row items-center gap-2 bg-white px-3 py-2 font-medium hover:cursor-pointer`}
                 onClick={() => {
-                  setDropdownValue(value), setIsOpen(false);
+                  (setDropdownValue(value), setIsOpen(false));
                 }}
               >
                 {display}
@@ -81,7 +82,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         </div>
       </div>
 
-      {error && <p className="text-sm text-ppmb-red-500">{error}</p>}
+      {error && <p className="text-ppmb-red-500 text-sm">{error}</p>}
     </div>
   );
 };
