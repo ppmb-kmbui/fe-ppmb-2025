@@ -39,7 +39,7 @@ export default async function RootLayout({
           <div className="pointer-events-none fixed top-0 z-50 flex h-screen w-screen flex-col md:hidden">
             <TopBar />
           </div>
-          <main className="mt-16 h-[calc(100vh-4rem)] grow overflow-y-scroll lg:ml-[65px]">
+          <main className="mt-16 h-[calc(100vh-4rem)] w-[calc(100vw-65px)] grow overflow-y-scroll lg:ml-[65px]">
             {children}
           </main>
         </AuthContextProvider>

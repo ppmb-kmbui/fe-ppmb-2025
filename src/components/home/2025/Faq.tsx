@@ -5,9 +5,9 @@ import { Accordion } from "@/components/ui/Accordion";
 import { title } from "@/styles/fonts";
 
 interface FAQProps {
-  question: string,
-  answer: string,
-  panelColor?: "yellow" | "turquoise" | "orange",
+  question: string;
+  answer: string;
+  panelColor?: "yellow" | "turquoise" | "orange";
 }
 
 export const Faq: React.FC = () => {
@@ -18,25 +18,27 @@ export const Faq: React.FC = () => {
       question: "Bagaimana cara melakukan RSVP acara?",
       answer:
         "Desktop: Buka halaman beranda dan scroll hingga menemukan TIMELINE KEGIATAN. Kemudian, klik acara yang ingin dihadiri dan dibawah TIMELINE KEGIATAN pada penjelasan acara, klik tombol RSVP\nMobile: Buka halaman beranda dan klik RSVP pada box acara yang ingin dihadiri.",
-      panelColor: "yellow"
+      panelColor: "yellow",
     },
     {
       question: "Bagaimana cara networking dengan angkatan 2024?",
       answer:
         "Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol Connect dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Networking dan lakukan networking kepada teman kalian",
-      panelColor: "turquoise"
+      panelColor: "turquoise",
     },
     {
       question: "Bagaimana cara mengumpulkan tugas berformat PDF?",
       answer:
         "Buka halaman Tugas dan pilih submisi untuk tugas yang ingin dikumpulkan. Di halaman Tugas juga menyediakan template untuk pengumpulan tugas.",
-      panelColor: "orange"
+      panelColor: "orange",
     },
   ];
 
   return (
-    <div className="flex flex-col items-center px-6 gap-3 lg:gap-5 mt-5 mb-5 lg:mt-16 lg:mb-10">
-      <p className={`${title.className} text-3xl md:text-4xl lg:text-6xl font-semibold`}>
+    <div className="mt-5 mb-5 flex w-full flex-col items-center gap-3 px-6 lg:mt-16 lg:mb-10 lg:gap-5">
+      <p
+        className={`${title.className} text-3xl font-semibold md:text-4xl lg:text-6xl`}
+      >
         <span className="text-blue-300">F</span>AQ
       </p>
 

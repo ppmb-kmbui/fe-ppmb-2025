@@ -82,7 +82,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-full w-screen items-center justify-center overflow-hidden">
+    <div className="flex h-full w-full items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
         src={bgAuth}
