@@ -3,21 +3,28 @@ import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
 import { body } from "@/styles/fonts";
 import { TopBar, Sidebar } from "@/components";
-import { headers } from "next/headers";
+
+export const metadata: Metadata = {
+  title: "PPMB Connect",
+  description:
+    "Website untuk menyambut kedatangan mahasiswa baru sebagai anggota keluarga Keluarga Mahasiswa Buddhis Universitas Indonesia (KMB UI)",
+  keywords: [
+    "KMB",
+    "UI",
+    "Keluarga Mahasiswa Buddhis",
+    "Universitas Indonesia",
+    "PPMB 2025",
+  ],
+  applicationName: "PPMB Connect",
+};
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const headersList = await headers();
-  const pathname = headersList.get("x-current-path");
-
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-      </head>
       <body
         className={`${body.className} flex min-h-screen max-w-screen flex-col bg-white`}
       >
