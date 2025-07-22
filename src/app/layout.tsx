@@ -25,6 +25,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="apple-mobile-web-app-title" content="PPMB Connect" />
+      </head>
       <body
         className={`${body.className} flex min-h-screen max-w-screen flex-col bg-white`}
       >
