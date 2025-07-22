@@ -1,11 +1,13 @@
 import Image from "next/image";
 
+import mascot from "@/assets/graphic-elements/mascot.svg";
+
 export const LoadingScreen: React.FC = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-ppmb- justify-center items-center gap-5 px-[60px]">
-      <Image src={"/image/mascot.png"} alt="mascot" width={600} height={600} />
+    <div className="bg-ppmb- flex min-h-screen flex-col items-center justify-center gap-5 px-[60px]">
+      <Image src={mascot} alt="mascot" width={600} height={600} />
 
-      <div className="text-3xl font-semibold text-center">
+      <div className="text-center text-3xl font-semibold">
         <p>Loading</p>
         <span className="animate-dots">
           <span className="dot">.</span>

@@ -14,13 +14,15 @@ import { api } from "@/utils/axios";
 import { APIResponse, FriendProps, UserProps } from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import debounce from "debounce";
-
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineChat } from "react-icons/hi";
 import { z } from "zod";
+
+import bgCariTeman from "@/assets/background/bg-cari-teman.png";
+import networkingDenganKmb from "@/assets/graphic-elements/networking-dengan-kmb.png";
 
 interface QuoteProps {
   quote: string;
@@ -160,7 +162,7 @@ const CariPage: React.FC = () => {
   ) : (
     <div className="flex min-h-screen flex-col items-center gap-4 md:gap-5 lg:gap-8">
       <Image
-        src="/image/bg-cari-teman.png"
+        src={bgCariTeman}
         width={0}
         height={0}
         sizes="100vw"
@@ -170,7 +172,7 @@ const CariPage: React.FC = () => {
       <div className="flex w-full flex-col items-center gap-3 px-[30px] py-10 md:px-[100px]">
         <div className="flex items-center justify-center gap-2 text-xl font-semibold md:text-3xl lg:text-4xl">
           <Image
-            src="/networking-dengan-kmb.png"
+            src={networkingDenganKmb}
             alt="Networking dengan KMB"
             sizes="100vw"
             height={0}
