@@ -31,7 +31,8 @@ export function TopBar() {
         className="h-10 w-auto"
       />
 
-      <div className="hidden md:flex"></div>
+      {/* Spacer so stylized name stays in the center of the page */}
+      <div className="hidden md:flex" />
 
       <div className="relative z-50 flex md:hidden">
         <button

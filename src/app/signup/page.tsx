@@ -132,7 +132,7 @@ export default function SignUp() {
         width={0}
         height={0}
         sizes="100vw"
-        className="top-16 -z-50 hidden h-full object-cover lg:fixed lg:flex"
+        className="top-16 -z-50 hidden h-full object-cover lg:fixed lg:block"
       />
       <div className="flex h-full w-3/4 flex-col gap-7 py-10 xl:w-3/8">
         <h1 className="text-h3 lg:text-h1 grow font-bold text-neutral-800">

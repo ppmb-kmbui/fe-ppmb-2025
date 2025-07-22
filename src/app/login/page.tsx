@@ -83,14 +83,16 @@ export default function Login() {
 
   return (
     <div className="flex h-full w-screen items-center justify-center overflow-hidden">
+      {/* Background image */}
       <Image
         src={bgAuth}
         alt=""
         width={0}
         height={0}
         sizes="100vw"
-        className="top-0 -z-50 hidden h-full object-cover lg:fixed lg:flex"
+        className="top-0 -z-50 hidden h-full object-cover lg:fixed lg:block"
       />
+
       <div className="flex w-3/4 flex-col gap-7 lg:w-3/8">
         <h1 className="text-h5 lg:text-h1 font-bold text-neutral-800">
           Masuk dengan Akun PPMB KMB UI 2025
