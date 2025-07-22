@@ -7,6 +7,9 @@ import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 import { z } from "zod";
 
+import bgAuth from "@/assets/background/bg-auth-wider.png";
+import mascot from "@/assets/graphic-elements/mascot.svg";
+
 interface LoginFormErrors {
   nonFieldError?: string;
   emailError?: string;
@@ -80,14 +83,16 @@ export default function Login() {
 
   return (
     <div className="flex h-full w-screen items-center justify-center overflow-hidden">
+      {/* Background image */}
       <Image
-        src="/background/bg-auth-wider.png"
-        alt="bg auth"
+        src={bgAuth}
+        alt=""
         width={0}
         height={0}
         sizes="100vw"
-        className="top-0 -z-50 hidden h-auto w-full lg:fixed lg:flex"
+        className="top-0 -z-50 hidden h-full object-cover lg:fixed lg:block"
       />
+
       <div className="flex w-3/4 flex-col gap-7 lg:w-3/8">
         <h1 className="text-h5 lg:text-h1 font-bold text-neutral-800">
           Masuk dengan Akun PPMB KMB UI 2025
@@ -139,9 +144,11 @@ export default function Login() {
       </div>
 
       <div className="hidden items-center justify-center overflow-visible lg:flex lg:w-1/2">
-        <img
-          src="/image/mascot.svg"
+        <Image
+          src={mascot}
           alt="gambar"
+          width={512}
+          height={512}
           className="h-auto w-[150%] min-w-[300px] -rotate-12"
         />
       </div>

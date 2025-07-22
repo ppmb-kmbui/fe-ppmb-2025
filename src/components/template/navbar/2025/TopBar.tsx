@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +21,18 @@ export function TopBar() {
       <div id="image-container" className="relative size-12">
         <Image src="/logo.svg" alt="PPMB Logo" fill={true} />
       </div>
+
+      <Image
+        src="/stylized-name.png"
+        alt="PPMB Stylized Name"
+        height={0}
+        width={0}
+        sizes="100vw"
+        className="h-10 w-auto"
+      />
+
+      {/* Spacer so stylized name stays in the center of the page */}
+      <div className="hidden md:flex" />
 
       <div className="relative z-50 flex md:hidden">
         <button

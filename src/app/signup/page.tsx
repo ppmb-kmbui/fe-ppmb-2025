@@ -12,6 +12,8 @@ import { useAuth } from "@/context/AuthContext";
 import axios, { AxiosError } from "axios";
 import { APIResponse } from "@/utils/interface";
 
+import bgAuth from "@/assets/background/bg-auth-wider.png";
+
 const signupFormSchema = z
   .object({
     email: z.email({ message: "Masukkan email yang valid!" }),
@@ -125,12 +127,12 @@ export default function SignUp() {
   return (
     <div className="flex h-full w-full flex-col items-center justify-around overflow-y-scroll lg:flex-row lg:overflow-hidden">
       <Image
-        src="/background/bg-auth-wider.png"
+        src={bgAuth}
         alt="bg auth"
         width={0}
         height={0}
         sizes="100vw"
-        className="object-fit top-16 -z-50 hidden h-auto w-full object-scale-down lg:fixed lg:flex"
+        className="top-16 -z-50 hidden h-full object-cover lg:fixed lg:block"
       />
       <div className="flex h-full w-3/4 flex-col gap-7 py-10 xl:w-3/8">
         <h1 className="text-h3 lg:text-h1 grow font-bold text-neutral-800">

@@ -6,6 +6,8 @@ import Image from "next/image";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Autoplay from "embla-carousel-autoplay";
 
+import comingSoon from "@/assets/carousel-images/coming-soon-banner.svg";
+
 export const Carousel: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 5000, stopOnInteraction: false }),
@@ -37,12 +39,12 @@ export const Carousel: React.FC = () => {
 
   const CONTENTS = [
     {
-      src: "/carouselImages/coming-soon-banner.svg",
+      src: comingSoon,
     },
   ];
 
   return (
-    <div className="embla relative bg-neutral-light">
+    <div className="embla bg-neutral-light relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {CONTENTS.map((content, key) => (
@@ -62,24 +64,24 @@ export const Carousel: React.FC = () => {
       </div>
 
       <button
-        className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white p-[6px] md:p-2 rounded-full shadow text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700 text-sm md:text-[20px]"
+        className="text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700 absolute top-1/2 left-2 -translate-y-1/2 transform rounded-full bg-white p-[6px] text-sm shadow md:left-4 md:p-2 md:text-[20px]"
         onClick={scrollPrev}
       >
         <HiChevronLeft />
       </button>
 
       <button
-        className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white p-[6px] md:p-2 rounded-full shadow text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700 text-sm md:text-[20px]"
+        className="text-ppmb-800 hover:bg-ppmb-100 hover:text-ppmb-700 absolute top-1/2 right-2 -translate-y-1/2 transform rounded-full bg-white p-[6px] text-sm shadow md:right-4 md:p-2 md:text-[20px]"
         onClick={scrollNext}
       >
         <HiChevronRight />
       </button>
 
-      <div className="absolute bottom-2 md:bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 transform space-x-2 md:bottom-4">
         {Array.from({ length: CONTENTS.length }).map((_, key) => (
           <button
             key={key}
-            className={`w-[5px] h-[5px] md:w-[10px] md:h-[10px] rounded-full ${index === key ? "bg-ppmb-800" : "bg-ppmb-200"}`}
+            className={`h-[5px] w-[5px] rounded-full md:h-[10px] md:w-[10px] ${index === key ? "bg-ppmb-800" : "bg-ppmb-200"}`}
             onClick={() => {
               emblaApi?.scrollTo(key);
               setIndex(key);
