@@ -115,22 +115,38 @@ export const UserCard: React.FC<UserCardProps> = ({
     return fullname;
   };
 
+  const buttonBaseClasses =
+    "min-h-[30px] lg:min-h-[36px] text-sm lg:text-md w-full flex items-center justify-center rounded-lg gap-x-1 mx-2 font-semibold";
+
+  const buttonVariantClasses = {
+    notConnected: "bg-blue-300 text-white cursor-pointer hover:opacity-80",
+    pendingConfirmation:
+      "border-yellow-300 border text-yellow-300 pointer-events-none cursor-not-allowed",
+    accepted:
+      "bg-turquoise-200 text-turquoise-300 pointer-events-none cursor-not-allowed",
+    reject:
+      "mx-0! ml-1! border-pink-300 border text-pink-300 cursor-pointer hover:opacity-80",
+    accept:
+      "mx-0! mr-1! bg-turquoise-300 text-white cursor-pointer hover:opacity-80",
+    complete:
+      "border-neutral-dark text-neutral-dark cursor-pointer hover:opacity-80",
+  };
+
   return (
-    // <div className="bg-white flex flex-col justify-between border-blue-300 border-[2px] px-3 py-4 lg:px-4 lg:py-5 rounded-xl min-h-[240px] lg:h-[270px] min-w-[160px] sm:min-w-[200px] sm:max-w-[200px] lg:min-w-[225px] lg:max-w-full shadow-white shadow-custom-sm md:shadow-custom">
-    <div className="flex h-[240px] w-full flex-col justify-between rounded-xl border-[2px] border-blue-300 bg-white px-3 py-4 lg:h-[300px] lg:px-4 lg:py-5">
-      <div className="flex h-[45%] items-center justify-center">
-        <div className="flex h-[80px] w-[80px] md:h-[90px] md:w-[90px]">
+    <div className="flex h-fit w-full flex-col justify-between gap-y-4 rounded-xl bg-white px-3 py-4 shadow-lg shadow-[#D3DAE2] lg:px-4 lg:py-5">
+      <div className="flex h-fit items-center justify-center">
+        <div className="flex size-[90px] lg:size-[120px]">
           <Image
             src={imgUrl}
             alt=""
-            width={95}
-            height={95}
-            className="rounded-full object-cover"
+            width={100}
+            height={100}
+            className="h-full w-full rounded-full object-cover"
           />
         </div>
       </div>
 
-      <div className="mt-4 mb-2 flex h-[40%] flex-col items-center justify-start gap-1 text-center">
+      <div className="flex h-fit flex-col items-center justify-start gap-1 text-center">
         <p className="leading-none font-semibold md:text-lg">
           {truncateFullname(fullname)}
         </p>
@@ -139,10 +155,10 @@ export const UserCard: React.FC<UserCardProps> = ({
         </p>
       </div>
 
-      <div className="flex h-[15%] items-center justify-center">
+      <div className="flex h-fit items-center justify-center">
         {dynamicStatus == "not_connected" && (
           <button
-            className={`${isLoading && "cursor-not-allowed opacity-80"} text-neutral-light mx-2 flex min-h-[28px] w-full items-center justify-center gap-2 rounded-lg bg-blue-300 py-[2px] pr-2 hover:cursor-pointer hover:brightness-150 hover:saturate-50`}
+            className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.notConnected} ${buttonBaseClasses}`}
             onClick={follow}
             disabled={isLoading}
           >
@@ -151,45 +167,43 @@ export const UserCard: React.FC<UserCardProps> = ({
             ) : (
               <>
                 <HiPlus className="text-white" />
-                <p className="text-sm font-medium lg:text-[16px]">Ikuti</p>
+                <p>Ikuti</p>
               </>
             )}
           </button>
         )}
 
         {dynamicStatus == "menunggu_konfirmasi" && (
-          <button className="flex min-h-[28px] w-full cursor-not-allowed items-center justify-center rounded-lg border-[2px] border-yellow-300 text-yellow-300 md:mx-2">
-            <p className="text-ppmb-warning font-semibold">Menunggu...</p>
+          <button
+            className={`${buttonVariantClasses.pendingConfirmation} ${buttonBaseClasses}`}
+          >
+            <p>Menunggu...</p>
           </button>
         )}
 
         {dynamicStatus == "meminta_konfirmasi" && (
           <div className="flex w-full flex-row gap-[6px]">
             <button
-              className={`${isLoading && "cursor-not-allowed opacity-80"} border-ppmb-red-500 flex min-h-[28px] w-full items-center justify-center rounded-lg border-[2px] px-[6px] md:px-2`}
+              className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.reject} ${buttonBaseClasses}`}
               onClick={reject}
               disabled={isLoading}
             >
               {isRejectLoading ? (
                 <div className="loader-button-xs h-[16px] w-[16px]" />
               ) : (
-                <p className="text-ppmb-red-500 text-sm font-semibold lg:text-[16px]">
-                  Tolak
-                </p>
+                <p>Tolak</p>
               )}
             </button>
 
             <button
-              className={`${isLoading && "cursor-not-allowed opacity-80"} bg-ppmb-success hover:bg-ppmb-success-dark flex min-h-[28px] w-full items-center justify-center rounded-lg px-3 md:px-4`}
+              className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.accept} ${buttonBaseClasses}`}
               onClick={accept}
               disabled={isLoading}
             >
               {isAcceptLoading ? (
                 <div className="loader-button-xs h-[16px] w-[16px]" />
               ) : (
-                <p className="text-sm font-medium text-white lg:text-[16px]">
-                  Terima
-                </p>
+                <p>Terima</p>
               )}
             </button>
           </div>
@@ -197,33 +211,33 @@ export const UserCard: React.FC<UserCardProps> = ({
 
         {dynamicStatus == "accepted" && (
           <button
-            className={`${isLoading && "cursor-not-allowed opacity-80"} bg-turquoise-200 text-turquoise-300 flex min-h-[28px] w-full items-center justify-center rounded-lg py-[2px] font-semibold hover:cursor-pointer hover:brightness-75 md:mx-2`}
+            className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.accepted} ${buttonBaseClasses}`}
             onClick={createNetworkingTask}
             disabled={isLoading}
           >
             {isLoading ? (
               <div className="loader-button-sm h-[16px] w-[16px]" />
             ) : (
-              <p className="text-ppmb-000 font-medium">Networking</p>
+              <p>Networking</p>
             )}
           </button>
         )}
 
         {dynamicStatus == "sedang_networking" && (
           <button
-            className={`bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex min-h-[28px] w-full items-center justify-center rounded-lg py-[2px] md:mx-2`}
+            className={`bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex min-h-[28px] w-full items-center justify-center rounded-lg py-[2px]`}
             onClick={() => router.push(`/networking/${id}`)}
           >
-            <p className="text-ppmb-000 font-medium">Networking</p>
+            <p>Networking</p>
           </button>
         )}
 
         {dynamicStatus == "done" && (
           <button
-            className="bg-ppmb-success hover:bg-ppmb-success-dark text-ppmb-000 flex min-h-[28px] w-full items-center justify-center gap-2 rounded-lg py-[2px] pl-2 font-medium md:mx-2"
+            className={`${buttonVariantClasses.complete} ${buttonBaseClasses}`}
             onClick={() => router.push(`/networking/${id}`)}
           >
-            <p className="font-medium">Selesai</p>
+            <p>Selesai</p>
             <HiCheck size={20} />
           </button>
         )}
