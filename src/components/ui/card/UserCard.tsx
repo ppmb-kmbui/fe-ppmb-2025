@@ -120,8 +120,10 @@ export const UserCard: React.FC<UserCardProps> = ({
 
   const buttonVariantClasses = {
     notConnected: "bg-blue-300 text-white cursor-pointer hover:opacity-80",
-    pendingConfirmation: "border-yellow-300 border text-yellow-300 disabled",
-    accepted: "bg-turquoise-200 text-turquoise-300 disabled",
+    pendingConfirmation:
+      "border-yellow-300 border text-yellow-300 pointer-events-none cursor-not-allowed",
+    accepted:
+      "bg-turquoise-200 text-turquoise-300 pointer-events-none cursor-not-allowed",
     reject:
       "mx-0! ml-1! border-pink-300 border text-pink-300 cursor-pointer hover:opacity-80",
     accept:

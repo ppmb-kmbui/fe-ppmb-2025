@@ -51,13 +51,12 @@ export const Input = ({
 
   return (
     <div className="flex w-full flex-col gap-2">
-      {icon ||
-        (label && (
-          <div className="flex flex-row items-center gap-1">
-            <div className="text-[18px]">{icon}</div>
-            <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
-          </div>
-        ))}
+      {(icon || label) && (
+        <div className="flex flex-row items-center gap-1">
+          <div className="text-[18px]">{icon}</div>
+          <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
+        </div>
+      )}
 
       <div className={inputVariants({ variant, size })}>
         {leftIcon && (
