@@ -24,16 +24,16 @@ export default function TimelinePanel({
     : "before:left-[var(--offset-right)]";
   const liDivItemsClass = isOdd ? "items-end" : "items-start";
 
-  const commonClasses = `justify-center li flex flex-col w-[var(--panel-width)] cursor-pointer`;
+  const commonClasses = `justify-center li flex flex-col w-[var(--panel-width)]`;
 
   const contentBoxFlow = isOdd ? "flex-row" : "flex-row-reverse";
   const contentBox = (
-    <div className="w-[600px] h-[200px] bg-white rounded-2xl overflow-clip outline-3 outline-neutral-medium drop-shadow-md shadow-yellow-neutral-dark hover:scale-[1.01] duration-150">
+    <div className="outline-neutral-medium shadow-yellow-neutral-dark h-[200px] w-[600px] overflow-clip rounded-2xl bg-white outline-3 drop-shadow-md duration-150 hover:scale-[1.01]">
       <div
-        className={`${contentBoxFlow} flex w-full h-full justify-end items-center`}
+        className={`${contentBoxFlow} flex h-full w-full items-center justify-end`}
       >
-        <div className="grow h-full p-5 flex flex-col justify-between">
-          <div className="flex flex-col h-2/3 overflow-scroll">
+        <div className="flex h-full grow flex-col justify-between p-5">
+          <div className="flex h-2/3 flex-col overflow-scroll">
             <p className="grow">{timeline.description}</p>
           </div>
           {timeline.location && (
@@ -57,13 +57,13 @@ export default function TimelinePanel({
       className={`${liDivTranslateClass} ${liDivBeforeLeftClass} ${liDivItemsClass} ${commonClasses}`}
     >
       <div
-        className={`px-3 py-[5px] text-sm font-medium justify-center flex whitespace-nowrap`}
+        className={`flex justify-center px-3 py-[5px] text-sm font-medium whitespace-nowrap`}
       >
         {dateToIndonesianString(timeline.startDate, timeline.monthLong)}{" "}
         {timeline.startDate.getTime() !== timeline.endDate.getTime() &&
           `— ${dateToIndonesianString(timeline.endDate)}`}
       </div>
-      <span className="font-semibold text-xl text-ppmb-800 whitespace-nowrap px-3 py-[5px]">
+      <span className="text-ppmb-800 px-3 py-[5px] text-xl font-semibold whitespace-nowrap">
         {timeline.name}
       </span>
     </div>

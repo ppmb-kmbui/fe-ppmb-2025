@@ -23,12 +23,11 @@ export function TopBar() {
       </div>
 
       <Image
-        src="/stylized-name.png"
+        src="/stylized-name.svg"
         alt="PPMB Stylized Name"
-        height={0}
-        width={0}
-        sizes="100vw"
-        className="h-10 w-auto"
+        height={100}
+        width={100}
+        className="h-6 w-auto md:h-10"
       />
 
       {/* Spacer so stylized name stays in the center of the page */}

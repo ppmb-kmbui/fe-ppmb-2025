@@ -18,7 +18,7 @@ export interface InputProps
 }
 
 const inputVariants = tv({
-  base: "flex flex-row bg-white items-center  border-b-neutral-medium border-b-2",
+  base: "flex flex-row bg-white items-center text-neutral-dark border-b-neutral-medium border-b-2 gap-x-2",
   variants: {
     variant: {
       standard: "w-full",
@@ -51,13 +51,22 @@ export const Input = ({
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <div className="flex flex-row items-center gap-1">
-        <div className="text-[18px]">{icon}</div>
-        <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
-      </div>
+      {icon ||
+        (label && (
+          <div className="flex flex-row items-center gap-1">
+            <div className="text-[18px]">{icon}</div>
+            <p className="font-medium text-neutral-800 lg:text-lg">{label}</p>
+          </div>
+        ))}
 
       <div className={inputVariants({ variant, size })}>
+        {leftIcon && (
+          <label htmlFor={props.id} className="text-neutral-medium cursor-text">
+            {leftIcon}
+          </label>
+        )}
         <input
+          id={props.id}
           ref={ref}
           value={props.value}
           onChange={onChange}

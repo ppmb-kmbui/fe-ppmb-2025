@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Button,
-  UserCard,
-  Input,
-  SearchBar,
-  Loader,
-  LoadingScreen,
-} from "@/components";
+import { Button, UserCard, Input, Loader, LoadingScreen } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
@@ -18,11 +11,11 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { HiOutlineChat } from "react-icons/hi";
+import { HiOutlineChat, HiSearch } from "react-icons/hi";
 import { z } from "zod";
 
 import bgCariTeman from "@/assets/background/bg-cari-teman.png";
-import networkingDenganKmb from "@/assets/graphic-elements/networking-dengan-kmb.png";
+import cariTemanKmb from "@/assets/graphic-elements/cari-teman-kmb.svg";
 
 interface QuoteProps {
   quote: string;
@@ -167,21 +160,28 @@ const CariPage: React.FC = () => {
         height={0}
         sizes="100vw"
         alt="bg"
-        className="fixed top-0 -z-50 h-auto w-full"
+        className="fixed top-0 -z-50 h-auto w-full opacity-50"
       />
       <div className="flex w-full flex-col items-center gap-3 px-[30px] py-10 md:px-[100px]">
         <div className="flex items-center justify-center gap-2 text-xl font-semibold md:text-3xl lg:text-4xl">
           <Image
-            src={networkingDenganKmb}
+            src={cariTemanKmb}
             alt="Networking dengan KMB"
             sizes="100vw"
-            height={0}
-            width={0}
-            className="h-20 w-auto md:h-24 lg:h-30"
+            height={100}
+            width={100}
+            className="h-10 w-auto md:h-14 lg:h-18"
           />
         </div>
 
-        <SearchBar handleSearch={handleSearch} />
+        <div className="w-3/4 max-w-[700px]">
+          <Input
+            id="search-bar"
+            placeholder="Cari temanmu!"
+            leftIcon={<HiSearch />}
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+        </div>
 
         <div className="mt-2 flex flex-col items-center text-center text-white md:mt-4">
           {randomQuote && (
@@ -218,7 +218,7 @@ const CariPage: React.FC = () => {
         </>
       )}
 
-      <div className="mb-10 flex w-full flex-col items-center gap-[2px] px-8 md:gap-1 lg:px-[100px]">
+      <div className="my-10 flex w-full flex-col items-center gap-[2px] px-8 md:gap-1 lg:px-[100px]">
         <span className="text-lg font-semibold md:text-2xl">
           Kirim pesan ke teman-teman kamu!
         </span>
