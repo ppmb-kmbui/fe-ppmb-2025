@@ -3,6 +3,7 @@
 import { api } from "@/utils/axios";
 import { DEFAULT_USER } from "@/utils/const";
 import { APIResponse, UserProps } from "@/utils/interface";
+import { AxiosResponse } from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -58,15 +59,18 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const getUser = async (token: string = Cookies.get("token") as string) => {
     try {
       setIsLoading(true);
-      const res = await api({
+      const res: AxiosResponse<APIResponse<UserProps>> = await api({
         method: "GET",
         url: `profile`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      const user: UserProps = res.data.data!;
+
       setIsAuthenticated(true);
-      setUser(res.data);
+      setUser(user);
       setToken(token);
     } catch (error: any) {
       setIsAuthenticated(false);

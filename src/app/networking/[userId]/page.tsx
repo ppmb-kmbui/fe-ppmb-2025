@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, FileInput, Header, Input, LoadingScreen } from "@/components";
+import { Button, FileInput, Input, LoadingScreen } from "@/components";
+// import { Header } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
@@ -211,12 +212,12 @@ async function NetworkingAssignmentPage({
   return isFetching ? (
     <LoadingScreen />
   ) : (
-    <div className="min-h-screen flex flex-col h-full">
-      <Header label="Networking" />
-      <div className="flex flex-col-reverse items-center justify-center md:flex-row md:justify-evenly px-10 md:px-[60px] gap-8 md:gap-5 h-full py-10">
+    <div className="flex h-full min-h-screen flex-col">
+      {/* <Header label="Networking" /> */}
+      <div className="flex h-full flex-col-reverse items-center justify-center gap-8 px-10 py-10 md:flex-row md:justify-evenly md:gap-5 md:px-[60px]">
         <form
           onSubmit={handleSubmit(handleSubmitNetworking)}
-          className="w-full flex flex-col font-montserrat font-medium gap-5 items-center justify-center h-full"
+          className="font-montserrat flex h-full w-full flex-col items-center justify-center gap-5 font-medium"
         >
           <Input
             {...register("answer1")}
@@ -251,7 +252,7 @@ async function NetworkingAssignmentPage({
             disabled={networkingAssignment.is_done}
           />
 
-          <div className="flex mt-3">
+          <div className="mt-3 flex">
             <Button
               label="Kumpulkan"
               type={`${networkingAssignment.is_done ? "reset" : "submit"}`}

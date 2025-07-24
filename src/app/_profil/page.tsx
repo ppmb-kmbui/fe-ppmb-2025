@@ -120,27 +120,27 @@ const ProfilPage: React.FC = () => {
           <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
 
           <div className="flex flex-col">
-            <text className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">
+            <p className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">
               {user?.fullname}
-            </text>
-            <text className="italic text-ppmb-500 text-sm md:text-lg">
+            </p>
+            <p className="italic text-neutral-medium text-sm md:text-lg">
               {user.faculty}, {user.batch}
-            </text>
+            </p>
           </div>
         </div>
 
         <div className="w-full md:w-[30%] lg:w-[20%] flex flex-col rounded-lg p-3 md:p-8 bg-white md:h-[200px] items-center justify-center md:gap-2 shadow-custom">
-          <text className="font-medium text-3xl md:text-5xl lg:text-7xl">
+          <p className="font-medium text-3xl md:text-5xl lg:text-7xl">
             {user.followers}
-          </text>
-          <text className="text-sm md:text-xl">pengikut</text>
+          </p>
+          <p className="text-sm md:text-xl">pengikut</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-1 md:gap-3 mt-2">
-        <text className="text-xl md:text-2xl lg:text-3xl font-semibold">
+        <p className="text-xl md:text-2xl lg:text-3xl font-semibold">
           Sudah Berkenalan dengan
-        </text>
+        </p>
         <div
           className={`${user.networking_tasks.length == 0 ? "flex" : "grid"} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6`}
         >
@@ -148,11 +148,11 @@ const ProfilPage: React.FC = () => {
             <UserCard key={key} {...friend.to} status="done" />
           ))}
 
-          <text
-            className={`${user.networking_tasks.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}
+          <p
+            className={`${user.networking_tasks.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-neutral-medium`}
           >
             Kamu belum menyelesaikan networking dengan siapa pun
-          </text>
+          </p>
         </div>
       </div>
     </div>

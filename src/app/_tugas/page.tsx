@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Header,
   LoadingScreen,
   MultiProgressBar,
   ProgressBar,
@@ -325,15 +324,13 @@ const TugasPage: React.FC = () => {
   return isFetching ? (
     <LoadingScreen />
   ) : (
-    <div className="min-h-screen flex flex-col gap-5 lg:gap-10">
-      <Header label="Tugas" subLabel="PPMB KMBUI" />
+    <div className="flex min-h-screen flex-col gap-5 lg:gap-10">
+      {/* <Header label="Tugas" subLabel="PPMB KMBUI" /> */}
 
       <div className="flex flex-col items-center gap-3">
-        <text className="text-2xl lg:text-3xl font-semibold">
-          Progress Tugas
-        </text>
+        <p className="text-2xl font-semibold lg:text-3xl">Progress Tugas</p>
 
-        <div className="flex flex-col gap-2 items-center">
+        <div className="flex flex-col items-center gap-2">
           <MultiProgressBar
             progressData={PROGRESS_ANGKATAN}
             networkingRumpun={PROGRESS_RUMPUN}
@@ -345,30 +342,30 @@ const TugasPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 px-8 lg:px-[60px] xl:px-[80px] gap-10 lg:gap-[80px] mt-5 pb-10">
+      <div className="mt-5 grid grid-cols-1 gap-10 px-8 pb-10 md:grid-cols-2 lg:gap-[80px] lg:px-[60px] xl:px-[80px]">
         <div className="flex flex-col gap-2">
-          <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">
+          <p className="text-2xl font-semibold lg:text-[27px] lg:leading-[1.6]">
             Belum Dikerjakan
-          </text>
+          </p>
 
-          <div className="flex flex-col gap-5 w-full">
+          <div className="flex w-full flex-col gap-5">
             {ASSINGMENTS.map((assignment, key) => (
               <div className={`${assignment.isFinished == true && "hidden"}`}>
                 <TaskCard key={key} {...assignment} setProgress={setProgress} />
               </div>
             ))}
           </div>
-          <text
-            className={`${ASSINGMENTS.filter((assignment) => !assignment.isFinished).length != 0 && "hidden"} text-ppmb-500 italic text-lg`}
+          <p
+            className={`${ASSINGMENTS.filter((assignment) => !assignment.isFinished).length != 0 && "hidden"} text-neutral-medium text-lg italic`}
           >
             Selamat kamu sudah menyelesaikan semua tugas!
-          </text>
+          </p>
         </div>
 
-        <div className="flex flex-col gap-2 w-full">
-          <text className="text-2xl lg:text-[27px] lg:leading-[1.6] font-semibold">
+        <div className="flex w-full flex-col gap-2">
+          <p className="text-2xl font-semibold lg:text-[27px] lg:leading-[1.6]">
             Sudah Dikumpulkan
-          </text>
+          </p>
           <div className="flex flex-col gap-5">
             {ASSINGMENTS.map((assingment, key) => (
               <div className={`${assingment.isFinished == false && "hidden"}`}>
@@ -376,11 +373,11 @@ const TugasPage: React.FC = () => {
               </div>
             ))}
           </div>
-          <text
-            className={`${ASSINGMENTS.filter((assignment) => assignment.isFinished).length > 0 && "hidden"} text-ppmb-500 italic text-lg`}
+          <p
+            className={`${ASSINGMENTS.filter((assignment) => assignment.isFinished).length > 0 && "hidden"} text-neutral-medium text-lg italic`}
           >
             Kamu belum menyelesaikan tugas apa pun :(
-          </text>
+          </p>
         </div>
       </div>
     </div>

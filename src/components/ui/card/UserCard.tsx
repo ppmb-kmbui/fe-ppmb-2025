@@ -92,13 +92,27 @@ export const UserCard: React.FC<UserCardProps> = ({
   const createNetworkingTask = async () => {
     try {
       setIsLoading(true);
-      await api({
-        url: `networking/${id}`,
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+
+      const acceptorIsUpperclassman: boolean = user.batch < 2025;
+
+      if (acceptorIsUpperclassman) {
+        await api({
+          url: `networking-kating/${id}`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else {
+        await api({
+          url: `networking-maba/${id}`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+
       setDynamicStatus("sedang_networking");
     } catch (error: any) {
       console.error("Error while creating networking task", error);
@@ -108,15 +122,8 @@ export const UserCard: React.FC<UserCardProps> = ({
     }
   };
 
-  const truncateFullname = (fullname: string) => {
-    if (fullname.length > 30) {
-      return fullname.slice(0, 27) + "...";
-    }
-    return fullname;
-  };
-
   const buttonBaseClasses =
-    "min-h-[30px] lg:min-h-[36px] text-sm lg:text-md w-full flex items-center justify-center rounded-lg gap-x-1 mx-2 font-semibold";
+    "min-h-[30px] lg:min-h-[36px] text-sm lg:text-md w-full flex items-center duration-75 justify-center rounded-lg gap-x-1 mx-2 font-semibold";
 
   const buttonVariantClasses = {
     notConnected: "bg-blue-300 text-white cursor-pointer hover:opacity-80",
@@ -125,7 +132,7 @@ export const UserCard: React.FC<UserCardProps> = ({
     accepted:
       "bg-turquoise-200 text-turquoise-300 pointer-events-none cursor-not-allowed",
     reject:
-      "mx-0! ml-1! border-pink-300 border text-pink-300 cursor-pointer hover:opacity-80",
+      "mx-0! ml-1! border-pink-300 border text-pink-300 cursor-pointer hover:bg-pink-100",
     accept:
       "mx-0! mr-1! bg-turquoise-300 text-white cursor-pointer hover:opacity-80",
     complete:
@@ -147,10 +154,10 @@ export const UserCard: React.FC<UserCardProps> = ({
       </div>
 
       <div className="flex h-fit flex-col items-center justify-start gap-1 text-center">
-        <p className="leading-none font-semibold md:text-lg">
-          {truncateFullname(fullname)}
+        <p className="w-full overflow-hidden leading-none font-semibold text-ellipsis whitespace-nowrap md:text-lg">
+          {fullname}
         </p>
-        <p className="text-neutral-dark text-xs md:text-sm">
+        <p className="text-neutral-dark w-full overflow-hidden text-xs text-ellipsis whitespace-nowrap md:text-sm">
           {facultyCase(faculty)}, {batch}
         </p>
       </div>

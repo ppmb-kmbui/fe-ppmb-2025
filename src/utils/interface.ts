@@ -26,6 +26,10 @@ export interface FriendProps extends UserProps {
     | "done";
 }
 
+export type FriendsAPIResponse = {
+  friends: FriendProps[];
+};
+
 export type APIResponse<T> = {
   success: boolean;
   message: string;

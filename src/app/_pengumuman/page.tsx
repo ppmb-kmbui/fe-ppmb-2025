@@ -1,6 +1,6 @@
 "use client";
 
-import { AnnouncementCard, Header } from "@/components";
+import { AnnouncementCard } from "@/components";
 import withAuth from "@/hoc/withAuth";
 
 export interface AnnouncementProps {
@@ -34,15 +34,15 @@ const PengunmumanPage: React.FC = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-10 min-h-screen pb-10">
-      <Header label="Pengumuman" />
+    <div className="flex min-h-screen flex-col gap-10 pb-10">
+      {/* <Header label="Pengumuman" /> */}
 
-      <div className="flex px-10 md:px-14 flex-col gap-4 flex-1">
-        <text className="text-2xl md:text-[27px] leading-[1.6] font-semibold">
+      <div className="flex flex-1 flex-col gap-4 px-10 md:px-14">
+        <p className="text-2xl leading-[1.6] font-semibold md:text-[27px]">
           Tautan menuju informasi beberapa tugas PPMB
-        </text>
+        </p>
 
-        <div className="flex flex-col lg:flex-row gap-10 flex-1">
+        <div className="flex flex-1 flex-col gap-10 lg:flex-row">
           {ANNOUNCEMENTS.map((announcement, key) => (
             <AnnouncementCard key={key} {...announcement} />
           ))}
