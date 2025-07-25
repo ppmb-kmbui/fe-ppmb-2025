@@ -145,7 +145,10 @@ function NetworkingAssignmentPage() {
               answer: data.answer3,
             },
           ],
-          secondaryAnswers: [{}],
+          secondaryAnswers: {
+            question: data.question4,
+            answer: data.answer4,
+          },
         },
         headers: {
           Authorization: `Bearer ${token}`,

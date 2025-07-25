@@ -7,7 +7,7 @@ import { api } from "@/utils/axios";
 import { APIResponse, NetworkingAssignmentProps } from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { HiChatAlt2 } from "react-icons/hi";
@@ -162,7 +162,7 @@ function NetworkingAssignmentPage() {
 
       const uploadedPhotoUrl = res.data.url;
       await api({
-        url: `/networking-maba/${userId}`,
+        url: `/networking-kating/69420`,
         method: "PUT",
         data: {
           img_url: uploadedPhotoUrl,
