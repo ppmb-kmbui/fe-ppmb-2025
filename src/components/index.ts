@@ -6,7 +6,6 @@ export { TopBar } from "./template/navbar/2025/TopBar";
 export { Sidebar } from "./template/navbar/2025/Sidebar";
 export { Modal } from "./ui/Modal";
 export { Accordion } from "./ui/Accordion";
-export { Header } from "./ui/Header";
 export { Loader } from "./ui/Loader";
 
 export { AnnouncementCard } from "./ui/card/AnnouncementCard";
@@ -18,6 +17,9 @@ export { Timeline } from "./home/2025/Timeline";
 export { Faq } from "./home/2025/Faq";
 
 export { LoadingScreen } from "./template/LoadingScreen";
+export { Background } from "./template/Background";
 
 export { ProgressBar } from "./progressBar/ProgressBar";
 export { MultiProgressBar } from "./progressBar/MultiProgressBar";
+
+export { GridView } from "./layout/GridView";

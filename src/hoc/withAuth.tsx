@@ -51,7 +51,7 @@ const withAuth = <P extends object>(
           if (
             (requiredRole === "admin" && !user?.isAdmin) ||
             (requiredRole === "authenticated" && !isAuthenticated) ||
-            (requiredRole === "freshman" && user?.batch !== 2024)
+            (requiredRole === "freshman" && user?.batch !== 2025)
           ) {
             router.push("/");
           }

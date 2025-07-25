@@ -26,6 +26,34 @@ export interface FriendProps extends UserProps {
     | "done";
 }
 
+export interface QuestionProps {
+  id: number;
+  question: string;
+}
+
+export interface UserCreatedQuestionAnswerProps {
+  question: string;
+  answer: string;
+}
+
+export interface QuestionAnswerProps {
+  questionId: number;
+  answer: string;
+  question: QuestionProps;
+}
+
+export interface NetworkingAssignmentProps {
+  fromId: number;
+  toId: number;
+  is_done: boolean;
+  questions: QuestionAnswerProps[];
+  img_url: string;
+}
+
+export type FriendsAPIResponse = {
+  friends: FriendProps[];
+};
+
 export type APIResponse<T> = {
   success: boolean;
   message: string;

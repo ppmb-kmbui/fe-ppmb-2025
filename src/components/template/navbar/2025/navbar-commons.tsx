@@ -21,7 +21,7 @@ export const MAIN_MENU = [
     icon: <HiOutlineChatAlt2 />,
     text: "Networking",
     route: "/networking",
-    role: "freshman",
+    role: "authenticated",
   },
   {
     icon: <HiOutlinePencilAlt />,
@@ -49,8 +49,11 @@ export const MAIN_MENU = [
   },
 ];
 
-
-export const renderMenu = (menu: (typeof MAIN_MENU)[number], isAuthenticated: boolean, user: UserProps) => {
+export const renderMenu = (
+  menu: (typeof MAIN_MENU)[number],
+  isAuthenticated: boolean,
+  user: UserProps,
+) => {
   if (menu.role === "optional") return true;
   if (menu.role === "authenticated" && isAuthenticated) return true;
   if (menu.role === "freshman" && user?.batch === 2025) return true;

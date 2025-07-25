@@ -170,9 +170,9 @@ const AdminPage: React.FC = () => {
     <div className="min-h-screen p-10 gap-10 flex-col flex">
       <div className="flex flex-col">
         <div className="flex flex-row justify-between items-center">
-          <text className="text-[27px] leading-[1.6] font-semibold">
+          <p className="text-[27px] leading-[1.6] font-semibold">
             Absensi PPMB
-          </text>
+          </p>
           <Button label="Buat Absensi" onClick={generateAttendance} />
         </div>
 
@@ -183,12 +183,12 @@ const AdminPage: React.FC = () => {
               className="bg-white rounded-xl p-5 min-w-[340px] h-[230px] shadow-custom"
             >
               <div className="flex flex-col h-full">
-                <text className="text-xl font-medium">{attendance.name}</text>
+                <p className="text-xl font-medium">{attendance.name}</p>
 
                 <div className="flex items-center justify-center flex-1">
-                  <text className="text-5xl font-semibold ">
+                  <p className="text-5xl font-semibold ">
                     {attendance.code}
-                  </text>
+                  </p>
                 </div>
 
                 <div className="flex flex-row gap-3">
@@ -206,11 +206,11 @@ const AdminPage: React.FC = () => {
           ))}
         </div>
 
-        <text
-          className={`${attendances.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-ppmb-500`}
+        <p
+          className={`${attendances.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-neutral-medium`}
         >
           Anda belum pernah membuat kode absensi :(
-        </text>
+        </p>
       </div>
 
       {/* <div className="bg-white flex w-full rounded-lg h-[300px] p-5 overflow-y-auto border-[1px] border-ppmb-100"> */}
@@ -225,7 +225,7 @@ const AdminPage: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <text>KMBUI Explorer</text>
+                <p>KMBUI Explorer</p>
                 {userTask?.explorerTask?.map((e: any, key: number) => (
                   <a
                     key={key}
@@ -242,10 +242,10 @@ const AdminPage: React.FC = () => {
               <div className="flex items-center space-x-2">
                 {userTask?.explorerTask[0]?.ExplorerSubmissionScore[0]
                   ?.score ? (
-                  <text className="text-lg font-semibold">
+                  <p className="text-lg font-semibold">
                     Nilai:{" "}
                     {userTask?.explorerTask[0].ExplorerSubmissionScore[0].score}
-                  </text>
+                  </p>
                 ) : (
                   <>
                     <input
@@ -266,7 +266,7 @@ const AdminPage: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <text>Fossib 1</text>
+                <p>Fossib 1</p>
                 <a
                   href={userTask?.firstFossibTask?.file_url}
                   target="_blank"
@@ -278,10 +278,10 @@ const AdminPage: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2">
                 {userTask?.firstFossibTask?.FirstFossibSessionScore[0] ? (
-                  <text className="text-lg font-semibold">
+                  <p className="text-lg font-semibold">
                     Nilai:{" "}
                     {userTask?.firstFossibTask.FirstFossibSessionScore[0].score}
-                  </text>
+                  </p>
                 ) : (
                   <>
                     <input
@@ -302,7 +302,7 @@ const AdminPage: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <text>Fossib 2</text>
+                <p>Fossib 2</p>
                 <a
                   href={userTask?.secondFossibTask?.file_url}
                   target="_blank"
@@ -315,10 +315,10 @@ const AdminPage: React.FC = () => {
               <div className="flex items-center space-x-2">
                 <div className="flex items-center space-x-2">
                   {userTask?.secondFossibTask?.SecondFossibSessionScore[0] ? (
-                    <text className="text-lg font-semibold">
+                    <p className="text-lg font-semibold">
                       Nilai:{" "}
                       {userTask?.secondFossibTask?.SecondFossibSessionScore[0]}
-                    </text>
+                    </p>
                   ) : (
                     <>
                       <input
@@ -344,7 +344,7 @@ const AdminPage: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <text>insight hunting</text>
+                <p>insight hunting</p>
                 {userTask?.insightHuntingTask?.map((ih: any, key: number) => (
                   <a
                     href={ih.file_url}
@@ -360,13 +360,13 @@ const AdminPage: React.FC = () => {
               <div className="flex items-center space-x-2">
                 {userTask?.insightHuntingTask[0]
                   ?.InsightHuntingSubmissionScore[0] ? (
-                  <text className="text-lg font-semibold">
+                  <p className="text-lg font-semibold">
                     Nilai:{" "}
                     {
                       userTask?.insightHuntingTask[0]
                         ?.InsightHuntingSubmissionScore[0].score
                     }
-                  </text>
+                  </p>
                 ) : (
                   <>
                     <input
@@ -391,7 +391,7 @@ const AdminPage: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <text>mentoring reflection</text>
+                <p>mentoring reflection</p>
                 <a
                   href={userTask?.mentoringReflectionTask?.file_url}
                   target="_blank"
@@ -404,9 +404,9 @@ const AdminPage: React.FC = () => {
 
               <div className="flex items-center space-x-2">
                 {userTask?.mentoringReflectionTask?.score ? (
-                  <text className="text-lg font-semibold">
+                  <p className="text-lg font-semibold">
                     Nilai: {userTask?.mentoringReflectionTask?.score}
-                  </text>
+                  </p>
                 ) : (
                   <>
                     <input className="px-2 border border-ppmb-700" />
@@ -426,7 +426,7 @@ const AdminPage: React.FC = () => {
           >
             <div className="flex justify-between items-center">
               <div>
-                <text>mentoring vlog</text>
+                <p>mentoring vlog</p>
                 <a
                   href={userTask?.mentoringVlogTask?.file_url}
                   target="_blank"
@@ -438,9 +438,9 @@ const AdminPage: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2">
                 {userTask?.mentoringVlogTask?.score ? (
-                  <text className="text-lg font-semibold">
+                  <p className="text-lg font-semibold">
                     Nilai: {userTask?.mentoringVlogTask?.score}
-                  </text>
+                  </p>
                 ) : (
                   <>
                     <input className="px-2 border border-ppmb-700" />
@@ -453,10 +453,10 @@ const AdminPage: React.FC = () => {
 
           <form onSubmit={handleSubmit((data) => onSubmitNetworking(data))}>
             <div className="flex justify-between items-center">
-              <text>networking</text>
+              <p>networking</p>
               <div className="flex items-center space-x-2">
                 {userTask?.networkingTask.score ? (
-                  <text>{userTask?.networkingTask.score}</text>
+                  <p>{userTask?.networkingTask.score}</p>
                 ) : (
                   <>
                     <input
@@ -476,11 +476,11 @@ const AdminPage: React.FC = () => {
                 key={key}
                 className="bg-ppmb-50 p-4 rounded-xl flex flex-col"
               >
-                <text>
+                <p>
                   {key + 1}. Nama: {task.to.fullname}
-                </text>
-                <text>Fakultas: {task.to.faculty}</text>
-                <text>
+                </p>
+                <p>Fakultas: {task.to.faculty}</p>
+                <p>
                   Dokumentasi:{" "}
                   <a
                     key={key}
@@ -491,20 +491,20 @@ const AdminPage: React.FC = () => {
                   >
                     {task.img_url}
                   </a>
-                </text>
+                </p>
                 {task.questions.map((question: any, keyy: number) => (
                   <div className="flex flex-col py-2" key={key}>
-                    <text className="font-semibold">
+                    <p className="font-semibold">
                       {question.question.question}
-                    </text>
-                    <text>{question.answer || "Jawaban kosong"}</text>
+                    </p>
+                    <p>{question.answer || "Jawaban kosong"}</p>
                   </div>
                 ))}
               </div>
             ))}
           </div>
 
-          <text className="mt-5 text-xl font-semibold">Networking kating</text>
+          <p className="mt-5 text-xl font-semibold">Networking kating</p>
 
           <div className="flex flex-col gap-4">
             {userTask?.networkingKating.map((task: any, key: number) => (
@@ -512,7 +512,7 @@ const AdminPage: React.FC = () => {
                 key={key}
                 className="bg-ppmb-50 p-4 rounded-xl flex flex-col"
               >
-                <text>Berkas: {}</text>
+                <p>Berkas: {}</p>
 
                 <a
                   key={key}

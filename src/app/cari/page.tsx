@@ -4,7 +4,12 @@ import { Button, UserCard, Input, Loader, LoadingScreen } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
-import { APIResponse, FriendProps, UserProps } from "@/utils/interface";
+import {
+  APIResponse,
+  FriendProps,
+  FriendsAPIResponse,
+  UserProps,
+} from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import debounce from "debounce";
 import Image from "next/image";
@@ -67,11 +72,7 @@ const CariPage: React.FC = () => {
         },
       });
 
-      type FriendResponse = {
-        friends?: FriendProps[];
-      };
-
-      const payload: APIResponse<FriendResponse> = res.data;
+      const payload: APIResponse<FriendsAPIResponse> = res.data;
 
       if (payload.data!.friends == undefined) {
         setFriends([]);
@@ -163,7 +164,7 @@ const CariPage: React.FC = () => {
         className="fixed top-0 -z-50 h-auto w-full opacity-50"
       />
       <div className="flex w-full flex-col items-center gap-3 px-[30px] py-10 md:px-[100px]">
-        <div className="flex items-center justify-center gap-2 text-xl font-semibold md:text-3xl lg:text-4xl">
+        <div className="flex items-center justify-center gap-2">
           <Image
             src={cariTemanKmb}
             alt="Networking dengan KMB"
@@ -203,7 +204,7 @@ const CariPage: React.FC = () => {
       ) : (
         <>
           <div
-            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grow grid-cols-2 gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:gap-6 lg:px-8 xl:grid-cols-6`}
+            className={`${friends.length == 0 ? "hidden" : "grid"} w-full grow grid-cols-2 gap-3 px-3 md:grid-cols-4 md:gap-7 md:px-5 lg:grid-cols-6 lg:gap-6 lg:px-8`}
           >
             {friends.map((friend, key) => (
               <UserCard key={key} {...friend} />
