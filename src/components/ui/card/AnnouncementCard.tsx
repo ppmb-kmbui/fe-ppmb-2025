@@ -1,30 +1,52 @@
 "use client";
 
-import { AnnouncementProps } from "@/app/_pengumuman/page";
-import Image from "next/image";
+import { body } from "@/styles/fonts";
+import Image, { StaticImageData } from "next/image";
+import { tv } from "tailwind-variants";
 
-interface AnnouncementCardProps extends AnnouncementProps {}
+export interface AnnouncementProps {
+  name: string;
+  description: string;
+  img: StaticImageData;
+  link: string;
+}
+
+export interface AnnouncementCardProps extends AnnouncementProps {
+  color: "orange" | "blue" | "turquoise";
+}
+
+const announcementCardVariants = tv({
+  base: `${body.className} flex w-full shadow-lg border-2 border-neutral-dark cursor-pointer flex-col items-center gap-2 rounded-2xl px-6 py-5 duration-300 ease-in-out hover:scale-[1.02]`,
+  variants: {
+    color: {
+      orange: "bg-orange-100",
+      blue: "bg-blue-100",
+      turquoise: "bg-turquoise-100",
+    },
+  },
+});
 
 export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   name,
   description,
   img,
   link,
+  color = "blue",
 }) => {
   return (
     <a
-      className="bg-gradient-to-br from-white from-[50%] to-ppmb-100 w-full flex-1 flex flex-col items-center rounded-2xl border-[2px] border-ppmb-800 shadow-custom cursor-pointer px-6 pt-1 pb-5 gap-2 hover:scale-[1.02] ease-in-out duration-300"
+      className={announcementCardVariants({ color })}
       href={link}
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div className="max-w-[250px] max-h-[250px]">
+      <div className="max-h-[250px] max-w-[250px]">
         <Image src={img} alt="announcement" width={280} height={280} />
       </div>
 
-      <div className="flex flex-col items-center text-center gap-1">
+      <div className="flex flex-col items-center gap-1 text-center">
         <p className="text-xl font-semibold">{name}</p>
-        <p className="text-ppmb-700">{description}</p>
+        <p className="text-neutral-dark text-sm">{description}</p>
       </div>
     </a>
   );
