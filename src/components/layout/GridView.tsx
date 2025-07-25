@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-export function GridView({
+export function GridView<T>({
   children,
   iterable,
   emptyMessage,
 }: {
   children: ReactNode;
-  iterable: any[];
+  iterable: T[];
   emptyMessage: string;
 }) {
   const iterableIsEmpty = iterable.length === 0;
