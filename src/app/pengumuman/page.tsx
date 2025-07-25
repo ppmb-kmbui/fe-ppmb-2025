@@ -12,7 +12,7 @@ import boyMascot from "@/assets/graphic-elements/mascot-boy.png";
 import girlMascot from "@/assets/graphic-elements/mascot-girl.png";
 import { title } from "@/styles/fonts";
 
-const PengunmumanPage: React.FC = () => {
+const PengumumanPage: React.FC = () => {
   const ANNOUNCEMENTS: AnnouncementProps[] = [
     {
       name: "Foster Sibling",
@@ -64,4 +64,4 @@ const PengunmumanPage: React.FC = () => {
   );
 };
 
-export default withAuth(PengunmumanPage, "freshman");
+export default withAuth(PengumumanPage, "freshman");
