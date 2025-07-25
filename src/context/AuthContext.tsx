@@ -67,7 +67,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
         },
       });
 
-      const user: UserProps = res.data.data!;
+      const user: UserProps = res.data!.data!;
 
       setIsAuthenticated(true);
       setUser(user);

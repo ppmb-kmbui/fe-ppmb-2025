@@ -90,12 +90,13 @@ export const UserCard: React.FC<UserCardProps> = ({
   };
 
   const createNetworkingTask = async () => {
+    // Networking is split into 2 to differentiate question types
+    const targetIsUpperclassman: boolean = batch < 2025;
+
     try {
       setIsLoading(true);
 
-      const acceptorIsUpperclassman: boolean = user.batch < 2025;
-
-      if (acceptorIsUpperclassman) {
+      if (targetIsUpperclassman) {
         await api({
           url: `networking-kating/${id}`,
           method: "POST",
@@ -118,7 +119,11 @@ export const UserCard: React.FC<UserCardProps> = ({
       console.error("Error while creating networking task", error);
     } finally {
       setIsLoading(false);
-      router.push(`/networking/${id}`);
+      if (targetIsUpperclassman) {
+        router.push(`/networking/kating`);
+      } else {
+        router.push(`/networking/maba/${id}`);
+      }
     }
   };
 
@@ -130,7 +135,7 @@ export const UserCard: React.FC<UserCardProps> = ({
     pendingConfirmation:
       "border-yellow-300 border text-yellow-300 pointer-events-none cursor-not-allowed",
     accepted:
-      "bg-turquoise-200 text-turquoise-300 pointer-events-none cursor-not-allowed",
+      "bg-turquoise-200 text-turquoise-300 cursor-pointer hover:opacity-80",
     reject:
       "mx-0! ml-1! border-pink-300 border text-pink-300 cursor-pointer hover:bg-pink-100",
     accept:

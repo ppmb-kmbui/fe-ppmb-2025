@@ -1,41 +1,32 @@
 "use client";
 
 import { Button, FileInput, Input, LoadingScreen } from "@/components";
-// import { Header } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
+import { APIResponse, NetworkingAssignmentProps } from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { HiChatAlt2 } from "react-icons/hi";
-import { z } from "zod";
+import z from "zod";
 
-interface QuestionProps {
-  id: number;
-  question: string;
-  created_at: string;
-  updated_at: string;
-  is_mandatory: boolean;
-}
-
-interface QuestionAnswerProps {
-  questionId: number;
-  fromId: number;
-  toId: number;
-  answer: string;
-  question: QuestionProps;
-}
-
-interface NetworkingAssignmentProps {
-  fromId: number;
-  toId: number;
-  is_done: boolean;
-  questions: QuestionAnswerProps[];
-  img_url: string;
-}
+const networkingKatingFormSchema = z.object({
+  answer1: z.string().min(1, "Pertanyaan harus dijawab!"),
+  answer2: z.string().min(1, "Pertanyaan harus dijawab!"),
+  answer3: z.string().min(1, "Pertanyaan harus dijawab!"),
+  answer4: z.string().min(1, "Pertanyaan harus dijawab!"),
+  answer5: z.string().min(1, "Pertanyaan harus dijawab!"),
+  answer6: z.string().min(1, "Pertanyaan harus dijawab!"),
+  answer7: z.string().min(1, "Pertanyaan harus dijawab!"),
+  question8: z
+    .string()
+    .min(1, "Cantumkan pertanyaan tambahan yang kamu tanyakan!"),
+  answer8: z.string().min(1, "Pertanyaan harus dijawab!"),
+  photo: z.instanceof(File, { error: "Foto tidak boleh kosong!" }),
+});
 
 const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
   fromId: -1,
@@ -45,77 +36,77 @@ const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
   questions: [
     {
       questionId: -1,
-      fromId: -1,
-      toId: -2,
       answer: "",
       question: {
         id: -1,
         question: "",
-        created_at: "",
-        updated_at: "",
-        is_mandatory: true,
       },
     },
     {
       questionId: -2,
-      fromId: -1,
-      toId: -2,
       answer: "",
       question: {
-        id: -2,
+        id: -1,
         question: "",
-        created_at: "",
-        updated_at: "",
-        is_mandatory: true,
       },
     },
     {
       questionId: -3,
-      fromId: -1,
-      toId: -2,
       answer: "",
       question: {
-        id: -3,
+        id: -1,
         question: "",
-        created_at: "",
-        updated_at: "",
-        is_mandatory: false,
       },
     },
     {
       questionId: -4,
-      fromId: -1,
-      toId: -2,
       answer: "",
       question: {
-        id: -4,
+        id: -1,
         question: "",
-        created_at: "",
-        updated_at: "",
-        is_mandatory: false,
+      },
+    },
+    {
+      questionId: -5,
+      answer: "",
+      question: {
+        id: -1,
+        question: "",
+      },
+    },
+    {
+      questionId: -6,
+      answer: "",
+      question: {
+        id: -1,
+        question: "",
+      },
+    },
+    {
+      questionId: -7,
+      answer: "",
+      question: {
+        id: -1,
+        question: "",
+      },
+    },
+    {
+      questionId: -8,
+      answer: "",
+      question: {
+        id: -1,
+        question: "",
       },
     },
   ],
 };
 
-const networkingFromSchema = z.object({
-  answer1: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
-  answer2: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
-  answer3: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
-  answer4: z.string().min(1, { message: "Pertanyaan harus dijawab!" }),
-  photo: z.instanceof(File, { message: "Foto tidak boleh kosong!" }),
-});
-
-async function NetworkingAssignmentPage({
-  params,
-}: {
-  params: Promise<{ userId: string }>;
-}) {
-  const { userId } = await params;
+function NetworkingAssignmentPage() {
+  const { userId } = useParams();
   const { token } = useAuth();
   const router = useRouter();
 
-  const [networkingAssignment, setNetworkingAssignment] =
+  const [networkingKatingAssignment, setNetworkingKatingAssignment] =
     useState<NetworkingAssignmentProps>(DEFAULT_NETWORKING_ASSINGMENT);
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -126,69 +117,74 @@ async function NetworkingAssignmentPage({
     formState: { errors },
     reset,
     control,
-  } = useForm<z.infer<typeof networkingFromSchema>>({
-    resolver: zodResolver(networkingFromSchema),
+  } = useForm<z.infer<typeof networkingKatingFormSchema>>({
+    resolver: zodResolver(networkingKatingFormSchema),
   });
-
-  // console.log(token)
 
   const getData = async () => {
     try {
       setIsFetching(true);
-      const res = await api({
-        url: `${process.env.API_BASE_URL}/networking/${userId}`,
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res: AxiosResponse<APIResponse<NetworkingAssignmentProps>> =
+        await api({
+          url: `networking-kating/${userId}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      setNetworkingAssignment(res.data);
-      // console.log(res, "ini res");
+      const payload = res.data;
+
+      console.log(payload.data!);
+      setNetworkingKatingAssignment(payload.data!);
     } catch (error: any) {
       console.log("Error while getting networking assignment");
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
     } finally {
       setIsFetching(false);
     }
   };
 
   const handleSubmitNetworking = async (
-    data: z.infer<typeof networkingFromSchema>,
+    data: z.infer<typeof networkingKatingFormSchema>,
   ) => {
     try {
       setIsSubmitting(true);
-      const form = new FormData();
-      form.append("file", data.photo);
-      form.append("upload_preset", "ppmb_kmbui");
+      const formData = new FormData();
+      formData.append("file", data.photo);
+      formData.append("upload_preset", "networking_evidence");
 
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
-        form,
+        formData,
       );
+
       const uploadedPhotoUrl = res.data.url;
       await api({
-        url: `${process.env.API_BASE_URL}/networking/${userId}`,
+        url: `/networking-maba/${userId}`,
         method: "PUT",
         data: {
           img_url: uploadedPhotoUrl,
           answers: [
             {
-              questionId: networkingAssignment.questions[0].questionId,
+              questionId: networkingKatingAssignment.questions[0].questionId,
               answer: data.answer1,
             },
             {
-              questionId: networkingAssignment.questions[1].questionId,
+              questionId: networkingKatingAssignment.questions[1].questionId,
               answer: data.answer2,
             },
             {
-              questionId: networkingAssignment.questions[2].questionId,
+              questionId: networkingKatingAssignment.questions[2].questionId,
               answer: data.answer3,
             },
-            {
-              questionId: networkingAssignment.questions[3].questionId,
-              answer: data.answer4,
-            },
           ],
+          secondaryAnswers: {
+            question: data.question8,
+            answer: data.answer8,
+          },
         },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -221,44 +217,44 @@ async function NetworkingAssignmentPage({
         >
           <Input
             {...register("answer1")}
-            label={networkingAssignment.questions[0].question.question}
-            placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[0].answer : "Masukkan jawabanmu di sini"}`}
+            label={networkingKatingAssignment.questions[0].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[0].answer : "Masukkan jawabanmu di sini"}`}
             icon={<HiChatAlt2 />}
             error={errors.answer1?.message}
-            disabled={networkingAssignment.is_done}
+            disabled={networkingKatingAssignment.is_done}
           />
           <Input
             {...register("answer2")}
-            label={networkingAssignment.questions[1].question.question}
-            placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[1].answer : "Masukkan jawabanmu di sini"}`}
+            label={networkingKatingAssignment.questions[1].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[1].answer : "Masukkan jawabanmu di sini"}`}
             icon={<HiChatAlt2 />}
             error={errors.answer2?.message}
-            disabled={networkingAssignment.is_done}
+            disabled={networkingKatingAssignment.is_done}
           />
           <Input
             {...register("answer3")}
-            label={networkingAssignment.questions[2].question.question}
-            placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[2].answer : "Masukkan jawabanmu di sini"}`}
+            label={networkingKatingAssignment.questions[2].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[2].answer : "Masukkan jawabanmu di sini"}`}
             icon={<HiChatAlt2 />}
             error={errors.answer3?.message}
-            disabled={networkingAssignment.is_done}
+            disabled={networkingKatingAssignment.is_done}
           />
           <Input
             {...register("answer4")}
-            label={networkingAssignment.questions[3].question.question}
-            placeholder={`${networkingAssignment.is_done ? networkingAssignment.questions[3].answer : "Masukkan jawabanmu di sini"}`}
+            label={networkingKatingAssignment.questions[3].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[3].answer : "Masukkan jawabanmu di sini"}`}
             icon={<HiChatAlt2 />}
             error={errors.answer4?.message}
-            disabled={networkingAssignment.is_done}
+            disabled={networkingKatingAssignment.is_done}
           />
 
           <div className="mt-3 flex">
             <Button
               label="Kumpulkan"
-              type={`${networkingAssignment.is_done ? "reset" : "submit"}`}
+              type={`${networkingKatingAssignment.is_done ? "reset" : "submit"}`}
               size="lg"
               disabled={isSubmitting}
-              className={`${networkingAssignment.is_done && "cursor-not-allowed hover:bg-none"}`}
+              className={`${networkingKatingAssignment.is_done && "cursor-not-allowed hover:bg-none"}`}
             />
           </div>
         </form>
@@ -275,7 +271,9 @@ async function NetworkingAssignmentPage({
               fileType="image"
               error={errors.photo?.message}
               answer={
-                networkingAssignment.is_done ? networkingAssignment.img_url : ""
+                networkingKatingAssignment.is_done
+                  ? networkingKatingAssignment.img_url
+                  : ""
               }
             />
           )}

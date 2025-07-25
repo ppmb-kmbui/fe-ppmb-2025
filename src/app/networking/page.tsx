@@ -148,4 +148,4 @@ const NetworkingPage: React.FC = () => {
   );
 };
 
-export default withAuth(NetworkingPage, "freshman");
+export default withAuth(NetworkingPage, "authenticated");
