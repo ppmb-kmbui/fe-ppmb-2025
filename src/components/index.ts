@@ -7,6 +7,7 @@ export { Sidebar } from "./template/navbar/2025/Sidebar";
 export { Modal } from "./ui/Modal";
 export { Accordion } from "./ui/Accordion";
 export { Loader } from "./ui/Loader";
+export { SectionTitle } from "./ui/SectionTitle";
 
 export { AnnouncementCard } from "./ui/card/AnnouncementCard";
 export { UserCard } from "./ui/card/UserCard";
