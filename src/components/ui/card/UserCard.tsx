@@ -136,12 +136,14 @@ export const UserCard: React.FC<UserCardProps> = ({
       "border-yellow-300 border text-yellow-300 pointer-events-none cursor-not-allowed",
     accepted:
       "bg-turquoise-200 text-turquoise-300 cursor-pointer hover:opacity-80",
+    in_progress:
+      "bg-turquoise-200 text-turquoise-300 cursor-pointer hover:opacity-80",
     reject:
       "mx-0! ml-1! border-pink-300 border text-pink-300 cursor-pointer hover:bg-pink-100",
     accept:
       "mx-0! mr-1! bg-turquoise-300 text-white cursor-pointer hover:opacity-80",
     complete:
-      "border-neutral-dark text-neutral-dark cursor-pointer hover:opacity-80",
+      "bg-turquoise-200 text-turquoise-300 cursor-pointer hover:opacity-80",
   };
 
   return (
@@ -237,8 +239,8 @@ export const UserCard: React.FC<UserCardProps> = ({
 
         {dynamicStatus == "sedang_networking" && (
           <button
-            className={`bg-ppmb-blue-700 hover:bg-ppmb-blue-800 flex min-h-[28px] w-full items-center justify-center rounded-lg py-[2px]`}
-            onClick={() => router.push(`/networking/${id}`)}
+            className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.in_progress} ${buttonBaseClasses}`}
+            onClick={() => router.push(`/networking/maba/${id}`)}
           >
             <p>Networking</p>
           </button>
@@ -247,7 +249,7 @@ export const UserCard: React.FC<UserCardProps> = ({
         {dynamicStatus == "done" && (
           <button
             className={`${buttonVariantClasses.complete} ${buttonBaseClasses}`}
-            onClick={() => router.push(`/networking/${id}`)}
+            onClick={() => router.push(`/networking/maba/${id}`)}
           >
             <p>Selesai</p>
             <HiCheck size={20} />

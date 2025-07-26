@@ -3,7 +3,7 @@ import { tv } from "tailwind-variants";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   variant?: "primary" | "secondary" | "icon";
-  color?: "yellow" | "gray";
+  color?: "yellow" | "gray" | "turquoise";
   size?: "sm" | "md" | "lg";
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -11,7 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const buttonVariants = tv({
-  base: "flex flex-row font-medium hover:opacity-[0.8] transition-colors duration-75 justify-center items-center ease-in-out gap-2 disabled:cursor-not-allowed disabled:text-neutral-light disabled:opacity-80 hover:cursor-pointer",
+  base: "flex flex-row font-medium transition-colors duration-75 justify-center items-center ease-in-out gap-2 disabled:cursor-not-allowed disabled:text-neutral-light disabled:opacity-80 ",
   variants: {
     variant: {
       primary: "",
@@ -20,8 +20,10 @@ const buttonVariants = tv({
     },
     color: {
       yellow:
-        "bg-yellow-300 text-neutral-dark hover:opacity-[0.8] hover:cursor-pointer disabled:hover:bg-yellow-300",
+        "bg-yellow-300 text-neutral-dark hover:opacity-[0.8] cursor-pointer disabled:hover:bg-yellow-300",
       gray: "bg-neutral-medium disabled:hover:bg-neutral-medium",
+      turquoise:
+        "bg-turquoise-300 hover:opacity-[0.8] cursor-pointer disabled:hover:bg-turquoise-300",
     },
     size: {
       sm: "",

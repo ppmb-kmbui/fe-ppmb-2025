@@ -4,6 +4,7 @@ import { body, title } from "@/styles/fonts";
 import { forwardRef, Ref, useState } from "react";
 import { HiEye, HiEyeOff, HiUser } from "react-icons/hi";
 import { tv } from "tailwind-variants";
+import { RxCross2 } from "react-icons/rx";
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
@@ -12,17 +13,23 @@ export interface InputProps
   icon?: React.ReactNode;
   leftIcon?: React.ReactNode;
   variant?: "standard";
+  color?: "white" | "blue" | "turquoise";
   error?: string;
   size?: "md" | "lg";
   ref?: Ref<HTMLInputElement>;
 }
 
 const inputVariants = tv({
-  base: "flex flex-row bg-white items-center text-neutral-dark border-b-neutral-medium border-b-2 gap-x-2",
+  base: "flex flex-row lg:text-lg text-[24px] items-center text-neutral-dark border-b-neutral-medium border-b-2 gap-x-2",
   variants: {
     variant: {
       standard: "w-full",
       // rounded: "rounded-3xl px-5"
+    },
+    color: {
+      white: "bg-white",
+      blue: "bg-blue-100 *:bg-blue-100 *:placeholder:text-neutral-dark",
+      turquoise: "bg-turquoise-100",
     },
     size: {
       md: "text-lg py-[5px] px-3",
@@ -41,6 +48,7 @@ export const Input = ({
   icon,
   variant = "standard",
   size = "md",
+  color = "white",
   error,
   leftIcon,
   onChange,
@@ -58,7 +66,7 @@ export const Input = ({
         </div>
       )}
 
-      <div className={inputVariants({ variant, size })}>
+      <div className={inputVariants({ variant, color, size })}>
         {leftIcon && (
           <label htmlFor={props.id} className="text-neutral-medium cursor-text">
             {leftIcon}
@@ -69,7 +77,7 @@ export const Input = ({
           ref={ref}
           value={props.value}
           onChange={onChange}
-          className={`placeholder:${title.className}! placeholder:text-neutral-medium placeholder:text-md w-full bg-white font-medium placeholder:font-normal focus:outline-none lg:placeholder:text-lg`}
+          className={`placeholder:${title.className}! placeholder:text-neutral-medium w-full bg-white font-medium placeholder:text-[16px] placeholder:font-normal focus:outline-none lg:placeholder:text-lg`}
           type={
             label?.split(" ").includes("Password") && !isVisible
               ? "password"
@@ -89,7 +97,11 @@ export const Input = ({
         )}
       </div>
 
-      {error && <p className="text-ppmb-red-500 text-sm">{error}</p>}
+      {error && (
+        <p className="text-sm text-red-600">
+          <RxCross2 className="inline" /> {error}
+        </p>
+      )}
     </div>
   );
 };

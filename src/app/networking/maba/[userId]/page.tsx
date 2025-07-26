@@ -11,7 +11,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { HiChatAlt2 } from "react-icons/hi";
 import { z } from "zod";
 import { NetworkingAssignmentProps } from "@/utils/interface";
 
@@ -60,9 +59,7 @@ const networkingMabaFormSchema = z.object({
   answer1: z.string().min(1, "Pertanyaan harus dijawab!"),
   answer2: z.string().min(1, "Pertanyaan harus dijawab!"),
   answer3: z.string().min(1, "Pertanyaan harus dijawab!"),
-  question4: z
-    .string()
-    .min(1, "Cantumkan pertanyaan tambahan yang kamu tanyakan!"),
+  question4: z.string().min(1, "Cantumkan pertanyaan yang kamu tanyakan!"),
   answer4: z.string().min(1, "Pertanyaan harus dijawab!"),
   photo: z.instanceof(File, { error: "Foto tidak boleh kosong!" }),
 });
@@ -91,7 +88,7 @@ function NetworkingAssignmentPage() {
     try {
       setIsFetching(true);
       const res: AxiosResponse<APIResponse<any>> = await api({
-        url: `${process.env.API_BASE_URL}/networking-maba/${userId}`,
+        url: `networking-maba/${userId}`,
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -127,7 +124,7 @@ function NetworkingAssignmentPage() {
 
       const uploadedPhotoUrl = res.data.url;
       await api({
-        url: `${process.env.API_BASE_URL}/networking-maba/${userId}`,
+        url: `networking-maba/${userId}`,
         method: "PUT",
         data: {
           img_url: uploadedPhotoUrl,
@@ -145,7 +142,7 @@ function NetworkingAssignmentPage() {
               answer: data.answer3,
             },
           ],
-          secondaryAnswers: {
+          secondary_answers: {
             question: data.question4,
             answer: data.answer4,
           },
@@ -167,82 +164,98 @@ function NetworkingAssignmentPage() {
     getData();
   }, []);
 
-  // console.log("ini networking assignment", networkingAssignment)
-
   return isFetching ? (
     <LoadingScreen />
   ) : (
-    <div className="flex h-full min-h-screen flex-col">
-      {/* <Header label="Networking" /> */}
-      <div className="flex h-full flex-col-reverse items-center justify-center gap-8 px-10 py-10 md:flex-row md:justify-evenly md:gap-5 md:px-[60px]">
-        <form
-          onSubmit={handleSubmit(handleSubmitNetworking)}
-          className="font-montserrat flex h-full w-full flex-col items-center justify-center gap-5 font-medium"
-        >
+    <div className="flex h-fit flex-col-reverse items-center justify-center gap-8 px-10 py-10 md:h-full md:flex-row md:items-center md:justify-evenly md:gap-5 md:px-[60px]">
+      <form
+        onSubmit={handleSubmit(handleSubmitNetworking)}
+        className="font-montserrat flex h-full w-full flex-col items-center justify-center gap-5 font-medium"
+      >
+        <Input
+          {...register("answer1")}
+          label={networkingMabaAssignment.questions[0].question.question}
+          placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[0].answer : "Masukkan jawaban mereka di sini"}`}
+          error={errors.answer1?.message}
+          disabled={networkingMabaAssignment.is_done}
+        />
+        <Input
+          {...register("answer2")}
+          label={networkingMabaAssignment.questions[1].question.question}
+          placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[1].answer : "Masukkan jawaban mereka di sini"}`}
+          error={errors.answer2?.message}
+          disabled={networkingMabaAssignment.is_done}
+        />
+        <Input
+          {...register("answer3")}
+          label={networkingMabaAssignment.questions[2].question.question}
+          placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[2].answer : "Masukkan jawaban mereka di sini"}`}
+          error={errors.answer3?.message}
+          disabled={networkingMabaAssignment.is_done}
+        />
+        <div className="flex w-full flex-col gap-y-2">
+          <h3>Buatlah pertanyaanmu sendiri!</h3>
           <Input
-            {...register("answer1")}
-            label={networkingMabaAssignment.questions[0].question.question}
-            placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[0].answer : "Masukkan jawabanmu di sini"}`}
-            icon={<HiChatAlt2 />}
-            error={errors.answer1?.message}
+            {...register("question4")}
+            value={
+              !!networkingMabaAssignment.questions[3]?.question?.question
+                ? networkingMabaAssignment.questions[3].question.question
+                : ""
+            }
+            placeholder="Tulis pertanyaanmu di sini"
+            error={errors.question4?.message}
             disabled={networkingMabaAssignment.is_done}
-          />
-          <Input
-            {...register("answer2")}
-            label={networkingMabaAssignment.questions[1].question.question}
-            placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[1].answer : "Masukkan jawabanmu di sini"}`}
-            icon={<HiChatAlt2 />}
-            error={errors.answer2?.message}
-            disabled={networkingMabaAssignment.is_done}
-          />
-          <Input
-            {...register("answer3")}
-            label={networkingMabaAssignment.questions[2].question.question}
-            placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[2].answer : "Masukkan jawabanmu di sini"}`}
-            icon={<HiChatAlt2 />}
-            error={errors.answer3?.message}
-            disabled={networkingMabaAssignment.is_done}
+            color="blue"
           />
           <Input
             {...register("answer4")}
-            label={networkingMabaAssignment.questions[3].question.question}
-            placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[3].answer : "Masukkan jawabanmu di sini"}`}
-            icon={<HiChatAlt2 />}
+            placeholder={`${networkingMabaAssignment.is_done ? networkingMabaAssignment.questions[3].answer : "Masukkan jawaban mereka di sini"}`}
             error={errors.answer4?.message}
             disabled={networkingMabaAssignment.is_done}
           />
+        </div>
 
-          <div className="mt-3 flex">
+        <div className="mt-3 flex gap-x-2">
+          <Button
+            label="Kumpulkan"
+            type={`${networkingMabaAssignment.is_done ? "button" : "submit"}`}
+            color={networkingMabaAssignment.is_done ? "gray" : "turquoise"}
+            size="lg"
+            disabled={isSubmitting}
+            className={`${networkingMabaAssignment.is_done && "cursor-not-allowed hover:bg-none"} text-white`}
+          />
+          {networkingMabaAssignment.is_done && (
             <Button
-              label="Kumpulkan"
-              type={`${networkingMabaAssignment.is_done ? "reset" : "submit"}`}
+              label="Kembali"
+              type="button"
+              color="turquoise"
               size="lg"
-              disabled={isSubmitting}
-              className={`${networkingMabaAssignment.is_done && "cursor-not-allowed hover:bg-none"}`}
-            />
-          </div>
-        </form>
-
-        <Controller
-          name="photo"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <FileInput
-              file={value as File | null}
-              onChange={(file) => onChange(file)}
-              label="Unggah foto kamu"
-              description="Unggah dalam bentuk .jpg/.jpeg/.png"
-              fileType="image"
-              error={errors.photo?.message}
-              answer={
-                networkingMabaAssignment.is_done
-                  ? networkingMabaAssignment.img_url
-                  : ""
-              }
+              className="text-white"
+              onClick={() => router.back()}
             />
           )}
-        />
-      </div>
+        </div>
+      </form>
+
+      <Controller
+        name="photo"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <FileInput
+            file={value as File | null}
+            onChange={(file) => onChange(file)}
+            label="Unggah foto kamu"
+            description="Unggah dalam bentuk .jpg/.jpeg/.png"
+            fileType="image"
+            error={errors.photo?.message}
+            answer={
+              networkingMabaAssignment.is_done
+                ? networkingMabaAssignment.img_url
+                : ""
+            }
+          />
+        )}
+      />
     </div>
   );
 }
