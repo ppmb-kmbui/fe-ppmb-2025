@@ -48,7 +48,7 @@ const AdminPage: React.FC = () => {
       setAttendances(res.data);
 
       const res2 = await api({
-        url: "api/friends",
+        url: "friends",
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -167,28 +167,26 @@ const AdminPage: React.FC = () => {
   return isFetching ? (
     <LoadingScreen />
   ) : (
-    <div className="min-h-screen p-10 gap-10 flex-col flex">
+    <div className="flex min-h-screen flex-col gap-10 p-10">
       <div className="flex flex-col">
-        <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row items-center justify-between">
           <p className="text-[27px] leading-[1.6] font-semibold">
             Absensi PPMB
           </p>
           <Button label="Buat Absensi" onClick={generateAttendance} />
         </div>
 
-        <div className="grid grid-cols-2 md:flex md:flex-row md:overflow-x-auto md:max-w-[84vw] lg:max-w-[89vw] items-center gap-5 scrollbar-hide py-3 pr-3">
+        <div className="scrollbar-hide grid grid-cols-2 items-center gap-5 py-3 pr-3 md:flex md:max-w-[84vw] md:flex-row md:overflow-x-auto lg:max-w-[89vw]">
           {attendances.map((attendance, key) => (
             <div
               key={key}
-              className="bg-white rounded-xl p-5 min-w-[340px] h-[230px] shadow-custom"
+              className="shadow-custom h-[230px] min-w-[340px] rounded-xl bg-white p-5"
             >
-              <div className="flex flex-col h-full">
+              <div className="flex h-full flex-col">
                 <p className="text-xl font-medium">{attendance.name}</p>
 
-                <div className="flex items-center justify-center flex-1">
-                  <p className="text-5xl font-semibold ">
-                    {attendance.code}
-                  </p>
+                <div className="flex flex-1 items-center justify-center">
+                  <p className="text-5xl font-semibold">{attendance.code}</p>
                 </div>
 
                 <div className="flex flex-row gap-3">
@@ -197,7 +195,7 @@ const AdminPage: React.FC = () => {
                     onClick={() => copyToClipboard(attendance.code)}
                     className="w-full"
                   />
-                  <button className="text-ppmb-red-500 border-[2px] border-ppmb-red-500 rounded-md p-2 hover:bg-ppmb-red-100">
+                  <button className="text-ppmb-red-500 border-ppmb-red-500 hover:bg-ppmb-red-100 rounded-md border-[2px] p-2">
                     <HiOutlineTrash size={20} />
                   </button>
                 </div>
@@ -207,7 +205,7 @@ const AdminPage: React.FC = () => {
         </div>
 
         <p
-          className={`${attendances.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-neutral-medium`}
+          className={`${attendances.length == 0 ? "flex" : "hidden"} text-neutral-medium w-full text-lg italic`}
         >
           Anda belum pernah membuat kode absensi :(
         </p>
@@ -223,7 +221,7 @@ const AdminPage: React.FC = () => {
               onSubmit(data, userTask.explorerTask[0].id, "explorer"),
             )}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div>
                 <p>KMBUI Explorer</p>
                 {userTask?.explorerTask?.map((e: any, key: number) => (
@@ -232,7 +230,7 @@ const AdminPage: React.FC = () => {
                     href={e.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 underline ml-2"
+                    className="ml-2 text-blue-500 underline"
                   >
                     {e.file_url}
                   </a>
@@ -250,7 +248,7 @@ const AdminPage: React.FC = () => {
                   <>
                     <input
                       {...register("explorer")}
-                      className="px-2 border border-ppmb-700"
+                      className="border-ppmb-700 border px-2"
                     />
                     <Button label="Submit" />
                   </>
@@ -264,14 +262,14 @@ const AdminPage: React.FC = () => {
               onSubmit(data, userTask?.firstFossibTask.id, "fossib_first"),
             )}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div>
                 <p>Fossib 1</p>
                 <a
                   href={userTask?.firstFossibTask?.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline ml-2"
+                  className="ml-2 text-blue-500 underline"
                 >
                   {userTask?.firstFossibTask?.file_url}
                 </a>
@@ -286,7 +284,7 @@ const AdminPage: React.FC = () => {
                   <>
                     <input
                       {...register("fossib_first")}
-                      className="px-2 border border-ppmb-700"
+                      className="border-ppmb-700 border px-2"
                     />
                     <Button label="submit" />
                   </>
@@ -300,14 +298,14 @@ const AdminPage: React.FC = () => {
               onSubmit(data, userTask?.secondFossibTask?.id, "fossib_second"),
             )}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div>
                 <p>Fossib 2</p>
                 <a
                   href={userTask?.secondFossibTask?.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline ml-2"
+                  className="ml-2 text-blue-500 underline"
                 >
                   {userTask?.secondFossibTask?.file_url}
                 </a>
@@ -323,7 +321,7 @@ const AdminPage: React.FC = () => {
                     <>
                       <input
                         {...register("fossib_second")}
-                        className="px-2 border border-ppmb-700"
+                        className="border-ppmb-700 border px-2"
                       />
                       <Button label="submit" />
                     </>
@@ -342,7 +340,7 @@ const AdminPage: React.FC = () => {
               ),
             )}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div>
                 <p>insight hunting</p>
                 {userTask?.insightHuntingTask?.map((ih: any, key: number) => (
@@ -350,7 +348,7 @@ const AdminPage: React.FC = () => {
                     href={ih.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 underline ml-2"
+                    className="ml-2 text-blue-500 underline"
                   >
                     {ih.file_url}
                   </a>
@@ -371,7 +369,7 @@ const AdminPage: React.FC = () => {
                   <>
                     <input
                       {...register("insight_hunting")}
-                      className="px-2 border border-ppmb-700"
+                      className="border-ppmb-700 border px-2"
                     />
                     <Button label="submit" />
                   </>
@@ -389,14 +387,14 @@ const AdminPage: React.FC = () => {
               ),
             )}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div>
                 <p>mentoring reflection</p>
                 <a
                   href={userTask?.mentoringReflectionTask?.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline ml-2"
+                  className="ml-2 text-blue-500 underline"
                 >
                   {userTask?.mentoringReflectionTask?.file_url}
                 </a>
@@ -409,7 +407,7 @@ const AdminPage: React.FC = () => {
                   </p>
                 ) : (
                   <>
-                    <input className="px-2 border border-ppmb-700" />
+                    <input className="border-ppmb-700 border px-2" />
                     <Button label="submit" />
                   </>
                 )}
@@ -424,14 +422,14 @@ const AdminPage: React.FC = () => {
               onSubmit(data, userTask?.mentoringVlogTask?.id, "mentoring_vlog"),
             )}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div>
                 <p>mentoring vlog</p>
                 <a
                   href={userTask?.mentoringVlogTask?.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline ml-2"
+                  className="ml-2 text-blue-500 underline"
                 >
                   {userTask?.mentoringVlogTask?.file_url}
                 </a>
@@ -443,7 +441,7 @@ const AdminPage: React.FC = () => {
                   </p>
                 ) : (
                   <>
-                    <input className="px-2 border border-ppmb-700" />
+                    <input className="border-ppmb-700 border px-2" />
                     <Button label="submit" />
                   </>
                 )}
@@ -452,7 +450,7 @@ const AdminPage: React.FC = () => {
           </form>
 
           <form onSubmit={handleSubmit((data) => onSubmitNetworking(data))}>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <p>networking</p>
               <div className="flex items-center space-x-2">
                 {userTask?.networkingTask.score ? (
@@ -461,7 +459,7 @@ const AdminPage: React.FC = () => {
                   <>
                     <input
                       {...register("networking")}
-                      className="px-2 border border-ppmb-700"
+                      className="border-ppmb-700 border px-2"
                     />
                     <Button label="submit" />
                   </>
@@ -474,7 +472,7 @@ const AdminPage: React.FC = () => {
             {userTask?.networkingTask.map((task: any, key: number) => (
               <div
                 key={key}
-                className="bg-ppmb-50 p-4 rounded-xl flex flex-col"
+                className="bg-ppmb-50 flex flex-col rounded-xl p-4"
               >
                 <p>
                   {key + 1}. Nama: {task.to.fullname}
@@ -487,7 +485,7 @@ const AdminPage: React.FC = () => {
                     href={task.img_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 underline ml-2"
+                    className="ml-2 text-blue-500 underline"
                   >
                     {task.img_url}
                   </a>
@@ -510,7 +508,7 @@ const AdminPage: React.FC = () => {
             {userTask?.networkingKating.map((task: any, key: number) => (
               <div
                 key={key}
-                className="bg-ppmb-50 p-4 rounded-xl flex flex-col"
+                className="bg-ppmb-50 flex flex-col rounded-xl p-4"
               >
                 <p>Berkas: {}</p>
 
@@ -519,7 +517,7 @@ const AdminPage: React.FC = () => {
                   href={task.file_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline ml-2"
+                  className="ml-2 text-blue-500 underline"
                 >
                   {task.file_url}
                 </a>

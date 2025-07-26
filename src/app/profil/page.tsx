@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader, Modal, UserCard } from "@/components";
+import { GridView, Loader, Modal, SectionTitle, UserCard } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import axios from "axios";
@@ -34,6 +34,7 @@ const ProfilPage: React.FC = () => {
   const deleteImageProfile = async () => {
     try {
       await api({
+        baseURL: "",
         url: "/api/images",
         method: "DELETE",
         data: {
@@ -56,17 +57,17 @@ const ProfilPage: React.FC = () => {
       setIsLoading(true);
       await deleteImageProfile();
 
-      const form = new FormData();
-      form.append("file", photo);
-      form.append("upload_preset", "ppmb_kmbui");
+      const formData = new FormData();
+      formData.append("file", photo);
+      formData.append("upload_preset", "ppmb_kmbui");
 
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
-        form,
+        formData,
       );
 
       const res2 = await api({
-        url: "api/profile",
+        url: "profile",
         method: "PUT",
         data: {
           imgUrl: res.data.url,
@@ -85,7 +86,7 @@ const ProfilPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-5 px-4 md:p-6 lg:p-10 gap-5 md:gap-10 flex flex-col">
+    <div className="flex h-full flex-col gap-5 px-4 py-5 md:gap-10 md:p-6 lg:p-10">
       <Modal
         isOpen={isOpen}
         onClose={close}
@@ -97,8 +98,8 @@ const ProfilPage: React.FC = () => {
         file={photo}
       />
 
-      <div className="flex flex-col md:flex-row gap-5 lg:gap-10">
-        <div className="flex w-full md:w-[70%] lg:w-[80%] flex-row bg-white rounded-lg py-6 px-5 md:py-8 lg:p-8 gap-3 md:gap-5 lg:gap-7 h-[160px] md:h-[200px] items-center shadow-custom">
+      <div className="flex flex-col gap-5 md:flex-row lg:gap-10">
+        <div className="shadow-neutral-medium flex h-[160px] w-full flex-row items-center gap-3 rounded-lg bg-white px-5 py-6 shadow-lg md:h-[200px] md:w-[70%] md:gap-5 md:py-8 lg:w-[80%] lg:gap-7 lg:p-8">
           <div className="relative flex h-[95px] w-[95px] md:h-[140px] md:w-[140px]">
             <Image
               src={dynamicPhoto}
@@ -109,7 +110,7 @@ const ProfilPage: React.FC = () => {
             />
 
             <button
-              className={`${isLoading && "cursor-not-allowed"} absolute bottom-0 right-0 bg-white p-1 md:p-[7px] md:text-[20px] rounded-full text-ppmb-blue-600 border-[2px] border-ppmb-blue-600`}
+              className={`${isLoading && "cursor-not-allowed"} absolute right-0 bottom-0 rounded-full border-2 border-blue-300 bg-white p-1 text-blue-300 md:p-2 md:text-[20px]`}
               onClick={open}
               disabled={isLoading}
             >
@@ -117,43 +118,39 @@ const ProfilPage: React.FC = () => {
             </button>
           </div>
 
-          <div className="flex h-full min-w-[2px] bg-ppmb-800 rounded-lg"></div>
+          {/* <div className="bg-ppmb-800 flex h-full min-w-[2px] rounded-lg"></div> */}
 
           <div className="flex flex-col">
-            <p className="text-xl md:text-3xl lg:text-4xl font-semibold text-ppmb-800 leading-none">
+            <p className="text-h5 text-xl leading-none font-semibold md:text-3xl lg:text-4xl">
               {user?.fullname}
             </p>
-            <p className="italic text-neutral-medium text-sm md:text-lg">
+            <p className="text-neutral-dark text-sm font-semibold md:text-lg">
               {user.faculty}, {user.batch}
+            </p>
+            <p className="text-neutral-medium text-sm md:text-lg">
+              {user.email}
             </p>
           </div>
         </div>
 
-        <div className="w-full md:w-[30%] lg:w-[20%] flex flex-col rounded-lg p-3 md:p-8 bg-white md:h-[200px] items-center justify-center md:gap-2 shadow-custom">
-          <p className="font-medium text-3xl md:text-5xl lg:text-7xl">
+        <div className="shadow-neutral-medium flex w-full flex-col items-center justify-center rounded-lg bg-white p-3 shadow-lg md:h-[200px] md:w-[30%] md:gap-2 md:p-8 lg:w-[20%]">
+          <p className="text-3xl font-medium md:text-5xl lg:text-7xl">
             {user.followers}
           </p>
           <p className="text-sm md:text-xl">pengikut</p>
         </div>
       </div>
 
-      <div className="flex flex-col gap-1 md:gap-3 mt-2">
-        <p className="text-xl md:text-2xl lg:text-3xl font-semibold">
-          Sudah Berkenalan dengan
-        </p>
-        <div
-          className={`${user.networking_tasks.length == 0 ? "flex" : "grid"} grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6`}
+      <div className="mt-2 flex flex-col gap-1 md:gap-3">
+        <SectionTitle text="Sudah Berkenalan" />
+        <GridView
+          iterable={user.networking_tasks}
+          emptyMessage="Kamu belum menyelesaikan networking dengan siapa pun :("
         >
           {user.networking_tasks.map((friend, key) => (
             <UserCard key={key} {...friend.to} status="done" />
           ))}
-
-          <p
-            className={`${user.networking_tasks.length == 0 ? "flex" : "hidden"} text-lg italic w-full text-neutral-medium`}
-          >
-            Kamu belum menyelesaikan networking dengan siapa pun
-          </p>
-        </div>
+        </GridView>
       </div>
     </div>
   );
