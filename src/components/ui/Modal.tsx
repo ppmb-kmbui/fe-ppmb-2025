@@ -78,12 +78,12 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={`fixed z-[999] top-0 left-0 w-full h-full bg-black bg-opacity-60 flex justify-center items-center ${isOpen ? "block no-doc-scroll" : "hidden"}`}
+      className={`fixed top-0 left-0 z-[999] flex h-full w-full items-center justify-center bg-white backdrop-opacity-20 ${isOpen ? "no-doc-scroll block" : "hidden"}`}
     >
-      <div className="flex flex-col w-2/5 max-h-[90%] min-w-[360px] bg-ppmb-000 rounded-xl p-7">
+      <div className="flex max-h-[90%] w-2/5 min-w-[360px] flex-col rounded-xl p-7">
         <div className="flex justify-end">
           <button
-            className="hover:bg-ppmb-100 hover:text-ppmb-600 p-2 rounded-[6px] text-[22px]"
+            className="hover:bg-ppmb-100 hover:text-ppmb-600 rounded-[6px] p-2 text-[22px]"
             onClick={onClose}
           >
             <HiOutlineX />
@@ -94,7 +94,7 @@ export const Modal: React.FC<ModalProps> = ({
           {type === "input" && (
             <div className="flex flex-col">
               <span className="text-xl font-medium">{label}</span>
-              <span className="italic text-sm">{sublabel}</span>
+              <span className="text-sm italic">{sublabel}</span>
             </div>
           )}
 
@@ -137,7 +137,7 @@ export const Modal: React.FC<ModalProps> = ({
               size="md"
               type="submit"
               disabled={isLoading}
-              className="w-[180px] mt-5"
+              className="mt-5 w-[180px]"
             />
           </div>
         </div>
