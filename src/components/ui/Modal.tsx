@@ -92,8 +92,8 @@ export const Modal: React.FC<ModalProps> = ({
     <div
       className={`fixed top-0 left-0 z-[999] flex h-full w-full items-center justify-center bg-[rgba(255,255,255,0.8)] ${isOpen ? "no-doc-scroll block backdrop-blur-sm" : "hidden"}`}
     >
-      <div className="flex h-1/2 w-1/2 flex-col items-center justify-center rounded-xl bg-white">
-        <div className="flex max-h-[90%] w-2/5 min-w-[360px] flex-col rounded-xl p-7">
+      <div className="bg-neutral-light flex h-fit w-fit flex-col items-center justify-center rounded-xl drop-shadow-md">
+        <div className="flex max-h-[90%] w-full min-w-[360px] flex-col rounded-xl p-7">
           <div className="flex justify-end">
             <button
               className="hover:bg-ppmb-100 hover:text-ppmb-600 rounded-[6px] p-2 text-[22px]"

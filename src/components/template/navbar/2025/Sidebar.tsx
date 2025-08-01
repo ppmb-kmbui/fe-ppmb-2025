@@ -38,7 +38,7 @@ export const Sidebar: React.FC = () => {
         </div>
 
         <button
-          className="mb-4 flex cursor-pointer items-center rounded-lg px-3 py-2 text-green-700 hover:bg-green-100 active:bg-green-100"
+          className={`${isAuthenticated ? "text-red-700 hover:bg-red-100" : "text-green-700 hover:bg-green-100"} mb-4 flex cursor-pointer items-center rounded-lg px-3 py-2`}
           onClick={isAuthenticated ? logout : () => router.push("/login")}
         >
           <p className="text-[26px]">
