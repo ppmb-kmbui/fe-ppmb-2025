@@ -22,5 +22,6 @@ export { Background } from "./template/Background";
 
 export { ProgressBar } from "./progressBar/ProgressBar";
 export { MultiProgressBar } from "./progressBar/MultiProgressBar";
+export { CircularProgressIndicator } from "./progressBar/CircularProgressIndicator";
 
 export { GridView } from "./layout/GridView";

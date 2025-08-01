@@ -10,12 +10,13 @@ import {
 } from "react-icons/hi";
 import { useDisclosure } from "react-use-disclosure";
 import { Modal } from "@/components";
-import { AssignmentProps, ProgressProps } from "@/app/_tugas/page";
+import { AssignmentProps, ProgressProps } from "@/app/tugas/page";
 import axios from "axios";
 import { api } from "@/utils/axios";
 import { useAuth } from "@/context/AuthContext";
 import { Dispatch, SetStateAction, useState } from "react";
 import { formatDate } from "@/utils/stringUtils";
+import { ModalData } from "../Modal";
 
 interface TaskProps extends AssignmentProps {
   setProgress: Dispatch<SetStateAction<ProgressProps>>;
@@ -29,6 +30,7 @@ export const TaskCard: React.FC<TaskProps> = ({
   icon,
   type,
   namingFormat,
+  uploadPreset,
   isFinished,
   template,
   vbg,
@@ -39,18 +41,17 @@ export const TaskCard: React.FC<TaskProps> = ({
   const { token } = useAuth();
   const { open, isOpen, close } = useDisclosure(false);
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: ModalData) => {
     if (data) {
-      // console.log("image", data);
       // console.log("ini id", id);
       // console.log("ini type", type)
-      if (type === "image") {
+      if (data.type === "file") {
         // console.log("haiiii2")
 
         try {
           const form = new FormData();
-          form.append("file", data);
-          form.append("upload_preset", "ppmb_kmbui");
+          form.append("file", data.file);
+          form.append("upload_preset", data.uploadPreset);
 
           const res = await axios.post(
             `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -58,28 +59,11 @@ export const TaskCard: React.FC<TaskProps> = ({
           );
 
           setUrl(res.data.url);
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-      } else if (type === "pdf") {
-        // console.log("haiiii3")
-
-        try {
-          const form = new FormData();
-          form.append("file", data.file);
-          form.append("upload_preset", "ppmb_kmbui");
-
-          const res = await axios.post(
-            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/upload`,
-            form,
-          );
-          // console.log('PDF uploaded successfully:', res.data.url);
-          setUrl(res.data.url);
 
           switch (id) {
             case "insight-hunting":
               await api({
-                url: "api/tasks/insight-hunting",
+                url: "/tasks/insight-hunting",
                 method: "POST",
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -96,7 +80,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
             case "fossib-1":
               await api({
-                url: "api/tasks/fossib/first",
+                url: "tasks/fossib/first",
                 method: "POST",
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -114,7 +98,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
             case "fossib-2":
               await api({
-                url: "api/tasks/fossib/second",
+                url: "tasks/fossib/second",
                 method: "POST",
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -130,81 +114,84 @@ export const TaskCard: React.FC<TaskProps> = ({
               }));
               break;
 
-            case "networking-2023":
-              await api({
-                url: "api/tasks/connect-kating",
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                data: {
-                  batch: 2023,
-                  file_url: res.data.url,
-                },
-              });
-              setProgress((oldProgress) => ({
-                ...oldProgress,
-                networkingKating: {
-                  ...oldProgress.networkingKating,
-                  "2023": {
-                    ...oldProgress.networkingKating["2023"],
-                    progres: oldProgress.networkingKating["2023"].progres + 1,
-                  },
-                },
-              }));
-              break;
-
-            case "networking-2022":
-              await api({
-                url: "api/tasks/connect-kating",
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                data: {
-                  batch: 2022,
-                  file_url: res.data.url,
-                },
-              });
-              setProgress((oldProgress) => ({
-                ...oldProgress,
-                networkingKating: {
-                  ...oldProgress.networkingKating,
-                  "2022": {
-                    ...oldProgress.networkingKating["2022"],
-                    progres: oldProgress.networkingKating["2022"].progres + 1,
-                  },
-                },
-              }));
-              break;
-
-            case "networking-2021":
-              await api({
-                url: "api/tasks/connect-kating",
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-                data: {
-                  batch: 2021,
-                  file_url: res.data.url,
-                },
-              });
-              setProgress((oldProgress) => ({
-                ...oldProgress,
-                networkingKating: {
-                  ...oldProgress.networkingKating,
-                  "2021": {
-                    ...oldProgress.networkingKating["2021"],
-                    progres: oldProgress.networkingKating["2021"].progres + 1,
-                  },
-                },
-              }));
-              break;
+            // case "networking-2024":
+            //   await api({
+            //     url: "api/tasks/connect-kating",
+            //     method: "POST",
+            //     headers: {
+            //       Authorization: `Bearer ${token}`,
+            //     },
+            //     data: {
+            //       batch: 2024,
+            //       file_url: res.data.url,
+            //     },
+            //   });
+            //   setProgress((oldProgress) => ({
+            //     ...oldProgress,
+            //     networkingKating: {
+            //       ...oldProgress.networkingKating,
+            //       "2024": {
+            //         ...oldProgress.networkingKating.progress[2024],
+            //         progress:
+            //           oldProgress.networkingKating.progress[2024].progress + 1,
+            //       },
+            //     },
+            //   }));
+            //   break;
+            //
+            // case "networking-2023":
+            //   await api({
+            //     url: "api/tasks/connect-kating",
+            //     method: "POST",
+            //     headers: {
+            //       Authorization: `Bearer ${token}`,
+            //     },
+            //     data: {
+            //       batch: 2023,
+            //       file_url: res.data.url,
+            //     },
+            //   });
+            //   setProgress((oldProgress) => ({
+            //     ...oldProgress,
+            //     networkingKating: {
+            //       ...oldProgress.networkingKating,
+            //       "2022": {
+            //         ...oldProgress.networkingKating.progress[2023],
+            //         progress:
+            //           oldProgress.networkingKating.progress[2023].progress + 1,
+            //       },
+            //     },
+            //   }));
+            //   break;
+            //
+            // case "networking-2022":
+            //   await api({
+            //     url: "api/tasks/connect-kating",
+            //     method: "POST",
+            //     headers: {
+            //       Authorization: `Bearer ${token}`,
+            //     },
+            //     data: {
+            //       batch: 2022,
+            //       file_url: res.data.url,
+            //     },
+            //   });
+            //   setProgress((oldProgress) => ({
+            //     ...oldProgress,
+            //     networkingKating: {
+            //       ...oldProgress.networkingKating,
+            //       "2022": {
+            //         ...oldProgress.networkingKating.progress[2022],
+            //         progress:
+            //           oldProgress.networkingKating.progress[2022].progress + 1,
+            //       },
+            //     },
+            //   }));
+            //   break;
 
             case "mentoring-sr":
               await api({
-                url: "api/tasks/mentoring/reflection",
+                url: "tasks/mentoring/reflection",
                 method: "POST",
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -222,7 +209,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
             case "kmbui-explorer":
               await api({
-                url: "api/tasks/explorer",
+                url: "tasks/explorer",
                 method: "POST",
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -244,29 +231,29 @@ export const TaskCard: React.FC<TaskProps> = ({
         } catch (error) {
           console.error("Error uploading PDF:", error);
         }
-      }
-
-      if (id == "mentoring-v") {
-        // console.log("masuk sini kok")
-        const res = await api({
-          url: "api/tasks/mentoring/vlog",
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          data: {
-            file_url: data.link,
-          },
-        });
-        setProgress((oldProgress) => ({
-          ...oldProgress,
-          mentoringVlogDone: true,
-        }));
-        if (res.status == 200) {
-          close();
+      } else if (data.type === "link") {
+        if (id == "mentoring-v") {
+          const res = await api({
+            url: "tasks/mentoring/vlog",
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: {
+              file_url: data.link,
+            },
+          });
+          setProgress((oldProgress) => ({
+            ...oldProgress,
+            mentoringVlogDone: true,
+          }));
+          if (res.status == 200) {
+            close();
+          }
         }
       }
     } else {
+      console.error("No data passed to form");
     }
   };
 
@@ -279,18 +266,19 @@ export const TaskCard: React.FC<TaskProps> = ({
         onClose={close}
         type={type}
         label={`Kumpul berkas ${name}`}
+        uploadPreset={uploadPreset}
         onSubmit={handleSubmit}
         sublabel={namingFormat}
       />
       <div
-        className={`${isOverdue && !isFinished && "opacity-70"} flex flex-col p-3 md:p-4 border-[1px] border-ppmb-200 w-full rounded-lg gap-2`}
+        className={`${isOverdue && !isFinished && "opacity-70"} border-neutral-dark flex w-full flex-col gap-2 rounded-lg border-2 bg-white p-3 shadow-md md:p-4`}
       >
-        <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:justify-between">
-          <div className="flex flex-row gap-2 md:gap-[10px] items-center">
-            <div className="flex p-[6px] bg-ppmb-blue-500 rounded-md text-xl md:text-[24px] text-ppmb-000 text-[16px]">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
+          <div className="flex flex-row items-start gap-2 md:gap-[10px]">
+            <div className="flex rounded-full bg-blue-300 p-[6px] text-xl text-[16px] text-white md:text-[24px]">
               {icon}
             </div>
-            <p className="font-semibold text-lg md:text-xl">{name}</p>
+            <p className="text-lg font-bold text-black md:text-xl">{name}</p>
           </div>
 
           <div className="flex flex-row gap-2">
@@ -301,7 +289,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                 rel="noopener noreferrer"
                 className={`flex md:hidden`}
               >
-                <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
+                <button className="hover:bg-neutral-light flex items-center gap-[6px] rounded-lg border-[2px] border-black px-3 py-[2px] pl-[16px] text-[13px] font-medium text-black md:text-sm">
                   <p>RSVP</p>
                   <HiOutlineCursorClick size={17} />
                 </button>
@@ -309,7 +297,7 @@ export const TaskCard: React.FC<TaskProps> = ({
             )}
 
             <div
-              className={`${isOverdue && !isFinished ? "bg-ppmb-red-500 text-ppmb-000" : "bg-ppmb-100 text-ppmb-800"} rounded-xl  text-sm md:text-[16px]  px-3 gap-2 pr-3 flex flex-row py-1 items-center max-w-fit`}
+              className={`${isOverdue && !isFinished ? "text-neutral-dark bg-orange-200" : "text-neutral-dark bg-blue-200"} flex max-w-fit flex-row items-center gap-2 rounded-xl px-3 py-1 pr-3 text-sm md:text-[16px]`}
             >
               <HiOutlineCalendar />
               <p className="font-medium">{formatDate(deadline)}</p>
@@ -317,13 +305,13 @@ export const TaskCard: React.FC<TaskProps> = ({
           </div>
         </div>
 
-        <div className="min-h-[1px] bg-ppmb-200 mt-[2px]" />
+        <div className="bg-ppmb-200 mt-[2px] min-h-[1px]" />
 
         <div className="flex text-sm md:text-[16px]">
           <p>{description}</p>
         </div>
 
-        <div className="flex justify-end gap-2 mt-2 lg:mt-3 items-center">
+        <div className="mt-2 flex flex-wrap items-center justify-end gap-2 lg:mt-3">
           {!isFinished && (
             <>
               {rsvp && (
@@ -333,7 +321,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                   rel="noopener noreferrer"
                   className={`hidden md:flex`}
                 >
-                  <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
+                  <button className="border-neutral-dark text-neutral-dark hover:bg-neutral-light flex cursor-pointer items-center gap-[6px] rounded-lg border-[2px] px-3 py-[2px] pl-[16px] text-[13px] font-medium md:text-sm">
                     <p>RSVP</p>
                     <HiOutlineCursorClick size={17} />
                   </button>
@@ -342,7 +330,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
               {vbg && (
                 <a href={vbg} target="_blank" rel="noopener noreferrer">
-                  <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
+                  <button className="border-neutral-dark text-neutral-dark hover:bg-neutral-light flex cursor-pointer items-center gap-[6px] rounded-lg border-[2px] px-3 py-[2px] pl-[16px] text-[13px] font-medium md:text-sm">
                     <p>VBG</p>
                     <HiDownload />
                   </button>
@@ -351,7 +339,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
               {template && (
                 <a href={template} target="_blank" rel="noopener noreferrer">
-                  <button className="border-ppmb-700 font-medium border-[2px] flex gap-[6px] items-center text-ppmb-700 px-3 pl-[16px] py-[2px] text-[13px] md:text-sm rounded-lg hover:bg-ppmb-100">
+                  <button className="border-neutral-dark text-neutral-dark hover:bg-neutral-light flex cursor-pointer items-center gap-[6px] rounded-lg border-[2px] px-3 py-[2px] pl-[16px] text-[13px] font-medium md:text-sm">
                     <p>Template</p>
                     <HiDownload />
                   </button>
@@ -359,7 +347,7 @@ export const TaskCard: React.FC<TaskProps> = ({
               )}
 
               <button
-                className="bg-ppmb-blue-500 flex gap-2 items-center text-ppmb-000 px-5 py-[2px] min-w-[80px] justify-center text-[13px] md:text-sm rounded-lg hover:bg-ppmb-blue-700 min-h-[27.5px]"
+                className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
                 onClick={open}
               >
                 <p>Submit</p>

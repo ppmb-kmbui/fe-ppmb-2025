@@ -15,6 +15,7 @@ const linkSchema = z.object({
 });
 
 const fileSchema = z.object({
+  uploadPreset: z.string(),
   type: z.literal("file"),
   file: z.instanceof(File, { message: "Berkas tidak boleh kosong!" }),
 });
@@ -23,15 +24,17 @@ const modalSchema = z.discriminatedUnion("type", [linkSchema, fileSchema]);
 
 type LinkSchemaType = z.infer<typeof linkSchema>;
 type FileSchemaType = z.infer<typeof fileSchema>;
-type ModalData = z.infer<typeof modalSchema>;
+export type ModalData = z.infer<typeof modalSchema>;
 
 interface ModalProps {
-  type: "input" | "pdf" | "image";
+  type: "link" | "file";
+  fileFormat?: "image" | "pdf";
+  uploadPreset?: string;
   isOpen: boolean;
   onClose: () => void;
   label: string;
   sublabel?: string;
-  onSubmit: (data: ModalData) => void;
+  onSubmit: (data: ModalData) => Promise<void>;
   handleFileChange?: (file: File | null) => void;
   file?: File | null;
 }
@@ -39,7 +42,9 @@ interface ModalProps {
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  type = "input",
+  type = "file",
+  fileFormat,
+  uploadPreset,
   label,
   sublabel = "",
   onSubmit,
@@ -49,16 +54,26 @@ export const Modal: React.FC<ModalProps> = ({
   const {
     register,
     control,
+    setValue,
+    getValues,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ModalData>({ resolver: zodResolver(modalSchema) });
+
+  setValue("type", type);
+
+  if (type === "file") {
+    setValue("uploadPreset", uploadPreset!);
+  }
+
+  console.log(getValues());
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const submitModal = async (data: ModalData) => {
     try {
       setIsLoading(true);
-      onSubmit(data);
+      await onSubmit(data);
     } catch (error: any) {
       console.error("Error while submit", error);
     } finally {
@@ -66,11 +81,11 @@ export const Modal: React.FC<ModalProps> = ({
     }
   };
 
-  const getErrorMessage = (field: string) => {
-    if (type === "input") {
+  const getErrorMessage = () => {
+    if (type === "link") {
       return (errors as any).link?.message;
     }
-    if (type === "pdf" || type === "image") {
+    if (type === "file") {
       return (errors as any).file?.message;
     }
     return undefined;
@@ -78,67 +93,66 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div
-      className={`fixed top-0 left-0 z-[999] flex h-full w-full items-center justify-center bg-white backdrop-opacity-20 ${isOpen ? "no-doc-scroll block" : "hidden"}`}
+      className={`fixed top-0 left-0 z-[999] flex h-full w-full items-center justify-center bg-[rgba(255,255,255,0.8)] ${isOpen ? "no-doc-scroll block backdrop-blur-sm" : "hidden"}`}
     >
-      <div className="flex max-h-[90%] w-2/5 min-w-[360px] flex-col rounded-xl p-7">
-        <div className="flex justify-end">
-          <button
-            className="hover:bg-ppmb-100 hover:text-ppmb-600 rounded-[6px] p-2 text-[22px]"
-            onClick={onClose}
-          >
-            <HiOutlineX />
-          </button>
-        </div>
+      <div className="flex h-1/2 w-1/2 flex-col items-center justify-center rounded-xl bg-white">
+        <div className="flex max-h-[90%] w-2/5 min-w-[360px] flex-col rounded-xl p-7">
+          <div className="flex justify-end">
+            <button
+              className="hover:bg-ppmb-100 hover:text-ppmb-600 rounded-[6px] p-2 text-[22px]"
+              onClick={onClose}
+            >
+              <HiOutlineX />
+            </button>
+          </div>
 
-        <div className="flex flex-col gap-2">
-          {type === "input" && (
-            <div className="flex flex-col">
-              <span className="text-xl font-medium">{label}</span>
-              <span className="text-sm italic">{sublabel}</span>
-            </div>
-          )}
+          <div className="flex flex-col gap-2">
+            {type === "link" && (
+              <div className="flex flex-col">
+                <span className="text-xl font-medium">{label}</span>
+                <span className="text-sm italic">{sublabel}</span>
+              </div>
+            )}
 
-          {type === "pdf" || type === "image" ? (
-            <Controller
-              name="file"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <FileInput
-                  file={value as File | null}
-                  onChange={(file) => {
-                    onChange(file);
-                    handleFileChange?.(file);
-                  }}
-                  label="Unggah berkas kamu"
-                  description={`${sublabel ? `${sublabel}` : `Unggah dalam bentuk ${type === "image" ? ".jpg/.jpeg/.png" : ""}`}`}
-                  fileType={type}
-                  error={getErrorMessage("file")}
-                  answer=""
+            <form onSubmit={handleSubmit(submitModal)}>
+              {type === "file" ? (
+                <Controller
+                  name="file"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <FileInput
+                      file={value as File | null}
+                      onChange={(file) => {
+                        onChange(file);
+                        handleFileChange?.(file);
+                      }}
+                      label="Unggah berkas kamu"
+                      description={`${sublabel ? `${sublabel}` : `Unggah dalam bentuk ${fileFormat === "image" ? ".jpg/.jpeg/.png" : ""}`}`}
+                      fileType={fileFormat!}
+                      error={getErrorMessage()}
+                      answer=""
+                    />
+                  )}
+                />
+              ) : (
+                <Input
+                  placeholder="Isi di sini"
+                  {...register("link")}
+                  type="normal"
+                  error={getErrorMessage()}
                 />
               )}
-            />
-          ) : (
-            <form onSubmit={handleSubmit(submitModal)}>
-              <Input
-                placeholder="Isi di sini"
-                {...register("link")}
-                type="normal"
-                error={getErrorMessage(type)}
-              />
-            </form>
-          )}
 
-          <div className="flex items-center justify-center">
-            <Button
-              onClick={() => {
-                handleSubmit(submitModal)();
-              }}
-              label="Kumpulkan"
-              size="md"
-              type="submit"
-              disabled={isLoading}
-              className="mt-5 w-[180px]"
-            />
+              <div className="flex items-center justify-center">
+                <Button
+                  label="Kumpulkan"
+                  size="md"
+                  type="submit"
+                  disabled={isLoading}
+                  className="mt-5 w-[180px]"
+                />
+              </div>
+            </form>
           </div>
         </div>
       </div>
