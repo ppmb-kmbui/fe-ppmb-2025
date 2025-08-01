@@ -219,7 +219,7 @@ const CariPage: React.FC = () => {
         </>
       )}
 
-      <div className="my-10 flex w-full flex-col items-center gap-[2px] px-8 md:gap-1 lg:px-[100px]">
+      <div className="my-10 flex w-full flex-col items-center gap-2 px-8 lg:px-[100px]">
         <span className="text-lg font-semibold md:text-2xl">
           Kirim pesan ke teman-teman kamu!
         </span>
