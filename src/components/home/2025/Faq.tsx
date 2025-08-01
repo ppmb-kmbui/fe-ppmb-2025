@@ -15,21 +15,22 @@ export const Faq: React.FC = () => {
 
   const FAQS: FAQProps[] = [
     {
-      question: "Bagaimana cara melakukan RSVP acara?",
+      question: "Bagaimana cara mendapatkan kontak angkatan atas?",
       answer:
-        "Desktop: Buka halaman beranda dan scroll hingga menemukan TIMELINE KEGIATAN. Kemudian, klik acara yang ingin dihadiri dan dibawah TIMELINE KEGIATAN pada penjelasan acara, klik tombol RSVP\nMobile: Buka halaman beranda dan klik RSVP pada box acara yang ingin dihadiri.",
+        "Halaman networking memungkinkan kamu untuk melihat nama semua anggota dari angkatan 2022-2024 yang ada di database KMBUI. Untuk mendapatkan kontak mereka, kamu bisa join grup Discord yang dapat dilihat pada halaman Cari Teman",
       panelColor: "yellow",
     },
     {
-      question: "Bagaimana cara networking dengan angkatan 2024?",
+      question: "Bagaimana cara networking dengan angkatan 2025?",
       answer:
-        "Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol Connect dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Networking dan lakukan networking kepada teman kalian",
+        'Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol "Ikuti" dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Networking dan lakukan networking kepada teman kalian',
       panelColor: "turquoise",
     },
     {
-      question: "Bagaimana cara mengumpulkan tugas berformat PDF?",
+      question:
+        "Apa yang perlu dilakukan kalau lupa password akun PPMB Connect?",
       answer:
-        "Buka halaman Tugas dan pilih submisi untuk tugas yang ingin dikumpulkan. Di halaman Tugas juga menyediakan template untuk pengumpulan tugas.",
+        "Tim IT Dev sedang dalam proses membuat fitur reset password. Selama fitur tersebut belum ada, tolong kontak Thorbert (LINE ID: triplet-1) untuk instruksi lebih lanjut.",
       panelColor: "orange",
     },
   ];
