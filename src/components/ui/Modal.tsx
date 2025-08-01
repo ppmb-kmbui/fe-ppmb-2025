@@ -55,9 +55,8 @@ export const Modal: React.FC<ModalProps> = ({
     register,
     control,
     setValue,
-    getValues,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ModalData>({ resolver: zodResolver(modalSchema) });
 
   setValue("type", type);
@@ -65,8 +64,6 @@ export const Modal: React.FC<ModalProps> = ({
   if (type === "file") {
     setValue("uploadPreset", uploadPreset!);
   }
-
-  console.log(getValues());
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

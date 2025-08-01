@@ -58,7 +58,6 @@ export const MultiProgressBar: React.FC<MultiProgressBarProps> = ({
         <div className="flex h-fit w-full flex-col gap-5 rounded-md bg-purple-100 p-5 md:flex-row">
           {progressData.map((item, index) => {
             const percentage = (item.progress / item.min) * 100;
-            console.log(percentage);
             return (
               <div key={index} className="relative flex w-full md:w-1/4">
                 <div className="z-10 flex w-full flex-col items-center justify-center gap-y-2">

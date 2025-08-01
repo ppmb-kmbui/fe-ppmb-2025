@@ -253,7 +253,10 @@ export const TaskCard: React.FC<TaskProps> = ({
         }
       }
     } else {
-      console.error("No data passed to form");
+      console.error(
+        `No data passed to form submission for task "${name}" (id: ${id}, type: ${type}). Expected ModalData object but received:`,
+        data,
+      );
     }
   };
 

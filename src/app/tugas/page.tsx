@@ -26,11 +26,6 @@ interface ProgressDetailProps {
   min: number;
 }
 
-interface ProgressDetailProps {
-  progress: number;
-  min: number;
-}
-
 interface ProgressRumpunProps {
   SAINTEK: ProgressDetailProps;
   SOSHUM: ProgressDetailProps;
@@ -121,7 +116,7 @@ const TugasPage: React.FC = () => {
       const payload: APIResponse<ProgressProps> = res.data!;
       setProgress(payload.data!);
     } catch (error: any) {
-      console.error("Error while fetching assignment's progress");
+      console.error("Error while fetching assignment's progress: ", error);
     } finally {
       setIsFetching(false);
     }
