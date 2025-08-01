@@ -1,6 +1,13 @@
 "use client";
 
-import { GridView, Loader, Modal, SectionTitle, UserCard } from "@/components";
+import {
+  Background,
+  GridView,
+  Loader,
+  Modal,
+  SectionTitle,
+  UserCard,
+} from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import axios from "axios";
@@ -9,6 +16,8 @@ import { useState } from "react";
 import { HiPencil } from "react-icons/hi";
 import { useDisclosure } from "react-use-disclosure";
 import { api } from "@/utils/axios";
+
+import bgCariTeman from "@/assets/background/bg-cari-teman.png";
 
 const ProfilPage: React.FC = () => {
   const { user, token } = useAuth();
@@ -59,7 +68,7 @@ const ProfilPage: React.FC = () => {
 
       const formData = new FormData();
       formData.append("file", photo);
-      formData.append("upload_preset", "ppmb_kmbui");
+      formData.append("upload_preset", "profile_pictures");
 
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -87,10 +96,13 @@ const ProfilPage: React.FC = () => {
 
   return (
     <div className="flex h-full flex-col gap-5 px-4 py-5 md:gap-10 md:p-6 lg:p-10">
+      <Background image={bgCariTeman} />
       <Modal
         isOpen={isOpen}
         onClose={close}
-        type="image"
+        type="file"
+        fileFormat="image"
+        uploadPreset="profile_pictures"
         label="Edit foto profile"
         sublabel="Foto harus dalam bentuk .jpg/.jpeg/.png"
         onSubmit={handleEditProfile}

@@ -128,12 +128,13 @@ export default function SignUp() {
     <div className="flex h-full w-full flex-col items-center justify-around overflow-y-scroll lg:flex-row lg:overflow-hidden">
       <Image
         src={bgAuth}
-        alt="bg auth"
+        alt=""
         width={0}
         height={0}
         sizes="100vw"
         className="top-16 -z-50 hidden h-full object-cover lg:fixed lg:block"
       />
+
       <div className="flex h-full w-3/4 flex-col gap-7 py-10 xl:w-3/8">
         <h1 className="text-h3 lg:text-h1 grow font-bold text-neutral-800">
           Buat Akun PPMB KMB UI 2025
@@ -256,7 +257,7 @@ export default function SignUp() {
           file={profilePicture}
           onChange={(file) => setProfilePicture(file)}
           label="Foto Profil"
-          description="Unduh foto profil kamu di sini"
+          description="Unduh foto dengan format .png/.jpg/.jpeg"
           fileType="image"
           error={error?.fieldErrors?.photo}
           answer=""

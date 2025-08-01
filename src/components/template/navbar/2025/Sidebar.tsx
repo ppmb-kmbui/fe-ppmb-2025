@@ -25,10 +25,10 @@ export const Sidebar: React.FC = () => {
               renderMenu(menu, isAuthenticated, user) && (
                 <button
                   key={i}
-                  className={`${pathname == menu.route ? "bg-yellow-100 text-yellow-600" : "text-neutral-dark hover:bg-yellow-200"} flex w-full cursor-pointer items-center justify-start overflow-hidden rounded-lg px-3 py-2`}
+                  className={`${pathname == menu.route ? "bg-yellow-100 text-yellow-600" : "text-neutral-dark hover:bg-yellow-200"} flex w-full cursor-pointer items-center justify-start overflow-hidden rounded-lg px-2 py-2`}
                   onClick={() => router.push(menu.route)}
                 >
-                  <p className="text-[26px]">{menu.icon}</p>
+                  <p className="text-[28px]">{menu.icon}</p>
                   <div className="ml-2 rounded-sm px-3 py-1 text-[14px] font-bold whitespace-nowrap">
                     {menu.text}
                   </div>
@@ -38,7 +38,7 @@ export const Sidebar: React.FC = () => {
         </div>
 
         <button
-          className="mb-4 flex cursor-pointer items-center rounded-lg px-3 py-2 text-green-700 hover:bg-green-100 active:bg-green-100"
+          className={`${isAuthenticated ? "text-red-700 hover:bg-red-100" : "text-green-700 hover:bg-green-100"} mb-4 flex cursor-pointer items-center rounded-lg px-3 py-2`}
           onClick={isAuthenticated ? logout : () => router.push("/login")}
         >
           <p className="text-[26px]">

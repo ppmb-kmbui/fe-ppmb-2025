@@ -197,11 +197,6 @@ function NetworkingAssignmentPage() {
           <h3>Buatlah pertanyaanmu sendiri!</h3>
           <Input
             {...register("question4")}
-            value={
-              !!networkingMabaAssignment.questions[3]?.question?.question
-                ? networkingMabaAssignment.questions[3].question.question
-                : ""
-            }
             placeholder="Tulis pertanyaanmu di sini"
             error={errors.question4?.message}
             disabled={networkingMabaAssignment.is_done}

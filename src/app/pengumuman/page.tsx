@@ -10,6 +10,7 @@ import {
 import bgCariTeman from "@/assets/background/bg-cari-teman.png";
 import boyMascot from "@/assets/graphic-elements/mascot-boy.png";
 import girlMascot from "@/assets/graphic-elements/mascot-girl.png";
+import mascot from "@/assets/graphic-elements/mascot.svg";
 import { title } from "@/styles/fonts";
 
 const PengumumanPage: React.FC = () => {
@@ -18,21 +19,21 @@ const PengumumanPage: React.FC = () => {
       name: "Foster Sibling",
       description: "Klik bagian ini untuk meninjau kakak asuh KMBUI kamu",
       img: boyMascot,
-      link: "https://docs.google.com/spreadsheets/d/1CR_04zmtDXdWlzxsPUX1KbHuIsSKrn89CL1oETmiZ6E/edit?gid=0#gid=0",
+      link: "https://docs.google.com/spreadsheets/d/1_TJn7m-jID4p8UDL0_fR9xKTRYu65RwZcQ--bu3y1BI/edit?usp=sharing",
     },
     {
       name: "Networking dan Mentoring",
       description:
         "Klik bagian ini untuk meninjau kelompok networking dan kelompok mentoring",
       img: girlMascot,
-      link: "https://docs.google.com/spreadsheets/d/1tm8bWRMi2QazZYgGNexEV-evIi3sZWqBrN-6PiNKewY/edit?gid=1391438748#gid=1391438748",
+      link: "https://docs.google.com/spreadsheets/d/1-ljQP327ISrY_ObclJHw1h-lLz4qsHijyEfSVx9cbug/edit?usp=sharing",
     },
     {
       name: "KMBUI Explorer",
       description:
-        "Klik bagian ini untuk meninjau proker-porker KMBUI yang dapat diikuti sebagai penugasan KMBUI Explorer",
-      img: boyMascot,
-      link: "https://docs.google.com/document/d/1I7eoFBP4oDJHZV1HFaq-ZOycBzD4BsRcTrNNN_09dzg/edit",
+        "Klik bagian ini untuk meninjau program kerja KMBUI yang dapat diikuti sebagai penugasan KMBUI Explorer",
+      img: mascot,
+      link: "https://docs.google.com/document/d/1l4NWVkZd4JhdOOPwO1OD_7qfK1WjcMkt4Hy3G9XwCTU/edit?usp=sharing",
     },
   ];
 

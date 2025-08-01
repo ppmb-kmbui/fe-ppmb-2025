@@ -16,7 +16,11 @@ export function GridView<T>({
       <div
         className={`${iterableIsEmpty ? "text-neutral-dark flex justify-center md:justify-start lg:text-lg" : "grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6"} w-full gap-3 md:gap-4 lg:gap-6`}
       >
-        {iterableIsEmpty ? <p>{emptyMessage}</p> : children}
+        {iterableIsEmpty ? (
+          <p className="text-center text-sm">{emptyMessage}</p>
+        ) : (
+          children
+        )}
       </div>
     </>
   );

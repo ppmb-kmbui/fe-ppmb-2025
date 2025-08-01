@@ -11,7 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const buttonVariants = tv({
-  base: "flex flex-row font-medium transition-colors duration-75 justify-center items-center ease-in-out gap-2 disabled:cursor-not-allowed disabled:text-neutral-light disabled:opacity-80 ",
+  base: "flex flex-row font-medium transition-colors duration-75 justify-center items-center ease-in-out gap-2 disabled:cursor-not-allowed disabled:text-neutral-light disabled:opacity-80 hover:opacity-80 cursor-pointer",
   variants: {
     variant: {
       primary: "",

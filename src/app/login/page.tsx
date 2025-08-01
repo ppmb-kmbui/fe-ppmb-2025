@@ -118,13 +118,15 @@ export default function Login() {
             {!!errors.passwordError && errors.passwordError}
           </p>
 
-          <p>{!!errors.nonFieldError && errors.nonFieldError}</p>
+          <p className="text-red-600">
+            {!!errors.nonFieldError && errors.nonFieldError}
+          </p>
 
-          <div className="flex justify-end">
-            <a href="" className="w-fit">
-              Lupa password?
-            </a>
-          </div>
+          {/* <div className="flex justify-end"> */}
+          {/*   <a href="" className="w-fit"> */}
+          {/*     Lupa password? */}
+          {/*   </a> */}
+          {/* </div> */}
           <Button
             disabled={isLoading}
             label="Masuk"
