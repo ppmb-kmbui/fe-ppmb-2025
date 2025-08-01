@@ -31,7 +31,7 @@ const PengumumanPage: React.FC = () => {
     {
       name: "KMBUI Explorer",
       description:
-        "Klik bagian ini untuk meninjau proker-proker KMBUI yang dapat diikuti sebagai penugasan KMBUI Explorer",
+        "Klik bagian ini untuk meninjau program kerja KMBUI yang dapat diikuti sebagai penugasan KMBUI Explorer",
       img: mascot,
       link: "https://docs.google.com/document/d/1l4NWVkZd4JhdOOPwO1OD_7qfK1WjcMkt4Hy3G9XwCTU/edit?usp=sharing",
     },

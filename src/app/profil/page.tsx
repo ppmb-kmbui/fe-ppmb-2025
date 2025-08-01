@@ -56,7 +56,6 @@ const ProfilPage: React.FC = () => {
   };
 
   const handleEditProfile = async () => {
-    console.log("helo");
     // Formality
     if (!photo) {
       console.error("No photo selected.");
