@@ -1,9 +1,16 @@
 "use client";
 
-import { Button, FileInput, Input, LoadingScreen } from "@/components";
+import {
+  Button,
+  Dropdown,
+  FileInput,
+  Input,
+  LoadingScreen,
+} from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
+import { KATING_DATA } from "@/utils/const";
 import { APIResponse, NetworkingAssignmentProps } from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -14,6 +21,10 @@ import { HiChatAlt2 } from "react-icons/hi";
 import z from "zod";
 
 const networkingKatingFormSchema = z.object({
+  katingId: z
+    .number()
+    .max(375, "ID kating tidak valid!")
+    .min(0, "ID kating tidak valid!"),
   answer1: z.string().min(1, "Pertanyaan harus dijawab!"),
   answer2: z.string().min(1, "Pertanyaan harus dijawab!"),
   answer3: z.string().min(1, "Pertanyaan harus dijawab!"),
@@ -27,6 +38,11 @@ const networkingKatingFormSchema = z.object({
   answer8: z.string().min(1, "Pertanyaan harus dijawab!"),
   photo: z.instanceof(File, { error: "Foto tidak boleh kosong!" }),
 });
+
+interface NetworkingKatingQuestion {
+  id: number;
+  question: string;
+}
 
 const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
   fromId: -1,
@@ -107,12 +123,18 @@ function NetworkingAssignmentPage() {
 
   const [networkingKatingAssignment, setNetworkingKatingAssignment] =
     useState<NetworkingAssignmentProps>(DEFAULT_NETWORKING_ASSINGMENT);
+  const [networkingKatingQuestions, setNetworkingKatingQuestions] = useState<
+    NetworkingKatingQuestion[]
+  >([]);
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const [batch, setBatch] = useState<"2022" | "2023" | "2024">("2022");
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     reset,
     control,
@@ -125,7 +147,7 @@ function NetworkingAssignmentPage() {
       setIsFetching(true);
       const res: AxiosResponse<APIResponse<NetworkingAssignmentProps>> =
         await api({
-          url: `networking-kating/69420`,
+          url: `networking-kating/question`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -214,6 +236,32 @@ function NetworkingAssignmentPage() {
           onSubmit={handleSubmit(handleSubmitNetworking)}
           className="font-montserrat flex h-full w-full flex-col items-center justify-center gap-5 font-medium"
         >
+          <div className="flex">
+            <select
+              onChange={(e) =>
+                setBatch(e.target.value as "2022" | "2023" | "2024")
+              }
+            >
+              {[2022, 2023, 2024].map((batch, key) => {
+                return (
+                  <option key={key} value={batch}>
+                    {batch}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              onChange={(e) => setValue("katingId", parseInt(e.target.value))}
+            >
+              {KATING_DATA[batch].map((kating, key) => {
+                return (
+                  <option key={key} value={kating.id}>
+                    {kating.fullname}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
           <Input
             {...register("answer1")}
             label={networkingKatingAssignment.questions[0].question.question}
@@ -246,7 +294,46 @@ function NetworkingAssignmentPage() {
             error={errors.answer4?.message}
             disabled={networkingKatingAssignment.is_done}
           />
-
+          <Input
+            {...register("answer5")}
+            label={networkingKatingAssignment.questions[4].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[4].answer : "Masukkan jawabanmu di sini"}`}
+            icon={<HiChatAlt2 />}
+            error={errors.answer5?.message}
+            disabled={networkingKatingAssignment.is_done}
+          />
+          <Input
+            {...register("answer6")}
+            label={networkingKatingAssignment.questions[5].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[5].answer : "Masukkan jawabanmu di sini"}`}
+            icon={<HiChatAlt2 />}
+            error={errors.answer6?.message}
+            disabled={networkingKatingAssignment.is_done}
+          />
+          <Input
+            {...register("answer7")}
+            label={networkingKatingAssignment.questions[6].question.question}
+            placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[6].answer : "Masukkan jawabanmu di sini"}`}
+            icon={<HiChatAlt2 />}
+            error={errors.answer7?.message}
+            disabled={networkingKatingAssignment.is_done}
+          />
+          <div className="flex w-full flex-col gap-y-2">
+            <h3>Buatlah pertanyaanmu sendiri!</h3>
+            <Input
+              {...register("question8")}
+              placeholder="Tulis pertanyaanmu di sini"
+              error={errors.question8?.message}
+              disabled={networkingKatingAssignment.is_done}
+              color="blue"
+            />
+            <Input
+              {...register("answer8")}
+              placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[7].answer : "Masukkan jawaban mereka di sini"}`}
+              error={errors.answer4?.message}
+              disabled={networkingKatingAssignment.is_done}
+            />
+          </div>
           <div className="mt-3 flex">
             <Button
               label="Kumpulkan"
