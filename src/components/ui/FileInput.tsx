@@ -76,7 +76,7 @@ export const FileInput: React.FC<FileInputProps> = ({
             </span>
           ) : answer != "" ? (
             <a
-              className="text-neutral-dark text-center underline"
+              className="text-neutral-dark overflow-hidden text-center text-ellipsis whitespace-nowrap underline"
               href={answer}
               target="_blank"
               rel="noopener noreferrer"

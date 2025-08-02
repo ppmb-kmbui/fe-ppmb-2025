@@ -131,6 +131,7 @@ export const UserCard: React.FC<UserCardProps> = ({
     "min-h-[30px] lg:min-h-[36px] text-sm lg:text-md w-full flex items-center duration-75 justify-center rounded-lg gap-x-1 mx-2 font-semibold";
 
   const buttonVariantClasses = {
+    disabled: "bg-white border-black border-2 text-black cursor-not-allowed",
     notConnected: "bg-blue-300 text-white cursor-pointer hover:opacity-80",
     pendingConfirmation:
       "border-yellow-300 border text-yellow-300 pointer-events-none cursor-not-allowed",
@@ -170,90 +171,110 @@ export const UserCard: React.FC<UserCardProps> = ({
       </div>
 
       <div className="flex h-fit items-center justify-center">
-        {dynamicStatus == "not_connected" && (
+        {batch < 2025 ? (
           <button
-            className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.notConnected} ${buttonBaseClasses}`}
-            onClick={follow}
-            disabled={isLoading}
+            className={`${buttonBaseClasses} ${buttonVariantClasses.disabled}`}
           >
-            {isLoading ? (
-              <div className="loader-button-xs h-[16px] w-[16px]" />
+            Angkatan {batch}
+          </button>
+        ) : (
+          <>
+            {user.batch < 2025 ? (
+              <button
+                className={`${buttonBaseClasses} ${buttonVariantClasses.disabled}`}
+              >
+                Anda kating
+              </button>
             ) : (
               <>
-                <HiPlus className="text-white" />
-                <p>Ikuti</p>
+                {dynamicStatus == "not_connected" && (
+                  <button
+                    className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.notConnected} ${buttonBaseClasses}`}
+                    onClick={follow}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="loader-button-xs h-[16px] w-[16px]" />
+                    ) : (
+                      <>
+                        <HiPlus className="text-white" />
+                        <p>Ikuti</p>
+                      </>
+                    )}
+                  </button>
+                )}
+
+                {dynamicStatus == "menunggu_konfirmasi" && (
+                  <button
+                    className={`${buttonVariantClasses.pendingConfirmation} ${buttonBaseClasses}`}
+                  >
+                    <p>Menunggu...</p>
+                  </button>
+                )}
+
+                {dynamicStatus == "meminta_konfirmasi" && (
+                  <div className="flex w-full flex-row gap-[6px]">
+                    <button
+                      className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.reject} ${buttonBaseClasses}`}
+                      onClick={reject}
+                      disabled={isLoading}
+                    >
+                      {isRejectLoading ? (
+                        <div className="loader-button-xs h-[16px] w-[16px]" />
+                      ) : (
+                        <p>Tolak</p>
+                      )}
+                    </button>
+
+                    <button
+                      className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.accept} ${buttonBaseClasses}`}
+                      onClick={accept}
+                      disabled={isLoading}
+                    >
+                      {isAcceptLoading ? (
+                        <div className="loader-button-xs h-[16px] w-[16px]" />
+                      ) : (
+                        <p>Terima</p>
+                      )}
+                    </button>
+                  </div>
+                )}
+
+                {dynamicStatus == "accepted" && (
+                  <button
+                    className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.accepted} ${buttonBaseClasses}`}
+                    onClick={createNetworkingTask}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="loader-button-sm h-[16px] w-[16px]" />
+                    ) : (
+                      <p>Networking</p>
+                    )}
+                  </button>
+                )}
+
+                {dynamicStatus == "sedang_networking" && (
+                  <button
+                    className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.in_progress} ${buttonBaseClasses}`}
+                    onClick={() => router.push(`/networking/maba/${id}`)}
+                  >
+                    <p>Networking</p>
+                  </button>
+                )}
+
+                {dynamicStatus == "done" && (
+                  <button
+                    className={`${buttonVariantClasses.complete} ${buttonBaseClasses}`}
+                    onClick={() => router.push(`/networking/maba/${id}`)}
+                  >
+                    <p>Sudah selesai</p>
+                    <HiCheck size={20} />
+                  </button>
+                )}
               </>
             )}
-          </button>
-        )}
-
-        {dynamicStatus == "menunggu_konfirmasi" && (
-          <button
-            className={`${buttonVariantClasses.pendingConfirmation} ${buttonBaseClasses}`}
-          >
-            <p>Menunggu...</p>
-          </button>
-        )}
-
-        {dynamicStatus == "meminta_konfirmasi" && (
-          <div className="flex w-full flex-row gap-[6px]">
-            <button
-              className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.reject} ${buttonBaseClasses}`}
-              onClick={reject}
-              disabled={isLoading}
-            >
-              {isRejectLoading ? (
-                <div className="loader-button-xs h-[16px] w-[16px]" />
-              ) : (
-                <p>Tolak</p>
-              )}
-            </button>
-
-            <button
-              className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.accept} ${buttonBaseClasses}`}
-              onClick={accept}
-              disabled={isLoading}
-            >
-              {isAcceptLoading ? (
-                <div className="loader-button-xs h-[16px] w-[16px]" />
-              ) : (
-                <p>Terima</p>
-              )}
-            </button>
-          </div>
-        )}
-
-        {dynamicStatus == "accepted" && (
-          <button
-            className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.accepted} ${buttonBaseClasses}`}
-            onClick={createNetworkingTask}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="loader-button-sm h-[16px] w-[16px]" />
-            ) : (
-              <p>Networking</p>
-            )}
-          </button>
-        )}
-
-        {dynamicStatus == "sedang_networking" && (
-          <button
-            className={`${isLoading && "cursor-not-allowed opacity-80"} ${buttonVariantClasses.in_progress} ${buttonBaseClasses}`}
-            onClick={() => router.push(`/networking/maba/${id}`)}
-          >
-            <p>Networking</p>
-          </button>
-        )}
-
-        {dynamicStatus == "done" && (
-          <button
-            className={`${buttonVariantClasses.complete} ${buttonBaseClasses}`}
-            onClick={() => router.push(`/networking/maba/${id}`)}
-          >
-            <p>Selesai</p>
-            <HiCheck size={20} />
-          </button>
+          </>
         )}
       </div>
     </div>
