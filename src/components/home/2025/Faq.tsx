@@ -27,6 +27,7 @@ export const Faq: React.FC = () => {
           >
             Grup Discord KMBUI
           </a>
+          .
         </span>
       ),
       panelColor: "yellow",
@@ -40,7 +41,7 @@ export const Faq: React.FC = () => {
           networking, klik tombol "Ikuti" dan tunggu hingga teman yang satunya
           menerima permintaan untuk melakukan networking. Setelah sudah
           diterima, maka buka halaman Networking dan laksanakan aktivitas
-          networking dengan pasangan kamu',
+          networking dengan pasangan kamu.
         </p>
       ),
       panelColor: "turquoise",
@@ -51,7 +52,13 @@ export const Faq: React.FC = () => {
       answer: (
         <p>
           Tim IT Dev sedang dalam proses membuat fitur reset password. Selama
-          fitur tersebut belum ada, tolong kontak Thorbert (LINE ID: triplet-1)
+          fitur tersebut belum ada, tolong kirim email ke{" "}
+          <a
+            href="mailto:danniel.ang@gmail.com"
+            className="text-blue-300 underline"
+          >
+            danniel.ang8@gmail.com
+          </a>{" "}
           untuk instruksi lebih lanjut.
         </p>
       ),

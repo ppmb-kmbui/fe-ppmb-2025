@@ -66,7 +66,6 @@ export default function SignUp() {
   const [isRestricted, setIsRestricted] = useState<boolean>(true);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [error, setError] = useState<any>();
-  const router = useRouter();
 
   const { signUp } = useAuth();
 
@@ -235,7 +234,7 @@ export default function SignUp() {
           </div>
 
           <Button
-            isRestricted={isRestricted}
+            disabled={isRestricted}
             label="Buat Akun"
             className="bg-neutral-dark"
             type="submit"

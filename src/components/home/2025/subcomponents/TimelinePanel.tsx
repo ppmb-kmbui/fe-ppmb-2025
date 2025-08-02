@@ -28,7 +28,7 @@ export default function TimelinePanel({
 
   const contentBoxFlow = isOdd ? "flex-row" : "flex-row-reverse";
   const contentBox = (
-    <div className="outline-neutral-medium shadow-yellow-neutral-dark h-[200px] w-[600px] overflow-clip rounded-2xl bg-white outline-3 drop-shadow-md duration-150 hover:scale-[1.01]">
+    <div className="outline-neutral-medium shadow-yellow-neutral-dark h-[200px] w-[600px] overflow-clip rounded-2xl bg-white drop-shadow-md duration-150 hover:scale-[1.01]">
       <div
         className={`${contentBoxFlow} flex h-full w-full items-center justify-end`}
       >
