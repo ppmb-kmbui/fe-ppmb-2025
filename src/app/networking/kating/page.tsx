@@ -11,7 +11,12 @@ import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
 import { api } from "@/utils/axios";
 import { KATING_DATA } from "@/utils/const";
-import { APIResponse, NetworkingAssignmentProps } from "@/utils/interface";
+import {
+  APIResponse,
+  NetworkingAssignmentProps,
+  QuestionAnswerProps,
+  QuestionProps,
+} from "@/utils/interface";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
@@ -42,6 +47,7 @@ const networkingKatingFormSchema = z.object({
 interface NetworkingKatingQuestion {
   id: number;
   question: string;
+  groupId: number;
 }
 
 const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
@@ -145,7 +151,7 @@ function NetworkingAssignmentPage() {
   const getData = async () => {
     try {
       setIsFetching(true);
-      const res: AxiosResponse<APIResponse<NetworkingAssignmentProps>> =
+      const res: AxiosResponse<APIResponse<NetworkingKatingQuestion[]>> =
         await api({
           url: `networking-kating/question`,
           method: "GET",
@@ -156,8 +162,7 @@ function NetworkingAssignmentPage() {
 
       const payload = res.data;
 
-      console.log(payload.data!);
-      setNetworkingKatingAssignment(payload.data!);
+      setNetworkingKatingQuestions(payload.data!);
     } catch (error: any) {
       console.log("Error while getting networking assignment");
       if (error instanceof AxiosError) {
@@ -173,6 +178,15 @@ function NetworkingAssignmentPage() {
   ) => {
     try {
       setIsSubmitting(true);
+
+      await api({
+        url: `networking-kating/${data.katingId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       const formData = new FormData();
       formData.append("file", data.photo);
       formData.append("upload_preset", "networking_evidence");
@@ -184,7 +198,7 @@ function NetworkingAssignmentPage() {
 
       const uploadedPhotoUrl = res.data.url;
       await api({
-        url: `/networking-kating/69420`,
+        url: `networking-kating/${data.katingId}`,
         method: "PUT",
         data: {
           img_url: uploadedPhotoUrl,
@@ -200,6 +214,22 @@ function NetworkingAssignmentPage() {
             {
               questionId: networkingKatingAssignment.questions[2].questionId,
               answer: data.answer3,
+            },
+            {
+              questionId: networkingKatingAssignment.questions[3].questionId,
+              answer: data.answer4,
+            },
+            {
+              questionId: networkingKatingAssignment.questions[4].questionId,
+              answer: data.answer5,
+            },
+            {
+              questionId: networkingKatingAssignment.questions[5].questionId,
+              answer: data.answer6,
+            },
+            {
+              questionId: networkingKatingAssignment.questions[6].questionId,
+              answer: data.answer7,
             },
           ],
           secondaryAnswers: {
@@ -330,7 +360,7 @@ function NetworkingAssignmentPage() {
             <Input
               {...register("answer8")}
               placeholder={`${networkingKatingAssignment.is_done ? networkingKatingAssignment.questions[7].answer : "Masukkan jawaban mereka di sini"}`}
-              error={errors.answer4?.message}
+              error={errors.answer8?.message}
               disabled={networkingKatingAssignment.is_done}
             />
           </div>
