@@ -51,7 +51,7 @@ export const TaskCard: React.FC<TaskProps> = ({
           form.append("upload_preset", data.uploadPreset);
 
           const res = await axios.post(
-            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/q_auto:eco`,
+            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
             form,
           );
 
