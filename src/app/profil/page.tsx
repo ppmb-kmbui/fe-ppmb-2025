@@ -71,7 +71,7 @@ const ProfilPage: React.FC = () => {
       formData.append("upload_preset", "profile_picture");
 
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/t_profile_picture`,
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
         formData,
       );
 
