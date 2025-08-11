@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isRestricted?: boolean; // sorry for the unhinged code :))
+  isLoading?: boolean;
 }
 
 const buttonVariants = tv({
@@ -46,6 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
   rightIcon,
   className,
   isRestricted,
+  isLoading,
   variant = "primary",
   color = "gray",
   size = "md",
@@ -57,7 +59,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={`${buttonVariants({ variant, color, size })} ${leftIcon && "pr-6 lg:pr-8"} ${rightIcon && "pl-2"} ${className}`}
       {...props}
     >
-      {props.disabled ? (
+      {isLoading ? (
         <div className={`loader-button ${loaderSizes[size]}`} />
       ) : (
         <>

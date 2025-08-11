@@ -24,11 +24,13 @@ const signupFormSchema = z
       .string()
       .min(8, { message: "Password minimal terdiri dari 8 karakter!" }),
     konfirmPw: z.string(),
-    photo: z.instanceof(File, { message: "Foto tidak boleh kosong!" }),
+    photo: z.any().refine((file) => file?.size > 0, {
+      message: "Foto tidak boleh kosong!",
+    }),
   })
   .refine((data) => data.password === data.konfirmPw, {
     message: "Password tidak sesuai",
-    path: ["reconfirmPassword"],
+    path: ["konfirmPw"],
   });
 
 const FAKULTAS = [
@@ -64,6 +66,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [konfirmPw, setKonfirmPw] = useState("");
   const [isRestricted, setIsRestricted] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [error, setError] = useState<any>();
 
@@ -72,34 +75,43 @@ export default function SignUp() {
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const formData = new FormData();
     formData.append("file", profilePicture!);
     formData.append("upload_preset", "profile_picture");
 
-    const res = await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/t_profile_picture`,
-      formData,
-    );
+    try {
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/t_profile_picture`,
+        formData,
+      );
 
-    if (res.status !== 200) {
-      setError({
-        fileUploadError: "Error terjadi saat sedang mengunggah foto",
-      });
-
-      return;
-    } else {
       const imgUrl: string = res.data.url;
 
-      try {
-        const batchNo = parseInt(angkatan, 10);
-        await signUp(email, batchNo, nama, password, fakultas, imgUrl);
-      } catch (err: any) {
-        if (err instanceof AxiosError) {
-          let payload: APIResponse<any> = err.response?.data;
-          console.log(payload.message);
-          setError({ registrationError: payload.message });
+      const batchNo = parseInt(angkatan, 10);
+      await signUp(email, batchNo, nama, password, fakultas, imgUrl);
+    } catch (err: any) {
+      if (err instanceof AxiosError) {
+        const isCloudinaryError = err.config?.url?.includes("cloudinary");
+        if (isCloudinaryError) {
+          setError({
+            fileUploadError: "Gagal mengunggah foto. Silakan coba lagi.",
+          });
+        } else {
+          const payload: APIResponse<any> | undefined = err.response?.data;
+          setError({
+            registrationError:
+              payload?.message || "Pendaftaran gagal karena kesalahan server.",
+          });
         }
+      } else {
+        setError({
+          registrationError: "Terjadi kesalahan yang tidak terduga.",
+        });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -210,6 +222,9 @@ export default function SignUp() {
                 onChange={(e) => setKonfirmPw(e.target.value)}
                 required
               />
+              {error?.fieldErrors?.konfirmPw && (
+                <p className="text-red-600">{error?.fieldErrors?.konfirmPw}</p>
+              )}
             </div>
           </div>
 
@@ -234,7 +249,8 @@ export default function SignUp() {
           </div>
 
           <Button
-            disabled={isRestricted}
+            isLoading={isLoading}
+            isRestricted={isRestricted || isLoading}
             label="Buat Akun"
             className="bg-neutral-dark"
             type="submit"

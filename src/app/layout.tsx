@@ -13,7 +13,8 @@ export const metadata: Metadata = {
     "UI",
     "Keluarga Mahasiswa Buddhis",
     "Universitas Indonesia",
-    "PPMB 2025",
+    "PPMB",
+    "2025",
   ],
   applicationName: "PPMB Connect",
 };
