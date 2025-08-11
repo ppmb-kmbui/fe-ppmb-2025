@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Accordion } from "@/components/ui/Accordion";
 import { title } from "@/styles/fonts";
 
 interface FAQProps {
   question: string;
-  answer: string;
+  answer: ReactNode;
   panelColor?: "yellow" | "turquoise" | "orange";
 }
 
@@ -16,21 +16,52 @@ export const Faq: React.FC = () => {
   const FAQS: FAQProps[] = [
     {
       question: "Bagaimana cara mendapatkan kontak angkatan atas?",
-      answer:
-        "Halaman networking memungkinkan kamu untuk melihat nama semua anggota dari angkatan 2022-2024 yang ada di database KMBUI. Untuk mendapatkan kontak mereka, kamu bisa join grup Discord yang dapat dilihat pada halaman Cari Teman",
+      answer: (
+        <span>
+          Halaman networking memungkinkan kamu untuk melihat nama semua anggota
+          dari angkatan 2022-2024 yang ada di database KMBUI. Untuk mendapatkan
+          kontak mereka, kamu bisa join grup Discord berikut:{" "}
+          <a
+            href="https://discord.gg/24YBy7gFJ9"
+            className="text-blue-300 underline"
+          >
+            Grup Discord KMBUI
+          </a>
+          .
+        </span>
+      ),
       panelColor: "yellow",
     },
     {
       question: "Bagaimana cara networking dengan angkatan 2025?",
-      answer:
-        'Buka halaman Cari Teman dan cari teman yang ingin dilakukan networking. Kemudian, setelah muncul teman yang ingin dilakukan networking, klik tombol "Ikuti" dan tunggu hingga teman yang satunya menerima permintaan untuk melakukan networking. Setelah sudah diterima, maka buka halaman Networking dan lakukan networking kepada teman kalian',
+      answer: (
+        <p>
+          Buka halaman Cari Teman dan cari teman yang ingin dilakukan
+          networking. Kemudian, setelah muncul teman yang ingin dilakukan
+          networking, klik tombol "Ikuti" dan tunggu hingga teman yang satunya
+          menerima permintaan untuk melakukan networking. Setelah sudah
+          diterima, maka buka halaman Networking dan laksanakan aktivitas
+          networking dengan pasangan kamu.
+        </p>
+      ),
       panelColor: "turquoise",
     },
     {
       question:
         "Apa yang perlu dilakukan kalau lupa password akun PPMB Connect?",
-      answer:
-        "Tim IT Dev sedang dalam proses membuat fitur reset password. Selama fitur tersebut belum ada, tolong kontak Thorbert (LINE ID: triplet-1) untuk instruksi lebih lanjut.",
+      answer: (
+        <p>
+          Tim IT Dev sedang dalam proses membuat fitur reset password. Selama
+          fitur tersebut belum ada, tolong kirim email ke{" "}
+          <a
+            href="mailto:danniel.ang@gmail.com"
+            className="text-blue-300 underline"
+          >
+            danniel.ang8@gmail.com
+          </a>{" "}
+          untuk instruksi lebih lanjut.
+        </p>
+      ),
       panelColor: "orange",
     },
   ];

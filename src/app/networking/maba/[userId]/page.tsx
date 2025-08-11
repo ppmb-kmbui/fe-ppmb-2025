@@ -1,6 +1,12 @@
 "use client";
 
-import { Button, FileInput, Input, LoadingScreen } from "@/components";
+import {
+  Background,
+  Button,
+  FileInput,
+  Input,
+  LoadingScreen,
+} from "@/components";
 // import { Header } from "@/components";
 import { useAuth } from "@/context/AuthContext";
 import withAuth from "@/hoc/withAuth";
@@ -13,6 +19,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { NetworkingAssignmentProps } from "@/utils/interface";
+import bgCariTeman from "@/assets/background/bg-cari-teman.png";
 
 const DEFAULT_NETWORKING_ASSINGMENT: NetworkingAssignmentProps = {
   fromId: -1,
@@ -115,10 +122,10 @@ function NetworkingAssignmentPage() {
       setIsSubmitting(true);
       const formData = new FormData();
       formData.append("file", data.photo);
-      formData.append("upload_preset", "networking_evidence");
+      formData.append("upload_preset", "networking_maba");
 
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/q_auto:eco`,
         formData,
       );
 
@@ -168,6 +175,7 @@ function NetworkingAssignmentPage() {
     <LoadingScreen />
   ) : (
     <div className="flex h-fit flex-col-reverse items-center justify-center gap-8 px-10 py-10 md:h-full md:flex-row md:items-center md:justify-evenly md:gap-5 md:px-[60px]">
+      <Background image={bgCariTeman} />
       <form
         onSubmit={handleSubmit(handleSubmitNetworking)}
         className="font-montserrat flex h-full w-full flex-col items-center justify-center gap-5 font-medium"

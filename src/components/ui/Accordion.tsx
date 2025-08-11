@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import { tv } from "tailwind-variants";
 
@@ -9,7 +9,7 @@ interface AccordionProps {
   selected: number;
   setSelected: Function;
   question: string;
-  answer: string;
+  answer: ReactNode;
   value: number;
 }
 
@@ -36,7 +36,6 @@ export const Accordion: React.FC<AccordionProps> = ({
   setSelected,
   value,
 }) => {
-  const ref = useRef(null);
   return (
     <div className="md:w-3/4 lg:w-2/3">
       <div
