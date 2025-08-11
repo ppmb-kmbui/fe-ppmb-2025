@@ -3,7 +3,7 @@ import { v2 as cloudinary } from "cloudinary";
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
 
 export const DELETE = async (req: Request) => {
@@ -17,12 +17,11 @@ export const DELETE = async (req: Request) => {
       throw new Error("Invalid public ID");
     }
     const publicId = publicIdWithExtension.split(".")[0];
-    const response = await cloudinary.uploader.destroy(publicId);
+    await cloudinary.uploader.destroy(publicId);
 
-    // res.status(200).json({ message: 'Image deleted', response });
-    return new Response("yow");
+    return new Response("Image deleted", { status: 204 });
   } catch (error: any) {
-    // res.status(500).json({ error: 'Failed to delete image', details: error.message });
-    return new Response("nay");
+    console.log("Error deleting image");
+    return new Response("An internal error occurred", { status: 500 });
   }
 };
