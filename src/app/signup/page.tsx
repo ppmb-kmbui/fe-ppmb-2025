@@ -74,10 +74,10 @@ export default function SignUp() {
 
     const formData = new FormData();
     formData.append("file", profilePicture!);
-    formData.append("upload_preset", "profile_pictures");
+    formData.append("upload_preset", "profile_picture");
 
     const res = await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/t_profile_picture`,
       formData,
     );
 

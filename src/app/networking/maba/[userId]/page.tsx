@@ -122,10 +122,10 @@ function NetworkingAssignmentPage() {
       setIsSubmitting(true);
       const formData = new FormData();
       formData.append("file", data.photo);
-      formData.append("upload_preset", "networking_evidence");
+      formData.append("upload_preset", "networking_maba");
 
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/q_auto:eco`,
         formData,
       );
 

@@ -68,10 +68,10 @@ const ProfilPage: React.FC = () => {
 
       const formData = new FormData();
       formData.append("file", photo);
-      formData.append("upload_preset", "profile_pictures");
+      formData.append("upload_preset", "profile_picture");
 
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/t_profile_picture`,
         formData,
       );
 
@@ -102,7 +102,7 @@ const ProfilPage: React.FC = () => {
         onClose={close}
         type="file"
         fileFormat="image"
-        uploadPreset="profile_pictures"
+        uploadPreset="profile_picture"
         label="Edit foto profile"
         sublabel="Foto harus dalam bentuk .jpg/.jpeg/.png"
         onSubmit={handleEditProfile}

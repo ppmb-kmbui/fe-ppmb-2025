@@ -2,11 +2,8 @@
 
 import {
   HiDownload,
-  HiLink,
-  HiOutlineAcademicCap,
   HiOutlineCalendar,
   HiOutlineCursorClick,
-  HiOutlineFolderOpen,
 } from "react-icons/hi";
 import { useDisclosure } from "react-use-disclosure";
 import { Modal } from "@/components";
@@ -54,7 +51,7 @@ export const TaskCard: React.FC<TaskProps> = ({
           form.append("upload_preset", data.uploadPreset);
 
           const res = await axios.post(
-            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+            `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/q_auto:eco`,
             form,
           );
 
@@ -358,7 +355,15 @@ export const TaskCard: React.FC<TaskProps> = ({
             </>
           )}
 
-          {isFinished && <></>}
+          {isFinished && (
+            <a
+              className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
+              href={url}
+              target="_blank"
+            >
+              Lihat submisi
+            </a>
+          )}
         </div>
       </div>
     </>
