@@ -21,6 +21,7 @@ export const DELETE = async (req: Request) => {
 
     return new Response("Image deleted", { status: 204 });
   } catch (error: any) {
-    return new Response(error, { status: 500 });
+    console.log("Error deleting image");
+    return new Response("An internal error occurred", { status: 500 });
   }
 };
