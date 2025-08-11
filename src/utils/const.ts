@@ -397,13 +397,15 @@ const katingArray: KatingData[] = [
   { id: 375, fullname: "Ashley Hung", batch: 2024 },
 ];
 
-export const KATING_DATA = katingArray.reduce(
-  (acc, user) => {
-    (acc[user.batch!] = acc[user.batch!] || []).push({
-      id: user.id!,
-      fullname: user.fullname!,
-    });
-    return acc;
-  },
-  {} as Record<number, { id: number; fullname: string }[]>,
-);
+export const KATING_DATA = katingArray
+  .sort((a, b) => a.fullname.localeCompare(b.fullname))
+  .reduce(
+    (acc, user) => {
+      (acc[user.batch!] = acc[user.batch!] || []).push({
+        id: user.id!,
+        fullname: user.fullname!,
+      });
+      return acc;
+    },
+    {} as Record<number, { id: number; fullname: string }[]>,
+  );
