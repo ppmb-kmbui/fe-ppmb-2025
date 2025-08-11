@@ -17,12 +17,10 @@ export const DELETE = async (req: Request) => {
       throw new Error("Invalid public ID");
     }
     const publicId = publicIdWithExtension.split(".")[0];
-    const response = await cloudinary.uploader.destroy(publicId);
+    await cloudinary.uploader.destroy(publicId);
 
-    // res.status(200).json({ message: 'Image deleted', response });
-    return new Response("yow");
+    return new Response("Image deleted", { status: 204 });
   } catch (error: any) {
-    // res.status(500).json({ error: 'Failed to delete image', details: error.message });
-    return new Response(error);
+    return new Response(error, { status: 500 });
   }
 };
