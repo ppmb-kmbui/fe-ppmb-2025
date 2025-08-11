@@ -19,9 +19,9 @@ export const DELETE = async (req: Request) => {
     const publicId = publicIdWithExtension.split(".")[0];
     await cloudinary.uploader.destroy(publicId);
 
-    return new Response("Image deleted", { status: 204 });
+    return new Response(null, { status: 204 });
   } catch (error: any) {
-    console.log("Error deleting image");
+    console.error("Error deleting image");
     return new Response("An internal error occurred", { status: 500 });
   }
 };
