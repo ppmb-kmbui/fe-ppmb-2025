@@ -13,6 +13,7 @@ import axios, { AxiosError } from "axios";
 import { APIResponse } from "@/utils/interface";
 
 import bgAuth from "@/assets/background/bg-auth-wider.png";
+import { api } from "@/utils/axios";
 
 const signupFormSchema = z
   .object({
@@ -81,13 +82,15 @@ export default function SignUp() {
     formData.append("file", profilePicture!);
     formData.append("upload_preset", "profile_picture");
 
+    let imgUrl: string = "";
+
     try {
       const res = await axios.post(
         `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
         formData,
       );
 
-      const imgUrl: string = res.data.url;
+      imgUrl = res.data.url;
 
       const batchNo = parseInt(angkatan, 10);
       await signUp(email, batchNo, nama, password, fakultas, imgUrl);
@@ -99,10 +102,20 @@ export default function SignUp() {
             fileUploadError: "Gagal mengunggah foto. Silakan coba lagi.",
           });
         } else {
+          // If the error occurred during sign up
           const payload: APIResponse<any> | undefined = err.response?.data;
+
           setError({
             registrationError:
               payload?.message || "Pendaftaran gagal karena kesalahan server.",
+          });
+
+          // We know the Cloudinary upload succeeded, and thus we need to delete the image
+          await api({
+            method: "DELETE",
+            baseURL: "",
+            url: "api/images",
+            data: { imgUrl: imgUrl },
           });
         }
       } else {
