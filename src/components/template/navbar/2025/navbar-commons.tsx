@@ -21,7 +21,7 @@ export const MAIN_MENU = [
     icon: <HiOutlineChatAlt2 />,
     text: "Networking",
     route: "/networking",
-    role: "authenticated",
+    role: "freshman",
   },
   {
     icon: <HiOutlinePencilAlt />,
