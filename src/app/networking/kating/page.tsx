@@ -256,7 +256,7 @@ function NetworkingAssignmentPage() {
             answer: data.answer7,
           },
         ],
-        secondaryAnswers: {
+        optionalAnswes: {
           question: data.question8,
           answer: data.answer8,
         },
