@@ -20,6 +20,8 @@ import Image from "next/image";
 
 import networkingDenganKmb from "@/assets/graphic-elements/networking-dengan-kmb.svg";
 import bgCariTeman from "@/assets/background/bg-cari-teman.png";
+import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa6";
 
 const NetworkingPage: React.FC = () => {
   const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -90,7 +92,7 @@ const NetworkingPage: React.FC = () => {
   return isFetching ? (
     <LoadingScreen />
   ) : (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col gap-5 overflow-visible lg:gap-10">
+    <div className="flex min-h-[calc(100vh-4rem)] flex-col gap-5 overflow-visible pb-10 lg:gap-10">
       <Background image={bgCariTeman} />
 
       {/* Networking Logo */}
@@ -103,6 +105,23 @@ const NetworkingPage: React.FC = () => {
           width={100}
           className="h-20 w-auto md:h-24 lg:h-32"
         />
+      </div>
+
+      {/* Networking dengan Kating hyperlink */}
+      <div className="flex flex-col gap-3 px-3 md:px-5 md:pl-[40px] lg:gap-5 lg:pl-[60px]">
+        <div className="flex w-full justify-center md:justify-start">
+          <SectionTitle text="Networking dengan Kating" />
+        </div>
+
+        <div className="flex w-full justify-center md:justify-start">
+          <Link
+            href="/networking/kating"
+            className="text-turquoise-300 border-turquoise-200 flex w-fit items-center gap-x-2 rounded-lg border-2 bg-white px-3 py-1 text-sm font-semibold backdrop-opacity-20 duration-300 hover:bg-neutral-50 md:text-lg md:hover:translate-x-[5px]"
+          >
+            <span>Pergi ke halaman Networking Kating</span>
+            <FaArrowRight />
+          </Link>
+        </div>
       </div>
 
       {/* Menunggu persetujuan section */}
