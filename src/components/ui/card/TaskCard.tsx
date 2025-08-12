@@ -8,10 +8,10 @@ import {
 import { useDisclosure } from "react-use-disclosure";
 import { Modal } from "@/components";
 import { AssignmentProps, ProgressProps } from "@/app/tugas/page";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { api } from "@/utils/axios";
 import { useAuth } from "@/context/AuthContext";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { formatDate } from "@/utils/stringUtils";
 import { ModalData } from "../Modal";
 
@@ -35,7 +35,7 @@ export const TaskCard: React.FC<TaskProps> = ({
   setProgress,
 }) => {
   const [url, setUrl] = useState<string>("");
-  const { token } = useAuth();
+  const { user, token } = useAuth();
   const { open, isOpen, close } = useDisclosure(false);
 
   const handleSubmit = async (data: ModalData) => {
@@ -44,7 +44,7 @@ export const TaskCard: React.FC<TaskProps> = ({
       // console.log("ini type", type)
       if (data.type === "file") {
         // console.log("haiiii2")
-
+        let cloudinarySuccessRes;
         try {
           const form = new FormData();
           form.append("file", data.file);
@@ -55,7 +55,7 @@ export const TaskCard: React.FC<TaskProps> = ({
             form,
           );
 
-          setUrl(res.data.url);
+          cloudinarySuccessRes = res;
 
           switch (id) {
             case "insight-hunting":
@@ -75,7 +75,7 @@ export const TaskCard: React.FC<TaskProps> = ({
               }));
               break;
 
-            case "fossib-1":
+            case "fossib":
               await api({
                 url: "tasks/fossib/first",
                 method: "POST",
@@ -83,7 +83,7 @@ export const TaskCard: React.FC<TaskProps> = ({
                   Authorization: `Bearer ${token}`,
                 },
                 data: {
-                  description: "",
+                  description: user.id.toString(),
                   file_url: res.data.url,
                 },
               });
@@ -110,81 +110,6 @@ export const TaskCard: React.FC<TaskProps> = ({
                 secondFossibDone: true,
               }));
               break;
-
-            // case "networking-2024":
-            //   await api({
-            //     url: "api/tasks/connect-kating",
-            //     method: "POST",
-            //     headers: {
-            //       Authorization: `Bearer ${token}`,
-            //     },
-            //     data: {
-            //       batch: 2024,
-            //       file_url: res.data.url,
-            //     },
-            //   });
-            //   setProgress((oldProgress) => ({
-            //     ...oldProgress,
-            //     networkingKating: {
-            //       ...oldProgress.networkingKating,
-            //       "2024": {
-            //         ...oldProgress.networkingKating.progress[2024],
-            //         progress:
-            //           oldProgress.networkingKating.progress[2024].progress + 1,
-            //       },
-            //     },
-            //   }));
-            //   break;
-            //
-            // case "networking-2023":
-            //   await api({
-            //     url: "api/tasks/connect-kating",
-            //     method: "POST",
-            //     headers: {
-            //       Authorization: `Bearer ${token}`,
-            //     },
-            //     data: {
-            //       batch: 2023,
-            //       file_url: res.data.url,
-            //     },
-            //   });
-            //   setProgress((oldProgress) => ({
-            //     ...oldProgress,
-            //     networkingKating: {
-            //       ...oldProgress.networkingKating,
-            //       "2022": {
-            //         ...oldProgress.networkingKating.progress[2023],
-            //         progress:
-            //           oldProgress.networkingKating.progress[2023].progress + 1,
-            //       },
-            //     },
-            //   }));
-            //   break;
-            //
-            // case "networking-2022":
-            //   await api({
-            //     url: "api/tasks/connect-kating",
-            //     method: "POST",
-            //     headers: {
-            //       Authorization: `Bearer ${token}`,
-            //     },
-            //     data: {
-            //       batch: 2022,
-            //       file_url: res.data.url,
-            //     },
-            //   });
-            //   setProgress((oldProgress) => ({
-            //     ...oldProgress,
-            //     networkingKating: {
-            //       ...oldProgress.networkingKating,
-            //       "2022": {
-            //         ...oldProgress.networkingKating.progress[2022],
-            //         progress:
-            //           oldProgress.networkingKating.progress[2022].progress + 1,
-            //       },
-            //     },
-            //   }));
-            //   break;
 
             case "mentoring-sr":
               await api({
@@ -227,25 +152,39 @@ export const TaskCard: React.FC<TaskProps> = ({
           }
         } catch (error) {
           console.error("Error uploading PDF:", error);
+
+          if (!!cloudinarySuccessRes) {
+            await api({
+              method: "DELETE",
+              baseURL: "",
+              url: "api/images",
+              headers: { Authorization: `Bearer ${token}` },
+              data: {
+                img_url: cloudinarySuccessRes.data.url,
+              },
+            });
+          }
         }
       } else if (data.type === "link") {
         if (id == "mentoring-v") {
-          const res = await api({
-            url: "tasks/mentoring/vlog",
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            data: {
-              file_url: data.link,
-            },
-          });
-          setProgress((oldProgress) => ({
-            ...oldProgress,
-            mentoringVlogDone: true,
-          }));
-          if (res.status == 200) {
+          try {
+            const res = await api({
+              url: "tasks/mentoring/vlog",
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              data: {
+                file_url: data.link,
+              },
+            });
+            setProgress((oldProgress) => ({
+              ...oldProgress,
+              mentoringVlogDone: true,
+            }));
             close();
+          } catch (err: any) {
+            console.error("Error submitting assignment link");
           }
         }
       }
@@ -256,6 +195,42 @@ export const TaskCard: React.FC<TaskProps> = ({
       );
     }
   };
+
+  useEffect(() => {
+    if (isFinished) {
+      let endpoint: string = "";
+      switch (id) {
+        case "insight-hunting":
+          endpoint = "tasks/insight-hunting";
+          break;
+        case "kmbui-explorer":
+          endpoint = "tasks/explorer";
+          break;
+        case "fossib":
+          endpoint = "tasks/fossib/first";
+          break;
+        case "mentoring-v":
+          endpoint = "tasks/mentoring";
+          break;
+        default:
+          console.error("You have an illegal task");
+      }
+
+      api({
+        method: "GET",
+        url: endpoint,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => {
+        if (!!res.data?.data?.file_url) {
+          setUrl(res.data.data.file_url);
+        } else if (!!res.data?.data?.vlog?.file_url) {
+          setUrl(res.data.data.vlog.file_url);
+        } else {
+          setUrl(res.data.data.img_url);
+        }
+      });
+    }
+  }, [isFinished]);
 
   const isOverdue = new Date() >= new Date(deadline);
 

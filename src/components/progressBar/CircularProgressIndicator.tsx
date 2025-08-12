@@ -38,7 +38,9 @@ export function CircularProgressIndicator({
       <div className="flex size-4/5 flex-col items-center justify-center rounded-full bg-white text-sm lg:text-lg">
         <h4 className="w-3/4 text-center font-semibold lg:w-4/5">{label}</h4>
         <h5>
-          {currentProgress} / {target}
+          {currentProgress / target >= 1
+            ? "Selesai"
+            : currentProgress + " / " + target}
         </h5>
       </div>
     </div>
