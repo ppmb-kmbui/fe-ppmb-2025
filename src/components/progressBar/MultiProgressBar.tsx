@@ -38,7 +38,7 @@ export const MultiProgressBar: React.FC<MultiProgressBarProps> = ({
                       backgroundImage: `linear-gradient(to right, var(--color-purple-500) 0%, var(--color-purple-500) ${percentage}%, var(--color-purple-300) ${percentage}%, var(--color-purple-300) 100%)`,
                     }}
                   >
-                    {item.progress === item.min
+                    {item.progress >= item.min
                       ? "Selesai"
                       : `${item.progress}/${item.min}`}
                   </span>
@@ -68,7 +68,7 @@ export const MultiProgressBar: React.FC<MultiProgressBarProps> = ({
                       backgroundImage: `linear-gradient(to right, var(--color-purple-500) 0%, var(--color-purple-500) ${percentage}%, var(--color-purple-300) ${percentage}%, var(--color-purple-300) 100%)`,
                     }}
                   >
-                    {item.progress === item.min
+                    {item.progress >= item.min
                       ? "Selesai"
                       : `${item.progress}/${item.min}`}
                   </span>
