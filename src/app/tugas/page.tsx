@@ -201,7 +201,7 @@ const TugasPage: React.FC = () => {
       deadline: new Date(2025, 9, 6),
       icon: <HiOutlineUsers />,
       isFinished: progress.kmbuiExplorerDone,
-      namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer",
+      namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer.png/.jpg/.jpeg",
       type: "file",
       fileFormat: "image",
       uploadPreset: "kmbui_explorer",
@@ -285,7 +285,7 @@ const TugasPage: React.FC = () => {
       </div>
 
       <div className="mt-5 grid grid-cols-1 gap-10 px-8 md:grid-cols-2 lg:gap-[80px] lg:px-[60px] xl:px-[80px]">
-        <div className="flex flex-col gap-2 overflow-clip rounded-xl bg-white shadow-xl">
+        <div className="flex h-fit flex-col gap-2 overflow-clip rounded-xl bg-white shadow-xl">
           <p className="w-full bg-linear-to-r/oklab from-blue-100 via-blue-200 via-50% to-blue-100 p-3 text-center text-2xl font-semibold lg:text-[27px] lg:leading-[1.6]">
             Belum Dikerjakan
           </p>
@@ -305,9 +305,9 @@ const TugasPage: React.FC = () => {
           )}
 
           <p
-            className={`${ASSIGNMENTS.filter((assignment) => !assignment.isFinished).length != 0 && "hidden"} text-neutral-medium text-center text-lg italic`}
+            className={`${ASSIGNMENTS.filter((assignment) => !assignment.isFinished).length != 0 && "hidden"} text-neutral-dark py-3 pb-5 text-center text-lg italic`}
           >
-            Selamat kamu sudah menyelesaikan semua tugas!
+            Selamat, kamu sudah menyelesaikan semua tugas!
           </p>
         </div>
 
