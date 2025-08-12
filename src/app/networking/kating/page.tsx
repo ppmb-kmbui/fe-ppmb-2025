@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Background,
   Button,
   Dropdown,
   FileInput,
@@ -24,6 +25,8 @@ import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { HiChatAlt2 } from "react-icons/hi";
 import z from "zod";
+
+import bgCariTeman from "@/assets/background/bg-cari-teman.png";
 
 const networkingKatingFormSchema = z.object({
   katingId: z
@@ -301,14 +304,15 @@ function NetworkingAssignmentPage() {
     <LoadingScreen />
   ) : (
     <div className="flex h-full flex-col justify-center">
-      <div className="flex flex-col-reverse items-center justify-center gap-8 overflow-y-scroll px-10 py-10 md:flex-row md:justify-evenly md:gap-5 md:px-[60px]">
+      <Background image={bgCariTeman} />
+      <div className="flex flex-col-reverse items-center justify-center gap-8 overflow-y-scroll px-10 py-10 md:justify-evenly md:gap-5 md:px-[60px] lg:flex-row">
         <form
           onSubmit={handleSubmit(handleSubmitNetworking)}
           className="h-[500px] w-full overflow-y-scroll font-medium"
         >
           <div className="flex h-fit flex-col items-center gap-y-5">
-            <div className="sticky top-0 flex min-h-[50px] w-full items-center justify-between bg-pink-200 shadow-md">
-              <div className="border-neutral-dark flex h-full basis-1/5 items-center justify-center border-r-2 p-3">
+            <div className="sticky top-0 flex min-h-[50px] w-full items-center justify-between bg-pink-200 p-2 shadow-md">
+              <div className="border-neutral-medium flex h-full basis-1/5 items-center justify-center border-r-2 p-3">
                 <select
                   onChange={(e) =>
                     setBatch(e.target.value as "2022" | "2023" | "2024")
