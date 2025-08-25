@@ -333,13 +333,22 @@ export const TaskCard: React.FC<TaskProps> = ({
           )}
 
           {isFinished && (
-            <a
-              className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
-              href={url}
-              target="_blank"
-            >
-              Lihat submisi
-            </a>
+            <>
+              <button
+                className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
+                onClick={open}
+              >
+                <p>Kumpul ulang</p>
+              </button>
+
+              <a
+                className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
+                href={url}
+                target="_blank"
+              >
+                Lihat submisi
+              </a>
+            </>
           )}
         </div>
       </div>
