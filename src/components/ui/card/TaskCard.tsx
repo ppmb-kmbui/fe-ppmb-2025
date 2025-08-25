@@ -26,6 +26,7 @@ export const TaskCard: React.FC<TaskProps> = ({
   deadline,
   icon,
   type,
+  fileFormat,
   namingFormat,
   uploadPreset,
   isFinished,
@@ -242,6 +243,7 @@ export const TaskCard: React.FC<TaskProps> = ({
         type={type}
         label={`Kumpul berkas ${name}`}
         uploadPreset={uploadPreset}
+        fileFormat={fileFormat}
         onSubmit={handleSubmit}
         sublabel={namingFormat}
       />
