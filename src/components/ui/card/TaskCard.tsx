@@ -41,10 +41,7 @@ export const TaskCard: React.FC<TaskProps> = ({
 
   const handleSubmit = async (data: ModalData) => {
     if (data) {
-      // console.log("ini id", id);
-      // console.log("ini type", type)
       if (data.type === "file") {
-        // console.log("haiiii2")
         let cloudinarySuccessRes;
         try {
           const form = new FormData();
@@ -188,6 +185,11 @@ export const TaskCard: React.FC<TaskProps> = ({
             console.error("Error submitting assignment link");
           }
         }
+      }
+
+      if (isFinished) {
+        // Handle assignment resubmission
+        window.location.reload();
       }
     } else {
       console.error(
@@ -333,13 +335,22 @@ export const TaskCard: React.FC<TaskProps> = ({
           )}
 
           {isFinished && (
-            <a
-              className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
-              href={url}
-              target="_blank"
-            >
-              Lihat submisi
-            </a>
+            <>
+              <button
+                className="border-neutral-dark disabled:border-neutral-medium disabled:text-neutral-medium text-neutral-dark hover:bg-neutral-light flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-5 py-[2px] text-[13px] font-medium disabled:cursor-not-allowed disabled:hover:bg-transparent md:text-sm"
+                onClick={() => window.open(url, "_blank")}
+                disabled={url.length === 0}
+              >
+                Lihat submisi
+              </button>
+
+              <button
+                className="flex min-h-[27.5px] min-w-[80px] cursor-pointer items-center justify-center gap-2 rounded-lg bg-blue-300 px-5 py-[2px] text-[13px] text-white hover:bg-blue-200 md:text-sm"
+                onClick={open}
+              >
+                <p>Kumpul ulang</p>
+              </button>
+            </>
           )}
         </div>
       </div>
