@@ -159,7 +159,7 @@ const TugasPage: React.FC = () => {
       name: "Insight Hunting",
       description:
         "Melalui Insight Hunting, diharapkan maba mendapatkan wawasan dari narasumber yang berpengalaman di beberapa kategori yang diminati.",
-      deadline: new Date(2025, 8, 16),
+      deadline: new Date(2025, 8, 8),
       icon: <HiOutlineLightBulb />,
       isFinished: progress.insightHuntingDone,
       namingFormat: "[Nama Lengkap]_[Fakultas]_InsightHunting.pdf",
@@ -174,7 +174,7 @@ const TugasPage: React.FC = () => {
       name: "Fossib: Sharing Insight dan Fun Activity",
       description:
         "Maba dan kakak asuh melakukan sharing bersama untuk dapat saling mengenal dan bertukar wawasan mengenai kehidupan perkuliahan.",
-      deadline: new Date(2025, 9, 6),
+      deadline: new Date(2025, 8, 8),
       icon: <HiOutlineUsers />,
       isFinished: progress.firstFossibDone,
       namingFormat: "[Nama Lengkap]_[Fakultas]_Fossib.pdf",
@@ -188,7 +188,7 @@ const TugasPage: React.FC = () => {
       name: "Mentoring: Vlog",
       description:
         "Vlog berisi  cuplikan kegiatan selama mentoring dengan durasi maksimal 3 menit, dikumpulkan oleh ketua kelompok.",
-      deadline: new Date(2025, 9, 6),
+      deadline: new Date(2025, 8, 8),
       icon: <HiOutlineDocumentText />,
       isFinished: progress.mentoringVlogDone,
       type: "link",
@@ -198,7 +198,7 @@ const TugasPage: React.FC = () => {
       name: "KMBUI Explorer",
       description:
         "Maba mengikuti paling sedikit 1 proker yang diadakan oleh KMBUI agar lebih mengenali KMBUI dan nilai-nilai Buddhis.",
-      deadline: new Date(2025, 9, 6),
+      deadline: new Date(2025, 8, 8),
       icon: <HiOutlineUsers />,
       isFinished: progress.kmbuiExplorerDone,
       namingFormat: "[Nama Lengkap]_[Fakultas]_KMBUIExplorer.png/.jpg/.jpeg",
