@@ -135,6 +135,7 @@ function NetworkingAssignmentPage() {
   const [isFetching, setIsFetching] = useState<boolean>(true);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [formUploadErrors, setFormUploadErrors] = useState<string>();
+  const [formError, setFormError] = useState<string>();
 
   const [batch, setBatch] = useState<"2022" | "2023" | "2024">("2022");
 
@@ -256,7 +257,7 @@ function NetworkingAssignmentPage() {
             answer: data.answer7,
           },
         ],
-        secondaryAnswers: {
+        optionalAnswes: {
           question: data.question8,
           answer: data.answer8,
         },
@@ -282,6 +283,9 @@ function NetworkingAssignmentPage() {
         if (isCloudinaryError) {
           setFormUploadErrors("Upload bukti networking gagal, mohon coba lagi");
         } else {
+          setFormError(
+            "Kamu sudah pernah networking dengan kating ini. Apabila kamu yakin bahwa pesan ini salah, tolong kontak administrator.",
+          );
           // We know the Cloudinary upload succeeded, and thus we need to delete the image
           await axios.delete("/api/images", {
             data: { imgUrl: uploadedPhotoUrl },
@@ -416,6 +420,11 @@ function NetworkingAssignmentPage() {
                 disabled={networkingKatingAssignment.is_done}
               />
             </div>
+
+            {!!formError && (
+              <p className="text-center text-red-600">{formError}</p>
+            )}
+
             <div className="mt-3 flex">
               <Button
                 label="Kumpulkan"
