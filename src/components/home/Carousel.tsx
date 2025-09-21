@@ -6,7 +6,8 @@ import Image from "next/image";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Autoplay from "embla-carousel-autoplay";
 
-import comingSoon from "@/assets/carousel-images/coming-soon-banner.svg";
+import ppmbui from "@/assets/carousel-images/new-ppmb.png";
+import kmbui from "@/assets/carousel-images/new-kmbui.png";
 
 export const Carousel: React.FC = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
@@ -39,7 +40,10 @@ export const Carousel: React.FC = () => {
 
   const CONTENTS = [
     {
-      src: comingSoon,
+      src: ppmbui
+    },
+    {
+      src: kmbui,
     },
   ];
 
